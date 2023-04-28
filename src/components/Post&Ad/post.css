@@ -1,0 +1,119 @@
+.post-input{
+ border: 1px solid white!important;
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+}
+.ad-input{
+ border-left: 1px solid white!important;
+ border-top: 1px solid white!important;
+ border-bottom: 1px solid white!important;
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+}
+.post-input::placeholder{
+
+color: #615e5e !important;
+}
+.post-text{
+background-color: #1e1e2b!important;
+
+color: #615e5e !important;
+border: 1px solid white!important;
+padding-bottom: 30px!important;
+}
+.post-text::placeholder{
+color: #615e5e !important;
+margin-left: 2%!important;
+position: absolute;
+}
+.switch {
+  position: relative!important;
+  display: inline-block!important;
+  width: 50px!important;
+  height: 15px!important;
+  margin-left: 10px!important;
+
+
+}
+.switch-input{
+border-left: none!important;
+border-right: 1px solid white!important;
+border-top: 1px solid white!important;
+border-bottom: 1px solid white!important;
+}
+
+.switch input { 
+  opacity: 0!important;
+  width: 0!important;
+  height: 0!important;
+ 
+}
+
+.slider {
+  position: absolute!important;
+  cursor: pointer!important;
+  top: 5px!important;
+  right: 0!important;
+  bottom: 0!important;
+  left: 0!important;
+  background-color: #ccc!important;
+  border-radius: 34px!important;
+  transition: .4s!important;
+width: 45.26px;
+height: 25.45px;
+}
+
+.slider:before {
+  position: absolute!important;
+  content: "";
+ width: 15.19px;
+height: 15.19px;
+  left: 4px!important;
+  bottom: 4px!important;
+  background-color: white!important;
+  border-radius: 50%!important;
+  transition: .4s!important;
+}
+
+input:checked + .slider {
+  background-color: #2196F3!important;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3!important;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px)!important;
+}
+.input-group-append button {
+  border-radius: 0 4px 4px 0;
+}
+
+.input-group-text {
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  color: #212529;
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+}
+
+.input-group-text button {
+  font-size: 0.5rem;
+  padding: 0 2px;
+}
+.counter-input{
+border-left: none!important;
+
+border-radius: 2px!important;
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+export const GET_POSTS_SUCCESS = 'getPostsSuccess'
+export const GET_POSTS_FAIL = 'getPostsFail'
+export const GET_Ads_SUCCESS = 'getAdsSuccess'
+export const GET_Ads_FAIL = 'getAdsFail'
+export const GET_USER_SUCCESS = 'getUserSuccess'
+export const GET_USER_FAIL = 'getUserFail'

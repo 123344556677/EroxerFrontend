@@ -1,0 +1,134 @@
+.user-sidebar{
+ background-image: linear-gradient(to bottom left, #161616, #161616)!important;
+ border-radius: 0 50px  0 10px!important;
+   
+    height:140vh!important;
+    box-shadow:none!important;
+     zoom: 0.75!important;
+     /* width:1!important */
+     
+    
+     
+    
+}
+.sidebar{
+width:250px!important
+}
+.dropDown-sidebar:hover{
+     background-image: linear-gradient(to bottom left, #161616, #161616, #161616)!important;
+   
+     padding: 0.1rem 0.1rem!important;
+  font-size: 0.25rem!important;
+  margin-left: 400%!important;
+  margin-top: -150%!important;
+ 
+  
+}
+.dropDown-sidebar.active{
+     background-image: linear-gradient(to bottom left, #6a097d, #6a097d, #6a097d)!important;
+   
+     padding: 0.1rem 0.1rem!important;
+  font-size: 0.25rem!important;
+  margin-left: 400%!important;
+  margin-top: -150%!important;
+ 
+  
+}
+.dropDown-sidebar{
+     background-image: linear-gradient(to bottom left, #161616, #161616, #161616)!important;
+     padding: 0.1rem 0.1rem!important;
+  font-size: 0.25rem!important;
+  margin-left: 400%!important;
+  margin-top: -150%!important;
+   
+     
+}
+.drop-item{
+    color: #d0d0d0 !important;
+    font-size: 15px !important;
+    margin-top: 10px!important;
+
+}
+.drop-icons{
+    font-size: 15px!important;
+}
+
+.side-rap{
+    overflow: hidden!important;
+}
+.ps__rail-x, .ps__rail-y {
+  overflow: visible !important;
+}
+
+.user-chat-sidebar{
+ background-image: linear-gradient(to bottom left, #ed2323, #d81515)!important;
+ border-radius: 0 50px  0 10px!important;
+   
+    height:140vh!important;
+    box-shadow:none!important;
+     zoom: 0.75!important;
+     
+    
+     
+    
+}
+
+
+.sidebar-logo{
+    width:50%;
+    margin-left: 40px;
+    
+
+}
+.sidebar-links{
+    margin-top: 0!important;
+    margin-left: 30px!important;
+    
+}
+.links-name{
+font-weight: 600;
+font-size: 15px;
+color:white!important;
+
+}
+.links-home-name{
+/* margin-top: px!important; */
+}
+.links-active{
+    background-color:#6A097D;
+    /* width:55% */
+   
+}
+.footer-main{
+    margin-top: 50px!important;
+    color:#CFCFCF !important;
+    font-weight: 600;
+}
+.footer-text{
+    font-size: 11px;
+    color:#CFCFCF !important;
+    font-weight: 600;
+}
+.footer-textt{
+    font-size: 11px;
+    color:#CFCFCF !important;
+    font-weight: 600;
+    margin-top: -10px!important;
+}
+.footer-policy{
+    font-size: 10px;
+    color:#229ED9 !important;
+    font-weight: 600;
+     margin-top: -10px!important;
+     cursor: pointer;
+}
+.footer-icons{
+    
+    color:white!important
+}
+
+/* .dropdown-menu {
+  position: absolute !important;
+  right: 0 !important;
+  z-index: 10 !important;
+} */

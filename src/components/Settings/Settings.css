@@ -1,0 +1,35 @@
+.auth-button{
+background-image: linear-gradient(to bottom left, #161616, #161616, #161616)!important;
+border-radius: 9px;
+border: 1px solid white !important;
+}
+.reset-input{
+    border: 1px solid white!important;
+    background-color: #161616!important;
+}
+.reset-button{
+   background-image: linear-gradient(to bottom left, #6A097D, #6A097D, #6A097D)!important;
+
+}
+.manage-table-content{
+    color:#625F5F !important;
+    font-size: 12px!important;
+    font-weight: 600;
+}
+.manage-table-heading{
+    color:white !important;
+    font-size: 15px!important;
+    font-weight: 600;
+}
+.manage-table-link{
+    color:#0B80EC !important;
+    
+}
+.manage-card{
+    border: 1px solid white!important;
+    background-color: #1e1e26!important;
+}
+.manage-cancel-btn{
+    border: 1px solid!important;
+     background-image: linear-gradient(to bottom left, #1e1e26, #1e1e26, #1e1e26)!important;
+}

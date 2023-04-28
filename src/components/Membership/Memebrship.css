@@ -1,0 +1,140 @@
+.member-card{
+background-color: #161616!important;
+border-radius: 10px;
+width:300px!important
+
+}
+.home-chats{
+    background-color: #161616;
+    width: 310px;
+    
+    border-radius: 50px 0  0 10px;
+    position: fixed;
+    margin-top: -110px;
+  
+  right: 0;
+  
+  right: 0;
+  height: 150vh;
+  zoom: 0.75!important;
+  
+  
+    
+  
+}
+
+.chat-div{
+    
+    position: fixed;
+     top: 0;
+  bottom: 0;
+  margin-top: 170px;
+  
+ 
+  
+  
+    
+  
+}
+.chat-div:hover {
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+  
+  
+  
+}
+
+
+.chat-div::-webkit-scrollbar {
+  width: 8px;
+  display: none!important;
+  
+}
+
+.chat-div::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+.chat-div::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+/* Hiding the scrollbar by default */
+.chat-div::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  
+}
+
+/* Showing the scrollbar on hover */
+.chat-div:hover::-webkit-scrollbar-thumb {
+  background-color: #555;
+}
+.input-group-text input[type="radio"] {
+  margin-right: 0.4rem;
+
+  
+}
+.radio-input{
+position: absolute!important;
+z-index:24!important;
+margin-left: 1%!important;
+margin-top: 14px;;
+}
+.pay-input{
+  border-left: 1px solid white!important;
+ border-top: 1px solid white!important;
+ border-bottom: 1px solid white!important;
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+border-radius:8px 0  0 8px!important
+}
+.pay-pal-input{
+  border-left: 1px solid white!important;
+ border-top: 1px solid white!important;
+ border-bottom: 1px solid white!important;
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+border-radius:8px 0  0 8px!important;
+padding-bottom: 40px!important;
+}
+.pay-pal-input::placeholder{
+  /* margin-top: 4px!important; */
+  position: absolute;
+  z-index: 40!important;
+}
+.pay-inner{
+  border-right: 1px solid white!important;
+ border-top: 1px solid white!important;
+ border-bottom: 1px solid white!important;
+  border-left: 0!important;
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+border-radius:0 8px 8px 0!important;
+display: flex;
+  align-items: center;
+  padding: 0.530rem 0.60rem!important;
+}
+.pay-pal-inner{
+  border-right: 1px solid white!important;
+ border-top: 1px solid white!important;
+ border-bottom: 1px solid white!important;
+  border-left: 0!important;
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+border-radius:0 8px 8px 0!important;
+display: flex;
+  align-items: center;
+  padding:-30px -30px -30px -30px!important;
+}
+.pay-inner-two-input{
+
+background-color: #1e1e2b!important;
+color: #615e5e !important;
+border-radius:8px 0  0 8px!important
+}
+.pay-btn{
+  padding-left: 130px !important;
+  padding-right: 130px !important;
+}

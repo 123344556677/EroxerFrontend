@@ -1,0 +1,93 @@
+.chat-upper-profile{
+  width: 70px!important;
+  height: 70px!important;
+  object-fit: cover!important;
+ 
+ 
+}
+.profile-pic{
+    width:100px;
+    height:100px;
+    /* margin-left: 85px; */
+}
+.chat-add-button{
+     background-image: linear-gradient(to bottom left, black, black, black)!important;
+    border-radius: 5px!important;
+
+}
+.chat-profile-button{
+    
+  
+  
+    background-image: linear-gradient(to bottom left, blueviolet, blueviolet, blueviolet)!important;
+    border-radius: 5px!important;
+}
+
+.profile-chats{
+    background-color: #161616;
+    
+    border-radius: 50px 0  0 10px;
+    position: fixed;
+    z-index: 1093;
+    zoom: 0.75;
+  
+  right: 0;
+  width:340px;
+  
+  
+  height: 140vh;
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+ 
+  
+  
+  
+    
+  
+}
+.chat-div{
+    position: fixed;
+    top: 0;
+  bottom: 0;
+}
+
+  
+
+
+.chat-div:hover {
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+  
+  
+  
+}
+
+
+.chat-div::-webkit-scrollbar {
+  width: 8px;
+  display: none!important;
+  
+}
+
+.chat-div::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+  
+}
+
+.chat-div::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+/* Hiding the scrollbar by default */
+.chat-div::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  
+}
+
+/* Showing the scrollbar on hover */
+.chat-div:hover::-webkit-scrollbar-thumb {
+  background-color: #555;
+}

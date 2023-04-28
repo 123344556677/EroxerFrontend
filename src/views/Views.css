@@ -1,0 +1,76 @@
+.login-logo{
+    color: #FFFFFF;
+    font-style: Roboto;
+    font-weight: 600;
+}
+.login-text{
+    color: #615e5e !important;
+    font-size: 12px;
+    font-style: Roboto;
+    font-weight: 600;
+}
+.login-btn{
+    background-image: linear-gradient(to bottom left, #4c0741, #430b58, #250625)!important;
+    padding-left: 130px!important;
+    padding-right: 130px!important;
+    padding-top: 20px!important;
+    padding-bottom: 20px!important;
+    border-radius: 10px!important;
+}
+.register-btn{
+    background-image: linear-gradient(to bottom left, #4c0741, #430b58, #250625)!important;
+    padding-left: 160px!important;
+    padding-right: 160px!important;
+    padding-top: 20px!important;
+    padding-bottom: 20px!important;
+    border-radius: 10px!important;
+}
+.login-register-btn{
+color: #615e5e !important;
+font-weight:600;
+}
+.login-end{
+color: #615e5e !important;
+
+}
+.register-end{
+color: white!important;
+font-size: 9px;
+font-weight: 600;
+
+}
+.login-bars{
+color: #615e5e !important;
+font-size: 15px;
+
+}
+.login-barss{
+border-color: #615E5E!important;
+
+}
+.login-card{
+  border-radius: 15px!important;
+  background-color: #1E1E1E!important;
+  box-shadow: #0d0d0e!important;
+  zoom: 0.80;
+ 
+  
+}
+.reg-card{
+  border-radius: 15px!important;
+  background-color: #1E1E1E!important;
+  box-shadow: #0d0d0e!important;
+  zoom: 0.75;
+ 
+  
+}
+.google-btn{
+    background-image: linear-gradient(to bottom left, #0e0d0d, #0d0d0e, #100e10)!important;
+    border: 1px solid white!important;
+}
+.login-inputs{
+    border: none!important;
+    background-color: #222222!important;
+    padding-top: 30px !important;
+     padding-bottom: 30px !important;
+}

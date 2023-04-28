@@ -1,0 +1,269 @@
+
+.chat-img-top{
+  width: 70px!important;
+  height: 70px!important;
+  object-fit: cover!important;
+  margin-top: 50px;
+ 
+}
+.upper-profile{
+  width: 70px!important;
+  height: 70px!important;
+  object-fit: cover!important;
+ 
+ 
+}
+.chat-text{
+    color:white;
+    font-size: 15px;
+    font-weight: 600;
+}
+.chat-text-inner{
+    color:white;
+    font-size: 20px;
+    font-weight: 600;
+}
+.chat-msg-inner{
+    color:white;
+    font-size: 18px;
+    font-weight: 600;
+}
+.chat-designation{
+    color:#BFB8B8;
+    font-size: 10px;
+    font-weight: 600;
+}
+figure {
+  display: inline-block!important;
+  margin: 0!important;
+}
+
+figcaption {
+  font-weight: bold!important;
+  font-size: 1.2rem!important;
+  margin-bottom: 0!important;
+}
+
+p {
+  margin-top: 0!important;
+}
+.chat-img{
+    width:70px !important;
+    height:70px !important;
+    margin-left: 30px;
+    border: 3px solid skyblue;
+}
+
+.chat-text-col{
+    margin-right:110px ;
+    margin-left: 10px;
+}
+.home-chats{
+    background-color: #161616;
+    width: 290px!important;
+    
+    border-radius: 50px 0  0 10px;
+    position: fixed;
+    margin-top: -10px!important;
+  
+  right: 0;
+  
+  
+  height: 150vh;
+  zoom: 0.75!important;
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+  
+  
+    
+  
+}
+
+.chat-div{
+    
+    position: fixed;
+     top: 0;
+  bottom: 0;
+  /* margin-top: 170px; */
+  
+ 
+  
+  
+    
+  
+}
+.chat-div:hover {
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+  
+  
+  
+}
+
+
+.chat-div::-webkit-scrollbar {
+  width: 8px;
+  display: none!important;
+  
+}
+
+.chat-div::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+.chat-div::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+/* Hiding the scrollbar by default */
+.chat-div::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  
+}
+
+/* Showing the scrollbar on hover */
+.chat-div:hover::-webkit-scrollbar-thumb {
+  background-color: #555;
+}
+.noti-div{
+  background-color: #161616!important;
+  border-radius: 30px 0px 30px !important;
+  opacity: 0.9!important;
+  position: absolute;
+  z-index: 300!important;
+  margin-left: 100%!important;
+  margin-top: 100%!important;
+
+
+}
+.home-noti-bell{
+ background-image: linear-gradient(to bottom left, #161616, #161616, #161616)!important;
+     /* padding: 2.2rem 2.5rem!important; */
+}
+.home-noti-div{
+ background-color: rgba(0, 0, 0, 0.8)!important;
+border-radius: 30px 0px 30px 30px!important;
+/* opacity: 95%!important; */
+position: fixed!important;
+margin-right: 100%!important;
+width:340px!important;
+margin-left: 55%!important;
+/* margin-top: 50%!important; */
+z-index: 5000;
+   height: 100vh!important;
+   zoom:0.75;
+   /* overflow: auto; */
+   
+
+
+
+
+     
+}
+.home-main-noti-div{
+position: fixed;
+margin-left: 40px!important;
+
+}
+.home-main-noti-div:hover{
+  overflow: auto;
+ 
+  
+  
+  
+}
+.home-main-noti-div::-webkit-scrollbar {
+  width: 8px;
+  display: none!important;
+  
+}
+
+.home-main-noti-div::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+.home-main-noti-div::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+/* Hiding the scrollbar by default */
+.home-main-noti-div::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  
+}
+.vertical-progress-bar-menu{
+   height: 85vh!important;
+  width: -100px!important;
+  position: absolute!important;
+  background-color: #666363!important;
+  margin-left: 10%!important;
+  /* margin-top: -2%!important; */
+  box-shadow: 0px 0px 0px 3px #666363!important;
+
+}
+.horizontal-progress-bar-menu{
+  height: 0!important;
+  /* width: 0!important; */
+width: 50vh !important;
+margin-top:15%!important;
+  /* background-color: white!important; */
+  margin-left: 5%!important;
+  box-shadow: 0px 0px 0px 3px #666363!important;
+}
+
+
+.chat-noti-profile{
+margin-top: 3%!important;
+margin-left: 12%!important;
+
+}
+.chat-noti-profile-name{
+margin-top: -40px!important;
+position: absolute!important;
+margin-left: 40px!important;
+
+}
+.chat-noti-card{
+border-radius: 5px!important;
+/* transform: rotate(-90deg)!important; */
+background-color: #000000!important;
+position: absolute!important;
+width: 240px !important;
+margin-left: 20%;
+/* margin-top: 50px; */
+margin-bottom: 0!important;
+
+}
+.chat-noti-text{
+font-size: 6px;
+color:#FFFFFF;
+margin-top: 8px!important;
+margin-left: 10px!important;
+
+
+}
+.chat-noti-img{
+width: 90px!important;
+height: 70px!important;
+margin-left: 5px!important;
+margin-top: 5px!important;
+margin-bottom: 5px!important;
+}
+.home-noti-head{
+  position: absolute!important;
+  font-weight: 600;
+  margin-left: 13%;
+  margin-top: 5%;
+}
+.home-noti-head-two{
+  position: absolute!important;
+  font-weight: 600;
+  margin-left: 13%;
+  margin-top:-2%;
+}
+
+
