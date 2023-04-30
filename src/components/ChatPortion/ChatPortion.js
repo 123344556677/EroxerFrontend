@@ -39,26 +39,30 @@ import {
   Badge,
 } from "reactstrap";
 import { getUsersById } from 'Api/Api';
+import { useSelector } from 'react-redux';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
      const [notiOpen, setNotiOpen] = useState(false);
      const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
-      const [userData, setUserData] = useState()
-    const values={
-        userId:userId.id
-      }
-     useEffect(()=>{
+      // const [userData, setUserData] = useState()
+      const getUser= useSelector(state => state.getUserById);
       
-        getUsersById(values)
-       .then(res => {
-         console.log(res.data);
-          if (res?.data?.message === "User Exist") {
-           setUserData(res?.data?.data)
-          } 
+        const userData=getUser?.userData
+    // const values={
+    //     userId:userId.id
+      // }
+    //  useEffect(()=>{
+      
+    //     getUsersById(values)
+    //    .then(res => {
+    //      console.log(res.data);
+    //       if (res?.data?.message === "User Exist") {
+    //        setUserData(res?.data?.data)
+    //       } 
      
-    });
-     },[])
+    // });
+    //  },[])
 
   
     let chats=[

@@ -7,8 +7,8 @@ import AdminLayout from "layouts/Admin/Admin.js";
 import RTLLayout from "layouts/RTL/RTL.js";
 import AuthLayout from "layouts/Auth/Auth.js";
 import { Provider } from "react-redux";
-import store from "components/redux/store";
-
+import {store,persistor} from "components/redux/store";
+import { PersistGate } from 'redux-persist/integration/react';
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
 import "assets/css/nucleo-icons.css";
@@ -23,6 +23,7 @@ root.render(
   <ThemeContextWrapper>
     <BackgroundColorWrapper>
      <Provider store={store} >
+       <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <Switch>
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
@@ -33,6 +34,7 @@ root.render(
           <Redirect from="/" to="/auth/login" />
         </Switch>
       </BrowserRouter>
+      </PersistGate>
       </Provider>
     </BackgroundColorWrapper>
   </ThemeContextWrapper>

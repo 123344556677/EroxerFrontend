@@ -8,7 +8,7 @@ import ForgetModal from "components/Modals/ForgetModal";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import GoogleLogin from 'react-google-login';
-import {  GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import {  GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import './Views.css'
 
 // reactstrap components
@@ -29,6 +29,7 @@ import {
   Row
 } from "reactstrap";
 import { motion } from 'framer-motion';
+import { googleReg } from "Api/Api";
 
 // import { User } from "../backend-sdk/user.sdk";
 
@@ -45,9 +46,21 @@ function Login(props) {
   visible: { x: 0, transition: { duration: 0.6 } },
 };
 
- const Glogin=()=>{
+ const Glogin= useGoogleLogin({
+  onSuccess:tokenResponse => 
+  {
+    console.log(tokenResponse)
+    googleReg(tokenResponse)
   
- }
+  
+  },
+  onError:error => 
+  {
+    console.log(error)
+  
+  
+  }
+});
   const log=async(e)=>{
      e.preventDefault();
      
@@ -121,18 +134,11 @@ function Login(props) {
               </CardTitle>
               <Row className="mt-2 mb-2">
               <Col className="ml-5">
-              {
-//               <GoogleLogin
-//   onSuccess={credentialResponse => {
-//     console.log(credentialResponse);
-//   }}
-//   onError={() => {
-//     console.log('Login Failed');
-//   }}
-// />
-              }
-              <Button color="dark" className="google-btn pt-3 pb-3 " onClick={Glogin} >
              
+             
+             
+              <Button color="dark" className="google-btn pt-3 pb-3 " onClick={Glogin} >
+              
   <FaGoogle size={20} className="mr-2" />
  <small>Login with Google</small>
 </Button>

@@ -67,7 +67,9 @@ border-color: #615E5E!important;
 .google-btn{
     background-image: linear-gradient(to bottom left, #0e0d0d, #0d0d0e, #100e10)!important;
     border: 1px solid white!important;
-    z-index: 2!important;
+    /* z-index: 2!important; */
+    position: absolute;
+    /* margin-top: -20px; */
 }
 .login-inputs{
     border: none!important;
@@ -91,13 +93,8 @@ font-size: 30px!important;
   background-color: #333;
   color: #fff;
 }
-.google-login-button{
+.google-login{
     position: absolute!important;
-    padding-left: 100px!important;
-    padding-right: 200px!important;
-    opacity: 0;
-}
-.google-login-button:hover{
-   
-    opacity: 0!important;
+    margin-top: 30px!important;
+    z-index: 10!important;
 }

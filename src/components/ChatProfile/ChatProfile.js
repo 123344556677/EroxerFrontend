@@ -43,25 +43,29 @@ import {
 import { MdExpandMore } from 'react-icons/md';
 import { HiOutlineWifi } from 'react-icons/hi';
 import { getUsersById } from 'Api/Api';
+import { useSelector } from 'react-redux';
 
 const ChatProfile = () => {
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
-      const [userData, setUserData] = useState()
-    const values={
-        userId:userId.id
-      }
-     useEffect(()=>{
+    //   const [userData, setUserData] = useState()
+    // const values={
+    //     userId:userId.id
+    //   }
+    //  useEffect(()=>{
       
-        getUsersById(values)
-       .then(res => {
-         console.log(res.data);
-          if (res?.data?.message === "User Exist") {
-           setUserData(res?.data?.data)
+    //     getUsersById(values)
+    //    .then(res => {
+    //      console.log(res.data);
+    //       if (res?.data?.message === "User Exist") {
+    //        setUserData(res?.data?.data)
 
-          } 
+    //       } 
      
-    });
-     },[])
+    // });
+    //  },[])
+      const getUser= useSelector(state => state.getUserById);
+      
+        const userData=getUser?.userData
   return (
     <div className='profile-chats '>
   
@@ -89,7 +93,7 @@ const ChatProfile = () => {
  <img object  src={userData?.profilePic?userData?.profilePic:streamFour}  alt="jannan" className="profile-pic rounded-circle mt-3" />
  </Container>
 
- <h4 className='text-white text-center mb-0'style={{fontWeight:"600"}}>{userData?.username?userData?.username:userData.firstName}</h4>
+ <h4 className='text-white text-center mb-0'style={{fontWeight:"600"}}>{userData?.username?userData?.username:userData?.firstName}</h4>
  <p className=' mb-0 text-center chat-designation'style={{fontWeight:"600"}}>@example.com</p>
  <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
  <div style={{display:"flex",justifyContent:"center"}}>
