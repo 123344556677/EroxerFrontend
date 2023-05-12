@@ -1,21 +1,18 @@
-
 import React from "react";
 import {
   Route,
   Switch,
   Redirect,
   useLocation,
-  useHistory,
+ 
 } from "react-router-dom";
-import './Admin.css'
+import "./Admin.css";
 // javascript plugin used to create scrollbars on windows
-import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Footer from "components/Footer/Footer.js";
+
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
@@ -23,12 +20,12 @@ import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 // import { User } from "backend-sdk/user.sdk";
 
-var ps;
+
 
 function Admin(props) {
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
-  const history = useHistory();
+
   const [sidebarOpened, setsidebarOpened] = React.useState(
     document.documentElement.className.indexOf("nav-open") !== -1
   );
@@ -116,9 +113,6 @@ function Admin(props) {
       {({ color, changeColor }) => (
         <React.Fragment>
           <div className="wrapper ">
-          
-           
-
             <Sidebar
               routes={routes}
               logo={{
@@ -128,25 +122,23 @@ function Admin(props) {
               }}
               toggleSidebar={toggleSidebar}
             />
-         
+
             <div className="main-panel admin-panel" ref={mainPanelRef}>
-            
               <AdminNavbar
                 brandText={getBrandText(location.pathname)}
                 toggleSidebar={toggleSidebar}
                 sidebarOpened={sidebarOpened}
               />
-            
 
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/auth/login" />
+                <Redirect from="*" to="/" />
               </Switch>
               {
-              // {
-              //   // we don't want the Footer to be rendered on map page
-              //   location.pathname === "/admin/maps" ? null : <Footer fluid />
-              // }
+                // {
+                //   // we don't want the Footer to be rendered on map page
+                //   location.pathname === "/admin/maps" ? null : <Footer fluid />
+                // }
               }
             </div>
             <Sidebar
@@ -158,10 +150,7 @@ function Admin(props) {
               }}
               toggleSidebar={toggleSidebar}
             />
-
           </div>
-          
-         
         </React.Fragment>
       )}
     </BackgroundColorContext.Consumer>

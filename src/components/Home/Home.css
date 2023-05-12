@@ -40,12 +40,29 @@
  
   border-radius: 20px !important;
  
-  margin-bottom: 20px !important;
+  /* margin-bottom: 20px !important; */
   
-  margin-top: 50px;
+  margin-top: 30px;
   border: none;
   /* background-color: #1e1e28!important; */
-    background-image: linear-gradient(to bottom left, #1e1e28, #1e1e25)!important;
+    background-image: linear-gradient(to bottom left, #1e1e2b, #1e1e2b)!important;
+    box-shadow: none!important;
+     /* overflow: hidden!important; */
+    
+  
+
+}
+.second-card-main {
+ 
+  border-radius: 20px !important;
+ 
+  /* margin-bottom: 20px !important; */
+  
+  margin-top: -50px!important;
+  border: none;
+  /* background-color: #1e1e28!important; */
+    background-image: linear-gradient(to bottom left, #1e1e2b, #1e1e2b)!important;
+    box-shadow: none!important;
      /* overflow: hidden!important; */
     
   
@@ -74,6 +91,7 @@
 
 .card-footer {
   border-top: none!important;
+  margin-right: 3%!important;
 }
 
 .card-link {

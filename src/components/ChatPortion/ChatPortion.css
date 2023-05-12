@@ -60,7 +60,7 @@ p {
 }
 .home-chats{
     background-color: #161616;
-    width: 290px!important;
+    width: 377px!important;
     
     border-radius: 50px 0  0 10px;
     position: fixed;
@@ -70,7 +70,7 @@ p {
   
   
   height: 150vh;
-  zoom: 0.75!important;
+  /* zoom: 0.75!important; */
   overflow: auto;
   top: 0;
   bottom: 0;
@@ -264,6 +264,35 @@ margin-bottom: 5px!important;
   font-weight: 600;
   margin-left: 13%;
   margin-top:-2%;
+}
+.contents {
+ 
+  transition: transform 0.3s ease-in-out;
+   /* transform: translateX(-50%)!important;  */
+   
+   
+   visibility: hidden !important;
+
+}
+
+.contents.open {
+  /* right:  -500px !important; */
+  /* transform: translateX(-100%)!important; */
+  /* display: vis !important; */
+ visibility: visible!important;
+}
+
+.toggles-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+  /* z-index: 1; */
+}
+
+.fa {
+  font-size: 24px;
+  color: #fff;
 }
 
 

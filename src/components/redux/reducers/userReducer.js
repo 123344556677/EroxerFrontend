@@ -11,3 +11,14 @@ export const getUserByIdReducer = (state = {user: []}, action) => {
             return state
     }
 };
+
+export const getAllUsers = (state = {users: []}, action) => {
+    switch(action.type) {
+        case actionTypes.GET_ALL_USER_SUCCESS:
+            return { allUsers: action.payload }
+        case actionTypes.GET_ALL_USER_FAIL:
+            return { error: action.payload }
+        default:
+            return state
+    }
+};

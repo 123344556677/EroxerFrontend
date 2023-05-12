@@ -45,6 +45,27 @@ const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
      const [notiOpen, setNotiOpen] = useState(false);
      const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+     const [isOpen, setIsOpen] = useState(false);
+     const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+     console.log(getRequests,"Reequests========>in noti")
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (width < 1200) {
+      setIsOpen(false);
+    }
+  }, [width]);
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+    console.log(isOpen,"toogle=====>")
+  };
       // const [userData, setUserData] = useState()
       const getUser= useSelector(state => state.getUserById);
       
@@ -99,6 +120,16 @@ const ChatPortion = () => {
 ]
   return (
     <>
+    {
+    //  {width < 1100 && (
+    //     <div className="toggles-icon"  style={{cursor:"pointer"}} >
+    //       <i className={`fa fa-${isOpen ? "times" : "bars"}`} onClick={toggleOpen} style={{cursor:"pointer"}}/>
+    //       </div>
+      // )}
+
+      // <div className={`contents ${isOpen && "open"}`}>
+    }
+       
     {
       notiOpen&&
      <div className='home-noti-div'>
@@ -181,7 +212,7 @@ const ChatPortion = () => {
         <img object  src={userData?.profilePic?userData?.profilePic:streamFive} alt="jannan" className="upper-profile rounded-circle" />
       </Media>
       <Media body className="ml-3 mt-3">
-        <h3 className='text-white mb-0'style={{fontWeight:"600"}}>{userData?.firstName}</h3>
+        <h3 className='text-white mb-0'style={{fontWeight:"600"}}>{userData?.firstName} {userData?.lastName}</h3>
         <p className="chat-designation">Student</p>
       </Media>
       <Media right>
@@ -191,7 +222,7 @@ const ChatPortion = () => {
       }
         <div className="">
         <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",color:"white",fontSize:"25px"}}/>
-      <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">1</Badge>
+      <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{getRequests?.length?getRequests?.length:""}</Badge>
     
     </div>
     
@@ -232,6 +263,10 @@ const ChatPortion = () => {
 </div>
  
    </div>
+   {
+  //  </div>
+   }
+    
    </>
   )
 }

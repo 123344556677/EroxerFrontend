@@ -165,14 +165,14 @@ const Membership = () => {
    
   ]
   return (
-    <div className='content'>
+    <div className='content '>
      <span className='' style={{color:"white",fontSize:"10px"}}   ><Link to='/admin/home'
      style={{color:"white",fontSize:"40px",marginTop:"-80px",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
     <Row className='' >
     {
       step===true&&
      
-    <Col xl={8}>
+    <Col xl={8} className="ml-lg-5">
     <Row className=''>
     <Col className='text-center'>
     
@@ -227,6 +227,7 @@ If we notice an attempted login from a device or browser we don't
 
     </Card>
     </Col>
+    
     </Row>
     <FormGroup check className="" >
     <Input type="radio" className=''  />
@@ -248,7 +249,7 @@ If we notice an attempted login from a device or browser we don't
     }
     {
     step===false&&
-    <Col xl={10}>
+    <Col xl={10} style={{zoom:"0.85"}}>
     <Row className='justify-conten-center'>
     <Col className='text-center'>
     <img src={memberOne} style={{color:"white"}}/>
@@ -355,7 +356,7 @@ If we notice an attempted login from a device or browser we don't
     <span class="pay-inner" id="input-group-addon">
       <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
       <img src={memberFive}  class="img-fluid mr-2" alt="Image 2"/>
-      <img src={memberSix}  class="img-fluid" alt="Image 3"/>
+      <img src={memberSix}  class="img-fluid mr-2" alt="Image 3"/>
       <img src={memberSeven} class="img-fluid mr-2" alt="Image 1"/>
       <img src={memberEight}  class="img-fluid mr-2" alt="Image 2"/>
       
@@ -479,7 +480,7 @@ If we notice an attempted login from a device or browser we don't
 //     </Col>
 //     </Row>
   }
-  <Col xl={5} className="ml-4">
+  <Col xl={5} className="ml-lg-5">
   <Card style={{backgroundColor:"#161616", borderRadius:"10px"}}>
   <h4 className='text-white ml-4 mt-3'><span className='mr-1'  style={{fontSize:"30px"}}><BsFillCartFill/></span> 
   Cart Summary <span className='ml-2' style={{fontSize:"10px"}}>($48.2)</span></h4>
@@ -488,7 +489,7 @@ If we notice an attempted login from a device or browser we don't
   {
     cartItems.map((data)=>(
 <li>
-<h4 className='mb-0 mt-3' style={{fontSize:"12px"}}>{data.title}<span className='ml-5'>{data.price}</span></h4>
+<h4 className='mb-0 mt-3' style={{fontSize:"12px"}}>{data.title}<span className='' style={{marginLeft:"50%"}}>{data.price}</span></h4>
 <p className='chat-designation mt-1 mb-0' style={{fontSize:"7px"}}>{data.textOne}</p>
 <p className='chat-designation ' style={{fontSize:"7px"}}>{data.textTwo}</p>
 </li>

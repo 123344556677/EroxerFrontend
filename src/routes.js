@@ -1,13 +1,4 @@
 
-import Icons from "views/Icons.js";
-import Map from "views/Map.js";
-import Notifications from "views/Notifications.js";
-import Rtl from "views/Rtl.js";
-import TableList from "views/TableList.js";
-import Typography from "views/Typography.js";
-import UserProfile from "views/UserProfile.js";
-import Login from "components/Auth/Login";
-import Register from "components/Auth/Register";
 import Home from "components/Home/Home";
 import Profile from "components/Profile/Profile";
 import EditProfile from "components/Profile/EditProfile";
@@ -16,7 +7,6 @@ import Chat from "components/Chat/Chat";
 import Ads from "components/Ads/Ads";
 import Live from "components/Live/Live";
 import Dashboard from "components/Dashboard/Dashboard";
-import { AiOutlineHome } from "react-icons/ai";
 import Authentication from "components/Settings/Authentication";
 import PaswordReset from "components/Settings/PaswordReset";
 import AccountManagement from "components/Settings/AccountManagement";
@@ -27,6 +17,11 @@ import CreatePost from "components/Post&Ad/CreatePost";
 import CreateAd from "components/Post&Ad/CreateAd";
 import AdDescription from "components/Ads/AdDescription";
 import WrappedLogin from "components/Auth/Login";
+import WrappedRegister from "components/Auth/Register";
+import ChatCall from "components/ChatCall/ChatCall";
+import ChatVideoCall from "components/ChatCall/ChatVideCall";
+
+
 
 
 
@@ -41,7 +36,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/profile",
+    path: "/profile/:id",
     name: "Profile",
     rtlName: "الرموز",
     icon:"fa fa-user",
@@ -62,6 +57,22 @@ var routes = [
     rtlName: "إخطارات",
     icon:"fa fa-comment",
     component: Chat,
+    layout: "/admin",
+  },
+  {
+    path: "/chatCall/:id",
+    name: "ChatCall",
+    rtlName: "إخطارات",
+    icon:"fa fa-comment",
+    component: ChatCall,
+    layout: "/admin",
+  },
+  {
+    path: "/chatVideoCall/:id",
+    name: "ChatVideoCall",
+    rtlName: "إخطارات",
+    icon:"fa fa-comment",
+    component: ChatVideoCall,
     layout: "/admin",
   },
    {
@@ -179,20 +190,20 @@ var routes = [
      layout: "/admin",
   },
   {
-    path: "/login",
+    path: "/",
     name: "Login",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: WrappedLogin,
-    layout: "/auth",
+    layout: "/",
   },
   {
-    path: "/register",
+    path: "register",
     name: "Register",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
-    component: Register,
-    layout: "/auth",
+    component:WrappedRegister,
+    layout: "/",
   },
   
 ];

@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { NavLink, Link, useLocation, useHistory } from "react-router-dom";
+import { NavLink, useLocation, useHistory } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
 
@@ -13,13 +13,13 @@ import './sidebar.css'
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavLink as ReactstrapNavLink } from "reactstrap";
 import {
   BackgroundColorContext,
-  backgroundColors
+ 
 } from "contexts/BackgroundColorContext";
-import {Row,Col} from "reactstrap";
+import {Row} from "reactstrap";
 import Logo from './logo.png'
 import apple from './j4.png'
 import playstore from './j5.png'
-import { AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiFillSetting, AiOutlineLogout, AiOutlinePlusCircle, AiOutlineTwitter, AiOutlineUnlock, AiTwotoneSecurityScan } from "react-icons/ai";
+import { AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiFillSetting, AiOutlineLogout, AiOutlineTwitter, AiOutlineUnlock, AiTwotoneSecurityScan } from "react-icons/ai";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdManageAccounts, MdPrivacyTip } from "react-icons/md";
 import HomeModals from "components/Modals/HomeModals";
@@ -29,6 +29,7 @@ import HomeModals from "components/Modals/HomeModals";
 
 function Sidebar(props) {
    const [dropdownOpen, setDropdownOpen] = useState(false);
+   const [live, setLive] = useState(false);
    const toggle = () => setDropdownOpen((prevState) => !prevState);
   const location = useLocation();
   const sidebarRef = React.useRef(null);
@@ -39,73 +40,73 @@ function Sidebar(props) {
   const history=useHistory();
   const logOut=()=>{
     localStorage.clear();
-    history.push('/auth/login')
+    history.push('/')
   }
   
   
-  const linkOnClick = () => {
-    document.documentElement.classList.remove("nav-open");
-  };
+  // const linkOnClick = () => {
+  //   document.documentElement.classList.remove("nav-open");
+  // };
   const { routes, rtlActive, logo } = props;
-  let logoImg = null;
-  let logoText = null;
+  // let logoImg = null;
+  // let logoText = null;
   if (logo !== undefined) {
     if (logo.outterLink !== undefined) {
-      logoImg = (
-        <a
-          href={logo.outterLink}
-          className="simple-text logo-mini"
-          target="_blank"
-          onClick={props.toggleSidebar}
-        >
-          <div className="logo-img">
-            <img src={logo.imgSrc} alt="react-logo" />
-          </div>
-        </a>
-      );
-      logoText = (
-        <a
-          href={logo.outterLink}
-          className="simple-text logo-normal"
-          target="_blank"
-          onClick={props.toggleSidebar}
-        >
-          {logo.text}
-        </a>
-      );
+      // logoImg = (
+      //   <a
+      //     href={logo.outterLink}
+      //     className="simple-text logo-mini"
+      //     target="_blank"
+      //     onClick={props.toggleSidebar}
+      //   >
+      //     <div className="logo-img">
+      //       <img src={logo.imgSrc} alt="react-logo" />
+      //     </div>
+      //   </a>
+      // );
+      // logoText = (
+      //   <a
+      //     href={logo.outterLink}
+      //     className="simple-text logo-normal"
+      //     target="_blank"
+      //     onClick={props.toggleSidebar}
+      //   >
+      //     {logo.text}
+      //   </a>
+      // );
     } else {
-      logoImg = (
-        <Link
-          to={logo.innerLink}
-          className="simple-text logo-mini"
-          onClick={props.toggleSidebar}
-        >
-          <div className="logo-img">
-            <img src={logo.imgSrc} alt="react-logo" />
-          </div>
-        </Link>
-      );
-      logoText = (
-        <Link
-          to={logo.innerLink}
-          className="simple-text logo-normal"
-          onClick={props.toggleSidebar}
-        >
-          {logo.text}
-        </Link>
-      );
+      // logoImg = (
+      //   <Link
+      //     to={logo.innerLink}
+      //     className="simple-text logo-mini"
+      //     onClick={props.toggleSidebar}
+      //   >
+      //     <div className="logo-img">
+      //       <img src={logo.imgSrc} alt="react-logo" />
+      //     </div>
+      //   </Link>
+      // );
+      // logoText = (
+      //   <Link
+      //     to={logo.innerLink}
+      //     className="simple-text logo-normal"
+      //     onClick={props.toggleSidebar}
+      //   >
+      //     {logo.text}
+      //   </Link>
+      // );
     }
   }
    
   return (
     <BackgroundColorContext.Consumer>
       {({ color }) => (
-        <div className="sidebar user-sidebar ml-0 mt-0" >
+        <div className={live?"no-sidebar":"sidebar user-sidebar ml-0 mt-0"} >
           <div className="sidebar-wrapper sid-rap" ref={sidebarRef}>
          
               <div className="sidebar-logo mt-4">
              
-                <img src={Logo}/>
+                <img src={Logo} alt=""/>
              
               </div>
             
@@ -124,6 +125,13 @@ function Sidebar(props) {
                     key={key}
                   >
                   {
+                      prop.name==="Live"?
+                      setLive(true)
+                      :
+                      
+                      setLive(false)
+                    }
+                  {
                   prop.name!=="Authentication"&&
                   prop.name!=="PasswordReset"&&
                   prop.name!=="AccountManagement"&&
@@ -134,18 +142,22 @@ function Sidebar(props) {
                   prop.name!=="createAd"&&
                   prop.name!=="AdDescription"&&
                   prop.name!=="editProfile"&&
+                  prop.name!=="ChatCall"&&
+                  prop.name!=="ChatVideoCall"&&
+                  
                      
                     <NavLink
                       to={prop.layout + prop.path}
-                      className="nav-link sidebar-links"
+                      className="nav-link sidebar-links ml-lg-5"
                       activeClassName={prop.name==="Settings"?"":"links-active"}
                       onClick={props.toggleSidebar}
-                      isOpen={prop.name==="Settings"?{dropdownOpen}:""}
-                      toggle={prop.name==="Settings"?{toggle}:""}
+                      isOpen={props.name==="Settings"?dropdownOpen:""}
+                      toggle={props.name==="Settings"?toggle:""}
                        
                     >
                     
-                      <i className={prop.icon}></i> 
+                    
+                      <i className={prop.icon} style={{marginTop:"6px"}}></i> 
                       <p className={prop.name==="Home"?"links-name links-home-name":"links-name"}>{rtlActive ? prop.rtlName : prop.name}
                       {
                         prop.name==="Home"&&
@@ -197,23 +209,23 @@ function Sidebar(props) {
                  
                 );
               })}
-              <div style={{marginTop:"-30px"}}>
+              <div style={{marginTop:"50px"}}>
               <p className="mb-2 footer-main ml-4">Download our mobile app</p>
             <Row className="mb-3 ml-3">
-            <img src={apple} className="ml-4"/>
-            <img src={playstore}  className="ml-2"/>
+            <img src={apple} className="ml-4"  alt=""/>
+            <img src={playstore}  className="ml-2"  alt=""/>
             </Row>
             <p className="footer-text text-center ">All right reserved. &copy; Erroxer 2022</p>
             <p className=" footer-textt  text-center ">By visting this page you agreeing to our </p>
-            <p className=" footer-policy mb-5 ml-2  mr-1 text-center">Privacy Policy and  Terms and Conditions</p>
-            {
-            // <Row className="">
-            // <AiFillInstagram className="footer-icons"/>
-            // <AiFillLinkedin className="footer-icons"/>
-            // <AiOutlineTwitter className="footer-icons"/>
-            // <AiFillFacebook className="footer-icons"/>
-            // </Row>
-            }
+            <p className=" footer-policy mb-1 ml-2  mr-1 text-center">Privacy Policy and  Terms and Conditions</p>
+            
+            <Row className="justify-content-center">
+            <AiFillInstagram className="footer-icons ml-1"/>
+            <AiFillLinkedin className="footer-icons ml-1"/>
+            <AiOutlineTwitter className="footer-icons ml-1"/>
+            <AiFillFacebook className="footer-icons ml-1"/>
+            </Row>
+            
             </div>
             </Nav>
             

@@ -6,6 +6,7 @@ import {
   useLocation,
   useHistory
 } from "react-router-dom";
+import './Auth.css'
 
 
 // core components
@@ -23,12 +24,7 @@ function Auth(props) {
   const history = useHistory();
   const divStyle = {
     backgroundImage: `url(${background})`,
-    height:"111vh",
-    zoom:"0.81",
-    backgroundRepeat: "no-repeat",
-    background:"cover",
-    backgroundSize: "cover",
-  backgroundPosition: "center center"
+    
     
    
   };
@@ -44,7 +40,7 @@ function Auth(props) {
 
   const getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
+      if (prop.layout === "/") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -77,11 +73,11 @@ function Auth(props) {
             <div className="main-panel" ref={mainPanelRef} className="mt-0">
             
            
-            <div style={divStyle}>
+            <div className="backgroundImage" style={divStyle}>
               <AuthNavbar brandText={getBrandText(location.pathname)} />
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/auth/login" />
+                <Redirect from="*" to="/login" />
               </Switch>
               </div>
              

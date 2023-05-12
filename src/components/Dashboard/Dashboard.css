@@ -18,13 +18,13 @@
 }
 @media only screen and (min-width: 1200px) {
  .bar-col{
-margin-top: -17%!important ;
+margin-top: -15%!important ;
 }
 .bar-card{
-margin-left:15% !important ;
+margin-left:10% !important ;
 }
 .bar-card-body{
-margin-top: 40%;
+margin-top: 30%;
 }
 
 
@@ -37,6 +37,9 @@ margin-top: 40%;
 }
 
 }
+
+
+
 
 .progress-wrapper {
   width: 100px;
@@ -99,11 +102,11 @@ margin-top: 40%;
   background-color: #007bff!important;
 }
 .vertical-progress-bar-whole {
-  height: 750px!important;
+  height: 830px!important;
   width: 0!important;
   position: relative!important;
   background-color: #000000!important;
-  margin-left: 6%;
+  margin-left: 3%;
   margin-top: -17%!important;
  
 }
@@ -156,4 +159,7 @@ width: 100pxpx !important;
   /* margin-left: 2%; */
   
  
+}
+.dashboard-slider{
+  width:20%!important
 }

@@ -20,14 +20,15 @@ import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 const Dashboard = () => {
  
   return (
-    <div className='content' style={{zoom:"0.80"}}>
+    <div className='content' style={{zoom:"0.75"}}>
     <DashboardSection/>
-     <h1 className='text-white' style={{fontStyle:"Roboto",fontWeight:"600"}}>Welcome back Alex</h1>
+     
 
-    <Row>
+    <Row className='ml-lg-4'>
     
-    <Col xl={4} xs={9} md={4}  >
-  <Card className='mt-4' style={{backgroundColor:"#161616",borderRadius:"20px"}}>
+    <Col xl={4} xs={9} md={4} className="ml-lg-5" >
+    <h1 className='text-white ml-lg-2' style={{fontStyle:"Roboto",fontWeight:"600"}}>Welcome back Alex</h1>
+  <Card className='mt-4' style={{backgroundColor:"#161616",borderRadius:"20px",width:"80%"}}>
      
  <h3 className='text-white ml-3 mt-3' style={{fontWeight:"600"}}>Your account</h3> 
  <h4 className='text-white text-center mt-3' style={{fontWeight:"600"}}>$27552</h4> 
@@ -44,7 +45,7 @@ const Dashboard = () => {
 </CardBody>
   
 </Card>
- <Card className='mt-4' style={{backgroundColor:"#161616",borderRadius:"20px"}}>
+ <Card className='mt-4' style={{backgroundColor:"#161616",borderRadius:"20px",width:"80%"}}>
     <div style={{display:"flex"}}>
  <h3 className='text-white ml-3 mt-3 mb-0' style={{fontWeight:"600"}}>Recent Tips</h3> 
  <AiOutlineDollar className=' mt-4' style={{color:"white",fontSize:"30px",marginLeft:"39%"}}/>
@@ -111,14 +112,14 @@ const Dashboard = () => {
  
   
   <CardBody  className="bar-card-body">
-  <Row className='justify-content-center'>
-    <div  style={{height:"70%",width:"70%"}}>
+  <Row className='justify-content-center mt-5'>
+    <div className='mt-2'  style={{height:"50%",width:"50%"}}>
 <Circle percent={0} strokeWidth={4} strokeColor="white" trailColor="black" /> 
 </div>
-  <div style={{height:"55%",width:"55%"}}>
+  <div style={{height:"40%",width:"40%",marginLeft:"-40%"}}>
 
-<Circle style={{marginTop:"-140%",marginLeft:"2%"}} percent={80} strokeWidth={4} strokeColor="white" trailColor="black" /> 
-<div style={{marginTop:"-90%",marginLeft:"38%"}}>
+<Circle style={{marginTop:"14%",marginRight:"10%",marginLeft:"-12%"}} percent={80} strokeWidth={4} strokeColor="white" trailColor="black" /> 
+<div style={{marginTop:"-60%",marginLeft:"25%"}}>
 <h3 className='text-white mb-0'>5000$</h3>
 <h4 className='ml-2' style={{color:"grey"}}>2000$</h4>
 </div>
@@ -156,7 +157,7 @@ const Dashboard = () => {
     
     </Row>
     <Progress className="horizontal-progress-bar-whole" now={10} />
-     <h3 className='text-white ml-3 mt-2' style={{fontWeight:"600"}}>Active Subscription</h3> 
+     <h3 className='text-white  mt-2' style={{fontWeight:"600",marginLeft:"6%"}}>Active Subscription</h3> 
     
    
  <Swiper
@@ -179,8 +180,9 @@ const Dashboard = () => {
             clickable: true,
         }}
         modules={[EffectCoverflow, Pagination, Navigation]}
-        className="swiper_container mt-5"   
+        className="swiper_container mt-2"   
         style={{
+          marginLeft:"3%"
    }}
            
         >
@@ -188,13 +190,15 @@ const Dashboard = () => {
         [1,2,3,4,5,6].map((data)=>(
             <SwiperSlide style={{
                 
-            width:"22%",
             
-           marginLeft:"1%",
+            
+           marginLeft:"3%",
            marginRight:"5%",
           
     
-        }}>
+        }}
+        className="dashboard-slider"
+        >
         <Card className='mt-5 ' style={{backgroundColor:"#161616",borderRadius:"20px"}}>
       <h4 className='text-white ml-3 mt-4 mb-0' style={{fontWeight:"600"}}>Lorem ispum</h4> 
       <CardBody className='mt-5'>

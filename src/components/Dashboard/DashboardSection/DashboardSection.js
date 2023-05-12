@@ -86,15 +86,15 @@ const DashboardSection = () => {
     src={data.pic}
 
    
-    className='ml-2 mr-2 mt-2 mb-3'
-    style={{borderRadius:"20px",height:"250px",width:"300px"}}
+    className='ml-3  mt-2 mb-3'
+    style={{borderRadius:"20px",height:"250px",width:"350px"}}
   />
   <div style={{display:"flex",marginTop:"-15px"}} className="ml-4">
   <img src="https://picsum.photos/100/100" alt="" className='contact-profile ' style={{height:"40px",width:"40px"}}/>
   <img src="https://picsum.photos/100/100" alt="" className='contact-profile-one ' style={{height:"40px",width:"40px"}}/>
   <img src="https://picsum.photos/100/100" alt="" className='contact-profile-one' style={{height:"40px",width:"40px"}}/>
   </div>
- <div style={{backgroundColor:"#292929",borderRadius:"10px",display:"flex", marginLeft:"5%",marginTop:"-2%",width:"290px"}}>
+ <div style={{backgroundColor:"#292929",borderRadius:"10px",display:"flex", marginLeft:"5%",marginTop:"-2%",width:"340px"}}>
  <div>
  <p className='ml-3 mt-3 mb-0' style={{fontSize:"22px",fontWeight:"600",color:"white"}}>
      Alex dee
@@ -104,7 +104,7 @@ const DashboardSection = () => {
       Lorem ispum
     </p>
     </div>
-    <AiOutlineWechat style={{color:"white",fontSize:"40px",marginLeft:"40%",marginTop:"8%"}}/>
+    <AiOutlineWechat style={{color:"white",fontSize:"40px",marginLeft:"50%",marginTop:"8%"}}/>
  
  </div>
   </div>

@@ -22,7 +22,7 @@ const gotoAd=()=>{
   return (
    <div className='content'>
             <div>
-                <span className="" onClick={toggleModal} style={{fontSize:"40px",marginLeft:"120px",position:"absolute",marginTop:"-35px"}}><AiOutlinePlusCircle/></span>
+                <span className="" onClick={toggleModal} style={{fontSize:"40px",marginLeft:"160px",position:"absolute",marginTop:"-38px"}}><AiOutlinePlusCircle/></span>
 
                 <Modal  isOpen={showModal} toggle={toggleModal} className="main-modal" >
                     

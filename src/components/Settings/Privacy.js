@@ -2,7 +2,7 @@ import ChatPortion from 'components/ChatPortion/ChatPortion'
 import React from 'react'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
-import { Button, Col, FormGroup, Input, Label, Row } from 'reactstrap'
+import {  Col, FormGroup, Input, Label, Row } from 'reactstrap'
 import privacyOneOne from './j40.png'
 const Privacy = () => {
  
@@ -34,10 +34,10 @@ text:"But I must explain to you how all this mistaken idea of denouncing pleasur
      <span className='' style={{color:"white",fontSize:"10px",marginLeft:"50px"}} ><Link to="/admin/home"
      style={{color:"white",fontSize:"40px",marginTop:"-80px",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
     <Row>
-    <Col xl={10}>
-    <Row className='justify-conten-center'>
+    <Col xl={10} style={{marginLeft:"-50px"}}>
+    <Row className='' >
     <Col className='text-center'>
-    <img src={privacyOneOne} style={{color:"white"}}/>
+    <img src={privacyOneOne} style={{color:"white"}}  alt=""/>
     <h2 className='text-white mb-0 mt-4' style={{fontWeight:"600"}}>Privacy Policy</h2>
     <p className="" style={{color:"grey",fontSize:"13px"}}>
 It's a good idea to use a strong password that you're not using <br/> elsewhere</p>

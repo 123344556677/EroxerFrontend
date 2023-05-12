@@ -9,6 +9,9 @@ import { createPost } from 'Api/Api'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUsersById } from 'Api/Api'
+import { getPosts } from 'components/redux/actions/postActions'
+import { useDispatch } from 'react-redux'
+
 
 const CreateAd = () => {
   const [postPic, setPostPic] = useState();
@@ -17,6 +20,7 @@ const CreateAd = () => {
   const [price, setPrice] = useState(0);
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
   const [userData, setUserData] = useState()
+  const dispatch=useDispatch()
     const Values={
         userId:userId.id
       }
@@ -41,7 +45,21 @@ const CreateAd = () => {
   const handleCommentsChange = () => {
     setCommentsCheck(!postCheck);
   };
+
+  // const decodeBase64 = (base64String) => {
+  //   const binaryString = window.atob(base64String);
+  //   const bytes = new Uint8Array(binaryString.length);
+  //   for (let i = 0; i < binaryString.length; i++) {
+  //     bytes[i] = binaryString.charCodeAt(i);
+  //   }
+  //   return bytes.buffer;
+  // };
+  
   const post=async()=>{
+    // const decodedPost = Buffer.from(postPic, 'base64').toString();
+    // const decodedProfile = Buffer.from(userData?.profilePic, 'base64').toString();
+  console.log(postPic,"data========>")
+    
     const values={
       userId:userId.id,
       postPic:postPic,
@@ -60,6 +78,7 @@ const CreateAd = () => {
       theme: 'dark',
      
     });
+    dispatch(getPosts())
   }
   else{
     toast.error('Server Error', {
@@ -100,8 +119,7 @@ const CreateAd = () => {
      </Row>
     </Col>
     </Row>
-    
-    <Row className='justify-content-center'>
+    <Row className='justify-content-center mr-lg-5'>
     <Col xl={6} className="">
     <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create post <br/>
 For your Meeting</h2>
@@ -118,7 +136,7 @@ For your Meeting</h2>
 
     />
     </div>
-    <img src={postPic?postPic:postOne} style={{width:postPic&&"80%",zIndex:"5"}}/>
+    <img src={postPic?postPic:postOne} alt="" style={{width:postPic&&"80%",zIndex:"5"}}/>
      
     </h1>
    
@@ -166,7 +184,9 @@ For your Meeting</h2>
    
     
     </Row>
+    
     </Col>
+    
     
     <Col xl={1}>
      <ChatPortion/>

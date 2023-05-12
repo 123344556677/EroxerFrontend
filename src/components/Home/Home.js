@@ -15,6 +15,7 @@ import streamSeven from './j26.png'
 import profilePic from './j27.png'
 import postOne from './j2.png'
 
+
 import {
   Button,
   ButtonGroup,
@@ -45,6 +46,14 @@ import PaymentModal from 'components/Modals/PaymentModal';
 import { getUsersById } from 'Api/Api';
 import { getAllPosts } from 'Api/Api';
 import { getUserById } from 'components/redux/actions/userActions';
+import { getAllUsers } from 'components/redux/actions/userActions';
+import { useHistory } from 'react-router-dom';
+import { getRequestById } from 'components/redux/actions/requestActions';
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { changeStatus } from 'Api/Api';
+import { getAllAcceptedUsers } from 'components/redux/actions/requestActions';
+
 const images = [
   'https://picsum.photos/id/1015/300/200',
   'https://picsum.photos/id/1025/300/200',
@@ -146,25 +155,33 @@ let streamPics=[
     },
     {
         pic:streamSeven
-    }
+    },
+    
+    
+     
+
+   
 ]
 
 const Home = () => {
+  const history=useHistory()
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
       // const [userData, setUserData] = useState()
       const [postData, setPostData] = useState()
       const dispatch=useDispatch()
-        const getPosts = useSelector(state => state.getPosts);
-        const getUser= useSelector(state => state.getUserById);
+        const getPost = useSelector(state => state?.getPosts);
+        const getUser= useSelector(state => state?.getUserById);
+        const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
       
         const userData=getUser?.userData
        
         
     // const { posts, error } = getPosts
-    console.log(getPosts,"post----------->data")
+    console.log(getPost,"post----------->data")
     const values={
         userId:userId.id
       }
+    
     //  useEffect(()=>{
     //   useEffec(() => {
     //     dispatch(posts())
@@ -193,14 +210,43 @@ const Home = () => {
       dispatch(getUserById(values))
       dispatch(posts())
       dispatch(ads())
+      dispatch(getAllUsers())
+      dispatch(getRequestById(values))
+      dispatch(getAllAcceptedUsers(values))
         
     }, [dispatch])
+    // if(getRequests?.length>=0){
+    //  toast.warn(
+    //   <div>
+    //     <p> {getRequests[0][0]?.firstName} sent you friend Request</p>
+    //     <button onClick={()=>changeRequestStatus(getRequests[0][0]?._id)}>Accept</button>
+    //     <button >Reject</button>
+    //   </div>,
+    //   {
+    //     position: toast.POSITION.TOP_CENTER,
+    //     autoClose: false,
+    //     closeOnClick: false,
+    //     draggable: false,
+    //     theme:'dark'
+        
+    //   }
+    // );
+    // }
     // useEffect(() => {
     //   
         
     // }, [dispatch])
+   
+const changeRequestStatus=(id)=>{
+  const values={
+    recieverId:userId.id,
+    senderId:id,
+    status:"accepted"
+  }
+  changeStatus(values)
 
-     console.log(postData,"=========>postData")
+}
+    //  console.log(getRequests[0][0]?.firstName,"=========>noti home Data")
   return (
 
     
@@ -208,13 +254,13 @@ const Home = () => {
      
       
      
-     <Row>
-     <Col xl={8}>
+     <Row className='justify-conten-center ml-lg-4'>
+     <Col xl={8} className="ml-lg-5">
      <Row>
      <Col>
      <h2 className='home-title'>{userData?.firstName} {userData?.lastName}</h2>
      </Col>
-     <Col  xl={8}>
+     <Col  xl={8} className="">
      <div className="home-input-addon">
      <InputGroup style={{ borderRadius: '20px' }} >
       <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
@@ -256,20 +302,21 @@ streamPics.map((data,index)=>(
 </div>
 
   <span style={{color:"white",fontWeight:"600",fontSize:"18px"}} >Lets Discover </span>
-  {
-    getPosts?.posts?.map((data)=>(
- <div class="card card-main" style={{zoom:"0.70"}}>
  
-  <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..."/>
+  {
+    getPost?.posts?.map((data,index)=>(
+ <div class={index>0?"card second-card-main":"card card-main"} style={{zoom:"0.80"}}>
+ 
+  <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${data.userId}`)}/>
  
   <div class="card-body">
-   <img src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"900px",height:"350px",borderRadius:"40px"}}/>
+   <img src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
   </div>
-  <div class="card-footer bg-transparent d-flex justify-content-end mb-5" >
+  <div class="card-footer bg-transparent d-flex justify-content-end mb-1" >
  
  
-     <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",marginRight:"-12px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px"}}/>
-    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",marginRight:"-12px",borderRadius:"0 0 0 0",paddingTop:"10px"}}/>
+     <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px"}}/>
+    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"0 0 0 0",paddingTop:"10px",marginRight:"-8px"}}/>
    <PaymentModal/>
   </div>
 </div>
@@ -322,7 +369,7 @@ streamPics.map((data,index)=>(
      
      </Row>
    
-  
+  <ToastContainer/>
        
       </div>
       

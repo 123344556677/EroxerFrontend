@@ -35,7 +35,7 @@
     border-radius: 188px 0  0 10px;
     position: fixed;
     z-index: 1093;
-    zoom: 0.75;
+    zoom: 0.90;
   
   right: 0;
   width:18%;
@@ -54,7 +54,7 @@
 }
 .dashboard-cards{
     position: fixed;
-    margin-left: 2%;
+    /* margin-left: 2%; */
     margin-top: 7%;
     top: 0;
   bottom: 0;

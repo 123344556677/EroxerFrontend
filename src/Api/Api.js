@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const url = 'http://localhost:5000';
-export const socketUrl = 'ws://localhost:6000';
+// export const socketUrl = 'ws://localhost:6000';
+// const url ="https://sore-red-millipede-boot.cyclic.app/"
 
 
 //auth
@@ -13,6 +14,9 @@ export const login = async (values) => {
 }
 export const googleReg = async (values) => {
     return await axios.post(`${url}/googleReg`, values);
+}
+export const googleLogin = async (values) => {
+    return await axios.post(`${url}/googleLogin`, values);
 }
 export const updateUser = async (values) => {
     return await axios.put(`${url}/updateUser`, values);
@@ -42,6 +46,7 @@ export const getAdsById= async (id) => {
 }
 
 
+
 //chat 
 export const sendMessage= async (values) => {
     return await axios.post(`${url}/sendMessage`, values);
@@ -49,5 +54,19 @@ export const sendMessage= async (values) => {
 export const getAllChatsById= async (values) => {
     return await axios.post(`${url}/getAllChatsById`, values);
 }
+export const makeCall= async (values) => {
+    return await axios.post(`${url}/newCall`, values);
+}
+export const makeAlert= async (values) => {
+    return await axios.post(`${url}/sendAlert`, values);
+}
+//Request
+export const sendRequest= async (values) => {
+    return await axios.post(`${url}/makeRequest`, values);
+}
+export const changeStatus= async (values) => {
+    return await axios.put(`${url}/changeRequestStatus`, values);
+}
+
 
 

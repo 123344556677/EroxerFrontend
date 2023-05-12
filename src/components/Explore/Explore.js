@@ -49,10 +49,10 @@ const Explore = () => {
     ]
     
   return (
-    <div className="content mt-4" style={{zoom:"0.75"}}>
-    <Row className='mt-4'>
-    <Col xl={10}>
-    <h1 className='text-white' style={{fontStyle:"Roboto",fontSize:"40px"}}>Trending</h1>
+    <div className="content mt-3 ml-lg-5" style={{zoom:"0.70"}}>
+    <Row className='mt-3 justify-content-center'>
+    <Col xl={8}>
+    <h1 className='text-white' style={{fontStyle:"Roboto",fontSize:"50px"}}>Trending</h1>
     {
         trends.map((data)=>(
 
@@ -63,7 +63,7 @@ const Explore = () => {
   <img
     alt="Card cap"
     src={data.pic}
-    width="30%"
+    width="20%"
     className='ml-4 mt-3 mb-3'
     style={{borderRadius:"20px"}}
   />
@@ -71,7 +71,7 @@ const Explore = () => {
     <CardText className='ml-1' style={{fontSize:"15px",fontWeight:"600",color:"white"}}>
      Hello how are i am a photograher and also doing some yoga
      <span>
-     <IoIosMore className='' style={{color:"white",fontSize:"30px",marginLeft:"30%"}}/>
+     <IoIosMore className='' style={{color:"white",fontSize:"30px",marginLeft:"43%"}}/>
      </span>
     </CardText>
     <CardText  className='ml-1' href="#" style={{color:"white",fontWeight:"500"}}>

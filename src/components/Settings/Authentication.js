@@ -34,8 +34,8 @@ const Authentication= () => {
     
   </FormGroup>
   <Row>
-  <div style={{display:"flex"}}>
-  <Media className='mt-4 ml-3 chat-media'>
+  <Col xl={6}>
+  <Media className='mt-4 ml-lg-3 chat-media'>
       <Media left>
         <img object  src={authTwo} alt="jannan" className=" rounded-circle" />
       </Media>
@@ -46,11 +46,10 @@ const Authentication= () => {
         <Button className="auth-button">Use scurity key</Button>
       </Media>
       
-    </Media>
-  
-  
-  
-  <Media className='mt-4 ml-3 chat-media'>
+    </Media>'
+  </Col>
+  <Col xl={6}>
+  <Media className='mt-4 ml-lg-3 chat-media'>
       <Media left>
         <img object  src={authOne} alt="jannan" className=" rounded-circle" />
       </Media>
@@ -64,7 +63,7 @@ const Authentication= () => {
       
     </Media>
   
-  </div>
+  </Col>
   
   
   </Row>

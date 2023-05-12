@@ -63,7 +63,7 @@ const ChatProfile = () => {
      
     // });
     //  },[])
-      const getUser= useSelector(state => state.getUserById);
+      const getUser= useSelector(state => state?.getUserById);
       
         const userData=getUser?.userData
   return (

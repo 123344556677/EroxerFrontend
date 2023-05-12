@@ -67,7 +67,7 @@ const PaswordReset = () => {
     <Row className='justify-content-center'>
     <Col xl={8}>
     <h1 className='text-center mt-3'>
-     <img src={resetOne}/></h1>
+     <img src={resetOne}  alt=""/></h1>
      <Form onSubmit={changePassword}>
      <FormGroup>
                

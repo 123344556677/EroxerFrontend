@@ -22,13 +22,13 @@ function Footer() {
               <img src={footerTwo}/>
             </NavLink>
           </NavItem>
-          <NavItem style={{marginLeft:"10%"}}>
+          <NavItem style={{marginLeft:"20%"}}>
             <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">
                <span className="" style={{color:"#CFCFCF",fontSize:"8px" ,marginBottom:"-60px",fontWeight:"600"}}>All rights reserved.Erroxer 2022.
             By visiting this page you agree to our <span style={{color:"#229ED9"}}>Privacy policy </span> and <span style={{color:"#229ED9"}}> Terms and Conditions</span></span>
             </NavLink>
           </NavItem>
-          <NavItem style={{marginLeft:"12%"}}>
+          <NavItem style={{marginLeft:"20%"}}>
             <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">
               <span className="ml-1" style={{fontSize:"18px"}}><AiFillFacebook/></span>
             <span className="ml-1"><AiFillInstagram style={{fontSize:"18px"}}/></span>
