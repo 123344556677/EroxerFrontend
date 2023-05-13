@@ -7,6 +7,23 @@ import FileBase64 from "react-file-base64";
 import './Modals.css'
 import { updateUser } from 'Api/Api';
 import { getUsersById } from 'Api/Api';
+import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
+  authDomain: "images-7611f.firebaseapp.com",
+  projectId: "images-7611f",
+  storageBucket: "images-7611f.appspot.com",
+  messagingSenderId: "410713197024",
+  appId: "1:410713197024:web:f4cb6a922d309976c38385",
+  measurementId: "G-ENS46GYQRS",
+};
+
+const app = initializeApp(firebaseConfig);
+
+const storage = getStorage(app);
 
 
 const ProfileModal = () => {
@@ -44,10 +61,18 @@ const removePic=()=>{
 
 }
 const changePic=async()=>{
-    const values={
+      const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, profilePic, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+     const values={
       userId:userId.id,
       
-      profilePic:profilePic,
+      profilePic:url,
       
     }
     updateUser(values)
@@ -72,6 +97,15 @@ const changePic=async()=>{
     });
   }
     })
+
+    // Use the image URL in an <img> tag
+   
+   
+  });
+}).catch((error) => {
+  console.error('Failed to upload file:', error);
+});
+   
 
 }
 

@@ -14,3 +14,14 @@ export const getPosts = () => async (dispatch) => {
         dispatch({ type: actionTypes.GET_POSTS_FAIL, payload: error.response });
     }
 };
+
+export const getReduxPostsById = (state, userId) => {
+//   const { users } = state;
+//   return state?.posts?.find(post => post?.userId === userId);
+  const filteredArray = state?.posts?.filter((item) => {
+  // Replace with your condition
+  return item?.userId === userId
+});
+return filteredArray
+//    console.log( ,"=========>profile-user")
+}

@@ -14,6 +14,16 @@ export const getRequestById = (values) => async (dispatch) => {
         dispatch({ type: actionTypes.GET_ALL_REQUEST_FAIL, payload: error.response });
     }
 };
+export const getRequestBySenderId = (values) => async (dispatch) => {
+    try {
+        const { data } = await axios.post(`${url}/getRequestBySenderId`,values);
+        dispatch({ type: actionTypes.GET_ALL_SENDER_REQUEST_SUCCESS, payload: data });
+        console.log(data,"=========>requestAccptedData")
+
+    } catch (error) {
+        dispatch({ type: actionTypes.GET_ALL_SENDER_REQUEST_FAIL, payload: error.response });
+    }
+};
 export const getAllAcceptedUsers = (values) => async (dispatch) => {
     try {
         const { data } = await axios.post(`${url}/getAllAcceptedUsers`,values);

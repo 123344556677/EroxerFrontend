@@ -44,9 +44,11 @@ import { MdExpandMore } from 'react-icons/md';
 import { HiOutlineWifi } from 'react-icons/hi';
 import { getUsersById } from 'Api/Api';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-const ChatProfile = () => {
+const ChatProfile = (props) => {
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+  const history=useHistory()
     //   const [userData, setUserData] = useState()
     // const values={
     //     userId:userId.id
@@ -64,8 +66,10 @@ const ChatProfile = () => {
     // });
     //  },[])
       const getUser= useSelector(state => state?.getUserById);
-      
-        const userData=getUser?.userData
+      const userData=getUser?.userData
+
+
+      console.log(props,"---------->prfileData")
   return (
     <div className='profile-chats '>
   
@@ -90,10 +94,10 @@ const ChatProfile = () => {
     <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
     <div className='chat-div'>
  <Container className="d-flex justify-content-center">
- <img object  src={userData?.profilePic?userData?.profilePic:streamFour}  alt="jannan" className="profile-pic rounded-circle mt-3" />
+ <img object  src={props?.profileData?.profilePic?props?.profileData?.profilePic:streamFour}  alt="jannan" className="profile-pic rounded-circle mt-3" onClick={()=>{history.push(`/admin/profile/${props?.profileData?._id}`)}} />
  </Container>
 
- <h4 className='text-white text-center mb-0'style={{fontWeight:"600"}}>{userData?.username?userData?.username:userData?.firstName}</h4>
+ <h4 className='text-white text-center mb-0'style={{fontWeight:"600"}} onClick={()=>{history.push(`/admin/profile/${props?.profileData?._id}`)}}>{userData?.username?userData?.username:userData?.firstName}</h4>
  <p className=' mb-0 text-center chat-designation'style={{fontWeight:"600"}}>@example.com</p>
  <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
  <div style={{display:"flex",justifyContent:"center"}}>
@@ -112,8 +116,8 @@ const ChatProfile = () => {
  </div>
  <div className='ml-3'>
  <h4 className='text-white mt-3 mb-0' style={{fontWeight:"600"}}>About</h4>
-<p>{userData?.about?userData?.about:"I m A professional engeenier and also a Designer i want to met someone thats why i here"}</p>
-<a href="www.erroxr.com/web/alexrock" style={{color:"blue"}}>{userData?.website?"www."+userData?.website:"www.erroxr.com/web/alexrock"}</a>
+<p>{props?.profileData?.about?props?.profileData?.about:"I m A professional engeenier and also a Designer i want to met someone thats why i here"}</p>
+<a href="www.erroxr.com/web/alexrock" style={{color:"blue"}}>{props?.profileData?.website?"www."+props?.profileData?.website:"www.erroxr.com/web/alexrock"}</a>
 <div style={{display:"flex"}}>
 <AiFillInstagram className='ml-1' style={{color:"white",fontSize:"20px"}}/>
 <AiFillFacebook  className='ml-1' style={{color:"white",fontSize:"20px"}}/>
@@ -123,12 +127,12 @@ const ChatProfile = () => {
  <hr style={{backgroundColor:"#555555",height:"2px"}} className="mr-3 ml-1"/>
  
  <div style={{display:"inline"}}>
- <img src={streamEight} style={{widht:"200px"}} className="ml-4"/>
-<img src={streamNine}  className="ml-2" style={{marginTop:"-80px"}}/>
+ <img src={streamEight} alt="" style={{widht:"200px"}} className="ml-4"/>
+<img src={streamNine} alt=""  className="ml-2" style={{marginTop:"-80px"}}/>
 
  </div>
  
-   <img src={streamTen}  className="ml-4 mt-2"/>
+   <img src={streamTen} alt=""  className="ml-4 mt-2"/>
  
 </div>
  

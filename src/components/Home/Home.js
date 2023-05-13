@@ -6,6 +6,7 @@ import { getPosts as posts } from 'components/redux/actions/postActions';
 import { getAds as ads } from 'components/redux/actions/adsActions';
 import './Home.css'
 import { Carousel, CarouselItem } from 'reactstrap';
+import Pusher from "pusher-js";
 import streamOne from './j20.png'
 import streamThree from './j21.png'
 import streamFour from './j23.png'
@@ -13,7 +14,7 @@ import streamFive from './j24.png'
 import streamSix from './j25.png'
 import streamSeven from './j26.png'
 import profilePic from './j27.png'
-import postOne from './j2.png'
+import streamEight from './j38.png'
 
 
 import {
@@ -43,6 +44,7 @@ import Sidebar from 'components/Sidebar/Sidebar';
 import Logo from './logo.png'
 import ChatPortion from 'components/ChatPortion/ChatPortion';
 import PaymentModal from 'components/Modals/PaymentModal';
+import LockModal from 'components/Modals/LockModal';
 import { getUsersById } from 'Api/Api';
 import { getAllPosts } from 'Api/Api';
 import { getUserById } from 'components/redux/actions/userActions';
@@ -53,6 +55,8 @@ import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { changeStatus } from 'Api/Api';
 import { getAllAcceptedUsers } from 'components/redux/actions/requestActions';
+import { getRequestBySenderId } from 'components/redux/actions/requestActions';
+import Swal from 'sweetalert2';
 
 const images = [
   'https://picsum.photos/id/1015/300/200',
@@ -168,6 +172,7 @@ const Home = () => {
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
       // const [userData, setUserData] = useState()
       const [postData, setPostData] = useState()
+      const [lockModal,setLockModal]=useState(false)
       const dispatch=useDispatch()
         const getPost = useSelector(state => state?.getPosts);
         const getUser= useSelector(state => state?.getUserById);
@@ -212,9 +217,44 @@ const Home = () => {
       dispatch(ads())
       dispatch(getAllUsers())
       dispatch(getRequestById(values))
+      dispatch(getRequestBySenderId(values))
       dispatch(getAllAcceptedUsers(values))
         
     }, [dispatch])
+
+    useEffect(() => {
+    const pusher = new Pusher("78bfd9bc497cd883c526", {
+      cluster: "ap1",
+      useTLS: true,
+    });
+
+    const channel = pusher.subscribe(`request${userId?.id}`);
+    channel.bind("request", (data) => {
+       Swal.fire({
+          title: `<p style="color:white;" font-size:15px">${data?.name} has sent you a request<p/>`,
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Accept",
+          cancelButtonText: "Reject",
+          reverseButtons: true,
+          customClass: {
+            confirmButton: "btn ml-2 btn-primary",
+            cancelButton: "btn btn-danger",
+          },
+          background: "#000000",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // User clicked the confirm button
+            changeRequestStatus(data?.userId)
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // User clicked the cancel button
+           
+          }
+        });
+      
+    })
+  },[])
     // if(getRequests?.length>=0){
     //  toast.warn(
     //   <div>
@@ -244,6 +284,12 @@ const changeRequestStatus=(id)=>{
     status:"accepted"
   }
   changeStatus(values)
+  toast.success("Request Accepted", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
 
 }
     //  console.log(getRequests[0][0]?.firstName,"=========>noti home Data")
@@ -310,14 +356,19 @@ streamPics.map((data,index)=>(
   <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${data.userId}`)}/>
  
   <div class="card-body">
-   <img src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+   <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(14px)":""}}/>
+    {data?.postCheck===true&&
+      <LockModal open={lockModal}/>
+    
+    }
   </div>
+    
   <div class="card-footer bg-transparent d-flex justify-content-end mb-1" >
  
  
      <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px"}}/>
     <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"0 0 0 0",paddingTop:"10px",marginRight:"-8px"}}/>
-   <PaymentModal/>
+   <PaymentModal  />
   </div>
 </div>
 ))
@@ -368,7 +419,8 @@ streamPics.map((data,index)=>(
      
      
      </Row>
-   
+     
+  
   <ToastContainer/>
        
       </div>

@@ -3,6 +3,7 @@ import { AiOutlineDollar, AiOutlinePlusCircle } from 'react-icons/ai';
 import { useHistory } from 'react-router-dom';
 import { Button, Card, Col, FormGroup, Input, Label, Modal, Row } from 'reactstrap'
 import modalOne from './j45.png'
+import modalTwo from './j38.png'
 import './Modals.css'
 import memberFour from './j41.png'
 import memberFive from './j42.png'
@@ -12,8 +13,8 @@ import memberSeven from './j44.png'
 import memberNine from './j46.png'
 import memberTen from './j52.png'
 
-const PaymentModal = (props) => {
-  console.log(props,"in modal")
+const LockModal = (props) => {
+  console.log(props,"in lock modal")
     const history=useHistory()
     const [showModal, setShowModal] = useState(false);
   function toggleModal() {
@@ -38,7 +39,9 @@ useEffect(() => {
   return (
    <div className='content'>
             <div>
-                <AiOutlineDollar onClick={toggleModal} className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-110px",marginRight:"65px",background:"#1e1e26",borderRadius:"0 20px 0 0",paddingTop:"10px"}}/>
+                <h1 className='text-center mr-lg-5'>
+     <img src={modalTwo} onClick={toggleModal} className="lock-img" alt="" />
+     </h1>
                 
 
                 <Modal  isOpen={showModal} toggle={toggleModal} className="main-modal" style={{maxWidth:"400px",borderRadius:"10px"}}  >
@@ -188,4 +191,4 @@ useEffect(() => {
   )
 }
 
-export default PaymentModal
+export default LockModal

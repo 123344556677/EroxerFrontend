@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import profilFive from "./j15.png";
 import profilSix from "./j33.png";
@@ -8,6 +8,7 @@ import profileNine from "./j36.png";
 import profileTen from "./j40.jpg";
 import profileEleven from "./j41.jpg";
 import profileTwelve from "./j42.jpg";
+
 import "./Profile.css";
 import { MdExpandMore } from "react-icons/md";
 import { IoIosMore } from "react-icons/io";
@@ -26,6 +27,7 @@ import { updateUser } from "Api/Api";
 import { getReduxUserById } from "components/redux/actions/userActions";
 import { sendRequest } from "Api/Api";
 import { useSelector } from "react-redux";
+import { getReduxPostsById } from "components/redux/actions/postActions";
 
 const Profile = () => {
   const history = useHistory();
@@ -39,7 +41,9 @@ const Profile = () => {
   // const [userData, setUserData] = useState()
   const [isHovered, setIsHovered] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState();
-  //  const getUser= useSelector(state => state.getUserById);
+  const [privateCheck, setPrivateCheck] = useState("posts");
+  const [requestCheck, setRequestCheck] = useState("none");
+   const getUser= useSelector(state => state.getUserById);
   let sendingId = "";
   if (id === ":id") {
     sendingId = userId.id;
@@ -49,26 +53,46 @@ const Profile = () => {
   const user = useSelector((state) =>
     getReduxUserById(state?.getAllUsers, sendingId)
   );
-
+  const AllUserPosts = useSelector((state) =>
+    getReduxPostsById(state?.getPosts, sendingId)
+  );
+ 
   const userData = user;
   console.log(userData, "==========>userData");
+ const getRecieverId = useSelector(state => state?.getAllSenderRequestReducer);
+ const requestUser=getUser?.userData
 
-  // const Values = {
-  //   userId: userId.id,
-  // };
 
-  //    useEffect(()=>{
+ let posts=[];
+ let privat=[];
+  
+AllUserPosts?.map((data)=>{
+    if(data?.postCheck===true){
+       privat.push(data)
+       console.log("private posts===========>",data)
+    }
+    else{
+   posts.push(data)
+    }
+     
+   })
+   console.log(getRecieverId,"reciever Id")
+useEffect(()=>{
+ getRecieverId?.senderAllRequests?.map((data)=>{
+   
+    if(data?.recieverId===id&&data?.status==="pending"){
+      console.log("coming in it------->")
+      setRequestCheck("sent")
+    }
+     if(data?.recieverId===id&&data?.status==="accepted"){
+      setRequestCheck("accept")
+    }
+   
+   })
+},[requestCheck])
+  
+ 
 
-  //   getUsersById(Values)
-  //    .then(res => {
-  //      console.log(res.data);
-  //       if (res?.data?.message === "User Exist") {
-  //        setUserData(res?.data?.data)
-  //        setBackgroundImage(res?.data?.data?.backgroundImage)
-  //       }
-
-  // });
-  //  },[])
 
   const handleMouseOver = () => {
     setIsHovered(true);
@@ -88,8 +112,16 @@ const Profile = () => {
       senderId: userId.id,
       recieverId: id,
       status: "pending",
+      name:requestUser?.firstName
     };
     sendRequest(values);
+    setRequestCheck("sent")
+    toast.success("Request sent", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
   };
 
   const toggleSwitch = () => {
@@ -192,7 +224,9 @@ const Profile = () => {
             <h3 className="mt-3 user-name mb-0 ">
               {userData?.username ? userData?.username : "@ alexrock"}
             </h3>
-
+{
+              id===':id'&&
+              <>
             <CustomInput
               type="switch"
               id="exampleCustomSwitch"
@@ -207,14 +241,33 @@ const Profile = () => {
             >
               Edit Profile
             </Button>
-
+</>
+}
             <Button
-              className="add-button btn-sm btn-dark mt-4"
+              className={id===':id'?"add-button btn-sm btn-dark mt-4":" add-button btn-sm btn-dark ml-3 mt-3"}
               onClick={makeRequest}
             >
+            {
+              requestCheck==="sent"&&
+              <span style={{color:"white"}}>Request sent</span>
+
+            }
+            {
+              requestCheck==="none"&&
+              <i className="fas fa-user" style={{ marginRight: "10px" }} />
+
+            }
+            {
+              requestCheck==="accept"&&
+              <>
               <i className="fas fa-user" style={{ marginRight: "10px" }} />
               <img alt="" src={profilFive} style={{ color: "white" }} />
+              </>
+            }
             </Button>
+            {
+              id===':id'&&
+              <>
             <MdExpandMore
               className="mt-4"
               style={{ fontSize: "30px", color: "white" }}
@@ -223,6 +276,8 @@ const Profile = () => {
               className="mt-4"
               style={{ fontSize: "30px", color: "white" }}
             />
+            </>
+            }
           </Row>
 
           <p className=" profile-designation mt-0 ">software Engineer</p>
@@ -280,38 +335,52 @@ const Profile = () => {
           style={{ color: "white", width: "18px", height: "18px" }}
           className="ml-5"
         />
-        <span className="ml-2" style={{ color: "white", fontWeight: "600" }}>
+        <span className="ml-2" onClick={()=>setPrivateCheck("posts")} style={{ color:privateCheck==="posts"&&"white", fontWeight: "600",cursor:"pointer" }}>
           Posts
         </span>
 
         <img
           src={profileNine} alt=""
-          style={{ color: "white", width: "18px", height: "18px" }}
+          style={{ color: "white", width: "18px", height: "18px",cursor:"pointer" }}
           className="ml-lg-5"
         />
-        <span className="ml-2" style={{ fontWeight: "600" }}>
+        <span className="ml-2" style={{ fontWeight: "600",cursor:"pointer" }}>
           Tagged
         </span>
-
+         {
+              id===':id'&&
+         <>
         <AiOutlineEye
-          style={{ color: "grey", fontSize: "20px" }}
+          style={{ color: "grey", fontSize: "20px",cursor:"pointer" }}
           className="ml-lg-5"
         />
-        <span className="ml-2" style={{ fontWeight: "600" }}>
+         
+        <span className="ml-2"onClick={()=>setPrivateCheck("private")} style={{ fontWeight: "600",cursor:"pointer", color:privateCheck==="private"&&"white" }}>
           Private
         </span>
+        </>
+        }
       </div>
 
       <Row className=" mt-2 ml-lg-4">
+      {
+        privateCheck==="posts"&&
+        posts?.map((data)=>(
         <Col xl={4} className="">
-          <img src={profileTen} alt="" className="mt-2  ml-lg-4 profile-posts" />
+          <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
         </Col>
-        <Col xl={4}>
-          <img src={profileEleven} alt="" className="mt-2 ml-lg-4 profile-posts" />
+        ))
+      }
+      {
+          privateCheck==="private"&&
+      
+        privat?.map((data)=>(
+        <Col xl={4} className="">
+          <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
         </Col>
-        <Col xl={4}>
-          <img src={profileTwelve} alt="" className="mt-2 ml-lg-4 profile-posts" />
-        </Col>
+        ))
+      }
+       
         {
           // <Col xl={3}>
           // <img src={profilFour} className="mt-2 "/>

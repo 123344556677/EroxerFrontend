@@ -8,7 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { getPostsReducer } from './reducers/postReducer';
 import { getAdsReducer } from './reducers/adsReducer';
 import { getAllUsers, getUserByIdReducer } from './reducers/userReducer';
-import { getAllAcceptedRequestReducer, getAllRequestReducer } from './reducers/requestReducer';
+import { getAllAcceptedRequestReducer, getAllRequestReducer, getAllSenderRequestReducer } from './reducers/requestReducer';
 
 const reducer = combineReducers({
     getUserById:getUserByIdReducer,
@@ -16,7 +16,9 @@ const reducer = combineReducers({
     getAds: getAdsReducer,
     getAllUsers:getAllUsers,
     getAllRequestReducer:getAllRequestReducer,
-    getAllAcceptedRequestReducer:getAllAcceptedRequestReducer
+    getAllAcceptedRequestReducer:getAllAcceptedRequestReducer,
+    getAllSenderRequestReducer: getAllSenderRequestReducer,
+
 
     
 

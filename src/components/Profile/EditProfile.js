@@ -64,7 +64,7 @@ const EditProfile = () => {
 
           theme: "dark",
         });
-        dispatch(getUserById(Values));
+        
       } else {
         toast.error("Server Error", {
           position: toast.POSITION.TOP_CENTER,
@@ -73,8 +73,10 @@ const EditProfile = () => {
           theme: "dark",
         });
       }
+       dispatch(getUserById(Values));
     });
   };
+ 
 
   return (
     <div className="content" style={{ zoom: "0.90" }}>

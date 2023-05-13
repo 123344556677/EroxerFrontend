@@ -4,7 +4,7 @@
     margin-left: -12px!important;
     object-fit: cover!important;
    
-    width:650px !important;
+    width:640px !important;
     
    
     
@@ -69,5 +69,8 @@
     border-radius: 30px 30px 30px 30px!important;
     height:250px!important;
     width:450px!important;
+}
+.profile-div{
+    overflow-x: hidden!important;
 }
 

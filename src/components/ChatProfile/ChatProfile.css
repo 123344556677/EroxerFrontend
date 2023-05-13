@@ -8,6 +8,7 @@
 .profile-pic{
     width:100px;
     height:100px;
+    cursor:pointer!important
     /* margin-left: 85px; */
 }
 .chat-add-button{

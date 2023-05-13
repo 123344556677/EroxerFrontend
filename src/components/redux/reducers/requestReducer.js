@@ -11,6 +11,16 @@ export const getAllRequestReducer = (state = {requests: []}, action) => {
             return state
     }
 };
+export const getAllSenderRequestReducer = (state = {senderRequests: []}, action) => {
+    switch(action.type) {
+        case actionTypes.GET_ALL_SENDER_REQUEST_SUCCESS:
+            return { senderAllRequests: action.payload }
+        case actionTypes.GET_ALL_SENDER_REQUEST_FAIL:
+            return { error: action.payload }
+        default:
+            return state
+    }
+};
 export const getAllAcceptedRequestReducer = (state = {accpetedRequests: []}, action) => {
     switch(action.type) {
         case actionTypes.GET_ALL_ACCEPTED_REQUEST_SUCCESS:

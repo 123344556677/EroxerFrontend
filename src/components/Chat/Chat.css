@@ -120,4 +120,12 @@ border-radius: 50%!important;
 .chat-second-img{
   margin-left: 160px!important;
   margin-top:3%!important ;
+  filter:blur(10px)
+}
+.msg-blur-text{
+  color:white!important;
+  position:absolute!important;
+  margin-top: -20%!important;
+  margin-left: 50%!important;
+  cursor: pointer;
 }
