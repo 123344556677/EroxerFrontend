@@ -63,3 +63,26 @@
     background-image: linear-gradient(to bottom left, rgb(255, 0, 0),rgb(255, 0, 0), rgb(255, 0, 0))!important;
 }
 
+.tap-img-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.tap-button {
+  background-color: #fff;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+.tap-text {
+  color: #25D366;
+  font-size: 16px;
+  font-weight: bold;
+}
+

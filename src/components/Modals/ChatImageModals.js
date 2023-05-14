@@ -37,9 +37,17 @@ const settingInterval=()=>{
   return (
    <div className='content'>
             <div>
+            {
                 
-                <p className="msg-blur-text" onClick={settingInterval}> Click to open</p>
+                // <p className="msg-blur-text" onClick={settingInterval}> Click to open</p>
 
+            }
+
+<div className="button-container chat-second-img">
+  <button className="tap-button tap-img-btn"  onClick={settingInterval}>
+    <span className="tap-text">Tap to Open</span>
+  </button>
+</div>
                 <Modal  isOpen={showModal} toggle={toggleModal}   style={{maxWidth:"500px",borderRadius:"10px",marginTop:"100px"}}  >
                     
                      <div className="modal-header" >

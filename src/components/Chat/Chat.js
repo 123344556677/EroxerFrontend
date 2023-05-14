@@ -324,13 +324,12 @@ setMessage("");
  }, 15000);
   }
   function renderImageTag(imageString) {
-    let blobUrlPattern =
-      /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+    let blobUrlPattern =/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
 
     const url = blobUrlPattern.test(imageString);
 
     if (url) {
-      return <img src={imageString} alt="My Image" />;
+      return <img src={imageString} alt="" />;
     } else {
       console.log("no url");
       return (
@@ -354,7 +353,9 @@ setMessage("");
     if (url) {
       return (
         <>
-        <img src={imageString}  className="chat-second-img" alt="" />
+        {
+        // <img src={imageString}  className="chat-second-img" alt="" />
+        }
         <ChatImageModal   image={{imageString,settingInterval}}/>
         </>
       );

@@ -118,9 +118,9 @@ border-radius: 50%!important;
   cursor: pointer!important;
 }
 .chat-second-img{
-  margin-left: 160px!important;
+  margin-left: 190px!important;
   margin-top:3%!important ;
-  filter:blur(10px)
+  /* filter:blur(10px) */
 }
 .msg-blur-text{
   color:white!important;
