@@ -40,6 +40,7 @@ import {
 } from "reactstrap";
 import { getUsersById } from 'Api/Api';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,6 +48,12 @@ const ChatPortion = () => {
      const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
      const [isOpen, setIsOpen] = useState(false);
      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+     const getAllAcceptedRequests = useSelector(
+    (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
+  );
+  
+  let readChats = [];
+  readChats.push(getAllAcceptedRequests);
      console.log(getRequests,"Reequests========>in noti")
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -118,6 +125,7 @@ const ChatPortion = () => {
       lastText:"hy!"
     },
 ]
+const history=useHistory()
   return (
     <>
     {
@@ -242,21 +250,34 @@ const ChatPortion = () => {
     <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
     <div className='chat-div'>
     {
-    chats.map((data,index)=>(
-        <Row>
+    readChats?.map((data,index)=>(
+      <div key={index}>
+        {data?.map((datas, item) => (
+          <div key={item}>
+           {datas?.map((datass, items) => (
+            <div key={items}>
+         <Row style={{cursor:"pointer"}} onClick={()=>history.push('/admin/chat')}>
         <Col>
+        
       
-  <img src={data.pic} class="rounded-circle chat-img mt-3 mb-4 " alt="Your Image"/>
+  <img src={datass.pic?datass.pic:streamFour} class="rounded-circle chat-img mt-3 mb-4 " alt="" onClick={()=>history.push('/admin/chat')}/>
   <span style={{position: 'absolute', top: '0.1em' , }}>
     <span style={{display: 'inline-block', width: '0.7em',marginLeft:"6em", height: '0.7em', marginBottom:"-1em", borderRadius: '50%', backgroundColor: 'green'}}></span>
   </span>
   </Col>
    <Col className="chat-text-col mt-1 mb-4">
-  <p class="mt-3 chat-text-inner">{data.name}</p>
-  <p class="text-muted chat-msg-inner">{data.lastText}</p>
+  <p class="mt-3 chat-text-inner" >{datass?.firstName}</p>
+  <p class="text-muted chat-msg-inner">{datass.lastText?datass.lastText:"hey"}</p>
   </Col>
 
 </Row>
+  </div>
+           ))}
+  </div>
+        ))
+        }
+  </div>
+  
 
     ))
    }

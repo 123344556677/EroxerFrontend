@@ -14,7 +14,7 @@ const AdDescription = () => {
 const [adData,setAdData]=useState()
 const { id } = useParams();
 const getUser= useSelector(state => state.getUserById);
-      
+const getAds = useSelector(state => state?.getAds);
         const userData=getUser?.userData
     useEffect(()=>{
       
@@ -28,6 +28,8 @@ const getUser= useSelector(state => state.getUserById);
     });
     },[])
     console.log(adData,)
+     const filteredAds=getAds?.ads?.filter((data)=>data?._id!==adData?._id)
+
   return (
     <div className='content'>
      <Row>
@@ -49,8 +51,8 @@ const getUser= useSelector(state => state.getUserById);
 
      </Row>
     <Row>
-    <Col xl={8}>
-    <Card style={{backgroundColor:"#1E1E1E",borderRadius: "18px",zoom:"0.90",boxShadow:" 0px 0px 16px 3px rgba(0, 0, 0, 0.25)"}}>
+    <Col xl={8} className='ml-lg-3'>
+    <Card className='ml-lg-5' style={{backgroundColor:"#1E1E1E",borderRadius: "18px",zoom:"0.85",boxShadow:" 0px 0px 16px 3px rgba(0, 0, 0, 0.25)"}}>
    <div
         style={{
           backgroundImage: `url(${adData?.adPic?adData?.adPic:AdDesOne})`,
@@ -128,8 +130,92 @@ const getUser= useSelector(state => state.getUserById);
 
     </Row>
     <h1 className='text-center mt-3'>
-<Button className='reset-button ml-lg-3 reset-button'>Call me</Button></h1>
+<Button className='reset-button ml-lg-3 reset-button'>Contact</Button></h1>
     </Card>
+{
+  filteredAds.map((data)=>(
+    <Card className='ml-lg-5' style={{backgroundColor:"#1E1E1E",borderRadius: "18px",zoom:"0.85",boxShadow:" 0px 0px 16px 3px rgba(0, 0, 0, 0.25)"}}>
+   <div
+        style={{
+          backgroundImage: `url(${data?.adPic?data?.adPic:AdDesOne})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          height: '350px',
+           width:"",
+          position: 'relative',
+          borderRadius: "12.5524px",
+         
+        }}
+        className="ml-3 mr-3 mt-3"
+      >
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '0',
+            left: '0',
+            transform: 'translate(50%, 50%)',
+          }}
+        >
+          <img
+            src={data?.userData?.profilePic?data?.userData?.profilePic:AdDesTwo}
+            alt="Profile"
+            className="rounded-circle"
+            style={{
+              backgroundColor:"#1E1E1E",
+              padding:"7px",
+              
+              height: '100px',
+              width: '100px',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
+      </div>
+
+      <Row className='profile-user-row' style={{marginTop:"-15px"}}>
+      <Col >
+      
+      <h4 className='mt-3 user-name mb-0 '>Alex dee <span className='ml-1'><FaUserAlt/></span>
+       <span><AiOutlineUserAdd style={{fontSize:"25px",marginLeft:"80%"}} className='user-name '/></span></h4>  
+      <p style={{color:" #8B8B8B",fontSize:"10px"}} >{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}</p>
+      <Row>
+      <Col>
+     <h5 className='mt-3 user-name mb-0 '>Avaialable</h5>
+     </Col>
+     <Col className='text-right mt-3'>
+       <p style={{color:" #8B8B8B",fontSize:"10px",fontWeight:"600"}} className="mr-lg-5"><Moment format="MM/DD/YYYY">{data?.date}</Moment> at {data?.time}</p>
+     </Col>
+     </Row>
+     <hr className='mb-0' style={{backgroundColor:"#969696",height:"1px",marginRight:"7%"}}/>
+     <Row>
+      <Col>
+     <h5 className='mt-3 user-name mb-0 '>Meeting</h5>
+     </Col>
+     <Col className=' text-right mt-3'>
+       <p style={{color:" #8B8B8B",fontSize:"10px",fontWeight:"600"}} className="mr-lg-5">{data?.meetingType}</p>
+     </Col>
+     </Row>
+       <hr className='mb-0' style={{backgroundColor:"#969696",height:"1px",marginRight:"7%"}}/>
+     <Row>
+      
+     <Col className='mt-3 mb-3'>
+       <p style={{color:" #8B8B8B",fontSize:"10px",fontWeight:"600"}}>{data?.description?data?.description:"The standard Lorem Ipsum passage, used since the 1500s Lorem ipsum dolor sit amet,   consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,  sunt in culpa qui officia deserunt mollit anim id est laborum."}
+        </p>
+     </Col>
+     </Row>
+</Col>
+{
+// <Col className='text-right' xl={2}>
+
+// </Col>
+}
+
+    </Row>
+    <h1 className='text-center mt-3'>
+<Button className='reset-button ml-lg-3 reset-button'>Contact</Button></h1>
+    </Card>
+    ))
+}
     </Col>
     <Col>
     <ChatProfile/>

@@ -9,7 +9,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import FileBase64 from "react-file-base64";
 import { createAd } from 'Api/Api'
 import { getUsersById } from 'Api/Api'
+import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
+import { initializeApp } from 'firebase/app'
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
+  authDomain: "images-7611f.firebaseapp.com",
+  projectId: "images-7611f",
+  storageBucket: "images-7611f.appspot.com",
+  messagingSenderId: "410713197024",
+  appId: "1:410713197024:web:f4cb6a922d309976c38385",
+  measurementId: "G-ENS46GYQRS",
+};
+
+const app = initializeApp(firebaseConfig);
+
+const storage = getStorage(app);
 
 const CreatePost = () => {
    const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
@@ -41,6 +56,17 @@ const CreatePost = () => {
     }
 
    const ad=async()=>{
+     const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, adPic, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+    setAdPic(url)
+
+    // Use the image URL in an <img> tag
     const values={
       userId:userId.id,
       avaialableFor:avaialableFor,
@@ -50,7 +76,7 @@ const CreatePost = () => {
       meetingType:meetingType,
       description:description,
       adProfilePic:userData?.profilePic,
-      adPic:adPic,
+      adPic:url,
       userData:userData
 
 
@@ -77,6 +103,12 @@ const CreatePost = () => {
     });
   }
     })
+    
+})
+}).catch((error) => {
+  console.error('Failed to upload file:', error);
+});
+    
 
   }
 

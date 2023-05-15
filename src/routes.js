@@ -92,10 +92,10 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/explore",
-    name: "Explore",
+    path: "/list",
+    name: "Custom List",
     rtlName: "خرائط",
-    icon: "fa fa-bullseye",
+    icon: "fa fa-list",
     component: Explore,
     layout: "/admin",
   },

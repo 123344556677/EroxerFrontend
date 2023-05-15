@@ -9,6 +9,7 @@ import { getPostsReducer } from './reducers/postReducer';
 import { getAdsReducer } from './reducers/adsReducer';
 import { getAllUsers, getUserByIdReducer } from './reducers/userReducer';
 import { getAllAcceptedRequestReducer, getAllRequestReducer, getAllSenderRequestReducer } from './reducers/requestReducer';
+import { getListByIdReducer } from './reducers/listReducer';
 
 const reducer = combineReducers({
     getUserById:getUserByIdReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
     getAllRequestReducer:getAllRequestReducer,
     getAllAcceptedRequestReducer:getAllAcceptedRequestReducer,
     getAllSenderRequestReducer: getAllSenderRequestReducer,
+    getListByIdReducer: getListByIdReducer
 
 
     

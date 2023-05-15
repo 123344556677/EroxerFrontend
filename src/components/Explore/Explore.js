@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoIosMore } from 'react-icons/io'
 import { HiLocationMarker } from 'react-icons/hi'
-import { AiFillEye } from 'react-icons/ai'
+import { AiFillDelete, AiFillEye } from 'react-icons/ai'
 
 
 import cardOne from './j27.png'
@@ -32,7 +32,15 @@ import {
   CardSubtitle,
   Media,
 } from "reactstrap";
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteListDataById } from 'Api/Api'
+import { toast,ToastContainer } from 'react-toastify'
+import { useHistory } from 'react-router-dom'
+import { getListById } from 'components/redux/actions/listActions'
 const Explore = () => {
+    const history=useHistory()
+    const dispatch=useDispatch()
+    const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
     let trends=[
         {
             pic:"https://picsum.photos/318/180"
@@ -47,14 +55,50 @@ const Explore = () => {
             pic:"https://picsum.photos/318/180"
         },
     ]
+     const getList = useSelector(state => state?.getListByIdReducer?.list);
+     const Values={
+      userId:userId.id,
+     }
+     useEffect(() => {
+      
+       dispatch(getListById(Values))
+        
+    }, [dispatch])
+
+      const deleteProfile=(id)=>{
+        console.log("delete----------->",id)
+        const values={
+           listDataId:id
+        }
+        deleteListDataById(values)
+        .then((data)=>{
+          console.log(data,"deleted-------->")
+          if(data?.data?.message==="Data deleted"){
+             toast.success('Removed from list', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+      window.location.reload(false)
+    // dispatch(deleteListDataById(values))
+          }
+
+        })
+
+      }
+      
+       
     
   return (
-    <div className="content mt-3 ml-lg-5" style={{zoom:"0.70"}}>
+    <div className="content ">
+    <div style={{zoom:"0.70"}} className="mr-lg-4">
     <Row className='mt-3 justify-content-center'>
     <Col xl={8}>
-    <h1 className='text-white' style={{fontStyle:"Roboto",fontSize:"50px"}}>Trending</h1>
+    <h1 className='text-white' style={{fontStyle:"Roboto",fontSize:"50px"}}>Custom List</h1>
     {
-        trends.map((data)=>(
+        getList?.map((data)=>(
 
        
      <Card style={{backgroundColor:"#161616",borderRadius:"10px"}}>
@@ -62,16 +106,16 @@ const Explore = () => {
   
   <img
     alt="Card cap"
-    src={data.pic}
+    src={data?.backgroundPic?data?.backgroundPic:"https://picsum.photos/318/180"}
     width="20%"
     className='ml-4 mt-3 mb-3'
     style={{borderRadius:"20px"}}
   />
   <CardBody>
     <CardText className='ml-1' style={{fontSize:"15px",fontWeight:"600",color:"white"}}>
-     Hello how are i am a photograher and also doing some yoga
+     {data?.otherData?.about?data?.otherData?.about:"Hello how are i am a photograher and also doing some yoga"}
      <span>
-     <IoIosMore className='' style={{color:"white",fontSize:"30px",marginLeft:"43%"}}/>
+    <AiFillEye className=''  style={{color:"white",fontSize:"30px",marginLeft:"40%",cursor:"pointer"}}  onClick={()=>history.push(`/admin/profile/${data?.otherData?._id}`)}/><AiFillDelete className='ml-2' onClick={()=>deleteProfile(data?._id)}  style={{color:"white",fontSize:"25px",cursor:"pointer"}}/>
      </span>
     </CardText>
     <CardText  className='ml-1' href="#" style={{color:"white",fontWeight:"500"}}>
@@ -81,23 +125,27 @@ const Explore = () => {
     <Col>
       <Media className='mt-4 ml-3 mb-4'>
       <Media left>
-        <img object  src={cardOne} alt="jannan" className="upper-profile rounded-circle" />
+        <img object  src={data?.otherData?.profilePic?data?.otherData?.profilePic:cardOne} alt="jannan" className="upper-profile rounded-circle" />
       </Media>
       <Media body className="ml-2 mt-1">
-        <h4 className='text-white mb-0'style={{fontWeight:"600"}}>Shelby</h4>
-        <p className="chat-designation ml-0 mb-0">Artist</p>
-        <span className='mr-0' style={{color:"white"}}><HiLocationMarker/><span style={{fontSize:"10px"}}>England</span></span>
+        <h4 className='text-white mb-0'style={{fontWeight:"600"}}>{data?.otherData?.firstName}</h4>
+        <p className="chat-designation ml-0 mb-0">http://{data?.otherData.website?data?.otherData.website:"@example.com"}</p>
+        {
+        // <span className='mr-0' style={{color:"white"}}><HiLocationMarker/><span style={{fontSize:"10px"}}>England</span></span>
+        }
       </Media>
      
     </Media>
     </Col>
-    <Col className='mt-5'>
-    <div style={{textAlign:"end",marginRight:"40px",marginTop:"30px"}}>
-   <AiFillEye className='' style={{color:"white",fontSize:"20px"}}/>
-   <p className=''  style={{color:"white",fontSize:"10px"}}>10k</p>
+    {
+  //   <Col className='mt-5'>
+  //   <div style={{textAlign:"end",marginRight:"40px",marginTop:"30px"}}>
+  //  <AiFillEye className='' style={{color:"white",fontSize:"20px"}}/>
+  //  <p className=''  style={{color:"white",fontSize:"10px"}}>10k</p>
 
-    </div>
-    </Col>
+  //   </div>
+  //   </Col>
+    }
     </Row>
     
   </CardBody>
@@ -107,6 +155,8 @@ const Explore = () => {
     }
     </Col>
     </Row>
+    <ToastContainer/>
+    </div>
     </div>
     
   )

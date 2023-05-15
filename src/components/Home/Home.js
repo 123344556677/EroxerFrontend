@@ -57,6 +57,8 @@ import { changeStatus } from 'Api/Api';
 import { getAllAcceptedUsers } from 'components/redux/actions/requestActions';
 import { getRequestBySenderId } from 'components/redux/actions/requestActions';
 import Swal from 'sweetalert2';
+import { addList } from 'Api/Api';
+import { getListById } from 'components/redux/actions/listActions';
 
 const images = [
   'https://picsum.photos/id/1015/300/200',
@@ -160,6 +162,15 @@ let streamPics=[
     {
         pic:streamSeven
     },
+    {
+        pic:streamFive
+    },
+     {
+        pic:streamSix
+    },
+    {
+        pic:streamSeven
+    },
     
     
      
@@ -219,6 +230,7 @@ const Home = () => {
       dispatch(getRequestById(values))
       dispatch(getRequestBySenderId(values))
       dispatch(getAllAcceptedUsers(values))
+       dispatch(getListById(values))
         
     }, [dispatch])
 
@@ -227,6 +239,7 @@ const Home = () => {
       cluster: "ap1",
       useTLS: true,
     });
+    
 
     const channel = pusher.subscribe(`request${userId?.id}`);
     channel.bind("request", (data) => {
@@ -292,7 +305,29 @@ const changeRequestStatus=(id)=>{
         });
 
 }
+
     //  console.log(getRequests[0][0]?.firstName,"=========>noti home Data")
+    const addToList=(id)=>{
+      console.log(id,"---------->list id")
+    const values={
+     otherId:id,
+     userId:userId.id
+    }
+
+   addList(values)
+   .then((data)=>{
+     if(data?.data?.message==="user added"){
+       toast.success('Added to list', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+
+     }
+   })
+}
   return (
 
     
@@ -356,7 +391,7 @@ streamPics.map((data,index)=>(
   <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${data.userId}`)}/>
  
   <div class="card-body">
-   <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(14px)":""}}/>
+   <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
     {data?.postCheck===true&&
       <LockModal open={lockModal}/>
     
@@ -366,8 +401,8 @@ streamPics.map((data,index)=>(
   <div class="card-footer bg-transparent d-flex justify-content-end mb-1" >
  
  
-     <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px"}}/>
-    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"0 0 0 0",paddingTop:"10px",marginRight:"-8px"}}/>
+     <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
+    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"0 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
    <PaymentModal  />
   </div>
 </div>

@@ -12,3 +12,8 @@ export const GET_ALL_ACCEPTED_REQUEST_SUCCESS = 'getAllAccpetedRequestSuccess'
 export const GET_ALL_ACCEPTED_REQUEST_FAIL = 'getAllAcceptedRequestFail'
 export const GET_ALL_SENDER_REQUEST_SUCCESS = 'getAllSenderRequestSuccess'
 export const GET_ALL_SENDER_REQUEST_FAIL = 'getAllSenderRequestFail'
+export const GET_LIST_SUCCESS = 'getAllListSuccess'
+export const GET_LIST_FAIL = 'getAllListFail'
+export const DELETE_LIST_SUCCESS = 'deleteListSuccess'
+export const DELETE_LIST_FAIL = 'deleteAllListFail'
+

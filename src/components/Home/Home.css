@@ -173,8 +173,8 @@ p {
 .lock-img{
   position: absolute!important;
   margin-top: -35%!important;
-  width: 170px !important;
-  height: 170px !important;
+  width: 200px !important;
+  height: 200px !important;
   margin-left: -5%!important;
   cursor: pointer!important;
 }

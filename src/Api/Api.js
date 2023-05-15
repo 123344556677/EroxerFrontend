@@ -68,5 +68,12 @@ export const changeStatus= async (values) => {
     return await axios.put(`${url}/changeRequestStatus`, values);
 }
 
+//list
+export const addList= async (values) => {
+    return await axios.post(`${url}/addToList`, values);
+}
+export const deleteListDataById= async (values) => {
+    return await axios.post(`${url}/deleteListDataById`, values);
+}
 
 

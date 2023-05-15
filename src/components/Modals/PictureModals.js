@@ -39,7 +39,7 @@ const PictureModals = ({ dataImageValue }) => {
 
         if (video) {
           video.srcObject = stream;
-          let width = 200;
+          let width = 300;
           let height = width / (12 / 9);
           video.width = width;
           video.height = height;
@@ -54,7 +54,7 @@ const PictureModals = ({ dataImageValue }) => {
   function handleCaptureClick() {
     let video = videoRef.current;
     let photo = photoRef.current;
-    let width = 200;
+    let width = 300;
     let height = width / (12 / 9);
     photo.width = width;
     photo.height = height;
