@@ -16,9 +16,20 @@ const ChatImageModal = (props) => {
   console.log(props,"in image modal")
     const history=useHistory()
     const [showModal, setShowModal] = useState(false);
+    const [timer, setTimer] = useState(15);
   function toggleModal() {
   setShowModal(!showModal);
 }
+let intervalId = null;
+useEffect(() => {
+    if (showModal) {
+      startTimer();
+    } else {
+      clearInterval(intervalId);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [showModal]);
 const gotoPost=()=>{
     history.push('/admin/createPost');
     toggleModal();
@@ -30,9 +41,15 @@ const gotoAd=()=>{
 
 const settingInterval=()=>{
   toggleModal()
+
   props?.image?.settingInterval(props?.image?.imageString)
 }
-
+const startTimer = () => {
+    setTimer(15);
+    intervalId = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+  };
 
   return (
    <div className='content'>
@@ -45,6 +62,7 @@ const settingInterval=()=>{
 
 <div className="button-container chat-second-img">
   <button className="tap-button tap-img-btn"  onClick={settingInterval}>
+  
     <span className="tap-text">Tap to Open</span>
   </button>
 </div>
@@ -55,7 +73,7 @@ const settingInterval=()=>{
 
   </div>
   <div className="modal-body ">
-  <h5 className='text-center text-white'>This image is visible for only 15 seconds</h5>
+  <h5 className='text-center text-white'>This image is visible for only {timer} seconds</h5>
   <h1 className='text-center'>
   <img className="" src={props?.image?.imageString} style={{width:"500px",height:"300px"}} alt=""/>
   </h1>

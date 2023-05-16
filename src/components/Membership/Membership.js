@@ -22,6 +22,7 @@ import MembershipSection from './MembershipSection'
 import './Memebrship.css'
 import { updateUser } from 'Api/Api'
 import { FaHandPointRight } from 'react-icons/fa'
+import VideoModal from 'components/Modals/VideoModal'
 const Membership = () => {
   const [step,setStep]=useState(true)
   const [cnicFront,setCnicFront]=useState()
@@ -185,48 +186,52 @@ If we notice an attempted login from a device or browser we don't
     
     </Row>
    <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
-   <FormGroup check className="mt-4" >
+   <FormGroup check className="mt-4">
     <Input type="radio" className='mt-2'  />
-    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify CNIC</Label>
+    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify Your self</Label>
     </FormGroup>
-    <Row>
+    <Row className='justify-content-center'>
+    <VideoModal/>
+
+    {
+    // <Col xl={8} sm={8} md={8}>
+    // <Card className="member-card  mt-2" >
+    // <h4 className='text-center mb-0'>
+    // <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
+    // <FileBase64
+    //     type="file"
+    //     className="text-center"
+    //     onDone={(base64) => handleCnicFrontPic({ selectedFile: base64 })}
+    //    style={{cursor:"pointer"}}
+
+
+    // />
+    // </div>
+    // <img src={cnicFront?cnicFront:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
+    // <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Front Copy</p>
+
+    // </Card>
+    // </Col>
     
-    <Col xl={5} sm={5} md={6}>
-    <Card className="member-card  mt-2" >
-    <h4 className='text-center mb-0'>
-    <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
-    <FileBase64
-        type="file"
-        className="text-center"
-        onDone={(base64) => handleCnicFrontPic({ selectedFile: base64 })}
-       style={{cursor:"pointer"}}
+    // <Col xl={5} sm={5} md={6}>
+    // <Card className="member-card mt-2 ml-md-5 mb-0" >
+    // <h4 className='text-center mb-0'>
+    // <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
+    // <FileBase64
+    //     type="file"
+    //     className="text-center"
+    //     onDone={(base64) => handleCnicBackPic({ selectedFile: base64 })}
+    //    style={{cursor:"pointer"}}
 
 
-    />
-    </div>
-    <img src={cnicFront?cnicFront:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
-    <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Front Copy</p>
+    // />
+    // </div>
+    // <img src={cnicBack?cnicBack:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
+    // <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Back Copy</p>
 
-    </Card>
-    </Col>
-    <Col xl={5} sm={5} md={6}>
-    <Card className="member-card mt-2 ml-md-5 mb-0" >
-    <h4 className='text-center mb-0'>
-    <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
-    <FileBase64
-        type="file"
-        className="text-center"
-        onDone={(base64) => handleCnicBackPic({ selectedFile: base64 })}
-       style={{cursor:"pointer"}}
-
-
-    />
-    </div>
-    <img src={cnicBack?cnicBack:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
-    <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Back Copy</p>
-
-    </Card>
-    </Col>
+    // </Card>
+    // </Col>
+    }
     
     </Row>
     <FormGroup check className="" >

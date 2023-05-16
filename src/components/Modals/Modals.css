@@ -85,4 +85,13 @@
   font-size: 16px;
   font-weight: bold;
 }
+.modal-recording-button{
+background-image: linear-gradient(to bottom left, #6A097D, #6A097D, #6A097D)!important;
+border-radius: 5px!important;
+color:white;
+padding-left:130px!important;
+padding-right: 130px!important;
+
+
+}
 

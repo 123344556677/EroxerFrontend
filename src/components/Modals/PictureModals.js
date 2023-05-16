@@ -61,6 +61,7 @@ const PictureModals = ({ dataImageValue }) => {
     let ctx = photo.getContext("2d");
 
     ctx.drawImage(video, 0, 0, photo.width, photo.height);
+    
 
     // let image = photo.toBlob((blob) => {
     //   let url = URL.createObjectURL(blob);
@@ -81,6 +82,7 @@ const PictureModals = ({ dataImageValue }) => {
           getDownloadURL(snapshot.ref).then((url) => {
             console.log("Download URL:", url);
             dataImageValue(url); // Set the image URL to your state or variable
+            stopCamera()
           });
         })
         .catch((error) => {
@@ -88,6 +90,15 @@ const PictureModals = ({ dataImageValue }) => {
         });
     }, "image/jpeg");
   }
+  const stopCamera = () => {
+    toggleModal()
+    if (videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
 
   return (
     <div className="content">
@@ -108,6 +119,8 @@ const PictureModals = ({ dataImageValue }) => {
                 <br />
                 <canvas ref={photoRef}></canvas>
               </Col>
+              
+              
               <Col xl={12} className="text-center">
                 <Button
                   type="button"

@@ -75,5 +75,10 @@ export const addList= async (values) => {
 export const deleteListDataById= async (values) => {
     return await axios.post(`${url}/deleteListDataById`, values);
 }
+//creator
+export const applyForCreator= async (values) => {
+    return await axios.post(`${url}/applyForCreator`, values);
+}
+
 
 
