@@ -115,7 +115,7 @@ const setThiredPassword=()=>{
       <Input
         id="exampleEmail"
         name="email"
-        placeholder=""
+       
         type="email"
         className='reset-input'
         placeholder="Enter Code"

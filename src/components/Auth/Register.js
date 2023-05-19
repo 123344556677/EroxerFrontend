@@ -26,7 +26,6 @@ import {
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import { googleReg } from "Api/Api";
 
-// import { User } from "../backend-sdk/user.sdk";
 
 function Register(props) {
   const history = useHistory();
@@ -151,13 +150,14 @@ function Register(props) {
                   </FormGroup>
                 </Col>
               </Row>
+              
               <FormGroup>
                 <Input
                   defaultValue=""
                   placeholder="Email"
                   type="email"
                   autoComplete=""
-                  className=" login-inputs mt-4"
+                  className=" login-inputs mt-3"
                   required
                   onChange={(e) => setEmail(e.target.value)}
                 />

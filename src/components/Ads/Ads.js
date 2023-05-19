@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoIosMore, IoMdArrowDropdown } from 'react-icons/io'
 import { HiLocationMarker } from 'react-icons/hi'
-import { AiFillEye } from 'react-icons/ai'
+import { AiFillEye, AiFillMail } from 'react-icons/ai'
 import './Ads.css'
 import cities from 'cities';
 
@@ -42,6 +42,8 @@ import { useHistory } from 'react-router-dom'
 import { getAllAds } from 'Api/Api'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAds as ads } from 'components/redux/actions/adsActions';
+import { FaSearch } from 'react-icons/fa'
+import { AdCounterIncrement } from 'Api/Api'
 
 const Ads = () => {
   const history=useHistory()
@@ -52,9 +54,16 @@ const Ads = () => {
      const [CitydropdownOpen, setCityDropdownOpen] = useState(false);
      const [GenderdropdownOpen, setGenderDropdownOpen] = useState(false);
      const [AgedropdownOpen, setAgeDropdownOpen] = useState(false);
+     const [filtereCheck, setFiltereCheck] = useState(false);
      const [filter, setFilter] = useState("");
      const [adData, setAdData] = useState([]);
-     
+    const [filtereAds, setFiltereAds] = useState();
+     const [country, setCountry] = useState('');
+     const [city, setCity] = useState('');
+     const [gender, setGender] = useState('');
+     const [initialized, setInitialized] = useState(false);
+     console.log(country,"============>country")
+      
       const Viewtoggle = () => setViewDropdownOpen(!ViewdropdownOpen);
       const Recenttoggle = () => setRecentDropdownOpen(RecentdropdownOpen);
       const Populartoggle = () => setPopularDropdownOpen(!PopulardropdownOpen);
@@ -64,6 +73,7 @@ const Ads = () => {
       const Agetoggle = () => setAgeDropdownOpen(!AgedropdownOpen);
       const dispatch=useDispatch()
         const getAds = useSelector(state => state?.getAds);
+        
      useEffect(()=>{
     dispatch(ads())
 //     for (let i = 0; i < cities.length; i++) {
@@ -79,6 +89,19 @@ const Ads = () => {
 // }
     
     },[])
+    useEffect(()=>{
+    setFiltereAds(getAds?.ads)
+    
+    },[getAds])
+    useEffect(() => {
+    // Call your function here
+   
+    filteredAds()
+    
+    
+  }, [country,city,gender]);
+  console.log(filtereAds,"effect-------------------->")
+
     const cityList = [
 { name: "New York", country: "United States" },
   { name: "Los Angeles", country: "United States" },
@@ -520,110 +543,195 @@ const Ads = () => {
             pic:cardPic
         },
     ]
+    // let filtereAds=[]
+  //  const callingFunction=()=>{
+  //   setTimeout(() => {
+  //   filteredAds();
+  //    }, 15000);
+  //  }
+    const filteredAds=()=>{
+      
+     
+      console.log(country,"filtered--------->country")
+       console.log(city,"filtered--------->country")
+       console.log(gender,"filtered--------->gender")
+      
+        if(country&&city===''&&gender===''){
+          console.log(data,"coming in it for ad")
+          setFiltereAds(getAds?.ads?.filter(item => item?.country === country));
+        }
+        if(country&&city&&gender===''){
+           console.log(data,"coming in it for CITY ad")
+            
+         setFiltereAds(getAds?.ads?.filter(item => item?.country === country&&item.city===city));
+        }
+        if(country&&city&&gender){
+         
+         setFiltereAds(getAds?.ads?.filter(item => item?.country === country&&item.city===city&&item.gender===gender));
+        }
+        if(country===''&&city===''&&gender!==''){
+           
+          setFiltereAds(getAds?.ads?.filter(item => item?.gender === gender));
+        }
+        if(country===''&&city&&gender!==''){
+          setFiltereAds(getAds?.ads?.filter(item => item?.gender === gender&&item.city===city));
+        }
+        
+        if(country===''&&city&&gender===''){
+         setFiltereAds(getAds?.ads?.filter(item => item?.city === city));
+        }
+        if(country&&city===''&&gender!==''){
+         setFiltereAds(getAds?.ads?.filter(item => item?.country === country&&item?.gender === gender));
+        }
+       
+       
+       
+   
+
+    }
+    console.log(filtereAds,"ads------->filtered")
     const filteredCountries = countries.filter(country => country.name.startsWith(filter));
     const handleCountry = (e) => {
     setFilter(e.target.innerText);
   }
+   const filteringBySearch=(e)=>{
+      setFiltereAds( getAds?.ads?.filter(item=> item.userData?.firstName.includes(e.target.value)||item.userData?.lastName.includes(e.target.value)))
+
+    }
+    const incrementClick=(id)=>{
+      const values={
+      id:id
+      }
+      AdCounterIncrement(values)
+
+      
+    }
 
 console.log(adData)
   return (
     <div className='content' style={{zoom:"0.90"}}>
-    <h1 className='text-white mt-1' style={{fontStyle:"Roboto"}}>Contact ads</h1>
-    <Row className=''>
+    <Row>
+    <Col xl={5} md={5} sm={5} className="">
     
-     <Dropdown isOpen={ViewdropdownOpen} toggle={Viewtoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">Most view<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
-        <DropdownMenu className='simple-menu'  >
+    </Col>
+    <Col xl={5} md={5} sm={5} className="">
+    <div className="home-input-addon" style={{marginTop:"-45px"}}>
+     <InputGroup style={{ borderRadius: '20px' }} >
+      <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+        <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
+          <FaSearch className="home-search" style={{ color: 'white' }} />
+        </InputGroupText>
+      </InputGroupAddon>
+      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white',zIndex:"8000" }} placeholder="Search" onChange={(e)=>filteringBySearch(e)} />
+    </InputGroup>
+    </div>
+    </Col>
+    </Row>
+    <h1 className='text-white mt-1 ml-lg-4' style={{fontStyle:"Roboto"}}>Contact ads</h1>
+    <Row className=''>
+
+    {
+    //  <Dropdown isOpen={ViewdropdownOpen} toggle={Viewtoggle} className="" style={{marginLeft:"5%"}}>
+    //     <DropdownToggle className="dropDown">Most view<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
+    //     <DropdownMenu className='simple-menu'  >
           
-          <DropdownItem> Alex Rock</DropdownItem>
-          <DropdownItem> Jassen Smith</DropdownItem>
-          <DropdownItem> Brandon Ocean</DropdownItem>
-        </DropdownMenu>
+    //       <DropdownItem> Alex Rock</DropdownItem>
+    //       <DropdownItem> Jassen Smith</DropdownItem>
+    //       <DropdownItem> Brandon Ocean</DropdownItem>
+    //     </DropdownMenu>
+    //   </Dropdown>
+    //   <Dropdown isOpen={RecentdropdownOpen} toggle={Recenttoggle} className="" style={{marginLeft:"5%"}}>
+    //     <DropdownToggle className="dropDown">Most recents<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
+    //     <DropdownMenu className='simple-menu' >
+    //       <DropdownItem> Alex Rock</DropdownItem>
+    //       <DropdownItem> Jassen Smith</DropdownItem>
+    //       <DropdownItem> Brandon Ocean</DropdownItem>
+    //     </DropdownMenu>
+    //   </Dropdown>
+    //   <Dropdown isOpen={PopulardropdownOpen} toggle={Populartoggle} className="" style={{marginLeft:"5%"}}>
+    //     <DropdownToggle className="dropDown">Most popular<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
+    //     <DropdownMenu className='simple-menu' >
+    //       <DropdownItem> Alex Rock</DropdownItem>
+    //       <DropdownItem> Jassen Smith</DropdownItem>
+    //       <DropdownItem> Brandon Ocean</DropdownItem>
+    //     </DropdownMenu>
+    //   </Dropdown>
+    }
+     <Dropdown isOpen={GenderdropdownOpen} toggle={Gendertoggle} onClick={()=>{setFiltereAds(getAds?.ads)}} className="" style={{marginLeft:"5%"}}>
+        <DropdownToggle className="dropDown toggle-down" >All</DropdownToggle>
+       
       </Dropdown>
-      <Dropdown isOpen={RecentdropdownOpen} toggle={Recenttoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">Most recents<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
-        <DropdownMenu className='simple-menu' >
-          <DropdownItem> Alex Rock</DropdownItem>
-          <DropdownItem> Jassen Smith</DropdownItem>
-          <DropdownItem> Brandon Ocean</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-      <Dropdown isOpen={PopulardropdownOpen} toggle={Populartoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">Most popular<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
-        <DropdownMenu className='simple-menu' >
-          <DropdownItem> Alex Rock</DropdownItem>
-          <DropdownItem> Jassen Smith</DropdownItem>
-          <DropdownItem> Brandon Ocean</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+    
       <Dropdown isOpen={CountrydropdownOpen} toggle={Countrytoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">Country<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
+        <DropdownToggle className="dropDown toggle-down" style={{padding:"100px"}}>{country?country:"Country"}<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
         <DropdownMenu className='country-menu'  >
-        {
-          Array.from(Array(26)).map((_, index) => {
-          const letter = String.fromCharCode(65 + index);
-          const letterCountries = filteredCountries.filter(country => country.name.startsWith(letter));
-          if (letterCountries.length === 0) {
-            return null;
-          }
-          return(
-            <div key={index}>
+        
+       
+          
+        
             
-          <DropdownItem header style={{fontSize:"20px"}}>{letter}</DropdownItem>
+          
             
-          {letterCountries.map(country => (
-                <DropdownItem key={country.code} onClick={handleCountry}>
+            
+          {countries.map(country => (
+                <DropdownItem key={country.code} onClick={()=>{setCountry(country.name);filteredAds()}}>
                   {country.name}
                 </DropdownItem>
-              ))}
-          </div>
-          )})}
+             
+         
+          ))}
         </DropdownMenu>
 
           
       </Dropdown>
+     
       <Dropdown isOpen={CitydropdownOpen} toggle={Citytoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">City<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
+        <DropdownToggle className="dropDown toggle-down">{city?city:"City"}<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
         <DropdownMenu className='country-menu'  >
         {
           cityList.map((data,index)=>(
 
           
-          <DropdownItem key={index}>{data.name}</DropdownItem>
+          <DropdownItem onClick={()=>{setCity(data.name);filteredAds()}} key={index}>{data.name}</DropdownItem>
           ))
         }
           
         </DropdownMenu>
       </Dropdown>
-      <Dropdown isOpen={GenderdropdownOpen} toggle={Gendertoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">Gender<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
-        <DropdownMenu className='simple-menu' >
-          <DropdownItem >Male</DropdownItem>
-          <DropdownItem>Female</DropdownItem>
-          <DropdownItem>Other</DropdownItem>
-         
-         
-        </DropdownMenu>
+     
+      <Dropdown isOpen={GenderdropdownOpen} toggle={Gendertoggle} onClick={()=>{setGender("Male");filteredAds()}} className="" style={{marginLeft:"5%"}}>
+        <DropdownToggle className="dropDown toggle-down">Looking for Male</DropdownToggle>
+       
       </Dropdown>
-      <Dropdown isOpen={AgedropdownOpen} toggle={Agetoggle} className="" style={{marginLeft:"5%"}}>
-        <DropdownToggle className="dropDown">Age<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
-        <DropdownMenu className='country-menu' >
-        {
-        Array.from({ length: 100 }, (_, i) => (
-         i>=18&&
-          <DropdownItem >{i}</DropdownItem>
-        ))
-        }
+      
+      <Dropdown isOpen={GenderdropdownOpen} toggle={Gendertoggle} onClick={()=>{setGender("Female");filteredAds()}} className="" style={{marginLeft:"5%"}}>
+        <DropdownToggle className="dropDown toggle-down">Looking for Female</DropdownToggle>
+       
+      </Dropdown>
+      
+      {
+      // <Dropdown isOpen={AgedropdownOpen} toggle={Agetoggle} className="" style={{marginLeft:"5%"}}>
+      //   <DropdownToggle className="dropDown">Age<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
+      //   <DropdownMenu className='country-menu' >
+      //   {
+      //   Array.from({ length: 100 }, (_, i) => (
+      //    i>=18&&
+      //     <DropdownItem >{i}</DropdownItem>
+      //   ))
+      //   }
           
-        </DropdownMenu>
-      </Dropdown>
+      //   </DropdownMenu>
+      // </Dropdown>
+      }
      
       </Row>
       <Row  className="no-gutters" >
+      
       {
-        getAds?.ads?.map((data)=>(
+       
+        filtereAds?.map((data)=>(
       <Col xl={4} >
-      <Card className='mt-2 ml-lg-4' style={{backgroundColor:"#161616",borderRadius:"20px",width:"380px",cursor:"pointer"}} onClick={()=>history.push(`/admin/adDescription/${data._id}`)}>
+      <Card className='mt-2 ml-lg-4' style={{backgroundColor:"#161616",borderRadius:"20px",width:"380px",cursor:"pointer"}} onClick={()=>{history.push(`/admin/adDescription/${data._id}`);incrementClick(data._id)}}>
      
   
   <img
@@ -635,9 +743,12 @@ console.log(adData)
     style={{borderRadius:"20px",height:"200px"}}
   />
   <div style={{display:"flex"}} className="ml-4">
-  <img src="https://picsum.photos/100/100" alt="" className='contact-profile'/>
-  <img src="https://picsum.photos/100/100" alt="" className='contact-profile-one'/>
-  <img src="https://picsum.photos/100/100" alt="" className='contact-profile-one'/>
+  <AiFillEye className='contact-profile'/> <span className='ml-2'  style={{marginTop:"-35px",color:"purple",fontSize:"15px",fontWeight:"700"}}>{data?.counter}</span>
+  {
+  // <img src="https://picsum.photos/100/100" alt="" className='contact-profile'/>
+  // <img src="https://picsum.photos/100/100" alt="" className='contact-profile-one'/>
+  // <img src="https://picsum.photos/100/100" alt="" className='contact-profile-one'/>
+  }
   </div>
   
   <CardBody>
@@ -655,7 +766,7 @@ console.log(adData)
     </CardText>
     </Col>
      <Col className='text-right'>
-    <BsPersonFillAdd style={{fontSize:"20px",color:"white"}}/>
+    <AiFillMail style={{fontSize:"20px",color:"white"}}/>
     </Col>
     </Row>
     
@@ -665,6 +776,8 @@ console.log(adData)
 </Card>
 </Col>
         ))
+       
+       
       }
 </Row>
     </div>

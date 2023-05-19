@@ -37,10 +37,12 @@ import { deleteListDataById } from 'Api/Api'
 import { toast,ToastContainer } from 'react-toastify'
 import { useHistory } from 'react-router-dom'
 import { getListById } from 'components/redux/actions/listActions'
+import { FaSearch } from 'react-icons/fa'
 const Explore = () => {
     const history=useHistory()
     const dispatch=useDispatch()
     const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+     const [filtereList, setFiltereList] = useState()
     let trends=[
         {
             pic:"https://picsum.photos/318/180"
@@ -64,6 +66,11 @@ const Explore = () => {
        dispatch(getListById(Values))
         
     }, [dispatch])
+    useEffect(() => {
+      
+      setFiltereList(getList)
+        
+    }, [getList])
 
       const deleteProfile=(id)=>{
         console.log("delete----------->",id)
@@ -88,17 +95,39 @@ const Explore = () => {
         })
 
       }
+      const filteringBySearch=(e)=>{
+      setFiltereList( getList.filter(item=> item.otherData?.firstName.includes(e.target.value)))
+
+    }
       
        
     
   return (
     <div className="content ">
+    <Row>
+    <Col xl={5}>
+    </Col>
+     <Col xl={5}>
+     <div className="home-input-addon" style={{marginTop:"-50px"}}>
+     <InputGroup style={{ borderRadius: '20px' }} >
+      <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+        <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
+          <FaSearch className="home-search" style={{ color: 'white' }} />
+        </InputGroupText>
+      </InputGroupAddon>
+      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white',zIndex:"8000" }} placeholder="Search" onChange={(e)=>filteringBySearch(e)} />
+    </InputGroup>
+    </div>
+     
+                        </Col>
+                        </Row>
     <div style={{zoom:"0.70"}} className="mr-lg-4">
     <Row className='mt-3 justify-content-center'>
+
     <Col xl={8}>
     <h1 className='text-white' style={{fontStyle:"Roboto",fontSize:"50px"}}>Custom List</h1>
     {
-        getList?.map((data)=>(
+        filtereList?.map((data)=>(
 
        
      <Card style={{backgroundColor:"#161616",borderRadius:"10px"}}>

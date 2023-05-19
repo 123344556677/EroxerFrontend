@@ -184,6 +184,8 @@ const Home = () => {
       // const [userData, setUserData] = useState()
       const [postData, setPostData] = useState()
       const [lockModal,setLockModal]=useState(false)
+      const [search,setSearch]=useState(false)
+      const [filterePosts,setFilterePosts]=useState()
       const dispatch=useDispatch()
         const getPost = useSelector(state => state?.getPosts);
         const getUser= useSelector(state => state?.getUserById);
@@ -233,6 +235,15 @@ const Home = () => {
        dispatch(getListById(values))
         
     }, [dispatch])
+    useEffect(() => {
+      setFilterePosts( getPost?.posts)
+        
+    }, [getPost])
+
+    const filteringBySearch=(e)=>{
+      // setFilterePosts( getPost?.posts?.filter(item=>item.userData.))
+
+    }
 
     useEffect(() => {
     const pusher = new Pusher("78bfd9bc497cd883c526", {
@@ -349,7 +360,7 @@ const changeRequestStatus=(id)=>{
           <FaSearch className="home-search" style={{ color: 'white' }} />
         </InputGroupText>
       </InputGroupAddon>
-      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
+      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" onChange={(e)=>filteringBySearch(e)} />
     </InputGroup>
     </div>
      </Col>
@@ -385,7 +396,7 @@ streamPics.map((data,index)=>(
   <span style={{color:"white",fontWeight:"600",fontSize:"18px"}} >Lets Discover </span>
  
   {
-    getPost?.posts?.map((data,index)=>(
+   filterePosts?.map((data,index)=>(
  <div class={index>0?"card second-card-main":"card card-main"} style={{zoom:"0.80"}}>
  
   <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${data.userId}`)}/>

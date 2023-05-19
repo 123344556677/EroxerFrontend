@@ -27,6 +27,12 @@ export const getUsersById = async (values) => {
 export const updatePassword = async (values) => {
     return await axios.put(`${url}/updatePassword`, values);
 }
+export const initiateEmailVerification = async (values) => {
+    return await axios.post(`${url}/sendCode`, values);
+}
+export const verifyCode= async (values) => {
+    return await axios.post(`${url}/verifyCode`, values);
+}
 //post
 export const createPost = async (values) => {
     return await axios.post(`${url}/createPost`, values);
@@ -43,6 +49,9 @@ export const getAllAds= async () => {
 }
 export const getAdsById= async (id) => {
     return await axios.get(`${url}/getAdById/${id}`);
+}
+export const AdCounterIncrement= async (values) => {
+    return await axios.put(`${url}/counterIncrement`,values);
 }
 
 

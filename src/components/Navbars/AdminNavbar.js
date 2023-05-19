@@ -133,44 +133,7 @@ function AdminNavbar(props) {
                     props.brandText !== "editProfile" &&
                     props.brandText !== "Brand" && (
                       <>
-                        <div className="home-input-addon">
-                          <InputGroup
-                            style={{ borderRadius: "20px" }}
-                            className="navbar-search"
-                          >
-                            <InputGroupAddon
-                              addonType="prepend"
-                              className="home-search"
-                              style={{
-                                background: "black",
-                                borderTopLeftRadius: "20px",
-                                borderBottomLeftRadius: "20px",
-                              }}
-                            >
-                              <InputGroupText
-                                style={{
-                                  borderColor: "white",
-                                  borderRadius: "20px 0 0 20px",
-                                }}
-                              >
-                                <FaSearch
-                                  className="home-search"
-                                  style={{ color: "white" }}
-                                />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              style={{
-                                background: "black",
-                                borderColor: "white",
-                                borderTopRightRadius: "20px",
-                                borderBottomRightRadius: "20px",
-                                color: "white",
-                              }}
-                              placeholder="Search"
-                            />
-                          </InputGroup>
-                        </div>
+                       
 
                         <UncontrolledDropdown nav>
                           <DropdownToggle

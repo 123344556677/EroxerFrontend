@@ -14,15 +14,16 @@
   z-index: 1!important;
 }
 .contact-profile{
-    border-radius: 50%;
+   
     position:relative!important;
      object-fit: cover!important;
     z-index: 4!important;
-    margin-top: -30px!important;
+    margin-top: -40px!important;
    
-    border:1px solid white;
-    width:40px;
-    height: 40px;
+  
+    width:30px;
+    height: 30px;
+    color: aliceblue;
 
 }
 .contact-profile-one{
@@ -89,4 +90,9 @@
 
 .ads-row > .ads-card:last-child {
   margin-right: 0!important;
+}
+.toggle-down{
+  padding-right: 3rem!important;
+  padding-left: 3rem!important;
+  font-size: 16px!important;
 }

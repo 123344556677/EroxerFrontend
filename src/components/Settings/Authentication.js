@@ -7,6 +7,7 @@ import './Settings.css'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import ChatPortion from 'components/ChatPortion/ChatPortion'
+import SmsModal from 'components/Modals/SmsModal'
 
 const Authentication= () => {
   return (
@@ -34,36 +35,39 @@ const Authentication= () => {
     
   </FormGroup>
   <Row>
-  <Col xl={6}>
-  <Media className='mt-4 ml-lg-3 chat-media'>
-      <Media left>
-        <img object  src={authTwo} alt="jannan" className=" rounded-circle" />
-      </Media>
-      <Media body className="ml-3 ">
-        <h3 className='text-white mb-0 'style={{fontWeight:"600"}}>Security Key</h3>
-        <p className="chat-designation mt-2" >Use a physical security key to help protect your <br/>
-        Facebook account from unauthorized access. .<br/> You won't need to enter a code.</p>
-        <Button className="auth-button">Use scurity key</Button>
-      </Media>
-      
-    </Media>'
-  </Col>
-  <Col xl={6}>
+   <Col xl={6}>
   <Media className='mt-4 ml-lg-3 chat-media'>
       <Media left>
         <img object  src={authOne} alt="jannan" className=" rounded-circle" />
       </Media>
       <Media body className="ml-3 ">
-        <h3 className='text-white mb-0 'style={{fontWeight:"600"}}>Text Message (SMS)</h3>
-        <p className="chat-designation mt-2" >Use text message (SMS) to receive verification <br/> codes. For your protection, phone numbers used <br/>
+        <h3 className='text-white mb-0 'style={{fontWeight:"600"}}>Email verification</h3>
+        <p className="chat-designation mt-2" >Use email to receive verification <br/> codes. For your protection,emails used <br/>
          for two-factor 
         authentication can't be used to <br/> reset your password when two-factor is on.</p>
-        <Button className="auth-button" style={{fontSize:"12px"}}>Use text message (SMS)</Button>
+       <SmsModal/>
       </Media>
       
     </Media>
   
   </Col>
+  {
+  // <Col xl={6}>
+  // <Media className='mt-4 ml-lg-3 chat-media'>
+  //     <Media left>
+  //       <img object  src={authTwo} alt="jannan" className=" rounded-circle" />
+  //     </Media>
+  //     <Media body className="ml-3 ">
+  //       <h3 className='text-white mb-0 'style={{fontWeight:"600"}}>Security Key</h3>
+  //       <p className="chat-designation mt-2" >Use a physical security key to help protect your <br/>
+  //       Facebook account from unauthorized access. .<br/> You won't need to enter a code.</p>
+  //       <Button className="auth-button">Use scurity key</Button>
+  //     </Media>
+      
+  //   </Media>'
+  // </Col>
+  }
+ 
   
   
   </Row>

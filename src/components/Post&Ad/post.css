@@ -110,6 +110,21 @@ border-left: none!important;
 border-radius: 2px!important;
 margin-top: -1px;
 }
+.ad-option::-webkit-scrollbar {
+  width: 8px;
+  /* display: none!important; */
+
+  
+}
+
+.ad-option::-webkit-scrollbar-track {
+  background-color:   #1e1e2b!important
+}
+
+.ad-option::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
 
 
 
