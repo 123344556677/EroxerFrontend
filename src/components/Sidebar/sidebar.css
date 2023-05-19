@@ -12,7 +12,8 @@
     
 }
 .sidebar{
-width:300px!important
+width:300px!important;
+
 }
 .dropDown-sidebar:hover{
      background-image: linear-gradient(to bottom left, #161616, #161616, #161616)!important;
@@ -104,7 +105,7 @@ margin-top: 6px!important;
    
 }
 .footer-main{
-    margin-top: 50px!important;
+    margin-top: 5px!important;
     color:#CFCFCF !important;
     font-weight: 600;
 }
@@ -112,6 +113,7 @@ margin-top: 6px!important;
     font-size: 11px;
     color:#CFCFCF !important;
     font-weight: 600;
+    margin-top: -12px!important;
 }
 .footer-textt{
     font-size: 11px;
@@ -150,6 +152,36 @@ margin-top: 6px!important;
     transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
     -webkit-transform: translate3d(0px, 0, 0);
     transform: translate3d(0px, 0, 0);
-    left:-40px!important
+    left:-300px!important
 }
 }
+.accordian-text{
+    margin-top: 10px!important;
+    font-weight: 600;
+    font-size: 14px!important;
+}
+.accordian-icon{
+    font-size: 40px!important;
+}
+/* .sidebar::-webkit-scrollbar {
+  width: 8px;
+  display: none!important;
+
+  
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color:   #1e1e2b!important
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #888!important;
+  border-radius: 5px!important;
+}
+
+/* Hiding the scrollbar by default */
+/* .sidebar::-webkit-scrollbar-thumb:hover {
+  background-color: #555!important;
+  
+  
+} */ 

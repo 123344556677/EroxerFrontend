@@ -129,3 +129,31 @@ border-radius: 50%!important;
   margin-left: 50%!important;
   cursor: pointer;
 }
+.drop-chat{
+  background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+  padding: 0rem 0rem!important;
+  box-shadow: none!important;
+  color: inherit;
+   
+}
+.drop-chat:hover{
+  background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+  background-color:#1e1e2e!important ;
+  padding: 0rem 0rem!important;
+  box-shadow: none!important;
+  color: inherit;
+}
+.drop-chat:active{
+  background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+  padding: 0rem 0rem!important;
+  box-shadow: none!important;
+  color: inherit;
+   
+}
+
+/* .dropDown-chat{
+  background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+  padding: 0rem 0rem!important;
+  box-shadow: none!important;
+} */
+

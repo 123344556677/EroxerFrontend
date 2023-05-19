@@ -99,6 +99,14 @@ var routes = [
     component: Explore,
     layout: "/admin",
   },
+  {
+    path: "/home",
+    name: "Subscription",
+    rtlName: "خرائط",
+    icon: "fa fa-credit-card-alt",
+    component: Explore,
+    layout: "/admin",
+  },
   
  
   {

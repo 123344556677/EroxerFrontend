@@ -39,8 +39,10 @@ import {
   Badge,
   Media,
   Modal,
+  Dropdown
 } from "reactstrap";
-import { AiFillPhone } from "react-icons/ai";
+import { AiFillDelete, AiFillPhone } from "react-icons/ai";
+import { TiTick} from "react-icons/ti";
 import { BsCameraVideoFill, BsFillSendFill } from "react-icons/bs";
 import { IoIosAttach, IoMdMore } from "react-icons/io";
 import ChatProfile from "components/ChatProfile/ChatProfile";
@@ -71,7 +73,9 @@ const Chat = () => {
   const [chatUserData, setChatUserData] = useState();
   const [attachmentCheck, setAttachmentCheck] = useState(false);
   const [intervalActive, setIntervalActive] = useState(false);
-
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [filtereMessage, setFiltereMessage] = useState(false);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   const [chatPic, setChatPic] = useState(false);
 
@@ -323,6 +327,17 @@ setMessage("");
 });
  }, 15000);
   }
+  let deletableMessages=[]
+  const handleFiltere=(data)=>{
+    console.log(data,"message coming in filter")
+    deletableMessages.push(data)
+}
+const deleteSelectedMessages=()=>{
+  console.log(deletableMessages,"delte messages")
+setMessages(messages.filter((item) => !deletableMessages.includes(item.message)));
+setFiltereMessage(false)
+
+}
   function renderImageTag(imageString) {
     let blobUrlPattern =/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
 
@@ -333,6 +348,16 @@ setMessage("");
     } else {
       console.log("no url");
       return (
+        <>
+        {
+          filtereMessage&&
+         <Input
+           type="checkbox"
+           style={{width:"13px",height:"13px"}}
+           className="mt-4"
+           onChange={()=>handleFiltere(imageString)}
+           />
+        }
         <Input
           defaultValue=""
           placeholder="Type your message here..."
@@ -340,6 +365,7 @@ setMessage("");
           value={imageString}
           className="chat-inputs mt-3 "
         />
+        </>
       );
     }
   }
@@ -434,7 +460,17 @@ setMessage("");
             </Col>
             <Col className="text-left">
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <AiFillPhone
+              {
+                filtereMessage&&
+               <AiFillDelete
+               onClick={deleteSelectedMessages}
+                  
+                  className="top-icons"
+                  style={{ cursor: "pointer" }}
+                />  
+              }
+              
+              <AiFillPhone
                   onClick={makeAudioCall}
                   className="top-icons"
                   style={{ cursor: "pointer" }}
@@ -446,7 +482,20 @@ setMessage("");
                   style={{ cursor: "pointer" }}
                 />
 
-                <IoMdMore className="top-icons" />
+                
+                 <Dropdown isOpen={dropdownOpen} toggle={toggle} className="dropDown-chat" >
+        <DropdownToggle className="drop-chat"><IoMdMore className="top-icons " /></DropdownToggle>
+        <DropdownMenu style={{backgroundColor:"#161616",position:"absolute",borderRadius:"20px"}}  >
+          <DropdownItem className="drop-item" onClick={()=>setMessages([])}>
+           <span><AiFillDelete/></span>
+           <span className="ml-2">Clear chat</span>
+          </DropdownItem>
+          <DropdownItem className="drop-item" onClick={()=>setFiltereMessage(true)}>
+           <span><TiTick/></span>
+           <span className="ml-2">Mark chat</span>
+          </DropdownItem>
+          </DropdownMenu>
+          </Dropdown>
               </div>
             </Col>
           </Row>
@@ -475,7 +524,8 @@ setMessage("");
                     </Media>
 
                     <Media body className="ml-2 message-media mt-3">
-                      {renderImageTag(data?.message)}
+                    
+                        {renderImageTag(data?.message)}
                     </Media>
                   </Media>
                 ) : (
@@ -486,6 +536,7 @@ setMessage("");
                   >
                     <Media className="">
                       <Media body className="ml-2 message-media mt-1">
+                       
                         {renderImageSecondTag(data?.message)}
                       </Media>
                       <Media right>
@@ -563,6 +614,7 @@ setMessage("");
                 onChange={(e) => setMessage(e.target.value)}
                 className="chat-thired-inputs"
                 style={{ marginTop: "0" }}
+                onKeyPress={(event)=>{event.key==="Enter"&&sendingMessage()}}
               />
               <InputGroupAddon style={{ border: "none" }} addonType="append">
                 <Button

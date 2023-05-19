@@ -20,9 +20,13 @@ import Logo from './logo.png'
 import apple from './j4.png'
 import playstore from './j5.png'
 import { AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiFillSetting, AiOutlineLogout, AiOutlineTwitter, AiOutlineUnlock, AiTwotoneSecurityScan } from "react-icons/ai";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { MdManageAccounts, MdPrivacyTip } from "react-icons/md";
 import HomeModals from "components/Modals/HomeModals";
+import { Accordion } from "react-bootstrap";
+import { BsDot } from "react-icons/bs";
+import AOS from "aos";
+
 
 
 
@@ -30,6 +34,7 @@ import HomeModals from "components/Modals/HomeModals";
 function Sidebar(props) {
    const [dropdownOpen, setDropdownOpen] = useState(false);
    const [live, setLive] = useState(false);
+   const [openList, setOpenList] = useState(false);
    const toggle = () => setDropdownOpen((prevState) => !prevState);
   const location = useLocation();
   const sidebarRef = React.useRef(null);
@@ -42,6 +47,15 @@ function Sidebar(props) {
     localStorage.clear();
     history.push('/')
   }
+  AOS.init()
+  
+  // const toggleAccordion = (id) => {
+  //   if (open === id) {
+  //     setOpen();
+  //   } else {
+  //     setOpen(id);
+  //   }
+  // };
   
   
   // const linkOnClick = () => {
@@ -149,20 +163,64 @@ function Sidebar(props) {
                     <NavLink
                       to={prop.layout + prop.path}
                       className="nav-link sidebar-links ml-lg-5"
-                      activeClassName={prop.name==="Settings"?"":"links-active"}
+                      activeClassName={prop.name==="Settings"||prop.name==="Subscription"?"":"links-active"}
                       onClick={props.toggleSidebar}
                       isOpen={props.name==="Settings"?dropdownOpen:""}
                       toggle={props.name==="Settings"?toggle:""}
+                      
                        
                     >
                     
                     
                       <i className={prop.icon} style={{marginTop:"6px"}}></i> 
-                      <p className={prop.name==="Home"?"links-name links-home-name":"links-name"}>{rtlActive ? prop.rtlName : prop.name}
+                     
+                      <p onClick={prop.name==="Subscription"?()=>setOpenList(!openList):()=>setOpenList(false)} className={prop.name==="Home"?"links-name links-home-name":"links-name"}>{rtlActive ? prop.rtlName : prop.name}
                       {
                         prop.name==="Home"&&
                         <HomeModals/>
                         
+                        
+                      }
+                      {
+                        prop.name==="Subscription"&&
+                        openList===false&&
+                      <IoMdArrowDropdown className='ml-2' style={{fontSize:"30px"}}/>
+                      }
+                      {
+                        prop.name==="Subscription"&&
+                        openList===true&&
+                      <IoMdArrowDropup className='ml-2' style={{fontSize:"30px"}}/>
+                      }
+                      {
+                        prop.name==="Subscription"&&
+                        openList===true&&
+                        <div className="ml-3 mt-1 accordian-div" data-aos="fade-right">
+                        <p className="accordian-text"  ><span className="accordian-dot"><BsDot className="accordian-icon" style={{color:""}}/></span> All</p>
+                        <p className="accordian-text"><span className="accordian-dot"><BsDot className="accordian-icon" style={{color:"green"}}/></span> Active</p>
+                        <p className="accordian-text"><span className="accordian-dot"><BsDot className="accordian-icon" style={{color:"red"}}/></span> Expired</p>
+                        <p className="accordian-text"><span className="accordian-dot"><BsDot className="accordian-icon" style={{color:"yellow"}}/></span> Attention Required</p>
+                        
+                        </div>
+
+                      }
+                      {
+                        // prop.name==="Subscription"&&
+    //                     <Accordion>
+    //   <Accordion.Item eventKey="0">
+    //     <Accordion.Header>Accordion Item #1</Accordion.Header>
+    //     <Accordion.Body>
+    //       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+         
+    //     </Accordion.Body>
+    //   </Accordion.Item>
+    //   <Accordion.Item eventKey="1">
+    //     <Accordion.Header>Accordion Item #2</Accordion.Header>
+    //     <Accordion.Body>
+    //       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          
+    //     </Accordion.Body>
+    //   </Accordion.Item>
+    // </Accordion>
                         
                       }
                       {
@@ -209,7 +267,7 @@ function Sidebar(props) {
                  
                 );
               })}
-              <div style={{marginTop:"50px"}}>
+              <div style={{marginTop:"10px"}}>
               <p className="mb-2 footer-main ml-4">Download our mobile app</p>
             <Row className="mb-3 ml-3">
             <img src={apple} className="ml-4"  alt=""/>
