@@ -1,9 +1,11 @@
+import { deleteAccount } from "Api/Api";
 import { getUsersById } from "Api/Api";
 import ChatPortion from "components/ChatPortion/ChatPortion";
 import AccountModal from "components/Modals/AccountModal";
 import React, { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Button,
   Card,
@@ -20,7 +22,9 @@ const AccountManagement = () => {
   const [userId, setuserId] = useState(
     JSON.parse(localStorage.getItem("keys"))
   );
+
   const [userData, setUserData] = useState();
+  const [checked, setChecked] = useState(false);
   const name = "name";
   const username = "username";
   const phoneNumber = "phoneNumber";
@@ -36,7 +40,27 @@ const AccountManagement = () => {
       }
     });
   });
+  const history=useHistory()
+const permanentlyDelete=()=>{
+  deleteAccount(values)
+  .then((res)=>{
+        if(res.data.message==="Account deleted successfully"){
+            toast.success('Account deleted', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    
+      theme: 'dark',
+     
+    });
+    localStorage.clear();
+    setTimeout(() => {
+          history.push("/");
+        }, 2000);
+  }
+  });
 
+
+}
   return (
     <div className="content" style={{ zoom: "0.95" }}>
       <span
@@ -150,58 +174,59 @@ const AccountManagement = () => {
             <Label
               style={{ color: "white", fontWeight: "600", fontSize: "17px" }}
             >
-              Deactivate or Deleting Your Accont
+               Deleting Your Accont
             </Label>
             <p className="" style={{ color: "grey", fontSize: "13px" }}>
-              If you want to tak a brake from eroxer,you can deactivate your
-              account.If you want to permanently delet <br /> your Erroxer
+              If you want to permanently delete  your Erroxer
               acconut .let us know
             </p>
           </FormGroup>
           <Row>
             <Col xl={10}>
+            {
+              // <Card className="manage-card mt-3">
+              //   <CardHeader>
+              //     <FormGroup check className="">
+              //       <Input type="radio" className="mt-2 ml-2 mb-0" />{" "}
+              //       <Label
+              //         className="ml-4"
+              //         style={{
+              //           color: "white",
+              //           fontWeight: "600",
+              //           fontSize: "17px",
+              //         }}
+              //       >
+              //         Deactivate Your Accont
+              //       </Label>
+              //       <p
+              //         className="ml-4"
+              //         style={{
+              //           color: "#625F5F",
+              //           fontWeight: "600",
+              //           fontSize: "10px",
+              //         }}
+              //       >
+              //         Deactivating your accont temporary
+              //       </p>
+              //     </FormGroup>
+              //     <p
+              //       className="mb-3 mt-2 ml-4"
+              //       style={{
+              //         color: "grey",
+              //         fontWeight: "600",
+              //         fontSize: "12px",
+              //       }}
+              //     >
+              //       Your profile will be disabled and your name and photos will
+              //       be <br /> removed from most things you have shared.
+              //     </p>
+              //   </CardHeader>
+              // </Card>
+                  }
               <Card className="manage-card mt-3">
                 <CardHeader>
                   <FormGroup check className="">
-                    <Input type="radio" className="mt-2 ml-2 mb-0" />{" "}
-                    <Label
-                      className="ml-4"
-                      style={{
-                        color: "white",
-                        fontWeight: "600",
-                        fontSize: "17px",
-                      }}
-                    >
-                      Deactivate Your Accont
-                    </Label>
-                    <p
-                      className="ml-4"
-                      style={{
-                        color: "#625F5F",
-                        fontWeight: "600",
-                        fontSize: "10px",
-                      }}
-                    >
-                      Deactivating your accont temporary
-                    </p>
-                  </FormGroup>
-                  <p
-                    className="mb-3 mt-2 ml-4"
-                    style={{
-                      color: "grey",
-                      fontWeight: "600",
-                      fontSize: "12px",
-                    }}
-                  >
-                    Your profile will be disabled and your name and photos will
-                    be <br /> removed from most things you have shared.
-                  </p>
-                </CardHeader>
-              </Card>
-              <Card className="manage-card mt-3">
-                <CardHeader>
-                  <FormGroup check className="">
-                    <Input type="radio" className="mt-2 ml-2 mb-0" />{" "}
+                    <Input type="radio" checked={checked} className="mt-2 ml-2 mb-0" onChange={()=>setChecked(true)} />{" "}
                     <Label
                       className="ml-4"
                       style={{
@@ -239,9 +264,9 @@ const AccountManagement = () => {
                 </CardHeader>
               </Card>
               <Row className="justify-content-end">
-                <Button className="manage-cancel-btn">cancel</Button>{" "}
-                <Button className="reset-button">
-                  Continue to deactivation
+                <Button className="manage-cancel-btn" onClick={()=>history.push('/admin/home')}>cancel</Button>{" "}
+                <Button className="reset-button" onClick={permanentlyDelete}>
+                  Continue to delete
                 </Button>
               </Row>
             </Col>

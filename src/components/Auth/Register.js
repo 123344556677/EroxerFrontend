@@ -100,7 +100,7 @@ function Register(props) {
           // bodyClassName: 'dark-toast',
         });
         setTimeout(() => {
-          history.push("/admin/login");
+          history.push("/");
         }, 2000);
       }
     });

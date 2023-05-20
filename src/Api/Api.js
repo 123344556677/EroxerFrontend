@@ -31,7 +31,12 @@ export const initiateEmailVerification = async (values) => {
     return await axios.post(`${url}/sendCode`, values);
 }
 export const verifyCode= async (values) => {
+   
     return await axios.post(`${url}/verifyCode`, values);
+}
+export const deleteAccount= async (values) => {
+   
+    return await axios.delete(`${url}/deleteAccount`, values);
 }
 //post
 export const createPost = async (values) => {
@@ -68,6 +73,12 @@ export const makeCall= async (values) => {
 }
 export const makeAlert= async (values) => {
     return await axios.post(`${url}/sendAlert`, values);
+}
+export const getLastMessage= async (values) => {
+    return await axios.post(`${url}/lastMessage`, values);
+}
+export const updateReadStatus= async (values) => {
+    return await axios.post(`${url}/updateLastRead`, values);
 }
 //Request
 export const sendRequest= async (values) => {

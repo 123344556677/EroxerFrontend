@@ -94,7 +94,8 @@ uploadString(fileRef, postPic, 'data_url').then((snapshot) => {
       postCheck:postCheck,
       commentsCheck:commentsCheck,
       price:price,
-      postProfilePic:userData?.profilePic
+      postProfilePic:userData?.profilePic,
+      userData:userData
     }
     await createPost(values)
     .then((res)=>{

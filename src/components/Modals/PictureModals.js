@@ -83,6 +83,7 @@ const PictureModals = ({ dataImageValue }) => {
             console.log("Download URL:", url);
             dataImageValue(url); // Set the image URL to your state or variable
             stopCamera()
+            toggleModal()
           });
         })
         .catch((error) => {

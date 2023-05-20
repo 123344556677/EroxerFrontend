@@ -7,39 +7,15 @@ import streamFour from "./j23.png";
 import streamFive from "./j24.png";
 import streamSix from "./j25.png";
 import streamSeven from "./j26.png";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Table,
-  Row,
-  Col,
-  UncontrolledTooltip,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Badge,
-} from "reactstrap";
-import {
-  BsFillChatSquareDotsFill,
-  BsFillChatSquareFill,
-  BsFillPinAngleFill,
-} from "react-icons/bs";
 import { IoMdMailUnread, IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Chat from "components/Chat/Chat";
 import { getAllAcceptedUsers } from "components/redux/actions/requestActions";
+import { getLastMessage } from "Api/Api";
+import { AiFillCiCircle } from "react-icons/ai";
+import { BsDot } from "react-icons/bs";
+import { updateReadStatus } from "Api/Api";
 
 const ChatSection = ({ dataValue }) => {
   const dispatch=useDispatch()
@@ -48,6 +24,8 @@ const ChatSection = ({ dataValue }) => {
     (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
   );
   const [chatData, setChatData] = useState();
+  const [readCheck, setReadCheck] = useState(false);
+   const [lastMessages, setLastMessages] = useState();
   let readChats = [];
   readChats.push(getAllAcceptedRequests);
   console.log(readChats, "Accepted users");
@@ -87,8 +65,72 @@ const ChatSection = ({ dataValue }) => {
   //     },
 
   // ]
+  let arrayforLastMessage=[]
+    readChats?.map((data)=>{
+    data?.map((datas, item) => {
+      datas?.map((datass, items) => {
+        arrayforLastMessage.push(
+          {
+            senderId:userId.id,
+            recieverId:datass?._id
+
+          }
+        )
+
+      })
+
+    })
+
+  })
+  let unreadChats=[]
+  let simpleChats=[]
+
+  useEffect(()=>{
+   
+
+   
+    getLastMessage(arrayforLastMessage)
+    .then((res)=>{
+      setLastMessages(res?.data)
+      console.log(res,"last message")
+    })
+    
+  },[userId])
+
+  //  readChats?.map((data)=>{
+  //   data?.map((datas, item) => {
+  //     datas?.map((datass, items) => {
+  //       lastMessages?.map((msg)=>{
+  //            if( msg.senderId===datass?._id|| msg.recieverId===datass?._id)
+  //            {
+  //             if(msg.readStatus===false){
+  //               unreadChats.push(datass)
+  //             }
+  //             if(msg.readStatus===true){
+  //              simpleChats.push(datass)
+  //             }
+
+
+  //            }})
+        
+
+  //     })
+
+  //   })
+
+  // })
+
   const sendDataToChat = (data) => {
-    dataValue(data);
+    const value={
+      senderId:userId.id,
+      // recieverId:data?._id
+    }
+    updateReadStatus(value)
+    // dataValue(data);
+    
+
+
+
   };
   const values={
     userId:userId.id
@@ -140,7 +182,7 @@ const ChatSection = ({ dataValue }) => {
                         }
                         style={{ widht: "60px", height: "60px" }}
                         class="rounded-circle  mt-3 mb-4 "
-                        alt="Your Image"
+                        alt=""
                       />
                       <span style={{ position: "absolute" }}>
                         <span
@@ -158,7 +200,23 @@ const ChatSection = ({ dataValue }) => {
                     </Media>
                     <Media body className="ml-2 mt-4">
                       <h3 className="text-white mb-0">{datass?.firstName} </h3>
-                      <p className="chat-designation">nice yo meet you</p>
+                      {
+                        lastMessages?.map((msg)=>(
+                       msg.senderId===datass?._id|| msg.recieverId===datass?._id?
+                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px"}}>{msg?.message}
+                         {
+                           
+                          msg.readStatus===false&&
+                         <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700"}}/></span>
+                         }
+                         </p>
+                         :
+                          <p className="chat-designation">nice to meet you</p>
+
+                        ))
+                        
+                      
+                      }
                     </Media>
                   </Media>
                 ))}

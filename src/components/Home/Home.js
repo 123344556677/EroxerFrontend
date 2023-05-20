@@ -241,7 +241,7 @@ const Home = () => {
     }, [getPost])
 
     const filteringBySearch=(e)=>{
-      // setFilterePosts( getPost?.posts?.filter(item=>item.userData.))
+      setFilterePosts( getPost?.posts?.filter(item=>item.userData?.firstName.includes(e.target.value)))
 
     }
 
@@ -411,9 +411,10 @@ streamPics.map((data,index)=>(
     
   <div class="card-footer bg-transparent d-flex justify-content-end mb-1" >
  
- 
-     <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
-    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"0 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
+ {
+    //  <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
+ }
+    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
    <PaymentModal  />
   </div>
 </div>

@@ -60,6 +60,23 @@ import { makeAlert } from "Api/Api";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 import { getUserById } from "components/redux/actions/userActions";
+import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
+  authDomain: "images-7611f.firebaseapp.com",
+  projectId: "images-7611f",
+  storageBucket: "images-7611f.appspot.com",
+  messagingSenderId: "410713197024",
+  appId: "1:410713197024:web:f4cb6a922d309976c38385",
+  measurementId: "G-ENS46GYQRS",
+};
+
+const app = initializeApp(firebaseConfig);
+
+const storage = getStorage(app);
 
 
 const Chat = () => {
@@ -90,37 +107,39 @@ const Chat = () => {
 
   const history = useHistory();
   const inputRef = useRef(null);
+ 
 
   const handleImageClick = () => {
     inputRef.current.click();
   };
-// useEffect(() => {
-//     let interval;
-//     if (intervalActive) {
-//       interval = setInterval(() => {
-//         setMessages((prevMessages) => {
-//           const timestamp = Date.now();
-//           const updatedMessages = prevMessages.map((msg) => {
-//             if (typeof msg.message === 'string' && msg.message.includes("firebasestorage.googleapis.com")) {
-//               // If message is an image, update it to show "No message available"
-//               return {
-//                 ...msg,
-//                 message: "No message available"
-//               }
-//             }
-//             // Message is not an image, keep it
-//             return msg;
-//           });
-//           return updatedMessages;
-//         });
-//       }, 15000);
-//     }
+   const messageContainerRef = useRef(null);
 
-  //   return () => clearInterval(interval);
-  // }, [intervalActive]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages,message]);
 
-//   return () => clearInterval(interval);
-// }, [messages]);
+  const scrollToBottom = () => {
+    if(messageContainerRef && messageContainerRef.current) {
+        const element = messageContainerRef.current;
+        element.scroll({
+          top: element.scrollHeight,
+          left: 0,
+          behavior: "smooth"
+        })
+      }
+  };
+ 
+useEffect(()=>{
+  const values={
+    recieverId:chatUserData?._id,
+    senderId:userId?.id
+  }
+ getAllChatsById(values)
+ .then((res)=>{
+  console.log(res,"chat response----->")
+  setMessages(res?.data)
+ })
+},[chatUserData,userId])
 
   useEffect(() => {
     const pusher = new Pusher("78bfd9bc497cd883c526", {
@@ -231,7 +250,19 @@ const Chat = () => {
   // }, []);
 AOS.init();
   const handleChatPic = (e) => {
-    setChatPic(e.selectedFile.base64);
+    // setChatPic(e.selectedFile.base64);
+     const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, e.selectedFile.base64, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+    setChatPic(url)
+    handleImageUrl(url)
+    });
+})
   };
 
   console.log(messages, "messages");
@@ -271,7 +302,7 @@ AOS.init();
     if(message){
 
     messages.push({
-      username:userId?.id,
+      senderId:userId?.id,
       message:message,
       timeStamp:Date.now()
     })
@@ -280,19 +311,19 @@ AOS.init();
   const changingAttachmentState = () => {
     setAttachmentCheck(false);
   };
-  const handleUserData = (data) => {
-    console.log(data, "sending chat data");
+  const handleUserData = (data,msg) => {
+    console.log(data,msg, "sending chat data");
     setChatUserData(data);
   };
   const handleImageUrl = (data) => {
-     setTimeout(() => {
+     
             messages.push({
-      username:userId?.id,
+      senderId:userId?.id,
       message:data,
       timeStamp:Date.now()
     
     })
-          }, 10000);
+        
    
   
     const values = {
@@ -507,10 +538,11 @@ setFiltereMessage(false)
             }}
             className="mr-2 ml-3"
           />
-          <div className="message-div">
-            {messages?.map((data, index) => (
+          <div className="message-div" ref={messageContainerRef} >
+            { messages?
+              messages?.map((data, index) => (
               <div>
-                {data?.username === userId?.id ? (
+                {data?.senderId === userId?.id ? (
                   <Media className=" ml-3 mt-2" data-aos="fade-up">
                     <Media left>
                       <img
@@ -555,7 +587,10 @@ setFiltereMessage(false)
                   </Row>
                 )}
               </div>
-            ))}
+            ))
+           :
+            <div className="loading">Loading chats...</div>
+          }
           </div>
           <div className="chat-below-div">
             <hr
@@ -589,7 +624,6 @@ setFiltereMessage(false)
                     </div>
                     <img
                       src={streamNine}
-                      onClick={handleImageClick}
                       className="gallery-img"
                       alt=""
                     />
