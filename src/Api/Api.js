@@ -38,6 +38,10 @@ export const deleteAccount= async (values) => {
    
     return await axios.delete(`${url}/deleteAccount`, values);
 }
+export const changeOnlineStatus= async (values) => {
+   
+    return await axios.put(`${url}/updateOnlienStatus`, values);
+}
 //post
 export const createPost = async (values) => {
     return await axios.post(`${url}/createPost`, values);

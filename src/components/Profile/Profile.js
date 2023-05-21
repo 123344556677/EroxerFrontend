@@ -28,6 +28,7 @@ import { getReduxUserById } from "components/redux/actions/userActions";
 import { sendRequest } from "Api/Api";
 import { useSelector } from "react-redux";
 import { getReduxPostsById } from "components/redux/actions/postActions";
+import { changeOnlineStatus } from "Api/Api";
 
 const Profile = () => {
   const history = useHistory();
@@ -126,6 +127,23 @@ useEffect(()=>{
 
   const toggleSwitch = () => {
     setIsChecked(!isChecked);
+    const values={
+      onlineStatus:isChecked,
+      userId:userId.id
+    }
+
+    changeOnlineStatus(values)
+    .then((res)=>{
+      if(res.data.message==="updated"){
+        toast.success(`Online status turned ${isChecked}`, {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
+        
+      }
+    })
   };
   const handleBackgroundPic = (e) => {
     console.log(e, "pic");
@@ -232,7 +250,7 @@ useEffect(()=>{
               id="exampleCustomSwitch"
               name="customSwitch"
               checked={isChecked}
-              onChange={toggleSwitch}
+              onClick={toggleSwitch}
               className="mt-4 ml-2"
             />
             <Button

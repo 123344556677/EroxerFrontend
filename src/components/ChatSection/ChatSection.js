@@ -25,7 +25,9 @@ const ChatSection = ({ dataValue }) => {
   );
   const [chatData, setChatData] = useState();
   const [readCheck, setReadCheck] = useState(false);
-   const [lastMessages, setLastMessages] = useState();
+  const [lastMessages, setLastMessages] = useState();
+  const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
   let readChats = [];
   readChats.push(getAllAcceptedRequests);
   console.log(readChats, "Accepted users");
@@ -126,7 +128,12 @@ const ChatSection = ({ dataValue }) => {
       // recieverId:data?._id
     }
     updateReadStatus(value)
-    // dataValue(data);
+    .then((res)=>{
+      if(res?.data?.message==="updated"){
+        setReadCheck(false)
+      }
+    })
+    dataValue(data);
     
 
 
@@ -184,6 +191,8 @@ const ChatSection = ({ dataValue }) => {
                         class="rounded-circle  mt-3 mb-4 "
                         alt=""
                       />
+                      {
+                        userData.onlineStatus===true&&
                       <span style={{ position: "absolute" }}>
                         <span
                           style={{
@@ -197,17 +206,19 @@ const ChatSection = ({ dataValue }) => {
                           }}
                         ></span>
                       </span>
+                        }
                     </Media>
                     <Media body className="ml-2 mt-4">
                       <h3 className="text-white mb-0">{datass?.firstName} </h3>
                       {
                         lastMessages?.map((msg)=>(
                        msg.senderId===datass?._id|| msg.recieverId===datass?._id?
-                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px"}}>{msg?.message}
+                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px",fontWeight: msg.readStatus===false?"700":""}}>{msg?.message}
                          {
-                           
-                          msg.readStatus===false&&
-                         <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700"}}/></span>
+                         msg.recieverId===userId.id&&
+                         msg.readStatus===false&&
+                         <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700",height:"30px",width:"30px"}}/></span>
+                          
                          }
                          </p>
                          :
