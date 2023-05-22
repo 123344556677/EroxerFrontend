@@ -28,8 +28,7 @@ const ChatSection = ({ dataValue }) => {
   const [lastMessages, setLastMessages] = useState();
   const getUser= useSelector(state => state?.getUserById);
   const userData=getUser?.userData
-  let readChats = [];
-  readChats.push(getAllAcceptedRequests);
+  let readChats = getAllAcceptedRequests;
   console.log(readChats, "Accepted users");
   // let pinChats=[
   //     {
@@ -68,9 +67,8 @@ const ChatSection = ({ dataValue }) => {
 
   // ]
   let arrayforLastMessage=[]
-    readChats?.map((data)=>{
-    data?.map((datas, item) => {
-      datas?.map((datass, items) => {
+    readChats?.map((datass)=>{
+    
         arrayforLastMessage.push(
           {
             senderId:userId.id,
@@ -79,9 +77,7 @@ const ChatSection = ({ dataValue }) => {
           }
         )
 
-      })
-
-    })
+     
 
   })
   let unreadChats=[]
@@ -171,15 +167,14 @@ const ChatSection = ({ dataValue }) => {
         {
           // <h4 className='text-white mt-1'> <span className="mr-2 ml-4"><BsFillChatSquareFill/></span>Read chats</h4>
         }
-        {readChats?.map((data, index) => (
+        {readChats?.map((datass, index) => (
           <div key={index}>
-            {data?.map((datas, item) => (
-              <div key={item}>
-                {datas?.map((datass, items) => (
+           
+              
                   <Media
                     className="mt-2 ml-3 chat-media"
                     style={{ cursor: "pointer" }}
-                    key={items}
+                    
                     onClick={() => sendDataToChat(datass)}
                   >
                     <Media left>
@@ -210,30 +205,47 @@ const ChatSection = ({ dataValue }) => {
                     </Media>
                     <Media body className="ml-2 mt-4">
                       <h3 className="text-white mb-0">{datass?.firstName} </h3>
+                       
                       {
                         lastMessages?.map((msg)=>(
-                       msg.senderId===datass?._id|| msg.recieverId===datass?._id?
-                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px",fontWeight: msg.readStatus===false?"700":""}}>{msg?.message}
+                          <>
+                       {
+                       msg?.senderId===datass?._id&&
+                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
                          {
-                         msg.recieverId===userId.id&&
-                         msg.readStatus===false&&
+                         msg?.recieverId===userId?.id&&
+                         msg?.readStatus===false&&
                          <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700",height:"30px",width:"30px"}}/></span>
                           
                          }
                          </p>
-                         :
-                          <p className="chat-designation">nice to meet you</p>
+                        }
+                         
+                         {
+                         msg?.recieverId===datass?._id&&
+                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         {
+                         msg?.recieverId===userId?.id&&
+                         msg?.readStatus===false&&
+                         <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700",height:"30px",width:"30px"}}/></span>
+                          
+                         }
+                         </p>
+                        }
+                         </>
+                        
+                        
+                        
+                         
 
                         ))
                         
                       
                       }
+                      
                     </Media>
                   </Media>
-                ))}
-              </div>
-            ))}
-          </div>
+               </div>
         ))}
         {
           // <h4 className='text-white mt-1'> <span className="mr-2 ml-4"><BsFillPinAngleFill/></span>Pinned chats</h4>

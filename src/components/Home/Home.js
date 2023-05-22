@@ -59,6 +59,7 @@ import { getRequestBySenderId } from 'components/redux/actions/requestActions';
 import Swal from 'sweetalert2';
 import { addList } from 'Api/Api';
 import { getListById } from 'components/redux/actions/listActions';
+import Poll from 'components/Poll/Poll';
 
 const images = [
   'https://picsum.photos/id/1015/300/200',
@@ -396,6 +397,7 @@ streamPics.map((data,index)=>(
   <span style={{color:"white",fontWeight:"600",fontSize:"18px"}} >Lets Discover </span>
  
   {
+     filterePosts?
    filterePosts?.map((data,index)=>(
  <div class={index>0?"card second-card-main":"card card-main"} style={{zoom:"0.80"}}>
  
@@ -419,7 +421,10 @@ streamPics.map((data,index)=>(
   </div>
 </div>
 ))
+:
+<h1 className="text-center text-white mt-4">No posts available!</h1>
   }
+  <Poll/>
 
 
      </Col>

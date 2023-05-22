@@ -167,7 +167,7 @@ useEffect(()=>{
         }).then((result) => {
           if (result.isConfirmed) {
             // User clicked the confirm button
-            history.push(`/admin/chatCall/${data?.username}`);
+            history.push(`/admin/chatCall/${data?.senderId}`);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             // User clicked the cancel button
             Swal.fire("Cancelled", "Your action was cancelled :)", "error");
@@ -192,7 +192,7 @@ useEffect(()=>{
         }).then((result) => {
           if (result.isConfirmed) {
             // User clicked the confirm button
-            history.push(`/admin/chatVideoCall/${data?.username}`);
+            history.push(`/admin/chatVideoCall/${data?.senderId}`);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             // User clicked the cancel button
             Swal.fire("Cancelled", "Your action was cancelled :)", "error");

@@ -52,8 +52,7 @@ const ChatPortion = () => {
     (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
   );
   
-  let readChats = [];
-  readChats.push(getAllAcceptedRequests);
+  let readChats =getAllAcceptedRequests;
      console.log(getRequests,"Reequests========>in noti")
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -250,12 +249,10 @@ const history=useHistory()
     <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
     <div className='chat-div'>
     {
-    readChats?.map((data,index)=>(
+    readChats?.map((datass,index)=>(
       <div key={index}>
-        {data?.map((datas, item) => (
-          <div key={item}>
-           {datas?.map((datass, items) => (
-            <div key={items}>
+       
+            
          <Row style={{cursor:"pointer"}} onClick={()=>history.push('/admin/chat')}>
         <Col>
         
@@ -267,23 +264,22 @@ const history=useHistory()
   </Col>
    <Col className="chat-text-col mt-1 mb-4">
   <p class="mt-3 chat-text-inner" >{datass?.firstName}</p>
-  <p class="text-muted chat-msg-inner">{datass.lastText?datass.lastText:"hey"}</p>
+  <p class="text-muted chat-msg-inner">{datass?.lastText?datass?.lastText:"hey"}</p>
   </Col>
 
 </Row>
-  </div>
-           ))}
-  </div>
-        ))
-        }
+ 
+        
   </div>
   
 
     ))
    }
 </div>
+</div>
+
  
-   </div>
+  
    {
   //  </div>
    }

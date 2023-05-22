@@ -22,7 +22,7 @@ const EditProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState(userData?.phoneNumber);
   const [Gender, setGender] = useState(userData?.Gender);
   const [profileName, setProfileName] = useState(userData?.profileName);
-  const [profileEmail, setProfileEmail] = useState(userData?.profileEmail);
+  const [profileWishlist, setProfileWishlist] = useState();
   const [userId, setuserId] = useState(
     JSON.parse(localStorage.getItem("keys"))
   );
@@ -54,7 +54,7 @@ const EditProfile = () => {
       phoneNumber: phoneNumber,
       Gender: Gender,
       profileName: profileName,
-      profileEmail: profileEmail,
+      profileWishlist: profileWishlist,
     };
     await updateUser(values).then((res) => {
       if (res.data.message === "user updated") {
@@ -257,17 +257,17 @@ const EditProfile = () => {
                     fontSize: "15px",
                   }}
                 >
-                  Email
+                  Wishlist
                 </Label>
                 <Col sm={8} xl={9}>
                   <Input
                     id="exampleEmail"
                     defaultValue={userData?.profileEmail}
                     placeholder=""
-                    type="email"
+                    type="text"
                     className="reset-input"
                     style={{ marginLeft: "-11%", width: "111%" }}
-                    onChange={(e) => setProfileEmail(e.target.value)}
+                    onChange={(e) => setProfileWishlist(e.target.value)}
                   />
                 </Col>
               </FormGroup>
