@@ -154,6 +154,7 @@ function Sidebar(props) {
                   prop.name!=="Register"&&
                   prop.name!=="createPost"&&
                   prop.name!=="createAd"&&
+                  prop.name!=="createPoll"&&
                   prop.name!=="AdDescription"&&
                   prop.name!=="editProfile"&&
                   prop.name!=="ChatCall"&&

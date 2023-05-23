@@ -20,6 +20,7 @@ import WrappedLogin from "components/Auth/Login";
 import WrappedRegister from "components/Auth/Register";
 import ChatCall from "components/ChatCall/ChatCall";
 import ChatVideoCall from "components/ChatCall/ChatVideCall";
+import CreatePoll from "components/Post&Ad/CreatePoll";
 
 
 
@@ -146,6 +147,14 @@ var routes = [
     rtlName: "ار تي ال",
     icon: "tim-icons icon-world",
      component: CreateAd,
+     layout: "/admin",
+  },
+  {
+    path: "/createPoll",
+    name: "createPoll",
+    rtlName: "ار تي ال",
+    icon: "tim-icons icon-world",
+     component: CreatePoll,
      layout: "/admin",
   },
  

@@ -19,6 +19,10 @@ const gotoAd=()=>{
     history.push('/admin/createAd');
     toggleModal();
 }
+const gotoPoll=()=>{
+    history.push('/admin/createPoll');
+    toggleModal();
+}
   return (
    <div className='content'>
             <div>
@@ -64,6 +68,22 @@ Create New Ad
    
   
     </Col>
+    
+    
+    </Row>
+     <Row>
+   <Col xl={6}>
+     <Card className="modal-card mt-2" >
+    <p className='text-center text-white ml-2 mr-2 mt-4 mb-4' style={{cursor:"pointer"}}  onClick={gotoPoll}>
+Create New Poll
+    </p>
+   
+
+    </Card>
+    
+   
+  
+    </Col> 
     <Col xl={12} className="text-center">
      <Button type="button" className="  modal-ok-button" onClick={toggleModal}>
      Ok
@@ -74,6 +94,7 @@ Create New Ad
     </Button>
     </Col>
     </Row>
+   
     
     
   </div>

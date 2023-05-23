@@ -103,6 +103,10 @@ export const deleteListDataById= async (values) => {
 export const applyForCreator= async (values) => {
     return await axios.post(`${url}/applyForCreator`, values);
 }
+//poll
+export const createPoll= async (values) => {
+    return await axios.post(`${url}/createPoll`, values);
+}
 
 
 

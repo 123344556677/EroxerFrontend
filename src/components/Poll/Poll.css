@@ -43,5 +43,13 @@
 }
 .progress-bars{
     height:25px!important;
-    color:aqua!important;
+    /* background-image: linear-gradient */
+    background-color: azure!important;
+}
+.poll-card{
+  background-color: black!important;
+  border-radius: 40px!important;
+  width: 850px!important;
+  animation:1s linear red!important
+  
 }

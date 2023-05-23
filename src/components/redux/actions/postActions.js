@@ -25,3 +25,20 @@ export const getReduxPostsById = (state, userId) => {
 return filteredArray
 //    console.log( ,"=========>profile-user")
 }
+export const incrementCounter = (objectIndex, counterIndex) => async (dispatch) => {
+    try {
+        return {
+    type: actionTypes.Poll_Counter_Increment ,
+    payload: {
+      objectIndex,
+      counterIndex
+    }
+        // const { data } = await axios.get(`${url}/getAllPost`);;
+        // dispatch({ type: actionTypes.GET_POSTS_SUCCESS, payload: data });
+        // console.log(data,"=========>data-redux")
+}
+
+    } catch (error) {
+        dispatch({ type: actionTypes.GET_POSTS_FAIL, payload: error.response });
+    }
+};

@@ -399,6 +399,8 @@ streamPics.map((data,index)=>(
   {
      filterePosts?
    filterePosts?.map((data,index)=>(
+    <>
+    {data.key==="post"&&
  <div class={index>0?"card second-card-main":"card card-main"} style={{zoom:"0.80"}}>
  
   <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${data.userId}`)}/>
@@ -420,11 +422,16 @@ streamPics.map((data,index)=>(
    <PaymentModal  />
   </div>
 </div>
+    }
+ {data.key==="poll"&&
+<Poll data={data}/>
+  }
+</>
 ))
 :
 <h1 className="text-center text-white mt-4">No posts available!</h1>
   }
-  <Poll/>
+  
 
 
      </Col>

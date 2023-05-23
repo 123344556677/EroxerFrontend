@@ -129,6 +129,7 @@ function AdminNavbar(props) {
                     props.brandText !== "Help & Support" &&
                     props.brandText !== "createPost" &&
                     props.brandText !== "createAd" &&
+                    props.brandText !== "createPoll" &&
                     props.brandText !== "AdDescription" &&
                     props.brandText !== "editProfile" &&
                     props.brandText !== "Brand" && (

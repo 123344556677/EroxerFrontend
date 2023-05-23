@@ -125,6 +125,10 @@ margin-top: -1px;
   background-color: #888;
   border-radius: 5px;
 }
+.option-poll{
+  /* color */
+  cursor: pointer!important;
+}
 
 
 
