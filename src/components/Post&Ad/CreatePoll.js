@@ -56,7 +56,7 @@ const CreatePoll = () => {
         const { value } = event.target;
   console.log(event.target,"---------->event array")
   const updatedOptions = [...options];
-  updatedOptions[index] = { value};
+  updatedOptions[index] = { value,counter:0};
   setOptions(updatedOptions);
    
    
@@ -67,7 +67,11 @@ const CreatePoll = () => {
   setOptions([...options, { option: '',counter:0 }]);
    console.log(options,"---------->option array")
 };
-const poll=(e)=>{
+const removeValueFromOptions = () => {
+  const updatedOptions = options.filter((option, index) => index !== options.length - 1);
+  setOptions(updatedOptions);
+};
+const poll=async(e)=>{
     e.preventDefault()
     const values={
         userId:userId.id,
@@ -76,7 +80,33 @@ const poll=(e)=>{
         userData:userData,
         key:"poll"
     } 
-    createPost(values)
+    await createPost(values)
+    .then((res)=>{
+      if (res.data.message === "post Generated") {
+      toast.success('Poll Created', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+    dispatch(getPosts())
+  }
+  else{
+    toast.error('Server Error', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+  }
+  
+   
+
+}).catch((error) => {
+  console.error('Failed to upload file:', error);
+});
 }
   
 
@@ -123,10 +153,14 @@ For your Audience</h2>
         
        
       />
+      
       </div>
 
         ))
     }
+     <Row className='justify-content-end mr-lg-2 mt-2'>
+      <a className='option-poll' onClick={removeValueFromOptions}>- remove option</a>
+      </Row>
     
    
     

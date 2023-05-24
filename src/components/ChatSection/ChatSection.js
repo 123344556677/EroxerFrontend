@@ -17,7 +17,7 @@ import { AiFillCiCircle } from "react-icons/ai";
 import { BsDot } from "react-icons/bs";
 import { updateReadStatus } from "Api/Api";
 
-const ChatSection = ({ dataValue }) => {
+const ChatSection = ({ dataValue,msgValue }) => {
   const dispatch=useDispatch()
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
   const getAllAcceptedRequests = useSelector(
@@ -25,11 +25,11 @@ const ChatSection = ({ dataValue }) => {
   );
   const [chatData, setChatData] = useState();
   const [readCheck, setReadCheck] = useState(false);
-  const [lastMessages, setLastMessages] = useState();
-  const getUser= useSelector(state => state?.getUserById);
+ const getUser= useSelector(state => state?.getUserById);
   const userData=getUser?.userData
   let readChats = getAllAcceptedRequests;
   console.log(readChats, "Accepted users");
+   const [lastMessages, setLastMessages] = useState();
   // let pinChats=[
   //     {
   //         pic:streamFive
@@ -80,8 +80,7 @@ const ChatSection = ({ dataValue }) => {
      
 
   })
-  let unreadChats=[]
-  let simpleChats=[]
+  
 
   useEffect(()=>{
    
@@ -118,7 +117,8 @@ const ChatSection = ({ dataValue }) => {
 
   // })
 
-  const sendDataToChat = (data) => {
+  const sendDataToChat = (data,msg) => {
+    console.log(data,msg,"seding dATA======>chat")
     const value={
       senderId:userId.id,
       // recieverId:data?._id
@@ -130,6 +130,14 @@ const ChatSection = ({ dataValue }) => {
       }
     })
     dataValue(data);
+    
+
+
+
+  };
+  const sendMessageToChat = (data) => {
+    
+    msgValue(data);
     
 
 
@@ -211,7 +219,7 @@ const ChatSection = ({ dataValue }) => {
                           <>
                        {
                        msg?.senderId===datass?._id&&
-                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         <p className="chat-designation" onClick={() => sendMessageToChat(msg?.message)} style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
                          {
                          msg?.recieverId===userId?.id&&
                          msg?.readStatus===false&&
@@ -223,7 +231,7 @@ const ChatSection = ({ dataValue }) => {
                          
                          {
                          msg?.recieverId===datass?._id&&
-                         <p className="chat-designation" onClick={() => sendDataToChat(msg)} style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         <p className="chat-designation" onClick={() => sendMessageToChat(msg?.message)} style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
                          {
                          msg?.recieverId===userId?.id&&
                          msg?.readStatus===false&&

@@ -214,12 +214,14 @@ function Login(props) {
                   />
                 </FormGroup>
                 <Row>
-                  <Col>
-                    <FormGroup check className="ml-4">
-                      <Input type="radio" />{" "}
-                      <Label style={{ color: "#615E5E" }}>Remeber me</Label>
-                    </FormGroup>
-                  </Col>
+                {
+                  // <Col>
+                  //   <FormGroup check className="ml-4">
+                  //     <Input type="radio" />{" "}
+                  //     <Label style={{ color: "#615E5E" }}>Remeber me</Label>
+                  //   </FormGroup>
+                  // </Col>
+                }
                   <Col>
                     <ForgetModal />
                   </Col>

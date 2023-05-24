@@ -49,6 +49,9 @@ export const createPost = async (values) => {
 export const getAllPosts= async () => {
     return await axios.get(`${url}/getAllPost`);
 }
+export const pollcounterIncrement= async (values) => {
+    return await axios.post(`${url}/pollCounterIncrement`,values);
+}
 //ad
 export const createAd = async (values) => {
     return await axios.post(`${url}/createAd`, values);

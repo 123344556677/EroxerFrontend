@@ -13,7 +13,7 @@ import "./Profile.css";
 import { MdExpandMore } from "react-icons/md";
 import { IoIosMore } from "react-icons/io";
 import { HiOutlineWifi } from "react-icons/hi";
-import { AiFillInstagram, AiFillFacebook, AiOutlineEye } from "react-icons/ai";
+import { AiFillInstagram, AiFillFacebook, AiOutlineEye, AiOutlineLineChart } from "react-icons/ai";
 import FileBase64 from "react-file-base64";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +29,7 @@ import { sendRequest } from "Api/Api";
 import { useSelector } from "react-redux";
 import { getReduxPostsById } from "components/redux/actions/postActions";
 import { changeOnlineStatus } from "Api/Api";
+import Poll from "components/Poll/Poll";
 
 const Profile = () => {
   const history = useHistory();
@@ -66,14 +67,18 @@ const Profile = () => {
 
  let posts=[];
  let privat=[];
+ let poll=[];
   
 AllUserPosts?.map((data)=>{
     if(data?.postCheck===true){
        privat.push(data)
        console.log("private posts===========>",data)
     }
-    else{
+    if(data?.key==="post"&&data?.postCheck!==true){
    posts.push(data)
+    }
+    if(data?.key==="poll"){
+   poll.push(data)
     }
      
    })
@@ -314,6 +319,8 @@ useEffect(()=>{
               1K
             </Button>
           </Row>
+          <Row>
+          <Col xl={3}>
           <h4 className="text-white mt-1 mb-0" style={{ fontWeight: "600" }}>
             About
           </h4>
@@ -322,6 +329,21 @@ useEffect(()=>{
               ? userData?.about
               : "Im A professional engeenier and also a Designer i want to met someone thats why i here"}
           </p>
+          </Col>
+          <Col xl={3}>
+          <h4 className="text-white mt-1 mb-0" style={{ fontWeight: "600" }}>
+            Wishlist
+          </h4>
+          {
+            userData?.profileWishlist?.map((data,index)=>(
+
+            <p style={{ color: "blue",cursor:"pointer" }} key={index}>
+            { data?data:"Wish list Empty!"}
+          </p>
+            ))
+            }
+          </Col>
+          </Row>
           <a href="www.erroxr.com/web/alexrock" style={{ color: "blue" }}>
             {userData?.website
               ? userData?.website
@@ -378,6 +400,14 @@ useEffect(()=>{
         </span>
         </>
         }
+        <AiOutlineLineChart
+          style={{ color: "grey", fontSize: "20px",cursor:"pointer" }}
+          className="ml-lg-5"
+        />
+         
+        <span className="ml-2"onClick={()=>setPrivateCheck("poll")} style={{ fontWeight: "600",cursor:"pointer", color:privateCheck==="poll"&&"white" }}>
+          Poll
+        </span>
       </div>
 
       <Row className=" mt-2 ml-lg-4">
@@ -395,6 +425,15 @@ useEffect(()=>{
         privat?.map((data)=>(
         <Col xl={4} className="">
           <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
+        </Col>
+        ))
+      }
+      {
+          privateCheck==="poll"&&
+      
+        poll?.map((data)=>(
+        <Col xl={6} className=" mt-5">
+          <Poll data={data}/>
         </Col>
         ))
       }

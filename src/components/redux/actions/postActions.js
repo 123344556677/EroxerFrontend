@@ -25,20 +25,24 @@ export const getReduxPostsById = (state, userId) => {
 return filteredArray
 //    console.log( ,"=========>profile-user")
 }
-export const incrementCounter = (objectIndex, counterIndex) => async (dispatch) => {
+export const incrementCounter = (objectId, objectContainingCounterId,counterValue)  => async (dispatch)=> {
     try {
-        return {
-    type: actionTypes.Poll_Counter_Increment ,
-    payload: {
-      objectIndex,
-      counterIndex
-    }
+        console.log(objectId, objectContainingCounterId,counterValue,"in action========>")
+        const data={
+            objectId:objectId,
+            objectContainingCounterId,
+            counterValue
+
+        }
+         dispatch({ type: actionTypes.Poll_Counter_Increment, payload: data });
+}
+    
         // const { data } = await axios.get(`${url}/getAllPost`);;
         // dispatch({ type: actionTypes.GET_POSTS_SUCCESS, payload: data });
         // console.log(data,"=========>data-redux")
-}
 
-    } catch (error) {
-        dispatch({ type: actionTypes.GET_POSTS_FAIL, payload: error.response });
+
+     catch (error) {
+        // dispatch({ type: actionTypes.GET_POSTS_FAIL, payload: error.response });
     }
 };

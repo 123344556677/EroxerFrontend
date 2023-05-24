@@ -38,7 +38,7 @@ function Register(props) {
   const [checkLast, setCheckLast] = useState(false);
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassowrd] = useState(false);
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -82,6 +82,7 @@ function Register(props) {
       email: email,
       password: password,
     };
+    if(isChecked===true){
     await register(values).then((res) => {
       if (res.data.message === "Email already exist") {
         toast.warning("Email already exist", {
@@ -104,6 +105,16 @@ function Register(props) {
         }, 2000);
       }
     });
+  }
+  else{
+    toast.warning("Please agree to terms and policy", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+          // hideProgressBar: true,
+          theme: "dark",
+          // bodyClassName: 'dark-toast',
+        });
+  }
   };
 
   return (

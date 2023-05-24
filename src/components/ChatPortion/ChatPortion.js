@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa';
 import { AiOutlineDollar,AiOutlineUserAdd,  AiOutlineHeart } from 'react-icons/ai';
-import {BsFillBellFill } from 'react-icons/bs';
+import {BsDot, BsFillBellFill } from 'react-icons/bs';
 
 
 import './ChatPortion.css'
@@ -41,6 +41,7 @@ import {
 import { getUsersById } from 'Api/Api';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { getLastMessage } from 'Api/Api';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -51,8 +52,71 @@ const ChatPortion = () => {
      const getAllAcceptedRequests = useSelector(
     (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
   );
+ let readChats =getAllAcceptedRequests;
+ const [lastMessages, setLastMessages] = useState();
+  // let pinChats=[
+  //     {
+  //         pic:streamFive
+  //     },
+  //      {
+  //         pic:streamSix
+  //     },
+  //      {
+  //         pic:streamSeven
+  //     },
+
+  // ]
+  // let recentChats=[
+  //     {
+  //         pic:streamOne
+  //     },
+  //      {
+  //         pic:streamThree
+  //     },
+  //      {
+  //         pic:streamFour
+  //     },
+
+  // ]
+  // let unreadChats=[
+  //     {
+  //         pic:streamSeven
+  //     },
+  //      {
+  //         pic:streamThree
+  //     },
+  //      {
+  //         pic:streamFour
+  //     },
+
+  // ]
+  let arrayforLastMessage=[]
+    readChats?.map((datass)=>{
+    
+        arrayforLastMessage.push(
+          {
+            senderId:userId.id,
+            recieverId:datass?._id
+
+          }
+        )
+
+     
+
+  })
   
-  let readChats =getAllAcceptedRequests;
+
+  useEffect(()=>{
+   
+
+   
+    getLastMessage(arrayforLastMessage)
+    .then((res)=>{
+      setLastMessages(res?.data)
+      console.log(res,"last message")
+    })
+    
+  },[userId])
      console.log(getRequests,"Reequests========>in noti")
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -258,13 +322,51 @@ const history=useHistory()
         
       
   <img src={datass.pic?datass.pic:streamFour} class="rounded-circle chat-img mt-3 mb-4 " alt="" onClick={()=>history.push('/admin/chat')}/>
+  {
+                        userData.onlineStatus===true&&
   <span style={{position: 'absolute', top: '0.1em' , }}>
     <span style={{display: 'inline-block', width: '0.7em',marginLeft:"6em", height: '0.7em', marginBottom:"-1em", borderRadius: '50%', backgroundColor: 'green'}}></span>
   </span>
+  }
   </Col>
    <Col className="chat-text-col mt-1 mb-4">
   <p class="mt-3 chat-text-inner" >{datass?.firstName}</p>
-  <p class="text-muted chat-msg-inner">{datass?.lastText?datass?.lastText:"hey"}</p>
+  {
+                        lastMessages?.map((msg)=>(
+                          <>
+                       {
+                       msg?.senderId===datass?._id&&
+                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         {
+                         msg?.recieverId===userId?.id&&
+                         msg?.readStatus===false&&
+                         <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700",height:"30px",width:"30px"}}/></span>
+                          
+                         }
+                         </p>
+                        }
+                         
+                         {
+                         msg?.recieverId===datass?._id&&
+                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         {
+                         msg?.recieverId===userId?.id&&
+                         msg?.readStatus===false&&
+                         <span className="ml-3"><BsDot style={{fontSize:"30px",color:"red",fontWeight:"700",height:"30px",width:"30px"}}/></span>
+                          
+                         }
+                         </p>
+                        }
+                         </>
+                        
+                        
+                        
+                         
+
+                        ))
+                        
+                      
+                      }
   </Col>
 
 </Row>

@@ -8,15 +8,24 @@ export const getPostsReducer = (state = {posts: []}, action) => {
         case actionTypes.GET_POSTS_FAIL:
             return { error: action.payload }
         case actionTypes.Poll_Counter_Increment:
-        const { objectIndex, counterIndex } = action.payload;
-      const updatedArray = [...state.getPost.posts];
-      const updatedObject = { ...updatedArray[objectIndex] };
-      updatedObject.options[counterIndex].counter += 1; // Increment the counter variable
-      updatedArray[objectIndex] = updatedObject;
-      return {
-        ...state,
-        posts: updatedArray
-      };
+  const { objectId, objectContainingCounterId, counterValue } = action.payload;
+  const updatedArray = state.posts.map((object) => {
+    if (object._id === objectId) {
+      const updatedOptions = object.options.map((option) => {
+        if (option._id === objectContainingCounterId && option.counter === counterValue) {
+          return { ...option, counter: option.counter + 1 };
+        }
+        return option;
+      });
+      return { ...object, options: updatedOptions };
+    }
+    return object;
+  });
+  return {
+    ...state,
+    posts: updatedArray
+  };
+     
             
         default:
             return state

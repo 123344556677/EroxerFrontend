@@ -311,10 +311,13 @@ uploadString(fileRef, e.selectedFile.base64, 'data_url').then((snapshot) => {
   const changingAttachmentState = () => {
     setAttachmentCheck(false);
   };
-  const handleUserData = (data,msg) => {
-    console.log(data,msg, "sending chat data");
+  const handleUserData = (data) => {
+    console.log(data, "sending chat data");
     setChatUserData(data);
   };
+  const handleLastMessage=(data)=>{
+    console.log(data,"last message----------->")
+  }
   const handleImageUrl = (data) => {
      
             messages.push({
@@ -449,7 +452,7 @@ setFiltereMessage(false)
   return (
     <div className="content">
       <Row>
-        <ChatSection dataValue={handleUserData} />
+        <ChatSection dataValue={handleUserData} msgValue={handleLastMessage} />
 
         <Col xl={8} className="ml-lg-5">
         {
@@ -469,6 +472,8 @@ setFiltereMessage(false)
                     className="rounded-circle "
                     alt=""
                   />
+                  {
+                        userData.onlineStatus===true&&
                   <span style={{ position: "absolute" }}>
                     <span
                       style={{
@@ -482,6 +487,7 @@ setFiltereMessage(false)
                       }}
                     ></span>
                   </span>
+                    }
                 </Media>
                 <Media body className="ml-2">
                   <h4 className="text-white mb-0">{chatUserData?.firstName}</h4>

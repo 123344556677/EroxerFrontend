@@ -262,7 +262,6 @@ const EditProfile = () => {
                 <Col sm={8} xl={9}>
                   <Input
                     id="exampleEmail"
-                    defaultValue={userData?.profileEmail}
                     placeholder=""
                     type="text"
                     className="reset-input"
