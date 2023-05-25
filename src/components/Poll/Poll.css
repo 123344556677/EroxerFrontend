@@ -53,3 +53,14 @@
   animation:1s linear red!important
   
 }
+.poll-option{
+  background-image: linear-gradient(to bottom left, black, black, black)!important;
+  border: 2px solid purple!important;
+  font-weight: 700!important;
+  border-radius: 20px 20px 20px 20px!important;
+  padding-left: 300px!important;
+  padding-right: 300px!important;
+  margin-top: 20px!important;
+  font-size: 18px!important;
+
+}

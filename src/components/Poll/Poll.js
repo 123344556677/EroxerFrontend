@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Col, Progress, Row } from 'reactstrap';
+import { BsDot } from 'react-icons/bs';
 import './Poll.css';
 
 const Poll = (props) => {
@@ -24,6 +25,7 @@ useEffect(() => {
   })
   
 }, [userId.id])
+const totalVotes=props?.data?.userPollId?.length
 
   
   const dispatch=useDispatch()
@@ -61,11 +63,26 @@ useEffect(() => {
    <img src={ props.data?.userData?.profilePic?props.data?.userData?.profilePic:"https://picsum.photos/id/1015/1200/800"}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${props?.data?.userId}`)}/>
 
   <div class="card-body poll-card ">
-  <h3 className="text-white ml-3 mt-5">
+  <h3 className="text-white ml-3 mt-5 mb-0" style={{fontWeight:"700"}}>
   {props?.data?.question} ?
   </h3>
+  <h4 className="text-white ml-lg-3 mt-1">You can see how people vote.</h4>
+  {
+    voteCheck===false&&
+    props?.data?.options?.map((data,index)=>(
+  <Row className="">
+  <Col className="text-center">
+  <Button className="poll-option"
+   onClick={() => handleIncrement( props?.data?._id, data?._id,data?.counter)}
+  >{data?.value}</Button> 
+  
+  </Col>
+  </Row>
+  ))
+  }
   
   {
+    voteCheck===true&&
     props?.data?.options?.map((data,index)=>(
   <Row className='mt-2' key={data}>
   <Col xl={8}>
@@ -81,16 +98,30 @@ useEffect(() => {
 
 </Col>
 <Col>
-<h1 className='text-center'>
+<h4 className='text-center text-white mt-5' style={{fontWeight:"700"}}>
+{data?.counter}%
+{
 
-<Button className='reset-button mt-4' style={{cursor:voteCheck?"not-allowed":"pointer"}} onClick={() => voteCheck?null:handleIncrement( props?.data?._id, data?._id,data?.counter)}>
-Vote
+// <Button className='reset-button mt-4' style={{cursor:voteCheck?"not-allowed":"pointer"}} onClick={() => voteCheck?null:handleIncrement( props?.data?._id, data?._id,data?.counter)}>
+// Vote
 
-</Button></h1>
+// </Button>
+}
+
+</h4>
 </Col>
 </Row>
     ))
   }
+  <h5 className="text-white ml-lg-3 mt-2" style={{fontWeight:"700"}}>{totalVotes} votes 
+  {
+    voteCheck===false&&
+    <>
+  <span>
+  <BsDot style={{color:"white",fontSize:"30px"}}/> </span><span style={{color:"blue",cursor:"pointer"}} onClick={()=>setVoteCheck(true)}>View results</span> 
+</> 
+}
+  </h5> 
 
   
   

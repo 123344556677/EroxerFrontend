@@ -190,15 +190,17 @@ For your Meeting</h2>
     </label>
   </div>
 </div>
-<div class="input-group mt-3">
-  <input type="text" class="form-control ad-input" placeholder="Allow Comments"/>
-  <div class="input-group-append" className='switch-input'>
-    <label class="switch">
-      <input type="checkbox"  onChange={handleCommentsChange} />
-      <span class="slider round"></span>
-    </label>
-  </div>
-</div>
+{
+// <div class="input-group mt-3">
+//   <input type="text" class="form-control ad-input" placeholder="Allow Comments"/>
+//   <div class="input-group-append" className='switch-input'>
+//     <label class="switch">
+//       <input type="checkbox"  onChange={handleCommentsChange} />
+//       <span class="slider round"></span>
+//     </label>
+//   </div>
+// </div>
+}
 <div class="input-group mt-3">
   <input type="text" class="form-control ad-input" placeholder="Price"/>
   <div class="input-group-append switch-input" className='switch-input'  >
