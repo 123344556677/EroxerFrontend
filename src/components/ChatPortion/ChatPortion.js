@@ -125,6 +125,24 @@ const ChatPortion = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  const handleMessage=(msg)=>{
+   
+    const words = msg.trim().split(/\s+/);
+     console.log(words,"last message concardination in if")
+
+  if (words.length > 3) {
+     console.log(msg,"last message concardination in if")
+    const shortenedText = words.slice(0, 2).join(' ');
+    return (
+      <span>
+        {shortenedText} ...
+      </span>
+    );
+  }
+
+  return <span>{msg}</span>;
+    
+  }
 
   useEffect(() => {
     if (width < 1200) {
@@ -336,7 +354,7 @@ const history=useHistory()
                           <>
                        {
                        msg?.senderId===datass?._id&&
-                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{handleMessage(msg.message)}
                          {
                          msg?.recieverId===userId?.id&&
                          msg?.readStatus===false&&
@@ -348,7 +366,7 @@ const history=useHistory()
                          
                          {
                          msg?.recieverId===datass?._id&&
-                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{msg?.message}
+                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{handleMessage(msg.message)}
                          {
                          msg?.recieverId===userId?.id&&
                          msg?.readStatus===false&&

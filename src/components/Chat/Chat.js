@@ -251,7 +251,7 @@ useEffect(()=>{
 AOS.init();
   const handleChatPic = (e) => {
     // setChatPic(e.selectedFile.base64);
-     const fileName = Date.now() + '.jpg';
+    const fileName = Date.now() + '.jpg';
 const fileRef = ref(storage,  fileName);
 uploadString(fileRef, e.selectedFile.base64, 'data_url').then((snapshot) => {
   console.log('Uploaded a blob or file!', snapshot);
