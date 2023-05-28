@@ -178,3 +178,28 @@ p {
   margin-left: -10%!important;
   cursor: pointer!important;
 }
+.live-img{
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  
+  
+}
+.live-img li {
+   margin-right: 5px !important;
+  /* margin-right: -30px!important; */
+  /* overflow: hidden!important; */
+}
+
+.live-img li img {
+  
+  
+  border-radius: 50% !important;
+  width: 60px !important;
+  height: 60px !important;
+  object-fit: cover !important;
+  transform: translateX(0) !important;
+  transition: transform 0.5s !important;
+  border: 2px solid red;
+}

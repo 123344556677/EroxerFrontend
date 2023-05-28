@@ -132,7 +132,7 @@ const ChatPortion = () => {
 
   if (words.length > 3) {
      console.log(msg,"last message concardination in if")
-    const shortenedText = words.slice(0, 2).join(' ');
+    const shortenedText = words.slice(0, 1).join(' ');
     return (
       <span>
         {shortenedText} ...

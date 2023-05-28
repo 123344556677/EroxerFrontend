@@ -157,21 +157,21 @@ let streamPics=[
     {
         pic:streamFive
     },
-     {
-        pic:streamSix
-    },
-    {
-        pic:streamSeven
-    },
-    {
-        pic:streamFive
-    },
-     {
-        pic:streamSix
-    },
-    {
-        pic:streamSeven
-    },
+    //  {
+    //     pic:streamSix
+    // },
+    // {
+    //     pic:streamSeven
+    // },
+    // {
+    //     pic:streamFive
+    // },
+    //  {
+    //     pic:streamSix
+    // },
+    // {
+    //     pic:streamSeven
+    // },
     
     
      
@@ -188,9 +188,11 @@ const Home = () => {
       const [search,setSearch]=useState(false)
       const [filterePosts,setFilterePosts]=useState()
       const dispatch=useDispatch()
-        const getPost = useSelector(state => state?.getPosts);
-        const getUser= useSelector(state => state?.getUserById);
-        const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+      const getPost = useSelector(state => state?.getPosts);
+      const getUser= useSelector(state => state?.getUserById);
+      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+      const [hoveredImage, setHoveredImage] = useState(false);
+
       
         const userData=getUser?.userData
        
@@ -340,6 +342,9 @@ const changeRequestStatus=(id)=>{
      }
    })
 }
+const handleImageHover = () => {
+    setHoveredImage(true);
+  };
   return (
 
     
@@ -379,12 +384,19 @@ const changeRequestStatus=(id)=>{
 <div class="container mt-2 mb-3"  style={{zoom:"0.80"}}>
   <div class="row">
     <div class="col">
-      <ul class="image-list">
+      <ul 
+      className={ hoveredImage ? 'live-img ' : 'image-list'}
+      >
       {
 streamPics.map((data,index)=>(
 
 
-        <li><img src={data.pic} salt="Image 1"/></li>
+        <li><img src={data.pic} alt=""
+        
+        onMouseOver={ () => setHoveredImage(true)}
+          onMouseOut={() => setHoveredImage(false)}
+        
+        /></li>
         ))
 }
         
