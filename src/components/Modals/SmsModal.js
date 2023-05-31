@@ -7,11 +7,13 @@ import { toast,ToastContainer } from 'react-toastify';
 import { Button, Card, Col, FormGroup, Input, Label, Modal, Row } from 'reactstrap'
 import modalOne from './j51.png'
 import './Modals.css'
+import { verifyStatus } from 'Api/Api';
 
 const SmsModal = () => {
-     const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [phoneCheckOne, setPhoneCheckOne]=useState(true);
     const [phoneCheckTwo, setPhoneCheckTwo]=useState(false);
+    const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
     const [email, setEmail]=useState();
     const [code, setCode]=useState();
     
@@ -51,9 +53,14 @@ const verifyingCode=()=>{
     const values={
         code:code
     }
+    const Values={
+        userId:userId.id
+    }
     verifyCode(values)
     .then((res)=>{
         if(res.data.message==="Verification successful"){
+              verifyStatus(Values)
+
             toast.success('congratulations! your account is verified', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,

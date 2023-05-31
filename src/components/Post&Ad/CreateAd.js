@@ -542,25 +542,28 @@ else{
     
     <Row>
     <Col xl={8} className="text-center">
-    <Row>
-     <Col>
-     <h1 className='home-title'>Alex Rock</h1>
-     </Col>
-     <Col  xl={8}>
+    {
     
-     <div className="home-input-addon">
-     <InputGroup style={{ borderRadius: '20px' }} >
-      <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
-        <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
-          <FaSearch className="home-search" style={{ color: 'white' }} />
-        </InputGroupText>
-      </InputGroupAddon>
-      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
-    </InputGroup>
-    </div>
-     </Col>
+    // <Row>
+    //  <Col>
+    //  <h1 className='home-title'>Alex Rock</h1>
+    //  </Col>
+    //  <Col  xl={8}>
+    
+    //  <div className="home-input-addon">
+    //  <InputGroup style={{ borderRadius: '20px' }} >
+    //   <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+    //     <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
+    //       <FaSearch className="home-search" style={{ color: 'white' }} />
+    //     </InputGroupText>
+    //   </InputGroupAddon>
+    //   <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
+    // </InputGroup>
+    // </div>
+    //  </Col>
 
-     </Row>
+    //  </Row>
+    }
       <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create Ad <br/>
 For your Meeting</h2>
      <Card className=" " style={{backgroundColor:"#1e1e2b",borderRadius:"4px",border:"1px solid white"}} >
@@ -765,16 +768,16 @@ For your Meeting</h2>
        Meeting Type
       </option>
       <option>
-        2
+        Date
       </option>
       <option>
-        3
+        One night
       </option>
       <option>
-        4
+        Casual
       </option>
       <option>
-        5
+        Fan
       </option>
     </Input>
  

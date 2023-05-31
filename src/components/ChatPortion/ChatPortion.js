@@ -130,7 +130,7 @@ const ChatPortion = () => {
     const words = msg.trim().split(/\s+/);
      console.log(words,"last message concardination in if")
 
-  if (words.length > 3) {
+  if (words.length > 2) {
      console.log(msg,"last message concardination in if")
     const shortenedText = words.slice(0, 1).join(' ');
     return (
@@ -339,9 +339,9 @@ const history=useHistory()
         <Col>
         
       
-  <img src={datass.pic?datass.pic:streamFour} class="rounded-circle chat-img mt-3 mb-4 " alt="" onClick={()=>history.push('/admin/chat')}/>
+  <img src={datass?.pic?datass?.pic:streamFour} class="rounded-circle chat-img mt-3 mb-4 " alt="" onClick={()=>history.push('/admin/chat')}/>
   {
-                        userData.onlineStatus===true&&
+                        userData?.onlineStatus===true&&
   <span style={{position: 'absolute', top: '0.1em' , }}>
     <span style={{display: 'inline-block', width: '0.7em',marginLeft:"6em", height: '0.7em', marginBottom:"-1em", borderRadius: '50%', backgroundColor: 'green'}}></span>
   </span>

@@ -45,6 +45,7 @@ import { HiOutlineWifi } from 'react-icons/hi';
 import { getUsersById } from 'Api/Api';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { getReduxPostsById } from 'components/redux/actions/postActions';
 
 const ChatProfile = (props) => {
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
@@ -67,7 +68,19 @@ const ChatProfile = (props) => {
     //  },[])
       const getUser= useSelector(state => state?.getUserById);
       const userData=getUser?.userData
-
+      let posts=[];
+      let sendingId=props?.profileData?._id;
+    const AllUserPosts = useSelector((state) =>
+    getReduxPostsById(state?.getPosts, sendingId)
+  );
+  AllUserPosts?.map((data)=>{
+   
+    if(data?.key==="post"&&data?.postCheck!==true){
+            posts.push(data)
+    }
+   
+     
+   })
 
       console.log(props,"---------->prfileData")
   return (
@@ -126,13 +139,19 @@ const ChatProfile = (props) => {
 
  <hr style={{backgroundColor:"#555555",height:"2px"}} className="mr-3 ml-1"/>
  
- <div style={{display:"inline"}}>
- <img src={streamEight} alt="" style={{widht:"200px"}} className="ml-4"/>
-<img src={streamNine} alt=""  className="ml-2" style={{marginTop:"-80px"}}/>
+ <Row>
+ {
+   posts?.map((data)=>(
+ <Col xl={6}>
+ <img src={data?.postPic} alt=""  className="ml-4"/>
+ </Col>
+ ))
+ }
 
- </div>
+
+ </Row>
  
-   <img src={streamTen} alt=""  className="ml-4 mt-2"/>
+  
  
 </div>
  

@@ -44,6 +44,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAds as ads } from 'components/redux/actions/adsActions';
 import { FaSearch } from 'react-icons/fa'
 import { AdCounterIncrement } from 'Api/Api'
+import { toast,ToastContainer } from 'react-toastify'
 
 const Ads = () => {
   const history=useHistory()
@@ -599,6 +600,7 @@ const Ads = () => {
 
     }
     const incrementClick=(id)=>{
+      console.log(id,"--------->ap id")
       const values={
       id:id
       }
@@ -606,7 +608,16 @@ const Ads = () => {
 
       
     }
+const handleAlert=()=>{
+      toast.success('you are not subscribed to this user', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: false,
+    
+      theme: 'dark',
+     
+    });
 
+}
 console.log(adData)
   return (
     <div className='content' style={{zoom:"0.90"}}>
@@ -761,7 +772,7 @@ console.log(adData)
     </CardText>
     <Row className='mt-3'>
     <Col>
-     <CardText  className='ml-2' href="#" style={{color:"#F34191",fontWeight:"500"}}>
+     <CardText  className='ml-2' href="#" style={{color:"#F34191",fontWeight:"500"}} onClick={handleAlert}>
       contact
     </CardText>
     </Col>
@@ -780,6 +791,7 @@ console.log(adData)
        
       }
 </Row>
+<ToastContainer/>
     </div>
   )
 }

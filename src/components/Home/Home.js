@@ -99,64 +99,88 @@ let chats=[
       lastText:"hy!"
     },
 ]
-let streamPics=[
-    {
-        pic:streamOne
-    },
-    
-     {
-        pic:streamThree
-    },
-     {
-         
-        pic:streamFour
-    },
 
-    {
-        pic:streamFive
-    },
-     {
-        pic:streamSix
-    },
-    {
-        pic:streamSeven
-    },
-     {
-        pic:streamOne
-    },
-    
-     {
-        pic:streamThree
-    },
-     {
-         
-        pic:streamFour
-    },
 
-    {
-        pic:streamFive
-    },
-     {
-        pic:streamSix
-    },
-    {
-        pic:streamSeven
-    },
-     {
-        pic:streamOne
-    },
+const Home = () => {
+  const history=useHistory()
+  const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+      // const [userData, setUserData] = useState()
+      const [postData, setPostData] = useState()
+      const [lockModal,setLockModal]=useState(false)
+      const [search,setSearch]=useState(false)
+      const [filterePosts,setFilterePosts]=useState()
+      const [streamPics,setStreamPics]=useState([])
+      const dispatch=useDispatch()
+      const getPost = useSelector(state => state?.getPosts);
     
-     {
-        pic:streamThree
-    },
-     {
-         
-        pic:streamFour
-    },
+      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+      const [hoveredImage, setHoveredImage] = useState(false);
+        const getUser= useSelector(state => state?.getUserById);
+        const userData=getUser?.userData
+        const getAllUser= useSelector(state => state?.getAllUsers);
+        const AllUser=getAllUser?.allUsers
+        
+        // let streamPics=[
+        //   {
 
-    {
-        pic:streamFive
-    },
+        //   }
+    // {
+    //     pic:streamOne
+    // },
+    
+    //  {
+    //     pic:streamThree
+    // },
+    //  {
+         
+    //     pic:streamFour
+    // },
+
+    // {
+    //     pic:streamFive
+    // },
+    //  {
+    //     pic:streamSix
+    // },
+    // {
+    //     pic:streamSeven
+    // },
+    //  {
+    //     pic:streamOne
+    // },
+    
+    //  {
+    //     pic:streamThree
+    // },
+    //  {
+         
+    //     pic:streamFour
+    // },
+
+    // {
+    //     pic:streamFive
+    // },
+    //  {
+    //     pic:streamSix
+    // },
+    // {
+    //     pic:streamSeven
+    // },
+    //  {
+    //     pic:streamOne
+    // },
+    
+    //  {
+    //     pic:streamThree
+    // },
+    //  {
+         
+    //     pic:streamFour
+    // },
+
+    // {
+    //     pic:streamFive
+    // },
     //  {
     //     pic:streamSix
     // },
@@ -177,24 +201,16 @@ let streamPics=[
      
 
    
-]
+// ]
 
-const Home = () => {
-  const history=useHistory()
-  const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
-      // const [userData, setUserData] = useState()
-      const [postData, setPostData] = useState()
-      const [lockModal,setLockModal]=useState(false)
-      const [search,setSearch]=useState(false)
-      const [filterePosts,setFilterePosts]=useState()
-      const dispatch=useDispatch()
-      const getPost = useSelector(state => state?.getPosts);
-      const getUser= useSelector(state => state?.getUserById);
-      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
-      const [hoveredImage, setHoveredImage] = useState(false);
+        useEffect(()=>{
+           
+        setStreamPics(AllUser?.filter(data=>data?.liveStreamStatus==="live"))
+        },[])
 
-      
-        const userData=getUser?.userData
+
+        console.log(streamPics,"live user------>")
+    
        
         
     // const { posts, error } = getPosts
@@ -238,6 +254,8 @@ const Home = () => {
        dispatch(getListById(values))
         
     }, [dispatch])
+      console.log(streamPics,"All user---->")
+
     useEffect(() => {
       setFilterePosts( getPost?.posts)
         
@@ -253,6 +271,7 @@ const Home = () => {
       cluster: "ap1",
       useTLS: true,
     });
+  
     
 
     const channel = pusher.subscribe(`request${userId?.id}`);
@@ -303,6 +322,18 @@ const Home = () => {
     //   
         
     // }, [dispatch])
+ const checkPost=(post)=>{
+   const fileExtension = post?.substring(post?.lastIndexOf('.') + 1);
+   if (fileExtension === 'mp4') {
+    console.log("coming here")
+        return <video control src={post}  />
+      }
+     else  {
+        return  <img alt="" src={post?post:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+        // Handle image URL
+      }
+
+ }
    
 const changeRequestStatus=(id)=>{
   const values={
@@ -388,10 +419,10 @@ const handleImageHover = () => {
       className={ hoveredImage ? 'live-img ' : 'image-list'}
       >
       {
-streamPics.map((data,index)=>(
+streamPics?.map((data,index)=>(
 
 
-        <li><img src={data.pic} alt=""
+        <li><img src={data.profilePic} alt=""
         
         onMouseOver={ () => setHoveredImage(true)}
           onMouseOut={() => setHoveredImage(false)}
@@ -414,12 +445,20 @@ streamPics.map((data,index)=>(
     <>
     {data.key==="post"&&
  <div class={index>0?"card second-card-main":"card card-main"} style={{zoom:"0.80"}}>
+
+ 
  
   <img src={data?.postProfilePic?data?.postProfilePic:profilePic}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${data.userId}`)}/>
  
   <div class="card-body">
+   {
+    // checkPost(data?.postPic)
+  }
+   
    <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
-    {data?.postCheck===true&&
+   
+   
+   {data?.postCheck===true&&
       <LockModal open={lockModal}/>
     
     }

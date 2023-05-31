@@ -8,8 +8,27 @@ import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import ChatPortion from 'components/ChatPortion/ChatPortion'
 import SmsModal from 'components/Modals/SmsModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { getUserById } from 'components/redux/actions/userActions'
 
 const Authentication= () => {
+  const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+  const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData;
+  const values={
+        userId:userId.id
+      }
+  const dispatch=useDispatch()
+      useEffect(() => {
+      dispatch(getUserById(values))
+     
+        
+    }, [dispatch])
+
+
+
   return (
     
     <div className='content'>
@@ -45,7 +64,14 @@ const Authentication= () => {
         <p className="chat-designation mt-2" >Use email to receive verification <br/> codes. For your protection,emails used <br/>
          for two-factor 
         authentication can't be used to <br/> reset your password when two-factor is on.</p>
+        {
+          userData.verifyStatus===false&&
        <SmsModal/>
+        }
+        {
+           userData.verifyStatus===true&&
+          <Button className="auth-button"style={{fontSize:"12px"}}>Verified!</Button>
+        }
       </Media>
       
     </Media>

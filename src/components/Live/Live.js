@@ -1,6 +1,6 @@
 import React from "react";
 import "./Live.css";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -15,8 +15,15 @@ import liveTwo from "./j33.png";
 import liveFour from "./j39.jpg";
 import liveFive from "./j40.jpg";
 import liveSix from "./j41.jpg";
+import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 const Live = () => {
+  const [userId, setuserId] = useState(
+    JSON.parse(localStorage.getItem("keys"))
+  );
   const streams = [
     {
       pic: liveFour,
@@ -57,16 +64,41 @@ const Live = () => {
       pic: liveSix,
     },
   ];
+const getUser = useSelector((state) => state?.getUserById);
+const userData = getUser?.userData;
+
+const history=useHistory()
+const makeLiveStream = () => {
+    // sendVideoAlert();
+    history.push(`/admin/liveStreaming/${userId?.id}`);
+  };
+
+
+
+
+
+
   return (
     <div className="content" style={{ zoom: "0.90" }}>
       <LiveSection />
       <div className="main-live">
+      <Row>
+      <Col>
         <h1
           className="text-white mt-1"
           style={{ fontStyle: "Roboto", fontWeight: "600" }}
         >
           Live Streaming
         </h1>
+        </Col>
+        <Col>
+        
+          
+          
+        <Button className="reset-button" onClick={makeLiveStream}> Go live</Button>
+          
+        </Col>
+        </Row>
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
@@ -116,6 +148,7 @@ const Live = () => {
               </div>
             </SwiperSlide>
           ))}
+          
 
           <div className="slider-controler">
             <div

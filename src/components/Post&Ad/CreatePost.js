@@ -32,6 +32,7 @@ const storage = getStorage(app);
 const CreateAd = () => {
   const [postPic, setPostPic] = useState();
   const [postCheck, setPostCheck] = useState(false);
+  const [postVideoCheck, setPostVideoCheck] = useState(false);
   const [commentsCheck, setCommentsCheck] = useState(false);
   const [price, setPrice] = useState(0);
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
@@ -53,10 +54,112 @@ const CreateAd = () => {
      
     });
      },[])
+     let Url=''
    const handlePostPic=(e)=>{
         setPostPic(e.selectedFile.base64);
+  const type = e.selectedFile.base64.substring(5, 10);
+  if (type === 'image') {
+    setPostVideoCheck(false)
+    uploadImageToFirebase(e.selectedFile.base64);
+    return 'image';
+  } else if (type === 'video') {
+    setPostVideoCheck(true)
+  //  blobUrl=getBlobUrl(e.selectedFile.base64)
+   uploadVideoToFirebase(e.selectedFile.base64);
+   console.log("video url============>")
+  
+  }
+  return 'unknown';
+
+        
         
     }
+    const uploadVideoToFirebase = (base64Video) => {
+  const videoRef = ref(storage, 'videos/' + Date.now() + '.mp4');
+
+  // Upload the base64 video string to Firebase Storage
+  uploadString(videoRef, base64Video, 'data_url').then((snapshot) => {
+    console.log('Uploaded a video!', snapshot);
+
+    // Get the download URL of the uploaded video
+    getDownloadURL(videoRef).then((url) => {
+      console.log('Video URL:', url);
+      setPostUrl(url)
+      // Use the video URL as needed (e.g., save to state, display to the user, etc.)
+    });
+  });
+};
+ const uploadImageToFirebase = (base64Video) => {
+  const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+    setPostUrl(url)
+  })
+})
+  
+};
+  
+//   const uploadVideoToFirebase = (base64Video) => {
+//   const storageRef = storage().ref();
+//   const videoBlob = base64ToBlob(base64Video);
+//    const fileName = `video_${Date.now()}.mp4`;
+//    const fileRef = ref(storage,  fileName);
+  
+
+//   const uploadTask = storageRef.child(fileRef).put(videoBlob);
+
+//   uploadTask.then(() => {
+//     storageRef.child(fileRef).getDownloadURL().then((url) => {
+//       console.log('Firebase Video URL:', url);
+//       // Use the Firebase download URL as needed (e.g., save to state, display to the user, etc.)
+//     });
+//   });
+// };
+
+//   const base64ToBlob = (base64String) => {
+//   const byteCharacters = atob(base64String);
+//   const byteArrays = [];
+
+//   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+//     const slice = byteCharacters.slice(offset, offset + 512);
+
+//     const byteNumbers = new Array(slice.length);
+//     for (let i = 0; i < slice.length; i++) {
+//       byteNumbers[i] = slice.charCodeAt(i);
+//     }
+
+//     const byteArray = new Uint8Array(byteNumbers);
+//     byteArrays.push(byteArray);
+//   }
+
+//   const videoBlob = new Blob(byteArrays, { type: 'video/mp4' });
+//   return videoBlob;
+// };  
+//  function getBlobUrl(base64String) {
+//   const byteCharacters = atob(base64String);
+//   const byteArrays = [];
+
+//   for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+//     const slice = byteCharacters.slice(offset, offset + 512);
+
+//     const byteNumbers = new Array(slice.length);
+//     for (let i = 0; i < slice.length; i++) {
+//       byteNumbers[i] = slice.charCodeAt(i);
+//     }
+
+//     const byteArray = new Uint8Array(byteNumbers);
+//     byteArrays.push(byteArray);
+//   }
+
+//   const blob = new Blob(byteArrays, { type: 'video/mp4' });
+//   const blobUrl = URL.createObjectURL(blob);
+//   return blobUrl;
+// }
      const handleCheckboxChange = () => {
     setPostCheck(!postCheck);
   };
@@ -76,21 +179,13 @@ const CreateAd = () => {
   const post=async()=>{
     // const decodedPost = Buffer.from(postPic, 'base64').toString();
     // const decodedProfile = Buffer.from(userData?.profilePic, 'base64').toString();
-  console.log(postPic,"data========>")
-    const fileName = Date.now() + '.jpg';
-const fileRef = ref(storage,  fileName);
-uploadString(fileRef, postPic, 'data_url').then((snapshot) => {
-  console.log('Uploaded a blob or file!', snapshot);
-
-  // Get the URL of the uploaded image location
-  getDownloadURL(fileRef).then(async(url) => {
-    console.log('Image URL:', url);
-    setPostUrl(url)
+  console.log(postUrl,"data========>")
+    
 
     // Use the image URL in an <img> tag
     const values={
       userId:userId.id,
-      postPic:url,
+      postPic:postUrl,
       postCheck:postCheck,
       commentsCheck:commentsCheck,
       price:price,
@@ -121,10 +216,8 @@ uploadString(fileRef, postPic, 'data_url').then((snapshot) => {
   }
     })
    
-  });
-}).catch((error) => {
-  console.error('Failed to upload file:', error);
-});
+ 
+
        
     
     
@@ -135,29 +228,31 @@ uploadString(fileRef, postPic, 'data_url').then((snapshot) => {
     <div className='content'>
     <Row>
     <Col xl={10}>
-    <Row>
+    {
+    // <Row>
     
-    <Col xl={11}>
-    <Row>
-     <Col>
-     <h1 className='home-title'>Alex Rock</h1>
-     </Col>
-     <Col  xl={8} className="text-right">
-     <div className="home-input-addon">
-     <InputGroup style={{ borderRadius: '20px' }} >
-      <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
-        <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
-          <FaSearch className="home-search" style={{ color: 'white' }} />
-        </InputGroupText>
-      </InputGroupAddon>
-      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
-    </InputGroup>
-    </div>
-     </Col>
+    // <Col xl={11}>
+    // <Row>
+    //  <Col>
+    //  <h1 className='home-title'>Alex Rock</h1>
+    //  </Col>
+    //  <Col  xl={8} className="text-right">
+    //  <div className="home-input-addon">
+    //  <InputGroup style={{ borderRadius: '20px' }} >
+    //   <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+    //     <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
+    //       <FaSearch className="home-search" style={{ color: 'white' }} />
+    //     </InputGroupText>
+    //   </InputGroupAddon>
+    //   <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
+    // </InputGroup>
+    // </div>
+    //  </Col>
 
-     </Row>
-    </Col>
-    </Row>
+    //  </Row>
+    // </Col>
+    // </Row>
+    }
     <Row className='justify-content-center mr-lg-5'>
     <Col xl={6} className="">
     <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create post <br/>
@@ -175,7 +270,17 @@ For your Meeting</h2>
 
     />
     </div>
+    {
+      postVideoCheck===false&&
+    
     <img src={postPic?postPic:postOne} alt="" style={{width:postPic&&"80%",zIndex:"5"}}/>
+    }
+    
+    {
+      postVideoCheck===true&&
+    
+    <video controls src={postPic} style={{width:postPic&&"80%",zIndex:"5"}}/>
+    }
      
     </h1>
    
@@ -212,6 +317,7 @@ For your Meeting</h2>
   </div>
 </div>
     
+
     
      
       

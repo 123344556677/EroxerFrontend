@@ -42,6 +42,14 @@ export const changeOnlineStatus= async (values) => {
    
     return await axios.put(`${url}/updateOnlienStatus`, values);
 }
+export const verifyStatus= async (values) => {
+   
+    return await axios.post(`${url}/updateVerifyStatus`, values);
+}
+export const liveStreamStatus= async (values) => {
+   
+    return await axios.put(`${url}/updateLiveStreamStatus`, values);
+}
 //post
 export const createPost = async (values) => {
     return await axios.post(`${url}/createPost`, values);

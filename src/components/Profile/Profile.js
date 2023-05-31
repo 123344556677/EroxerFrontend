@@ -26,11 +26,29 @@ import { updateUser } from "Api/Api";
 // import { useDispatch, useSelector } from "react-redux";
 import { getReduxUserById } from "components/redux/actions/userActions";
 import { sendRequest } from "Api/Api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getReduxPostsById } from "components/redux/actions/postActions";
 import { changeOnlineStatus } from "Api/Api";
 import Poll from "components/Poll/Poll";
+import { getUserById } from "components/redux/actions/userActions";
+import { getAllUsers } from "components/redux/actions/userActions";
+import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
+  authDomain: "images-7611f.firebaseapp.com",
+  projectId: "images-7611f",
+  storageBucket: "images-7611f.appspot.com",
+  messagingSenderId: "410713197024",
+  appId: "1:410713197024:web:f4cb6a922d309976c38385",
+  measurementId: "G-ENS46GYQRS",
+};
+
+const app = initializeApp(firebaseConfig);
+
+const storage = getStorage(app);
 const Profile = () => {
   const history = useHistory();
   const { id } = useParams();
@@ -45,6 +63,7 @@ const Profile = () => {
   const [backgroundImage, setBackgroundImage] = useState();
   const [privateCheck, setPrivateCheck] = useState("posts");
   const [requestCheck, setRequestCheck] = useState("none");
+  const [backgroundVideoCheck, setBackgroundVideoCheck] = useState(false);
    const getUser= useSelector(state => state.getUserById);
   let sendingId = "";
   if (id === ":id") {
@@ -63,6 +82,11 @@ const Profile = () => {
   console.log(userData, "==========>userData");
  const getRecieverId = useSelector(state => state?.getAllSenderRequestReducer);
  const requestUser=getUser?.userData
+ const dispatch=useDispatch();
+  const values={
+        userId:userId.id
+      }
+ 
 
 
  let posts=[];
@@ -96,6 +120,11 @@ useEffect(()=>{
    
    })
 },[requestCheck])
+useEffect(() => {
+dispatch(getAllUsers())
+
+},[dispatch])
+
   
  
 
@@ -153,29 +182,71 @@ useEffect(()=>{
   const handleBackgroundPic = (e) => {
     console.log(e, "pic");
     setBackgroundImage(e.selectedFile.base64);
+   const type = e.selectedFile.base64.substring(5, 10);
+  if (type === 'image') {
+    setBackgroundVideoCheck(false)
+    // uploadImageToFirebase(e.selectedFile.base64);
+    return 'image';
+  } else if (type === 'video') {
+    setBackgroundVideoCheck(true)
+  //  blobUrl=getBlobUrl(e.selectedFile.base64)
+  //  uploadVideoToFirebase(e.selectedFile.base64);
+   console.log("video url============>")
+  
+  }
 
-    const values = {
-      backgroundImage: e.selectedFile.base64,
-      userId: userId.id,
-    };
-    updateUser(values).then((res) => {
-      if (res.data.message === "user updated") {
-        toast.success("Cover photo upated", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
 
-          theme: "dark",
-        });
-      } else {
-        toast.error("Server Error", {
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 3000,
+    // const values = {
+    //   backgroundImage: e.selectedFile.base64,
+    //   userId: userId.id,
+    // };
+    // updateUser(values).then((res) => {
+    //   if (res.data.message === "user updated") {
+    //     toast.success("Cover photo upated", {
+    //       position: toast.POSITION.TOP_CENTER,
+    //       autoClose: 3000,
 
-          theme: "dark",
-        });
-      }
-    });
+    //       theme: "dark",
+    //     });
+    //   } else {
+    //     toast.error("Server Error", {
+    //       position: toast.POSITION.TOP_CENTER,
+    //       autoClose: 3000,
+
+    //       theme: "dark",
+    //     });
+    //   }
+    // });
   };
+//        const uploadVideoToFirebase = (base64Video) => {
+//   const videoRef = ref(storage, 'videos/' + Date.now() + '.mp4');
+
+//   // Upload the base64 video string to Firebase Storage
+//   uploadString(videoRef, base64Video, 'data_url').then((snapshot) => {
+//     console.log('Uploaded a video!', snapshot);
+
+//     // Get the download URL of the uploaded video
+//     getDownloadURL(videoRef).then((url) => {
+//       console.log('Video URL:', url);
+//       setBackgroundUrl(url)
+//       // Use the video URL as needed (e.g., save to state, display to the user, etc.)
+//     });
+//   });
+// };
+//  const uploadImageToFirebase = (base64Video) => {
+//   const fileName = Date.now() + '.jpg';
+// const fileRef = ref(storage,  fileName);
+// uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
+//   console.log('Uploaded a blob or file!', snapshot);
+
+//   // Get the URL of the uploaded image location
+//   getDownloadURL(fileRef).then(async(url) => {
+//     console.log('Image URL:', url);
+//     setBackgroundUrl(url)
+//   })
+// })
+  
+// };
   return (
     <div className="content profile-div " style={{ zoom: "0.80" }}>
       <div

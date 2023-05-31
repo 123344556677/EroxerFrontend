@@ -21,6 +21,7 @@ import WrappedRegister from "components/Auth/Register";
 import ChatCall from "components/ChatCall/ChatCall";
 import ChatVideoCall from "components/ChatCall/ChatVideCall";
 import CreatePoll from "components/Post&Ad/CreatePoll";
+import LiveStream from "components/ChatCall/LiveStream";
 
 
 
@@ -98,6 +99,14 @@ var routes = [
     rtlName: "خرائط",
     icon: "fa fa-list",
     component: Explore,
+    layout: "/admin",
+  },
+  {
+    path: "/liveStreaming/:id",
+    name: "Live Streaming",
+    rtlName: "خرائط",
+    icon: "fa fa-list",
+    component: LiveStream,
     layout: "/admin",
   },
   {
