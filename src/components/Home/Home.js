@@ -424,13 +424,33 @@ const handleImageHover = () => {
 streamPics?.map((data,index)=>(
 
 
-        <li><img src={data?.profilePic?data?.profilePic:streamFour} alt=""
+        <li>
+        {
+          hoveredImage===false&&
+        <img src={data?.profilePic?data?.profilePic:streamFour} alt=""
+        
         
         onMouseOver={ () => setHoveredImage(true)}
           onMouseOut={() => setHoveredImage(false)}
         onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
         
-        /></li>
+        />
+        }
+        {
+          hoveredImage===true&&
+        <video controls src={data?.backgroundImage}
+        style={{borderRadius:"80px",width:"70px",height:"70px"}}
+        
+         autoPlay
+         loop
+        onMouseOver={ () => setHoveredImage(true)}
+          onMouseOut={() => setHoveredImage(false)}
+        onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
+        
+        />
+        }
+        
+        </li>
         
         
         ))

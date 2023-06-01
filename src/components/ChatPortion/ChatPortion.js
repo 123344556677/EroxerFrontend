@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa';
 import { AiOutlineDollar,AiOutlineUserAdd,  AiOutlineHeart } from 'react-icons/ai';
 import {BsDot, BsFillBellFill } from 'react-icons/bs';
-
-
+import AOS from "aos";
+import "aos/dist/aos.css";
 import './ChatPortion.css'
 import { Carousel, CarouselItem, Dropdown, Media, Progress } from 'reactstrap';
 import streamOne from './j20.png'
@@ -104,7 +104,7 @@ const ChatPortion = () => {
      
 
   })
-  
+  AOS.init()
 
   useEffect(()=>{
    
@@ -221,8 +221,9 @@ const history=useHistory()
        
     {
       notiOpen&&
-     <div className='home-noti-div'>
+     <div className='home-noti-div'  data-aos="fade-down">
      <h3 className='home-noti-head'>Subscription</h3>
+     
       <Progress  className="horizontal-progress-bar-menu" now={0}  />
      <Progress  className="vertical-progress-bar-menu" now={0} />
      <span style={{position: 'absolute', top: '0.1em', }}>
@@ -231,15 +232,15 @@ const history=useHistory()
   </span>
      <div className='home-main-noti-div'>
      {
-       [1,2].map((data)=>(
+       [1,2,3,4,5].map((data)=>(
       <>
      
      <Media left>
         <img object  src={streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
       </Media>
-      <Media body className="ml-3 mt-2">
+      <Media body className="ml-3 mt-2 mb-5" data-aos="fade-right">
         <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>Shaby</h4>
-      <Card className='chat-noti-card mr-2'>
+      <Card className='chat-noti-card mr-2 '>
      <div style={{display:"flex"}}>
      <img src={streamNine} className="chat-noti-img"/>
      <div>
@@ -252,7 +253,7 @@ const history=useHistory()
      </Card>
         
       </Media>
-    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363",marginTop:"30%"}}/>
+    <hr className="ml-5 mr-3 " style={{backgroundColor:"#666363",marginTop:"40%"}}/>
     </>
     ))
     
@@ -260,33 +261,7 @@ const history=useHistory()
      
     
     
-     <h3 className='home-noti-head-two'>Promotion</h3>
-     {
-       [1,2].map((data)=>(
- <>
      
-     <Media left className='mt-3'>
-        <img object  src={streamEight} alt="jannan" className=" chat-noti-profile rounded-circle mt-4" />
-      </Media>
-      <Media body className="ml-3 mt-2">
-        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>Shaby</h4>
-      <Card className='chat-noti-card mr-2'>
-     <div style={{display:"flex"}}>
-     <img src={streamNine} className="chat-noti-img"/>
-     <div>
-     <p className='chat-noti-text'>Hello how are i am a photograher and also <br/> doing some yoga classes for make body <br/> more attractive.</p>
-     <Input className="ml-2 mt-2"style={{borderRadius: "30px",border:"1px solid white",width:"80%"}}/>
-     
-     </div>
-     </div>
-     
-     </Card>
-        
-      </Media>
-    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363",marginTop:"30%"}}/>
-    </>
-        
-       ))}
      
 
      
@@ -304,13 +279,13 @@ const history=useHistory()
         <h3 className='text-white mb-0'style={{fontWeight:"600"}}>{userData?.firstName} {userData?.lastName}</h3>
         <p className="chat-designation">Student</p>
       </Media>
-      <Media right>
+      <Media right onClick={()=>setNotiOpen(!notiOpen)} style={{cursor:"pointer"}}>
       {
         // <Dropdown isOpen={dropdownOpen} toggle={toggle} className="">
         // <DropdownToggle onClick={(e)=>e.preventDefault()} className="home-noti-bell">
       }
-        <div className="">
-        <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",color:"white",fontSize:"25px"}}/>
+        <div className="" onClick={()=>setNotiOpen(!notiOpen)}>
+        <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",color:"white",fontSize:"25px"}} />
       <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{getRequests?.length?getRequests?.length:""}</Badge>
     
     </div>

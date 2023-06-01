@@ -1,5 +1,5 @@
 import ChatPortion from 'components/ChatPortion/ChatPortion'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { Button, Card, Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
 import postOne from './j46.png'
@@ -13,6 +13,7 @@ import { getPosts } from 'components/redux/actions/postActions'
 import { useDispatch } from 'react-redux'
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
+import RecordRTC from 'recordrtc';
 
 
 const firebaseConfig = {
@@ -38,6 +39,9 @@ const CreateAd = () => {
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
   const [userData, setUserData] = useState()
   const [postUrl, setPostUrl] = useState()
+   const recorderRef = useRef(null);
+  const videoRef = useRef(null);
+  
   
   const dispatch=useDispatch()
     const Values={
@@ -224,6 +228,11 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
   
 
   }
+ 
+
+
+
+
   return (
     <div className='content'>
     <Row>
@@ -325,6 +334,7 @@ For your Meeting</h2>
     <Row className='justify-content-end mt-3'>
     <Button className='reset-button mr-2' onClick={post}>Submit</Button>
     </Row>
+    
     </Col>
     
 

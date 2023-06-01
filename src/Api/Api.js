@@ -54,6 +54,10 @@ export const updateThumbPic= async (values) => {
    
     return await axios.put(`${url}/updateThumbPic`, values);
 }
+export const updateUserCover = async (values) => {
+    return await axios.put(`${url}/updateUserCover`, values);
+}
+
 //post
 export const createPost = async (values) => {
     return await axios.post(`${url}/createPost`, values);

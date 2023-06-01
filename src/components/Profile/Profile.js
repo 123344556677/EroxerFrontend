@@ -34,6 +34,7 @@ import { getUserById } from "components/redux/actions/userActions";
 import { getAllUsers } from "components/redux/actions/userActions";
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
+import { updateUserCover } from "Api/Api";
 
 
 const firebaseConfig = {
@@ -182,73 +183,98 @@ dispatch(getAllUsers())
   const handleBackgroundPic = (e) => {
     console.log(e, "pic");
     setBackgroundImage(e.selectedFile.base64);
+   
    const type = e.selectedFile.base64.substring(5, 10);
   if (type === 'image') {
     setBackgroundVideoCheck(false)
-    // uploadImageToFirebase(e.selectedFile.base64);
+    
+    uploadImageToFirebase(e.selectedFile.base64);
     return 'image';
   } else if (type === 'video') {
     setBackgroundVideoCheck(true)
-  //  blobUrl=getBlobUrl(e.selectedFile.base64)
-  //  uploadVideoToFirebase(e.selectedFile.base64);
+    uploadVideoToFirebase(e.selectedFile.base64)
+  
    console.log("video url============>")
+     
   
   }
 
 
-    // const values = {
-    //   backgroundImage: e.selectedFile.base64,
-    //   userId: userId.id,
-    // };
-    // updateUser(values).then((res) => {
-    //   if (res.data.message === "user updated") {
-    //     toast.success("Cover photo upated", {
-    //       position: toast.POSITION.TOP_CENTER,
-    //       autoClose: 3000,
-
-    //       theme: "dark",
-    //     });
-    //   } else {
-    //     toast.error("Server Error", {
-    //       position: toast.POSITION.TOP_CENTER,
-    //       autoClose: 3000,
-
-    //       theme: "dark",
-    //     });
-    //   }
-    // });
+   
   };
-//        const uploadVideoToFirebase = (base64Video) => {
-//   const videoRef = ref(storage, 'videos/' + Date.now() + '.mp4');
+       const uploadVideoToFirebase = (base64Video) => {
+  const videoRef = ref(storage, 'videos/' + Date.now() + '.mp4');
 
-//   // Upload the base64 video string to Firebase Storage
-//   uploadString(videoRef, base64Video, 'data_url').then((snapshot) => {
-//     console.log('Uploaded a video!', snapshot);
+  // Upload the base64 video string to Firebase Storage
+  uploadString(videoRef, base64Video, 'data_url').then((snapshot) => {
+    console.log('Uploaded a video!', snapshot);
 
-//     // Get the download URL of the uploaded video
-//     getDownloadURL(videoRef).then((url) => {
-//       console.log('Video URL:', url);
-//       setBackgroundUrl(url)
-//       // Use the video URL as needed (e.g., save to state, display to the user, etc.)
-//     });
-//   });
-// };
-//  const uploadImageToFirebase = (base64Video) => {
-//   const fileName = Date.now() + '.jpg';
-// const fileRef = ref(storage,  fileName);
-// uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
-//   console.log('Uploaded a blob or file!', snapshot);
+    // Get the download URL of the uploaded video
+    getDownloadURL(videoRef).then((url) => {
+      console.log('Video URL:', url);
+      const values = {
+      backgroundImage: url,
+      userId: userId.id,
+    };
+    updateUserCover(values).then((res) => {
+      if (res.data.message === "user updated") {
+        toast.success("Cover photo upated", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
 
-//   // Get the URL of the uploaded image location
-//   getDownloadURL(fileRef).then(async(url) => {
-//     console.log('Image URL:', url);
-//     setBackgroundUrl(url)
-//   })
-// })
+          theme: "dark",
+        });
+      } else {
+        toast.error("Server Error", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
+      }
+    });
+      // Use the video URL as needed (e.g., save to state, display to the user, etc.)
+    });
+  });
+};
+ const uploadImageToFirebase = (base64Video) => {
+  const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+   const values = {
+      backgroundImage: url,
+      userId: userId.id,
+    };
+    updateUserCover(values).then((res) => {
+      if (res.data.message === "user updated") {
+        toast.success("Cover photo upated", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
+      } else {
+        toast.error("Server Error", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
+      }
+    });
+  })
+})
   
-// };
+};
   return (
     <div className="content profile-div " style={{ zoom: "0.80" }}>
+    {
+      backgroundVideoCheck===false&&
       <div
         style={{
           backgroundImage: `url(${
@@ -312,6 +338,82 @@ dispatch(getAllUsers())
           />
         </div>
       </div>
+    }
+    {
+      backgroundVideoCheck===true&&
+      <div
+      style={{
+        position: 'relative',
+        height: '350px',
+        width: '1060px',
+      }}
+      className="profileBackground"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      <video
+        
+        src={backgroundImage}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          // objectFit: 'cover',
+        }}
+        loop
+        muted
+        controls
+      />
+      <br />
+        <h1 className="text-center mt-5">
+          <BsFillImageFill
+            className="background-upload"
+            style={{ opacity: isHovered ? "1" : "0" }}
+          />
+        </h1>
+        <div
+          style={{
+            opacity: "0",
+            position: "absolute",
+            zIndex: "10",
+            align: "center",
+            marginLeft: "45%",
+            marginTop: "-8%",
+            fontSize: "30px",
+            paddingTop: "15px",
+          }}
+        >
+          <FileBase64
+            type="file"
+            className="text-center"
+            onDone={(base64) => handleBackgroundPic({ selectedFile: base64 })}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            transform: "translate(50%, 50%)",
+          }}
+        >
+          <img
+            src={userData?.profilePic ? userData?.profilePic : profilSeven}
+            alt="Profile"
+            className="rounded-circle"
+            style={{
+              border: "3px solid white",
+              height: "100px",
+              width: "100px",
+              objectFit: "cover",
+            }}
+          />
+        </div>
+      </div>
+    }
       <Row className="profile-user-row">
         <Col>
           <Row className="mb-0">
