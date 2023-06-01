@@ -159,6 +159,7 @@ function Sidebar(props) {
                   prop.name!=="editProfile"&&
                   prop.name!=="ChatCall"&&
                   prop.name!=="ChatVideoCall"&&
+                  prop.name!=="Live Streaming"&&
                   
                      
                     <NavLink

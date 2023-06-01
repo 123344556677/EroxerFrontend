@@ -9,37 +9,48 @@ import streamFive from './j24.png'
 import streamSix from './j25.png'
 // import streamSeven from './j26.png'
 import { Col } from 'reactstrap'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const LiveSection = () => {
-    const lives=[
-        {
-            pic:streamOne
-        },
-        {
-            pic:streamThree
-        },
-        {
-            pic:streamFour
-        },
-        {
-            pic:streamFive
-        },
-        {
-            pic:streamSix
-        },
+    const [lives, setLives]=useState([])
+    // const lives=[
+    //     {
+    //         pic:streamOne
+    //     },
+    //     {
+    //         pic:streamThree
+    //     },
+    //     {
+    //         pic:streamFour
+    //     },
+    //     {
+    //         pic:streamFive
+    //     },
+    //     {
+    //         pic:streamSix
+    //     },
         
-        {
-            pic:streamFour
-        },
-        {
-            pic:streamFive
-        },
-        {
-            pic:streamSix
-        },
+    //     {
+    //         pic:streamFour
+    //     },
+    //     {
+    //         pic:streamFive
+    //     },
+    //     {
+    //         pic:streamSix
+    //     },
        
-    ]
+    // ]
+    const getAllUser= useSelector(state => state?.getAllUsers);
+    const AllUser=getAllUser?.allUsers
+    useEffect(()=>{
+           
+    setLives(AllUser?.filter(data=>data?.liveStreamStatus==="live"))
+        },[AllUser])
     
+console.log(lives,"-----------live section")
   return (
     <div className='live-chats '>
     <span className='ml-3' style={{color:"white",fontSize:"30px"}} ><Link to="/admin/home"
@@ -48,12 +59,15 @@ const LiveSection = () => {
     <div className='live-main-chats'>
   
 {
-    lives.map((data)=>(
+    lives?
+    lives?.map((data)=>(
 <>
-    <img src={data.pic} style={{width:"100px",height:"100px"}} className="mt-5 stream-pics"/> <br/>
+    <img src={data?.profilePic} style={{width:"100px",height:"100px"}} className="mt-5 stream-pics"/> <br/>
     </>
 
     ))
+    :
+    <h3 className='mt-5 text-center'>No one streaming!</h3>
 
 }
 

@@ -1,9 +1,10 @@
 import LiveSection from 'components/Live/LiveSection/LiveSection'
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useParams } from 'react-router-dom';
 import { liveStreamStatus } from 'Api/Api';
+import { getAllUsers } from 'components/redux/actions/userActions';
 
 function randomID(len) {
   let result = '';
@@ -53,13 +54,14 @@ const {id}=useParams()
 //   }
   sharedLinks.push({
     name: 'Join as audience',
-    url:
-     window.location.protocol + '//' + 
-     window.location.host + window.location.pathname +
-      '?roomID=' +
-      id +
-      '&role=Audience',
+    url:`http://localhost:3000/admin/liveStreaming/${id}`
+    //  window.location.protocol + '//' + 
+    //  window.location.host + window.location.pathname +
+    //   '?roomID=' +
+    //   id +
+    //   '&role=Audience',
   });
+  const dispatch=useDispatch()
 
   const updateLiveStreamStatus=(status)=>{
     const values={
@@ -67,6 +69,8 @@ const {id}=useParams()
         status:status
     }
     liveStreamStatus(values)
+    //  getAllUsers()
+
 
   }
     const liveStreaming=(element)=>{
@@ -85,6 +89,10 @@ const {id}=useParams()
         sharedLinks,
         onLiveStart: () =>{
             updateLiveStreamStatus("live")
+        },
+        onLiveEnd: () => {
+           updateLiveStreamStatus("false")
+
         }
       });
   
@@ -95,7 +103,11 @@ const {id}=useParams()
     <div className='content'>
     <LiveSection />
 
-    <div ref={liveStreaming}>
+    <div ref={liveStreaming}
+     style={{ width: '70vw',height:"100vh" }}
+     className='ml-lg-5'
+     >
+     
     </div>
 
 

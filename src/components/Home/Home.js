@@ -418,17 +418,24 @@ const handleImageHover = () => {
       <ul 
       className={ hoveredImage ? 'live-img ' : 'image-list'}
       >
+      
       {
+        streamPics?
 streamPics?.map((data,index)=>(
 
 
-        <li><img src={data.profilePic} alt=""
+        <li><img src={data?.profilePic?data?.profilePic:streamFour} alt=""
         
         onMouseOver={ () => setHoveredImage(true)}
           onMouseOut={() => setHoveredImage(false)}
+        onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
         
         /></li>
+        
+        
         ))
+        :
+        <h1>Go Live!</h1>
 }
         
         

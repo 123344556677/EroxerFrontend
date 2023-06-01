@@ -16,34 +16,38 @@ import liveFour from "./j39.jpg";
 import liveFive from "./j40.jpg";
 import liveSix from "./j41.jpg";
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import LiveThumbModal from "components/Modals/LiveThumbModal";
+import { useEffect } from "react";
+import { getAllUsers } from "components/redux/actions/userActions";
 
 const Live = () => {
   const [userId, setuserId] = useState(
     JSON.parse(localStorage.getItem("keys"))
   );
-  const streams = [
-    {
-      pic: liveFour,
-    },
-    {
-      pic: liveFive,
-    },
-    {
-      pic: liveSix,
-    },
-    {
-      pic: liveFour,
-    },
-    {
-      pic: liveFive,
-    },
-    {
-      pic: liveSix,
-    },
-  ];
+  const [streamThumb, setStreamThumb] = useState([]);
+  // const streams = [
+  //   {
+  //     pic: liveFour,
+  //   },
+  //   {
+  //     pic: liveFive,
+  //   },
+  //   {
+  //     pic: liveSix,
+  //   },
+  //   {
+  //     pic: liveFour,
+  //   },
+  //   {
+  //     pic: liveFive,
+  //   },
+  //   {
+  //     pic: liveSix,
+  //   },
+  // ];
   const carouselStreams = [
     {
       pic: liveOne,
@@ -66,12 +70,25 @@ const Live = () => {
   ];
 const getUser = useSelector((state) => state?.getUserById);
 const userData = getUser?.userData;
+ const getAllUser= useSelector(state => state?.getAllUsers);
+  const AllUser=getAllUser?.allUsers
 
 const history=useHistory()
-const makeLiveStream = () => {
-    // sendVideoAlert();
-    history.push(`/admin/liveStreaming/${userId?.id}`);
-  };
+const dispatch=useDispatch()
+useEffect(()=>{
+           
+        setStreamThumb(AllUser?.filter(data=>data?.liveStreamStatus==="live"))
+        },[])
+
+    //     useEffect(() => {
+     
+    //   dispatch(getAllUsers())
+   
+        
+    // }, [dispatch])
+
+
+
 
 
 
@@ -85,17 +102,18 @@ const makeLiveStream = () => {
       <Row>
       <Col>
         <h1
-          className="text-white mt-1"
+          className="text-white mt-3"
           style={{ fontStyle: "Roboto", fontWeight: "600" }}
         >
           Live Streaming
         </h1>
         </Col>
-        <Col>
+        <Col className="text-right mr-3">
+        <LiveThumbModal/>
         
           
           
-        <Button className="reset-button" onClick={makeLiveStream}> Go live</Button>
+       
           
         </Col>
         </Row>
@@ -104,7 +122,7 @@ const makeLiveStream = () => {
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-          slidesPerView={"auto"}
+          slidesPerView={ "3"}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -120,20 +138,23 @@ const makeLiveStream = () => {
           modules={[EffectCoverflow, Pagination, Navigation]}
           className="swiper_container"
         >
-          {carouselStreams.map((data) => (
+          {streamThumb?
+            streamThumb?.map((data) => (
             <SwiperSlide
               style={{
                 width: "40%",
               }}
             >
               <img
-                src={data.pic}
+                src={data.thumbPic}
                 alt="slide_image"
                 style={{
                   borderRadius: "40px",
                   width: "1000px",
                   height: "300px",
+                  cursor:"pointer"
                 }}
+                onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
               />
               <div
                 style={{
@@ -147,7 +168,10 @@ const makeLiveStream = () => {
                 <FaShare className="share-live-pic" />
               </div>
             </SwiperSlide>
-          ))}
+          ))
+        :
+        <h3 className="text-center ml-lg-3 mt-5">No one streaming!</h3>
+        }
           
 
           <div className="slider-controler">
@@ -170,20 +194,27 @@ const makeLiveStream = () => {
           Streams You Might Be Like
         </h3>
         <Row>
-          {streams.map((data) => (
+          {
+            streamThumb?
+            streamThumb?.map((data) => (
             <Col xl={4}>
               <img
                 className=" streams-image-two mt-2"
-                src={data.pic}
-                style={{ height: "210px", width: "550px" }}
+                src={data?.thumbPic}
+                style={{ height: "210px", width: "550px",cursor:"pointer" }}
                 alt=""
+                onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
               />
 
               <p alt="" className="stream-live ml-4 text-center">
                 Live
               </p>
             </Col>
-          ))}
+           
+          ))
+           :
+            <h3 className="text-center ml-lg-3 mt-5">No one streaming!</h3>
+            }
         </Row>
       </div>
     </div>

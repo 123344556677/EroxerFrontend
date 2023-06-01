@@ -50,6 +50,10 @@ export const liveStreamStatus= async (values) => {
    
     return await axios.put(`${url}/updateLiveStreamStatus`, values);
 }
+export const updateThumbPic= async (values) => {
+   
+    return await axios.put(`${url}/updateThumbPic`, values);
+}
 //post
 export const createPost = async (values) => {
     return await axios.post(`${url}/createPost`, values);
