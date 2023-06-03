@@ -45,6 +45,8 @@ import { getLastMessage } from 'Api/Api';
 import { getRequestByRecieverId } from 'Api/Api';
 import { updateAllCallStatus } from 'Api/Api';
 import { getCallById } from 'components/redux/actions/callActions';
+import { changeStatus } from 'Api/Api';
+import { toast,ToastContainer } from 'react-toastify';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -235,6 +237,23 @@ const ChatPortion = () => {
 ]
 const history=useHistory()
 const dispatch=useDispatch()
+const changeRequestStatus=(id,status)=>{
+  console.log(id,status)
+  const reqValues={
+    recieverId:userId.id,
+    senderId:id,
+    status:status
+  }
+  changeStatus(reqValues)
+  window.location.reload(false)
+  toast.success("Request Accepted", {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 3000,
+
+          theme: "dark",
+        });
+
+}
 const handleNotiValues=()=>{
   setNotiOpen(!notiOpen);
   setNotiLen(0)
@@ -288,10 +307,10 @@ updateAllCallStatus(callValues)
      <p className='chat-noti-text'>{data?.username?data?.username:data?.firstName} sent you friend Request</p>
      <Row>
      <Col xl={6}>
-     <Button className='reset-button'>Accept</Button>
+     <Button className='reset-button' onClick={()=>changeRequestStatus(data?._id,"accepted")}>Accept</Button>
      </Col>
       <Col xl={6}>
-     <Button className='cancel-button'>Reject</Button>
+     <Button className='cancel-button'onClick={()=>changeRequestStatus(data?._id,"rejected")}>Reject</Button>
      </Col>
 
      </Row>
@@ -322,7 +341,7 @@ updateAllCallStatus(callValues)
      <p className='chat-noti-text'>Missed a call from {data?.username?data?.username:data?.firstName} </p>
      <Row>
      <Col xl={12}>
-     <Button className='reset-button'>View Profile</Button>
+     <Button onClick={()=>history.push(`/admin/profile/${data?._id}`)} className='reset-button'>View Profile</Button>
      </Col>
      
 
@@ -463,6 +482,7 @@ updateAllCallStatus(callValues)
    {
   //  </div>
    }
+   <ToastContainer/>
     
    </>
   )

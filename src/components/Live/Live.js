@@ -82,7 +82,7 @@ const checkBackgroundImage=(e)=>{
    return <video controls autoplay muted className=" streams-image-two mt-2" src={e?.backgroundImage} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)} />
    }
    else{
-    return <img className=" streams-image-two mt-2" src={e?.backgroundImage} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)}/>
+    return <img className=" streams-image-two mt-2" src={e?.backgroundImage?e?.backgroundImage:liveFive} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)}/>
    }
 
 

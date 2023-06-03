@@ -5,6 +5,8 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useParams } from 'react-router-dom';
 import { liveStreamStatus } from 'Api/Api';
 import { getAllUsers } from 'components/redux/actions/userActions';
+import { Button } from 'reactstrap';
+import TipModal from 'components/Modals/TipModal';
 
 function randomID(len) {
   let result = '';
@@ -93,7 +95,8 @@ const {id}=useParams()
         onLiveEnd: () => {
            updateLiveStreamStatus("false")
 
-        }
+        },
+        showPreJoinView: false,
       });
   
      
@@ -101,14 +104,20 @@ const {id}=useParams()
 }
   return (
     <div className='content'>
+    
     <LiveSection />
+    
 
     <div ref={liveStreaming}
-     style={{ marginRight:"-10%" }}
+     
      className=''
      >
      
     </div>
+    <TipModal/>
+    {
+    // <Button className='reset-button'>Tip</Button>
+    }
 
 
     

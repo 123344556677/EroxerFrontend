@@ -49,7 +49,7 @@ import { getUsersById } from 'Api/Api';
 import { getAllPosts } from 'Api/Api';
 import { getUserById } from 'components/redux/actions/userActions';
 import { getAllUsers } from 'components/redux/actions/userActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory,useLocation } from 'react-router-dom';
 import { getRequestById } from 'components/redux/actions/requestActions';
 import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -105,6 +105,7 @@ let chats=[
 
 const Home = () => {
   const history=useHistory()
+  const location=useLocation()
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
       // const [userData, setUserData] = useState()
       const [postData, setPostData] = useState()
@@ -256,7 +257,7 @@ const Home = () => {
       dispatch(getListById(values))
       dispatch(getCallById(values))
         
-    }, [dispatch])
+    }, [dispatch,location])
     
       console.log(streamPics,"All user---->")
 
@@ -288,12 +289,14 @@ const Home = () => {
           confirmButtonText: "Accept",
           cancelButtonText: "Reject",
           reverseButtons: true,
+          timer: 10000,
           customClass: {
             confirmButton: "btn ml-2 btn-primary",
             cancelButton: "btn btn-danger",
           },
           background: "#000000",
         }).then((result) => {
+          
           if (result.isConfirmed) {
             // User clicked the confirm button
             changeRequestStatus(data?.userId)
@@ -304,6 +307,8 @@ const Home = () => {
         });
       
     })
+  
+    
   },[])
     // if(getRequests?.length>=0){
     //  toast.warn(

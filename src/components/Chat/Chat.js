@@ -196,6 +196,7 @@ const changeCallStatus=(status,senderId)=>{
           confirmButtonText: "Answer",
           cancelButtonText: "Reject",
           reverseButtons: true,
+          timer: 10000,
           customClass: {
             confirmButton: "btn ml-2 btn-primary",
             cancelButton: "btn btn-danger",
