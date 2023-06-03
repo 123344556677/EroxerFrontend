@@ -60,6 +60,8 @@ import Swal from 'sweetalert2';
 import { addList } from 'Api/Api';
 import { getListById } from 'components/redux/actions/listActions';
 import Poll from 'components/Poll/Poll';
+import { getRequestByRecieverId } from 'Api/Api';
+import { getCallById } from 'components/redux/actions/callActions';
 
 const images = [
   'https://picsum.photos/id/1015/300/200',
@@ -205,7 +207,7 @@ const Home = () => {
 
         useEffect(()=>{
            
-        setStreamPics(AllUser?.filter(data=>data?.liveStreamStatus==="live"))
+        setStreamPics(AllUser?.filter(data=>data?.liveStreamStatus==="live"&&data?._id!==userId.id))
         },[])
 
 
@@ -251,9 +253,11 @@ const Home = () => {
       dispatch(getRequestById(values))
       dispatch(getRequestBySenderId(values))
       dispatch(getAllAcceptedUsers(values))
-       dispatch(getListById(values))
+      dispatch(getListById(values))
+      dispatch(getCallById(values))
         
     }, [dispatch])
+    
       console.log(streamPics,"All user---->")
 
     useEffect(() => {
@@ -376,6 +380,8 @@ const changeRequestStatus=(id)=>{
 const handleImageHover = () => {
     setHoveredImage(true);
   };
+
+  
   return (
 
     

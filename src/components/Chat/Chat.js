@@ -62,6 +62,7 @@ import { useHistory } from "react-router-dom";
 import { getUserById } from "components/redux/actions/userActions";
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
+import { updateCallStatus } from "Api/Api";
 
 
 const firebaseConfig = {
@@ -140,12 +141,20 @@ useEffect(()=>{
   setMessages(res?.data)
  })
 },[chatUserData,userId])
-
+const changeCallStatus=(status,senderId)=>{
+  const callValues={
+  recieverId:userId.id,
+  senderId:senderId,
+  status:status
+  }
+  updateCallStatus(callValues)
+}
   useEffect(() => {
     const pusher = new Pusher("78bfd9bc497cd883c526", {
       cluster: "ap1",
       useTLS: true,
     });
+
 
     const channel = pusher.subscribe(userIdforPusher);
     channel.bind("client-alert", (data) => {
@@ -163,13 +172,16 @@ useEffect(()=>{
             confirmButton: "btn ml-2 btn-primary",
             cancelButton: "btn btn-danger",
           },
+          timer: 10000,
           background: "#000000",
         }).then((result) => {
           if (result.isConfirmed) {
             // User clicked the confirm button
+            changeCallStatus("answered",data?.senderId)
             history.push(`/admin/chatCall/${data?.senderId}`);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             // User clicked the cancel button
+            changeCallStatus("rejected",data?.senderId)
             Swal.fire("Cancelled", "Your action was cancelled :)", "error");
           }
         });
@@ -192,9 +204,11 @@ useEffect(()=>{
         }).then((result) => {
           if (result.isConfirmed) {
             // User clicked the confirm button
+            changeCallStatus("answered",data?.senderId)
             history.push(`/admin/chatVideoCall/${data?.senderId}`);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
             // User clicked the cancel button
+            changeCallStatus("rejected",data?.senderId)
             Swal.fire("Cancelled", "Your action was cancelled :)", "error");
           }
         });

@@ -6,7 +6,7 @@ import streamOne from './j20.png'
 import streamThree from './j21.png'
 import streamFour from './j22.png'
 import streamFive from './j24.png'
-import streamSix from './j25.png'
+import streamSix from './j27.png'
 // import streamSeven from './j26.png'
 import { Col } from 'reactstrap'
 import { useState } from 'react'
@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 
 const LiveSection = () => {
     const [lives, setLives]=useState([])
+    const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
     // const lives=[
     //     {
     //         pic:streamOne
@@ -47,7 +48,7 @@ const LiveSection = () => {
     const AllUser=getAllUser?.allUsers
     useEffect(()=>{
            
-    setLives(AllUser?.filter(data=>data?.liveStreamStatus==="live"))
+    setLives(AllUser?.filter(data=>data?.liveStreamStatus==="live"&&data?._id!==userId.id))
         },[AllUser])
     
 console.log(lives,"-----------live section")
@@ -62,7 +63,7 @@ console.log(lives,"-----------live section")
     lives?
     lives?.map((data)=>(
 <>
-    <img src={data?.profilePic} style={{width:"100px",height:"100px"}} className="mt-5 stream-pics"/> <br/>
+    <img src={data?.profilePic?data?.profilePic:streamSix} style={{width:"100px",height:"100px"}} className="mt-5 stream-pics"/> <br/>
     </>
 
     ))

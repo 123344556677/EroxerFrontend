@@ -39,21 +39,38 @@ import {
   Badge,
 } from "reactstrap";
 import { getUsersById } from 'Api/Api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getLastMessage } from 'Api/Api';
+import { getRequestByRecieverId } from 'Api/Api';
+import { updateAllCallStatus } from 'Api/Api';
+import { getCallById } from 'components/redux/actions/callActions';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
+     const [notiLen, setNotiLen] = useState(0);
      const [notiOpen, setNotiOpen] = useState(false);
      const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
      const [isOpen, setIsOpen] = useState(false);
      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+     const getCalls = useSelector(state => state?.getAllCallReducer?.call);
+     
      const getAllAcceptedRequests = useSelector(
     (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
   );
  let readChats =getAllAcceptedRequests;
  const [lastMessages, setLastMessages] = useState();
+ console.log(getRequests,"recievr requests")
+ useEffect(()=>{
+ setNotiLen((getRequests?.length || 0) + (getCalls?.length || 0))
+ },[])
+
+
+ 
+
+ 
+
+
   // let pinChats=[
   //     {
   //         pic:streamFive
@@ -149,6 +166,16 @@ const ChatPortion = () => {
       setIsOpen(false);
     }
   }, [width]);
+  const values={
+        userId:userId.id
+      }
+
+  // useEffect(()=>{
+  // getRequestByRecieverId(values)
+  // .then((res)=>{
+  //   console.log(res,"request by reciever")
+  // })
+  // },[])
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
@@ -207,6 +234,19 @@ const ChatPortion = () => {
     },
 ]
 const history=useHistory()
+const dispatch=useDispatch()
+const handleNotiValues=()=>{
+  setNotiOpen(!notiOpen);
+  setNotiLen(0)
+  const callValues={
+    userId:userId.id
+  }
+updateAllCallStatus(callValues)
+.then((res)=>{
+ dispatch(getCallById(values))
+})
+ 
+}
   return (
     <>
     {
@@ -222,30 +262,39 @@ const history=useHistory()
     {
       notiOpen&&
      <div className='home-noti-div'  data-aos="fade-down">
-     <h3 className='home-noti-head'>Subscription</h3>
+     <h3 className='home-noti-head'>Notifications</h3>
      
       <Progress  className="horizontal-progress-bar-menu" now={0}  />
      <Progress  className="vertical-progress-bar-menu" now={0} />
-     <span style={{position: 'absolute', top: '0.1em', }}>
-    <span style={{display: 'inline-block', width: '1.0em',marginLeft:"2.0em", marginTop:"3.3em", height: '1.0em', borderRadius: '50%', backgroundColor: 'white'}}>
+     <span style={{position: 'absolute', top: '0.3em', }}>
+    <span style={{display: 'inline-block', width: '1.0em',marginLeft:"2.5em", marginTop:"3.3em", height: '1.0em', borderRadius: '50%', backgroundColor: 'white'}}>
     </span>
   </span>
+  
+    
      <div className='home-main-noti-div'>
      {
-       [1,2,3,4,5].map((data)=>(
+       getRequests?.map((data)=>(
       <>
-     
      <Media left>
-        <img object  src={streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
+        <img object  src={data?.profilePic?data?.profilePic:streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
       </Media>
       <Media body className="ml-3 mt-2 mb-5" data-aos="fade-right">
-        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>Shaby</h4>
+        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>{data?.username?data?.username:data?.firstName}</h4>
       <Card className='chat-noti-card mr-2 '>
      <div style={{display:"flex"}}>
-     <img src={streamNine} className="chat-noti-img"/>
+     
      <div>
-     <p className='chat-noti-text'>Hello how are i am a photograher and also <br/> doing some yoga classes for make body <br/> more attractive.</p>
-     <Input className="ml-2 mt-2"style={{borderRadius: "30px",border:"1px solid white",width:"80%"}}/>
+     <p className='chat-noti-text'>{data?.username?data?.username:data?.firstName} sent you friend Request</p>
+     <Row>
+     <Col xl={6}>
+     <Button className='reset-button'>Accept</Button>
+     </Col>
+      <Col xl={6}>
+     <Button className='cancel-button'>Reject</Button>
+     </Col>
+
+     </Row>
      
      </div>
      </div>
@@ -253,11 +302,44 @@ const history=useHistory()
      </Card>
         
       </Media>
-    <hr className="ml-5 mr-3 " style={{backgroundColor:"#666363",marginTop:"40%"}}/>
+    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363",marginTop:"30%"}}/>
     </>
     ))
     
      }
+     {
+       getCalls?.map((data)=>(
+      <>
+     <Media left>
+        <img object  src={data?.profilePic?data?.profilePic:streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
+      </Media>
+      <Media body className="ml-3 mt-2 mb-5" data-aos="fade-right">
+        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>{data?.username?data?.username:data?.firstName}</h4>
+      <Card className='chat-noti-card mr-2 '>
+     <div style={{display:"flex"}}>
+     
+     <div>
+     <p className='chat-noti-text'>Missed a call from {data?.username?data?.username:data?.firstName} </p>
+     <Row>
+     <Col xl={12}>
+     <Button className='reset-button'>View Profile</Button>
+     </Col>
+     
+
+     </Row>
+     
+     </div>
+     </div>
+     
+     </Card>
+        
+      </Media>
+    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363",marginTop:"30%"}}/>
+    </>
+    ))
+    
+     }
+    
      
     
     
@@ -279,14 +361,17 @@ const history=useHistory()
         <h3 className='text-white mb-0'style={{fontWeight:"600"}}>{userData?.firstName} {userData?.lastName}</h3>
         <p className="chat-designation">Student</p>
       </Media>
-      <Media right onClick={()=>setNotiOpen(!notiOpen)} style={{cursor:"pointer"}}>
+      <Media right onClick={handleNotiValues} style={{cursor:"pointer"}}>
       {
         // <Dropdown isOpen={dropdownOpen} toggle={toggle} className="">
         // <DropdownToggle onClick={(e)=>e.preventDefault()} className="home-noti-bell">
       }
-        <div className="" onClick={()=>setNotiOpen(!notiOpen)}>
+        <div className="" onClick={handleNotiValues}>
         <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",color:"white",fontSize:"25px"}} />
-      <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{getRequests?.length?getRequests?.length:""}</Badge>
+        {
+          notiLen&&
+      <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen}</Badge>
+        }
     
     </div>
     

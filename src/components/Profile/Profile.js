@@ -61,10 +61,11 @@ const Profile = () => {
   );
   // const [userData, setUserData] = useState()
   const [isHovered, setIsHovered] = useState(false);
-  const [backgroundImage, setBackgroundImage] = useState();
+ 
   const [privateCheck, setPrivateCheck] = useState("posts");
   const [requestCheck, setRequestCheck] = useState("none");
   const [backgroundVideoCheck, setBackgroundVideoCheck] = useState(false);
+   const [backgroundImage, setBackgroundImage] = useState();
    const getUser= useSelector(state => state.getUserById);
   let sendingId = "";
   if (id === ":id") {
@@ -80,6 +81,18 @@ const Profile = () => {
   );
  
   const userData = user;
+  useEffect(()=>{
+   const check=userData?.backgroundImage?.includes("video")
+   if(check){
+    setBackgroundVideoCheck(true)
+    setBackgroundImage(userData?.backgroundImage)
+   }
+   else{
+     setBackgroundVideoCheck(false)
+    setBackgroundImage(userData?.backgroundImage)
+   }
+  },[])
+ 
   console.log(userData, "==========>userData");
  const getRecieverId = useSelector(state => state?.getAllSenderRequestReducer);
  const requestUser=getUser?.userData
@@ -365,6 +378,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
         loop
         muted
         controls
+        autoPlay
       />
       <br />
         <h1 className="text-center mt-5">

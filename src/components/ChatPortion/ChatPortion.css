@@ -151,8 +151,8 @@ p {
   border-radius: 30px 30px 30px 30px !important;
   position: fixed !important;
   margin-right: 100% !important;
-  width: 340px !important;
-  margin-left: 62% !important;
+  width: 400px !important;
+  margin-left: 57% !important;
   z-index: 5000;
   height: 100vh !important;
   zoom: 0.75;
@@ -197,13 +197,14 @@ p {
   
 }
 .vertical-progress-bar-menu{
-   height: 85vh!important;
+   height: 100vh!important;
   width: -100px!important;
   position: absolute!important;
   background-color: #666363!important;
   margin-left: 10%!important;
-  /* margin-top: -2%!important; */
+  margin-top: -4%!important;
   box-shadow: 0px 0px 0px 3px #666363!important;
+  border-radius: 50%!important;
 
 }
 .horizontal-progress-bar-menu{
@@ -230,7 +231,7 @@ margin-left: 12%!important;
 .chat-noti-profile-name{
 margin-top: -35px!important;
 position: absolute!important;
-margin-left: 50px!important;
+margin-left: 55px!important;
 
 }
 .chat-noti-card{
@@ -245,9 +246,9 @@ margin-top: 5px;
 
 }
 .chat-noti-text{
-font-size: 6px;
+font-size: 14px;
 color:#FFFFFF;
-margin-top: 8px!important;
+margin-top: 5px!important;
 margin-left: 10px!important;
 
 
@@ -299,6 +300,10 @@ margin-bottom: 5px!important;
 .fa {
   font-size: 24px;
   color: #fff;
+}
+.cancel-button{
+  background-image: linear-gradient(to bottom left, #c53232, #ca2525, #cf2f2f)!important;
+
 }
 
 

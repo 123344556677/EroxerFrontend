@@ -22,6 +22,7 @@ import { useState } from "react";
 import LiveThumbModal from "components/Modals/LiveThumbModal";
 import { useEffect } from "react";
 import { getAllUsers } from "components/redux/actions/userActions";
+import { BsCameraVideoFill } from "react-icons/bs";
 
 const Live = () => {
   const [userId, setuserId] = useState(
@@ -75,9 +76,20 @@ const userData = getUser?.userData;
 
 const history=useHistory()
 const dispatch=useDispatch()
+const checkBackgroundImage=(e)=>{
+  const check=e?.backgroundImage.includes("video")
+   if(check){
+   return <video controls autoplay muted className=" streams-image-two mt-2" src={e?.backgroundImage} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)} />
+   }
+   else{
+    return <img className=" streams-image-two mt-2" src={e?.backgroundImage} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)}/>
+   }
+
+
+}
 useEffect(()=>{
            
-        setStreamThumb(AllUser?.filter(data=>data?.liveStreamStatus==="live"))
+        setStreamThumb(AllUser?.filter(data=>data?.liveStreamStatus==="live"&&data?._id!==userId.id))
         },[])
 
     //     useEffect(() => {
@@ -86,6 +98,12 @@ useEffect(()=>{
    
         
     // }, [dispatch])
+    const makeLiveStream = () => {
+     history.push(`/admin/liveStreaming/${userId?.id}`);
+   
+  };
+
+  
 
 
 
@@ -109,7 +127,8 @@ useEffect(()=>{
         </h1>
         </Col>
         <Col className="text-right mr-3">
-        <LiveThumbModal/>
+       <Button className="reset-button" style={{fontSize:"22px"}} onClick={makeLiveStream}>
+ <BsCameraVideoFill className="mr-lg-3" style={{fontSize:"25px"}}/>  Go live</Button>
         
           
           
@@ -156,17 +175,20 @@ useEffect(()=>{
                 }}
                 onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
               />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "end",
-                  marginRight: "20px",
-                }}
-                className="ml-4"
-              >
-                <AiFillHeart className="heart-live-pic" />
-                <FaShare className="share-live-pic" />
-              </div>
+              {
+              // <div
+              //   style={{
+              //     display: "flex",
+              //     justifyContent: "end",
+              //     marginRight: "20px",
+              //   }}
+              //   className="ml-4"
+              // >
+
+              //   <AiFillHeart className="heart-live-pic" />
+              //   <FaShare className="share-live-pic" />
+              // </div>
+              }
             </SwiperSlide>
           ))
         :
@@ -198,13 +220,8 @@ useEffect(()=>{
             streamThumb?
             streamThumb?.map((data) => (
             <Col xl={4}>
-              <img
-                className=" streams-image-two mt-2"
-                src={data?.thumbPic}
-                style={{ height: "210px", width: "550px",cursor:"pointer" }}
-                alt=""
-                onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
-              />
+            {checkBackgroundImage(data)}
+              
 
               <p alt="" className="stream-live ml-4 text-center">
                 Live

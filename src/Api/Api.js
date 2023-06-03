@@ -103,12 +103,21 @@ export const getLastMessage= async (values) => {
 export const updateReadStatus= async (values) => {
     return await axios.post(`${url}/updateLastRead`, values);
 }
+export const updateCallStatus= async (values) => {
+    return await axios.put(`${url}/changeCallStatus`, values);
+}
+export const updateAllCallStatus= async (values) => {
+    return await axios.put(`${url}/changeAllCallStatus`, values);
+}
 //Request
 export const sendRequest= async (values) => {
     return await axios.post(`${url}/makeRequest`, values);
 }
 export const changeStatus= async (values) => {
     return await axios.put(`${url}/changeRequestStatus`, values);
+}
+export const getRequestByRecieverId= async (values) => {
+    return await axios.post(`${url}/getRequestById`, values);
 }
 
 //list

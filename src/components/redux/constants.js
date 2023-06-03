@@ -17,4 +17,6 @@ export const GET_LIST_FAIL = 'getAllListFail'
 export const DELETE_LIST_SUCCESS = 'deleteListSuccess'
 export const DELETE_LIST_FAIL = 'deleteAllListFail'
 export const Poll_Counter_Increment = 'pollCounterIncrement'
+export const GET_ALL_CALL_SUCCESS = 'getAllCallSuccess'
+export const GET_ALL_CALL_FAIL = 'getAllCalltFail'
 

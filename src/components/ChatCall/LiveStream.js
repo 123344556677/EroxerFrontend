@@ -104,8 +104,8 @@ const {id}=useParams()
     <LiveSection />
 
     <div ref={liveStreaming}
-     style={{ width: '70vw',height:"100vh" }}
-     className='ml-lg-5'
+     style={{ marginRight:"-10%" }}
+     className=''
      >
      
     </div>
