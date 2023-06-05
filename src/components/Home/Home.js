@@ -16,6 +16,9 @@ import streamSeven from './j26.png'
 import profilePic from './j27.png'
 import streamEight from './j38.png'
 
+// import '@lottiefiles/lottie-player/dist/lottie-player.css';
+// import * as animationData from './pinjump.json'
+
 
 import {
   Button,
@@ -205,6 +208,13 @@ const Home = () => {
 
    
 // ]
+const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice'
+    }
+  };
 
         useEffect(()=>{
            
@@ -476,12 +486,15 @@ streamPics?.map((data,index)=>(
 </div>
 
   <span style={{color:"white",fontWeight:"600",fontSize:"18px"}} >Lets Discover </span>
+  
+   <video src="https://assets5.lottiefiles.com/datafiles/zc3XRzudyWE36ZBJr7PIkkqq0PFIrIBgp4ojqShI/newAnimation.json"  background="transparent"  speed="1"  style={{width: "300px", height: "300px"}} loop controls autoplay/>
  
   {
      filterePosts?
    filterePosts?.map((data,index)=>(
     <>
     {data.key==="post"&&
+    
  <div class={index>0?"card second-card-main":"card card-main"} style={{zoom:"0.80"}}>
 
  

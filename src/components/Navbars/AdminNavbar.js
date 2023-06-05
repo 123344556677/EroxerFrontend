@@ -90,7 +90,7 @@ function AdminNavbar(props) {
                 }
               </div>
 
-              {props.brandText !== "Profile" &&
+              { props.brandText !== "Profile" &&
                 props.brandText !== "Dasboard" &&
                 props.brandText !== "Home" &&
                 props.brandText !== "Authentication" &&
@@ -100,6 +100,7 @@ function AdminNavbar(props) {
                 props.brandText !== "createPost" &&
                 props.brandText !== "createAd" &&
                 props.brandText !== "AdDescription" &&
+                props.brandText !== "Live Streaming" &&
                 props.brandText !== "editProfile" &&
                 props.brandText !== "Brand" && (
                   <NavbarToggler onClick={toggleCollapse}>
@@ -119,7 +120,7 @@ function AdminNavbar(props) {
                     //   </Button>
                     // </InputGroup>
                   }
-                  {props.brandText !== "Profile" &&
+                  { props.brandText !== "Profile" &&
                     props.brandText !== "Dashboard" &&
                     props.brandText !== "Home" &&
                     props.brandText !== "Authentication" &&
@@ -127,6 +128,7 @@ function AdminNavbar(props) {
                     props.brandText !== "AccountManagement" &&
                     props.brandText !== "Membership" &&
                     props.brandText !== "Help & Support" &&
+                    props.brandText !== "Live Streaming" &&
                     props.brandText !== "createPost" &&
                     props.brandText !== "createAd" &&
                     props.brandText !== "createPoll" &&

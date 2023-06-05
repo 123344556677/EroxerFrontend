@@ -38,7 +38,8 @@ useEffect(() => {
   return (
    <div className='content'>
             <div>
-               <span onClick={toggleModal}  style={{fontSize:"20px",color:"white",cursor:"pointer"}}>Tip</span> <AiOutlineDollar style={{fontSize:"20px",color:"white",cursor:"pointer"}} onClick={toggleModal} className='ml-2'/>
+               <Button onClick={toggleModal} className='tip-btn'><AiOutlineDollar style={{fontSize:"25px"}}  className=''/>
+               </Button>
                 
 
                 <Modal  isOpen={showModal} toggle={toggleModal} className="main-modal" style={{maxWidth:"400px",borderRadius:"10px"}}  >
@@ -167,7 +168,7 @@ useEffect(() => {
 <h1 className='text-center mb-0'>
 <Button className='pay-btn reset-button' onClick={toggleModal}>Submit</Button></h1>
 <h1 className='text-center mb-0'>
- <Button type="button" className="pay-cancel-btn" onClick={toggleModal}>
+ <Button type="button" className="pay-cancel-btn mt-2" onClick={toggleModal}>
       Cancel
     </Button>
     </h1>

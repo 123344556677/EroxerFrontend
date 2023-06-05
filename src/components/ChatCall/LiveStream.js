@@ -111,6 +111,7 @@ const {id}=useParams()
     <div ref={liveStreaming}
      
      className=''
+     style={{height:"100vh", width:"100%",marginTop:"-80px",zIndex:"10000"}}
      >
      
     </div>

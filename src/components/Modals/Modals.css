@@ -94,4 +94,13 @@ padding-right: 130px!important;
 
 
 }
+.tip-btn{
+  position: absolute!important;
+  margin-top: -58px!important;
+  background-image: linear-gradient(to bottom left, #2c2f3e, #2c2f3e, #2c2f3e)!important;
+  margin-left: 21%!important;
+  padding: 0.6em!important;
+  
+
+}
 
