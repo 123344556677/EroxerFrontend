@@ -39,6 +39,7 @@ const CreateAd = () => {
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
   const [userData, setUserData] = useState()
   const [postUrl, setPostUrl] = useState()
+  const [animationCheck, setAnimationCheck] = useState(false)
    const recorderRef = useRef(null);
   const videoRef = useRef(null);
   
@@ -208,6 +209,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
      
     });
     dispatch(getPosts())
+    setAnimationCheck(true)
   }
   else{
     toast.error('Server Error', {
@@ -332,7 +334,14 @@ For your Meeting</h2>
       
        
     <Row className='justify-content-end mt-3'>
+    {
+      animationCheck?
+      <lottie-player  src="https://assets4.lottiefiles.com/packages/lf20_lp7qD9RDx1.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      :
+    
+    
     <Button className='reset-button mr-2' onClick={post}>Submit</Button>
+    }
     </Row>
     
     </Col>

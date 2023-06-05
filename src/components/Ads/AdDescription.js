@@ -9,6 +9,7 @@ import { useParams,useHistory } from 'react-router-dom'
 import { getAdsById } from 'Api/Api'
 import Moment from 'react-moment';
 import { useSelector } from 'react-redux'
+import { toast,ToastContainer } from 'react-toastify'
 
 const AdDescription = () => {
 const [adData,setAdData]=useState()
@@ -29,27 +30,39 @@ const getAds = useSelector(state => state?.getAds);
     },[])
     console.log(adData,)
      const filteredAds=getAds?.ads?.filter((data)=>data?._id!==adData?._id)
+     const showAlert=()=>{
+      toast.error('you are not subscribed to this user', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+     }
 
   return (
     <div className='content'>
-     <Row>
-     <Col  xl={4}>
-     <h2 className='home-title'>{userData?.firstName} {userData?.lastName}</h2>
-     </Col>
-     <Col  xl={5}>
-     <div className="home-input-addon">
-     <InputGroup style={{ borderRadius: '20px' }} >
-      <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
-        <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
-          <FaSearch className="home-search" style={{ color: 'white' }} />
-        </InputGroupText>
-      </InputGroupAddon>
-      <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
-    </InputGroup>
-    </div>
-     </Col>
+    {
+    
+    //  <Row>
+    //  <Col  xl={4}>
+    //  <h2 className='home-title'>{userData?.firstName} {userData?.lastName}</h2>
+    //  </Col>
+    //  <Col  xl={5}>
+    //  <div className="home-input-addon">
+    //  <InputGroup style={{ borderRadius: '20px' }} >
+    //   <InputGroupAddon addonType="prepend" className='home-search' style={{ background: 'black', borderTopLeftRadius: '20px', borderBottomLeftRadius: '20px' }}>
+    //     <InputGroupText style={{ borderColor: 'white',borderRadius:"20px 0 0 20px" }}>
+    //       <FaSearch className="home-search" style={{ color: 'white' }} />
+    //     </InputGroupText>
+    //   </InputGroupAddon>
+    //   <Input style={{ background: 'black', borderColor: 'white', borderTopRightRadius: '20px', borderBottomRightRadius: '20px', color: 'white' }} placeholder="Search" />
+    // </InputGroup>
+    // </div>
+    //  </Col>
 
-     </Row>
+    //  </Row>
+    }
     <Row>
     <Col xl={8} className='ml-lg-3'>
     <Card className='ml-lg-5' style={{backgroundColor:"#1E1E1E",borderRadius: "18px",zoom:"0.85",boxShadow:" 0px 0px 16px 3px rgba(0, 0, 0, 0.25)"}}>
@@ -130,7 +143,7 @@ const getAds = useSelector(state => state?.getAds);
 
     </Row>
     <h1 className='text-center mt-3'>
-<Button className='reset-button ml-lg-3 reset-button'>Contact</Button></h1>
+<Button className='reset-button ml-lg-3 reset-button' onClick={showAlert}>Contact</Button></h1>
     </Card>
 {
   filteredAds.map((data)=>(
@@ -212,7 +225,7 @@ const getAds = useSelector(state => state?.getAds);
 
     </Row>
     <h1 className='text-center mt-3'>
-<Button className='reset-button ml-lg-3 reset-button'>Contact</Button></h1>
+<Button className='reset-button ml-lg-3 reset-button' onClick={showAlert}>Contact</Button></h1>
     </Card>
     ))
 }
@@ -222,7 +235,7 @@ const getAds = useSelector(state => state?.getAds);
     </Col>
 
     </Row>
-    
+    <ToastContainer/>
     </div>
   )
 }

@@ -135,7 +135,7 @@ const ChatPortion = () => {
       console.log(res,"last message")
     })
     
-  },[userId])
+  },[])
      console.log(getRequests,"Reequests========>in noti")
   const [width, setWidth] = useState(window.innerWidth);
 

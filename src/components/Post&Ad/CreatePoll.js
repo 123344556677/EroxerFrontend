@@ -31,6 +31,7 @@ const CreatePoll = () => {
   const [userData, setUserData] = useState()
   const [options, setOptions] = useState([{ option:'',counter:0 }])
   const [question, setQuestion] = useState()
+   const [animationCheck, setAnimationCheck] = useState(false)
 
 //   let options=[]
  let pollId=0
@@ -91,6 +92,7 @@ const poll=async(e)=>{
      
     });
     dispatch(getPosts())
+    setAnimationCheck(true)
   }
   else{
     toast.error('Server Error', {
@@ -169,7 +171,12 @@ For your Audience</h2>
       
        
     <Row className='justify-content-center mt-3'>
+    {
+      animationCheck?
+      <lottie-player  src="https://assets4.lottiefiles.com/packages/lf20_lp7qD9RDx1.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      :
     <Button type='submit' className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Create</Button>
+    }
     </Row>
     </Form>
     </Col>

@@ -57,6 +57,9 @@
 
 
 }
+.hide-controls lottie-player::part(controls-container) {
+  display: none!important;
+}
 
 .second-card-main {
 

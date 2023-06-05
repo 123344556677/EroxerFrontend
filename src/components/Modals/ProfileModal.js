@@ -9,7 +9,9 @@ import { updateUser } from 'Api/Api';
 import { getUsersById } from 'Api/Api';
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserProfile } from 'Api/Api';
+import { getUserById } from 'components/redux/actions/userActions';
 
 
 const firebaseConfig = {
@@ -80,7 +82,7 @@ uploadString(fileRef, profilePic, 'data_url').then((snapshot) => {
       profilePic:url,
       
     }
-    updateUser(values)
+    updateUserProfile(values)
     .then((res)=>{
       if (res.data.message === "user updated") {
              toast.success('Profile photo updated', {
@@ -113,6 +115,7 @@ uploadString(fileRef, profilePic, 'data_url').then((snapshot) => {
    
 
 }
+const dispatch=useDispatch()
 
    const handleProfilePic=(e)=>{
         setProfilePic(e.selectedFile.base64);
@@ -121,6 +124,10 @@ uploadString(fileRef, profilePic, 'data_url').then((snapshot) => {
     
         
     }
+    useEffect(()=>{
+      dispatch(getUserById(Values))
+   
+    },[])
   return (
    <div className='content'>
             <div>

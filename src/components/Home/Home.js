@@ -15,6 +15,7 @@ import streamSix from './j25.png'
 import streamSeven from './j26.png'
 import profilePic from './j27.png'
 import streamEight from './j38.png'
+import '@lottiefiles/lottie-player';
 
 // import '@lottiefiles/lottie-player/dist/lottie-player.css';
 // import * as animationData from './pinjump.json'
@@ -65,6 +66,7 @@ import { getListById } from 'components/redux/actions/listActions';
 import Poll from 'components/Poll/Poll';
 import { getRequestByRecieverId } from 'Api/Api';
 import { getCallById } from 'components/redux/actions/callActions';
+
 
 const images = [
   'https://picsum.photos/id/1015/300/200',
@@ -286,7 +288,7 @@ const lottieOptions = {
       cluster: "ap1",
       useTLS: true,
     });
-  
+ 
     
 
     const channel = pusher.subscribe(`request${userId?.id}`);
@@ -342,15 +344,14 @@ const lottieOptions = {
         
     // }, [dispatch])
  const checkPost=(post)=>{
-   const fileExtension = post?.substring(post?.lastIndexOf('.') + 1);
-   if (fileExtension === 'mp4') {
-    console.log("coming here")
-        return <video control src={post}  />
-      }
-     else  {
-        return  <img alt="" src={post?post:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
-        // Handle image URL
-      }
+  const check=post?.includes("video")
+   if(check){
+    return <video loop muted controls autoPlay src={post} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
+   }
+   else{
+      return  <img alt="" src={post?post:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+   }
+  
 
  }
    
@@ -487,7 +488,10 @@ streamPics?.map((data,index)=>(
 
   <span style={{color:"white",fontWeight:"600",fontSize:"18px"}} >Lets Discover </span>
   
-   <video src="https://assets5.lottiefiles.com/datafiles/zc3XRzudyWE36ZBJr7PIkkqq0PFIrIBgp4ojqShI/newAnimation.json"  background="transparent"  speed="1"  style={{width: "300px", height: "300px"}} loop controls autoplay/>
+
+  
+  
+  
  
   {
      filterePosts?
@@ -503,11 +507,12 @@ streamPics?.map((data,index)=>(
  
   <div class="card-body">
    {
-    // checkPost(data?.postPic)
-  }
-   
-   <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
-   
+    checkPost(data?.postPic)
+   }
+  
+   {
+  //  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+   }
    
    {data?.postCheck===true&&
       <LockModal open={lockModal}/>
@@ -530,9 +535,14 @@ streamPics?.map((data,index)=>(
   }
 </>
 ))
+
 :
-<h1 className="text-center text-white mt-4">No posts available!</h1>
-  }
+
+<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+<lottie-player  src="https://assets1.lottiefiles.com/packages/lf20_YKljgC7Siv.json"  background="transparent"  speed="1"  style={{width: "300px", height: "300px"}}  loop  autoplay></lottie-player>
+</div>
+}
+
   
 
 

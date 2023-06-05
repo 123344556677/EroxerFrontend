@@ -506,7 +506,14 @@ setFiltereMessage(false)
                 </Media>
                 <Media body className="ml-2">
                   <h4 className="text-white mb-0">{chatUserData?.firstName}</h4>
-                  <p className="chat-designation">nice yo meet you</p>
+                  {
+                  userData.onlineStatus===true?
+                  <p className="chat-designation">Online</p>
+                  :
+                   <p className="chat-designation">Offline</p>
+
+                  }
+                  
                 </Media>
               </Media>
             </Col>

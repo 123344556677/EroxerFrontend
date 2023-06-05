@@ -7,6 +7,7 @@ import { liveStreamStatus } from 'Api/Api';
 import { getAllUsers } from 'components/redux/actions/userActions';
 import { Button } from 'reactstrap';
 import TipModal from 'components/Modals/TipModal';
+import { useState } from 'react';
 
 function randomID(len) {
   let result = '';
@@ -32,6 +33,9 @@ const LiveStream = () => {
     const getUser = useSelector((state) => state?.getUserById);
 const userData = getUser?.userData;
 const {id}=useParams()
+ const [userId, setuserId] = useState(
+    JSON.parse(localStorage.getItem("keys"))
+  );
 
     const roomID = getUrlParams().get('roomID') || randomID(5);
   let role_str = getUrlParams(window.location.href).get('role') || 'Host';
@@ -56,7 +60,7 @@ const {id}=useParams()
 //   }
   sharedLinks.push({
     name: 'Join as audience',
-    url:`http://localhost:3000/admin/liveStreaming/${id}`
+    url:`https://hybsoltech.com/admin/liveStreaming/${id}`
     //  window.location.protocol + '//' + 
     //  window.location.host + window.location.pathname +
     //   '?roomID=' +
@@ -115,7 +119,10 @@ const {id}=useParams()
      >
      
     </div>
+    { 
+      id!==userId.id&&
     <TipModal/>
+    }
     {
     // <Button className='reset-button'>Tip</Button>
     }

@@ -26,7 +26,7 @@ import {
 } from "reactstrap";
 
 function AdminNavbar(props) {
-  console.log(props);
+  console.log(props,"brand------->");
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   // const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
@@ -100,7 +100,7 @@ function AdminNavbar(props) {
                 props.brandText !== "createPost" &&
                 props.brandText !== "createAd" &&
                 props.brandText !== "AdDescription" &&
-                props.brandText !== "Live Streaming" &&
+                props.brandText !== "Live" &&
                 props.brandText !== "editProfile" &&
                 props.brandText !== "Brand" && (
                   <NavbarToggler onClick={toggleCollapse}>
@@ -128,7 +128,7 @@ function AdminNavbar(props) {
                     props.brandText !== "AccountManagement" &&
                     props.brandText !== "Membership" &&
                     props.brandText !== "Help & Support" &&
-                    props.brandText !== "Live Streaming" &&
+                    props.brandText !== "Live" &&
                     props.brandText !== "createPost" &&
                     props.brandText !== "createAd" &&
                     props.brandText !== "createPoll" &&

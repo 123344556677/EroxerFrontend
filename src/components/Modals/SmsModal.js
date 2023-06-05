@@ -51,7 +51,10 @@ const sendingCode=()=>{
 }
 const verifyingCode=()=>{
     const values={
-        code:code
+        code:code,
+        userId:userId.id,
+        verification:"verify"
+
     }
     const Values={
         userId:userId.id

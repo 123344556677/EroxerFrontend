@@ -91,7 +91,7 @@ const Profile = () => {
      setBackgroundVideoCheck(false)
     setBackgroundImage(userData?.backgroundImage)
    }
-  },[])
+  },[userData])
  
   console.log(userData, "==========>userData");
  const getRecieverId = useSelector(state => state?.getAllSenderRequestReducer);
@@ -136,8 +136,10 @@ useEffect(()=>{
 },[requestCheck])
 useEffect(() => {
 dispatch(getAllUsers())
+dispatch(getUserById(values))
 
 },[dispatch])
+
 
   
  
@@ -476,17 +478,19 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
             }
             </Button>
             {
-              id===':id'&&
-              <>
-            <MdExpandMore
-              className="mt-4"
-              style={{ fontSize: "30px", color: "white" }}
-            />
-            <IoIosMore
-              className="mt-4"
-              style={{ fontSize: "30px", color: "white" }}
-            />
-            </>
+            //   id===':id'&&
+            //   {
+            //   // <>
+            // // <MdExpandMore
+            // //   className="mt-4"
+            // //   style={{ fontSize: "30px", color: "white" }}
+            // // />
+            // // <IoIosMore
+            // //   className="mt-4"
+            // //   style={{ fontSize: "30px", color: "white" }}
+            // // />
+            // // </>
+            //   }
             }
           </Row>
 
