@@ -1,10 +1,10 @@
-// Retrieve color Sass maps
+
 
 @function section-color($key: "primary") {
 	@return map-get($section-colors, $key);
 }
 
-// Lines colors
+
 
 @function shapes-primary-color($key: "step-1-gradient-bg") {
 	@return map-get($shapes-primary-colors, $key);

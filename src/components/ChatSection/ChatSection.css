@@ -47,13 +47,13 @@
   border-radius: 5px;
 }
 
-/* Hiding the scrollbar by default */
+
 .chat-main-chats::-webkit-scrollbar-thumb:hover {
   background-color: #555;
   
 }
 
-/* Showing the scrollbar on hover */
+
 .chat-main-chats:hover::-webkit-scrollbar-thumb {
   background-color: #555;
 }

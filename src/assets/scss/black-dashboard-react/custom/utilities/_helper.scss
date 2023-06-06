@@ -1,4 +1,4 @@
-// Image
+
 
 .img-center {
     display: block;
@@ -6,7 +6,7 @@
     margin-right: auto;
 }
 
-// Clearfix
+
 
 .floatfix {
     &:before,
@@ -19,7 +19,7 @@
     }
 }
 
-// Overflows
+
 
 .overflow-visible {
     overflow: visible !important;
@@ -28,7 +28,7 @@
     overflow: hidden !important;
 }
 
-// Opacity classes
+
 
 .opacity-1 {
     opacity: .1 !important;

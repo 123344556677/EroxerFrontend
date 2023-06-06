@@ -1,5 +1,5 @@
 
-// Global settings
+
 
 $enable-caret:              true !default;
 $enable-rounded:            true !default;
@@ -10,7 +10,7 @@ $enable-grid-classes:       true !default;
 $enable-print-styles:       true !default;
 
 
-// Color system
+
 
 $white:    #ffffff !default;
 $gray-100: #f6f9fc !default;
@@ -18,9 +18,9 @@ $gray-200: #e9ecef !default;
 $gray-300: #e3e3e3 !default;
 $gray-400: #ced4da !default;
 $gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;   // Line footer color
-$gray-700: #525f7f !default;   // Line p color
-$gray-800: #32325d !default;   // Line heading color
+$gray-600: #6c757d !default;   
+$gray-700: #525f7f !default;  
+$gray-800: #32325d !default;   
 $gray-900: #212529 !default;
 $link-disabled:              #666666 !default;
 $transparent-bg:             transparent !default;
@@ -199,7 +199,7 @@ $brand-colors: map-merge((
 ), $brand-colors);
 
 
-/*     brand Colors              */
+
 $brand-primary:              $primary !default;
 $brand-info:                 $info !default;
 $brand-success:              $success !default;
@@ -212,17 +212,17 @@ $topbar-back:          topbar-back !default;
 $bottombar-x:          bottombar-x !default;
 $bottombar-back:       bottombar-back !default;
 
-// Set a specific jump point for requesting color jumps
+
 $theme-color-interval:      8% !default;
 
-// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+
 $yiq-contrasted-threshold:  200 !default;
 
-// Customize the light and dark text colors for use in our YIQ color contrast function.
+
 $yiq-text-dark:             $gray-900 !default;
 $yiq-text-light:            $white !default;
 
-// Action colors
+
 
 $star-rating-color: $gray-400 !default;
 $star-rating-color-active: $yellow !default;
@@ -232,13 +232,13 @@ $like-color: $blue !default;
 $love-color: $red !default;
 
 
-// Body
+
 
 $body-bg: $background-black !default;
 $body-color: $gray-700 !default;
 
 
-// Sections
+
 
 $section-colors: () !default;
 $section-colors: map-merge((
@@ -249,7 +249,7 @@ $section-colors: map-merge((
   "darker":       $darker
 ), $section-colors);
 
-// Links
+
 
 $link-color:                $primary !default;
 $link-decoration:           none !default;
@@ -270,12 +270,7 @@ $grid-breakpoints: (
 @include _assert-starts-at-zero($grid-breakpoints);
 
 
-// Grid containers
-//
-// Define the maximum width of `.container` for different screen sizes.
 
-
-// Spacing
 
 $spacer: 1rem !default;
 $spacers: () !default;
@@ -309,7 +304,7 @@ $padding-input-horizontal:      19px !default;
 $margin-lg-vertical:           30px !default;
 $margin-base-vertical:         15px !default;
 
-// This variable affects the `.h-*` and `.w-*` classes.
+
 
 $sizes: () !default;
 $sizes: map-merge((
@@ -319,7 +314,7 @@ $sizes: map-merge((
   100: 100%
 ), $sizes);
 
-// Components
+
 
 $shape-height-xl:              1.5 !default;
 $shape-height-lg:              1.5 !default;
@@ -374,7 +369,7 @@ $select-coordinates:          50% -40px       !default;
 $general-transition-time:     300ms             !default;
 
 
-// Fonts
+
 
 $font-family-base:            'Poppins', sans-serif !default;
 $font-family-alt:             'Poppins', sans-serif !default;
@@ -499,7 +494,7 @@ $table-dark-border-color:     lighten($gray-900, 7.5%);
 $table-dark-color:            $body-bg !default;
 
 
-// Buttons + Forms
+
 
 $input-btn-padding-y:         .5rem !default;
 $input-btn-padding-x:         .7rem !default;
@@ -507,7 +502,7 @@ $input-btn-line-height:       $shape-height-base !default;
 
 $input-btn-focus-width:       0 !default;
 $input-btn-focus-color:       rgba($component-active-bg, 1);
-//$input-btn-focus-box-shadow:  0 4px 10px 0 rgba(0, 0, 0, 0.04);
+
 $input-btn-focus-box-shadow:  none !default;
 
 $input-btn-padding-y-sm:      .25rem !default;
@@ -527,7 +522,7 @@ $input-btn-font-size-lg:         .875rem !default;
 $input-padding-vertical:        11px !default;
 $input-padding-horizontal:      19px !default;
 
-// Buttons
+
 
 $btn-padding-y:               11px !default;
 $btn-padding-x:               40px !default;
@@ -558,7 +553,7 @@ $btn-round-radius:            30px         !default;
 
 
 
-// Forms
+
 
 $input-padding-y:                       $input-btn-padding-y !default;
 $input-padding-x:                       $input-btn-padding-x !default;
@@ -588,13 +583,13 @@ $input-focus-alternative-box-shadow:    0 4px 6px rgba(50,50,93,.11),0 1px 3px r
 $input-color:                           $opacity-8 !default;
 $input-border-color:                    #cad1d7 !default;
 $input-border-width:                    $input-btn-border-width !default;
-$input-box-shadow:                      none !default; // 0 1px 3px 0 $gray-400 !default;
+$input-box-shadow:                      none !default; 
 
 $input-focus-bg:                        $white !default;
 $input-focus-border-color:              rgba(50,151,211,.25);
 $input-focus-color:                     $input-color !default;
 $input-focus-width:                     0 !default;
-$input-focus-box-shadow:                none !default; //0 1px 3px 0 $gray-500 !default;
+$input-focus-box-shadow:                none !default; 
 
 $input-placeholder-color:               $gray-500 !default;
 $input-focus-placeholder-color:         $gray-500 !default;
@@ -606,7 +601,7 @@ $input-height:                          calc(#{$input-height-inner} + #{$input-h
 $input-transition:                      all .2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 
-// Input groups
+
 
 $input-group-addon-color:               $input-placeholder-color !default;
 $input-group-addon-bg:                  $input-bg !default;
@@ -649,12 +644,12 @@ $custom-control-indicator-disabled-bg:          $gray-200 !default;
 $custom-control-label-disabled-color:           $gray-600 !default;
 
 $custom-checkbox-indicator-border-radius:       $border-radius-sm !default;
-//$custom-checkbox-indicator-icon-checked:        str-replace(url("data:image/svg+xml !default;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"), "#", "%23") !default;
+
 
 $custom-toggle-slider-bg:   #ddd !default;
 $custom-toggle-checked-bg:  theme-color("primary") !default;
 
-// Form validation
+
 
 $form-feedback-valid-bg:         lighten($success, 15%);
 $form-feedback-valid-color:      theme-color("success") !default;
@@ -662,7 +657,7 @@ $form-feedback-invalid-bg:       lighten($warning, 15%);
 $form-feedback-invalid-color:    theme-color("warning") !default;
 
 
-// Allows for customizing button radius independently from global border radius
+
 
 $btn-border-radius:           $input-border-radius !default;
 $btn-border-radius-xl:        $input-border-radius-xl !default;
@@ -670,7 +665,7 @@ $btn-border-radius-lg:        $input-border-radius-lg !default;
 $btn-border-radius-sm:        $input-border-radius !default;
 
 
-// No UI Slider
+
 
 $noui-target-bg:                  #eceeef !default;
 $noui-target-thickness:           5px !default;
@@ -689,7 +684,7 @@ $noui-handle-border-radius:       100% !default;
 $noui-origin-border-radius:       2px !default;
 
 
-// Dropdown
+
 
 $dropdown-bg:                       $white !default;
 $dropdown-border-width:             0 !default;
@@ -700,7 +695,7 @@ $dropdown-box-shadow:               0 50px 100px rgba(50, 50, 93, .1), 0 15px 35
 $dropdown-link-active-color:        $component-active-color !default;
 $dropdown-link-active-bg:           $component-active-bg !default;
 
-// Navs
+
 
 $nav-link-padding-y:                .5rem !default;
 $nav-link-padding-x:                1rem !default;
@@ -723,7 +718,7 @@ $nav-pills-link-active-color:       color-yiq(theme-color("primary"));
 $nav-pills-link-active-bg:          theme-color("primary") !default;
 $nav-pills-box-shadow:              $btn-box-shadow !default;
 
-// Navbar
+
 
 $navbar-transition:                 all .15s linear !default;
 $navbar-padding-y:                  .625rem !default;
@@ -739,7 +734,7 @@ $navbar-nav-link-text-transform:    normal !default;
 $navbar-nav-link-letter-spacing:    0 !default;
 $navbar-nav-link-border-radius:     $border-radius !default;
 
-/* navbar color */
+
 $navbar-color:                      #1a1e34 !default;
 $navbar-dark-bg:                    transparent !default;
 $navbar-dark-hover-bg:              rgba(255, 255, 255, .1);
@@ -763,7 +758,6 @@ $full-width:                        100% !default;
 $navbar-padding:                    10px 15px !default;
 
 
-// Alerts
 
 $alert-padding-y: .9rem !default;
 $alert-padding-x: 1.25rem !default;
@@ -774,7 +768,7 @@ $alert-border-level: -2 !default;
 $alert-color-level: 0 !default;
 
 
-// List group
+
 
 $list-group-bg:                     $white !default;
 $list-group-border-color:           $border-color !default; //rgba($black, .125);
@@ -799,7 +793,6 @@ $list-group-action-active-color:    $list-group-action-color !default;
 $list-group-action-active-bg:       $gray-200 !default;
 
 
-// Close
 
 $close-font-size:                   $font-size-base * 1.5 !default;
 $close-font-weight:                 $font-weight-bold !default;
@@ -810,7 +803,7 @@ $close-hover-color:                 rgba(0, 0, 0, .9);
 $close-text-shadow:                 none !default;
 
 
-// Popovers
+
 
 $popover-font-size:                 $font-size-sm !default;
 $popover-bg:                        $white !default;
@@ -835,7 +828,7 @@ $popover-arrow-color:               $popover-bg !default;
 
 $popover-arrow-outer-color:         transparent !default;
 
-// Breadcrumbs
+
 
 $breadcrumb-bg:                     $black-states !default;
 $breadcrumb-divider-color:          $white !default;
@@ -844,7 +837,7 @@ $breadcrumb-active-color:           $white !default;
 
 
 
-// Badges
+
 
 $badge-font-size:                   $font-size-xs !default;
 $badge-font-weight:                 $font-weight-extra-bold !default;
@@ -858,7 +851,7 @@ $badge-pill-border-radius:          $border-radius-xl !default;
 
 $badge-circle-size:                 2rem;
 
-// Pagination
+
 
 $pagination-padding-y:                0 !default;
 $pagination-padding-x:                .6875rem !default;
@@ -869,7 +862,7 @@ $pagination-bg:                     transparent  !default;
 $pagination-border-width:           $border-width !default;
 $pagination-border-color:           $gray-300 !default;
 
-//$pagination-focus-box-shadow:       $btn-hover-box-shadow !default;
+
 
 $pagination-hover-color:            $gray-600 !default;
 $pagination-hover-bg:               $gray-300 !default;
@@ -885,7 +878,7 @@ $pagination-disabled-bg:            transparent !default;
 $pagination-disabled-border-color:  $gray-300 !default;
 
 
-// Cards
+
 
 $card-spacer-y:                     1.25rem !default;
 $card-spacer-x:                     1.5rem !default;
@@ -898,14 +891,13 @@ $card-bg:                           $white !default;
 $card-black-background:             #27293d !default;
 $card-img-overlay-padding:          1.25rem !default;
 
-//$card-group-margin:                 ($grid-gutter-width / 2);
-//$card-deck-margin:                  $card-group-margin !default;
+
 
 $card-columns-count:                3 !default;
 $card-columns-gap:                  1.25rem !default;
 $card-columns-margin:               $card-spacer-y !default;
 
-// Tooltips
+
 
 $tooltip-font-size:                 $font-size-sm !default;
 $tooltip-max-width:                 200px !default;
@@ -944,7 +936,7 @@ $modal-header-border-width:   $modal-content-border-width !default;
 $modal-footer-border-width:   $modal-header-border-width !default;
 $modal-header-padding:        24px 24px 0 24px !default;
 
-// Progress bars
+
 
 $progress-height:                   .5rem !default;
 $progress-bg:                       rgba(0, 0, 0, 0.3) !default;
@@ -952,7 +944,7 @@ $progress-border-radius:            $border-radius-xl !default;
 $progress-box-shadow:               0px 0px 0px 3px rgba(0, 0, 0, 0.3) !default;
 $progress-bar-color:                $white !default;
 
-// Datepicker
+
 
 $datepicker-border-radius: $card-border-radius !default;
 $datepicker-dropdown-padding: 20px 22px !default;
@@ -982,7 +974,7 @@ $datepicker-dropdown-bg: $white !default;
 $datepicker-highlighted-bg: $datepicker-active-background !default;
 
 
-// Footer
+
 
 $footer-link-font-size: .85rem !default;
 $footer-bg: theme-color("secondary") !default;

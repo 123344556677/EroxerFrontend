@@ -343,13 +343,13 @@ const lottieOptions = {
     //   
         
     // }, [dispatch])
- const checkPost=(post)=>{
-  const check=post?.includes("video")
+ const checkPost=(data)=>{
+  const check=data?.postPic?.includes("video")
    if(check){
-    return <video loop muted controls autoPlay src={post} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
+    return <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
    }
    else{
-      return  <img alt="" src={post?post:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+      return  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
    }
   
 
@@ -507,7 +507,7 @@ streamPics?.map((data,index)=>(
  
   <div class="card-body">
    {
-    checkPost(data?.postPic)
+    checkPost(data)
    }
   
    {

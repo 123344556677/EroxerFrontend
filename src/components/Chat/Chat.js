@@ -8,7 +8,7 @@ import streamSix from "./j25.png";
 import streamSeven from "./j26.png";
 import streamEight from "./j27.png";
 import streamNine from "./j29.jpg";
-import streamThirteen from "./logo.png"
+import streamThirteen from "./logo5.png"
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./Chat.css";
@@ -691,9 +691,9 @@ setFiltereMessage(false)
           </div>
           </>
           :
-          <Row className="mt-5">
-          <Col className="text-center mt-5">
-          <img className="mt-5" src={streamThirteen} style={{width:"50%",height:"50%"}} alt=""/>
+          <Row className="mt-2">
+          <Col className="text-center ">
+          <img className="mt-5" src={streamThirteen} style={{}} alt=""/>
           </Col>
       
           

@@ -16,7 +16,7 @@ import {
  
 } from "contexts/BackgroundColorContext";
 import {Row} from "reactstrap";
-import Logo from './logo.png'
+import Logo from './logo5.png'
 import apple from './j4.png'
 import playstore from './j5.png'
 import { AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiFillSetting, AiOutlineLogout, AiOutlineTwitter, AiOutlineUnlock, AiTwotoneSecurityScan } from "react-icons/ai";
@@ -118,14 +118,14 @@ function Sidebar(props) {
         <div className={live?"no-sidebar":"sidebar user-sidebar ml-0 mt-0"} >
           <div className="sidebar-wrapper sid-rap" ref={sidebarRef}>
          
-              <div className="sidebar-logo mt-4">
+              <div className="sidebar-logo mt-2 ">
              
-                <img src={Logo} alt=""/>
+                <img src={Logo} alt="" className=""/>
              
               </div>
             
            
-            <Nav>
+            <Nav style={{marginTop:"-5px"}}>
             
               {routes.map((prop, key) => {
                 if (prop.redirect) return null;

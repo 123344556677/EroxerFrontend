@@ -2,7 +2,6 @@
   background-color: #1E1E1E!important;
   border-radius: 40px!important;
   box-shadow: 0px 0px 10px 0px black!important;
-  /* height:600px!important; */
   margin-top: -80px;
    z-index:20!important;
    
@@ -13,7 +12,7 @@
 .modal-contentOne{
     background-color: #1E1E1E!important;
     border-radius: 40px;
-    /* z-index:20!important; */
+   
 }
 .modal-card{
     background-color:  #1E1E1E!important;

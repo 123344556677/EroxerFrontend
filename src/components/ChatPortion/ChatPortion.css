@@ -17,7 +17,7 @@
     color:white;
     font-size: 15px;
     font-weight: 600;
-    /* margin-left: -100px!important; */
+   
 }
 .chat-text-inner{
     color:white;
@@ -73,7 +73,7 @@ p {
   
   
   height: 150vh;
-  /* zoom: 0.75!important; */
+ 
   overflow: auto;
   top: 0;
   bottom: 0;
@@ -88,7 +88,7 @@ p {
     position: fixed;
      top: 0;
   bottom: 0;
-  /* margin-top: 170px; */
+
   
  
   
@@ -121,13 +121,12 @@ p {
   border-radius: 5px;
 }
 
-/* Hiding the scrollbar by default */
+
 .chat-div::-webkit-scrollbar-thumb:hover {
   background-color: #555;
   
 }
 
-/* Showing the scrollbar on hover */
 .chat-div:hover::-webkit-scrollbar-thumb {
   background-color: #555;
 }
@@ -144,7 +143,7 @@ p {
 }
 .home-noti-bell{
  background-image: linear-gradient(to bottom left, #161616, #161616, #161616)!important;
-     /* padding: 2.2rem 2.5rem!important; */
+     
 }
 .home-noti-div {
   background-color: rgba(0, 0, 0, 0.8) !important;
@@ -189,9 +188,9 @@ p {
 .home-main-noti-div::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 5px;
-} */
+} 
 
-/* Hiding the scrollbar by default */
+
 .home-main-noti-div::-webkit-scrollbar-thumb:hover {
   background-color: #555;
   
@@ -236,7 +235,6 @@ margin-left: 55px!important;
 }
 .chat-noti-card{
 border-radius: 5px!important;
-/* transform: rotate(-90deg)!important; */
 background-color: #000000!important;
 position: absolute!important;
 width: 240px !important;
@@ -275,7 +273,7 @@ margin-bottom: 5px!important;
 .contents {
  
   transition: transform 0.3s ease-in-out;
-   /* transform: translateX(-50%)!important;  */
+  
    
    
    visibility: hidden !important;
@@ -283,9 +281,7 @@ margin-bottom: 5px!important;
 }
 
 .contents.open {
-  /* right:  -500px !important; */
-  /* transform: translateX(-100%)!important; */
-  /* display: vis !important; */
+
  visibility: visible!important;
 }
 
@@ -294,7 +290,7 @@ margin-bottom: 5px!important;
   top: 10px;
   right: 20px;
   cursor: pointer;
-  /* z-index: 1; */
+
 }
 
 .fa {

@@ -53,7 +53,7 @@ border-color: #615E5E!important;
   border-radius: 15px!important;
   background-color: #1E1E1E!important;
   box-shadow: #0d0d0e!important;
-  /* zoom: 0.80; */
+ 
  
   
 }
@@ -61,16 +61,16 @@ border-color: #615E5E!important;
   border-radius: 15px!important;
   background-color: #1E1E1E!important;
   box-shadow: #0d0d0e!important;
-  /* zoom: 0.75; */
+ 
  
   
 }
 .google-btn{
     background-image: linear-gradient(to bottom left, #0e0d0d, #0d0d0e, #100e10)!important;
     border: 1px solid white!important;
-    /* z-index: 2!important; */
+   
     position: absolute;
-    /* margin-top: -20px; */
+   
 }
 .login-inputs{
     border: none!important;

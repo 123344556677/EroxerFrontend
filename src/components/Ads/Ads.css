@@ -10,7 +10,7 @@
 .bottom-left {
   position: absolute!important;
   bottom: 0!important;
-  /* left: 0!important; */
+  
   z-index: 1!important;
 }
 .contact-profile{
@@ -41,30 +41,28 @@
 
 }
 .country-menu{
-   /* position: fixed!important; */
+   
    overflow: auto !important;
    height:50vh!important;
    background-color:   #1e1e2b!important
 }
 .simple-menu{
-   /* position: fixed!important; */
+  
    
    background-color: #1e1e2b!important;
    overflow: auto !important;
-   /* overflow: auto !important; */
-   /* height:50vh!important; */
+   
 }
 .simple-menu:before{
-   /* position: fixed!important; */
+   
    
    display: none !important;
-   /* overflow: auto !important; */
-   /* height:50vh!important; */
+  
 }
 
 .country-menu::-webkit-scrollbar {
   width: 8px;
-  /* display: none!important; */
+
 
   
 }
@@ -78,7 +76,7 @@
   border-radius: 5px;
 }
 
-/* Hiding the scrollbar by default */
+
 .country-menu::-webkit-scrollbar-thumb:hover {
   background-color: #555;
   

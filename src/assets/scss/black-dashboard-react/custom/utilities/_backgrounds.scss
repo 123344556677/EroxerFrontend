@@ -11,10 +11,10 @@
 }
 
 
-// Sections
+
 
 section {
-    //background-color: section-color("primary");
+    
 }
 
 @each $color, $value in $section-colors {
@@ -26,7 +26,7 @@ section {
 }
 
 
-// Shape (svg) fill colors
+
 @each $color, $value in $theme-colors {
     .fill-#{$color}  {
         fill: $value;

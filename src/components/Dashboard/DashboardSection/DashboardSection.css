@@ -14,7 +14,7 @@
 .profile-pic{
     width:100px;
     height:100px;
-    /* margin-left: 85px; */
+   
 }
 .chat-add-button{
      background-image: linear-gradient(to bottom left, black, black, black)!important;
@@ -54,7 +54,7 @@
 }
 .dashboard-cards{
     position: fixed;
-    /* margin-left: 2%; */
+    
     margin-top: 7%;
     top: 0;
   bottom: 0;
@@ -89,13 +89,13 @@
   border-radius: 5px;
 }
 
-/* Hiding the scrollbar by default */
+
 .dashboard-cards::-webkit-scrollbar-thumb:hover {
   background-color: #555;
   
 }
 
-/* Showing the scrollbar on hover */
+
 .dashboard-cards:hover::-webkit-scrollbar-thumb {
   background-color: #555;
 }

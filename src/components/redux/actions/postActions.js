@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants';
 import axios from 'axios';
-// const url ="https://sore-red-millipede-boot.cyclic.app/"
-const url = 'http://localhost:5000';
+const url ="https://sore-red-millipede-boot.cyclic.app/"
+// const url = 'http://localhost:5000';
 
 
 export const getPosts = () => async (dispatch) => {

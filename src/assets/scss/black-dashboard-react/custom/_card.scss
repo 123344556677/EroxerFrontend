@@ -74,7 +74,7 @@
         color: $card-stats-gray;
       }
 
-      //style for inputs
+      
 
       @include form-control-placeholder(rgba($black,0.4), 1);
         .has-danger{

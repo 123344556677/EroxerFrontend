@@ -1,10 +1,4 @@
-/* --------------------------------
 
-Nucleo Outline Web Font - nucleoapp.com/
-License - nucleoapp.com/license/
-Created using IcoMoon - icomoon.io
-
--------------------------------- */
 
 @font-face {
   font-family: 'Nucleo';
@@ -14,9 +8,7 @@ Created using IcoMoon - icomoon.io
   font-style: normal;
 }
 
-/*------------------------
-	base class definition
--------------------------*/
+
 
 .tim-icons {
   display: inline-block;
@@ -24,7 +16,6 @@ Created using IcoMoon - icomoon.io
   vertical-align: middle;
   speak: none;
   text-transform: none;
-  /* Better Font Rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -50,9 +41,7 @@ Created using IcoMoon - icomoon.io
   font-size: .7142em;
 }
 
-/*------------------------
-  change icon size
--------------------------*/
+
 
 .tim-icons-sm {
   font-size: 0.8em;
@@ -62,7 +51,7 @@ Created using IcoMoon - icomoon.io
   font-size: 1.2em;
 }
 
-/* absolute units */
+
 
 .tim-icons-16 {
   font-size: 16px;
@@ -72,9 +61,7 @@ Created using IcoMoon - icomoon.io
   font-size: 32px;
 }
 
-/*----------------------------------
-  add a square/circle background
------------------------------------*/
+
 
 .tim-icons-bg-square,
 .tim-icons-bg-circle {
@@ -85,13 +72,7 @@ Created using IcoMoon - icomoon.io
   border-radius: 50%;
 }
 
-/*------------------------
-  list icons
--------------------------*/
 
-/*------------------------
-  spinning icons
--------------------------*/
 
 .tim-icons-is-spinning {
   -webkit-animation: tim-icons-spin 2s infinite linear;
@@ -134,13 +115,7 @@ Created using IcoMoon - icomoon.io
   }
 }
 
-/*------------------------
-  rotated/flipped icons
--------------------------*/
 
-/*------------------------
-	icons
--------------------------*/
 
 .icon-alert-circle-exc::before {
   content: "\ea02";

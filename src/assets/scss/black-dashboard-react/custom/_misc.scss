@@ -1,5 +1,4 @@
 
-/* Animations */
 .nav-pills .nav-link,
 .navbar,
 .nav-tabs .nav-link,
@@ -14,7 +13,7 @@
     @include transitions($general-transition-time, $transition-ease);
 }
 
-//transition for dropdown caret
+
 .bootstrap-switch-label:before,
 .caret{
     @include transitions($fast-transition-time, $transition-ease);
@@ -48,7 +47,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 }
 
 
-// card user profile page
+
 
 .card {
   form {
@@ -71,7 +70,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
   }
 }
 
-// documentation
+
 
 .bd-docs {
 

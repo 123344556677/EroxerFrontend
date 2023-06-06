@@ -286,6 +286,18 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
 })
   
 };
+const checkPost=(post)=>{
+  const check=post?.includes("video")
+   if(check){
+    return <video loop muted controls autoPlay src={post} className="profile-posts" />
+   }
+   else{
+    console.log(post,"--------------->profile post")
+      return   <img src={post} alt="" className="mt-2  ml-lg-4 profile-posts" />
+   }
+  
+
+ }
   return (
     <div className="content profile-div " style={{ zoom: "0.80" }}>
     {
@@ -606,7 +618,11 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
         privateCheck==="posts"&&
         posts?.map((data)=>(
         <Col xl={4} className="">
-          <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
+          {
+          // <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
+        checkPost(data?.postPic)
+        }
+        
         </Col>
         ))
       }
@@ -615,7 +631,10 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
       
         privat?.map((data)=>(
         <Col xl={4} className="">
-          <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
+        {
+          // <img src={data.postPic} alt="" className="mt-2  ml-lg-4 profile-posts" />
+       checkPost(data?.postPic)
+        }
         </Col>
         ))
       }

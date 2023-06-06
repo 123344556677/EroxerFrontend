@@ -101,8 +101,7 @@
   }
 }
 
-// Apply the mixin to the buttons
-// .btn-default { @include btn-styles($default-color, $default-states-color); }
+
 .btn-primary { @include btn-styles($primary, $primary-states);
 
               }
