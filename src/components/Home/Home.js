@@ -13,7 +13,7 @@ import streamFour from './j23.png'
 import streamFive from './j24.png'
 import streamSix from './j25.png'
 import streamSeven from './j26.png'
-import profilePic from './j27.png'
+import profilePic from './dummy.jpg'
 import streamEight from './j38.png'
 import '@lottiefiles/lottie-player';
 
@@ -269,7 +269,7 @@ const lottieOptions = {
       dispatch(getListById(values))
       dispatch(getCallById(values))
         
-    }, [dispatch,location])
+    }, [dispatch])
     
       console.log(streamPics,"All user---->")
 
@@ -449,7 +449,7 @@ streamPics?.map((data,index)=>(
         <li>
         {
           hoveredImage===false&&
-        <img src={data?.profilePic?data?.profilePic:streamFour} alt=""
+        <img src={data?.profilePic?data?.profilePic:profilePic} alt=""
         
         
         onMouseOver={ () => setHoveredImage(true)}
@@ -525,7 +525,7 @@ streamPics?.map((data,index)=>(
  {
     //  <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
  }
-    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
+    <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-61px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"11px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
    <PaymentModal  />
   </div>
 </div>

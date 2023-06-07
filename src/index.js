@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 import AdminLayout from "layouts/Admin/Admin.js";
+import UserLayout from "layouts/User/User.js";
 import RTLLayout from "layouts/RTL/RTL.js";
 import AuthLayout from "layouts/Auth/Auth.js";
 import { Provider } from "react-redux";
@@ -30,6 +31,10 @@ root.render(
             <Route
               path="/admin"
               render={(props) => <AdminLayout {...props} />}
+            />
+            <Route
+              path="/user"
+              render={(props) => <UserLayout {...props} />}
             />
             <Route path="/" render={(props) => <AuthLayout {...props} />} />
 

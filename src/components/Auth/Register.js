@@ -93,7 +93,7 @@ function Register(props) {
           // bodyClassName: 'dark-toast',
         });
       } else {
-        toast.success("Registere Successfully", {
+        toast.success("Registered Successfully", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
           // hideProgressBar: true,

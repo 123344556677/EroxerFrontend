@@ -4,7 +4,7 @@ import { HiLocationMarker } from 'react-icons/hi'
 import { AiFillDelete, AiFillEye } from 'react-icons/ai'
 
 
-import cardOne from './j27.png'
+import cardOne from './dummy.jpg'
 import {
   Button,
   ButtonGroup,

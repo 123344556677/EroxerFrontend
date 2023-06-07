@@ -2,7 +2,7 @@ import ChatSection from "components/ChatSection/ChatSection";
 import React, { useEffect, useRef, useState } from "react";
 import streamOne from "./j20.png";
 import streamThree from "./j21.png";
-import streamFour from "./j23.png";
+import streamFour from "./dummy.jpg";
 import streamFive from "./j24.png";
 import streamSix from "./j25.png";
 import streamSeven from "./j26.png";
@@ -507,7 +507,7 @@ setFiltereMessage(false)
                 <Media body className="ml-2">
                   <h4 className="text-white mb-0">{chatUserData?.firstName}</h4>
                   {
-                  userData.onlineStatus===true?
+                  userData?.onlineStatus===true?
                   <p className="chat-designation">Online</p>
                   :
                    <p className="chat-designation">Offline</p>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Button, Col, FormGroup, Input, Label, Media, Row } from "reactstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import profilSeven from "./j27.png";
+import profilSeven from "./dummy.jpg";
 import { updateUser } from "Api/Api";
 import MembershipSection from "components/Membership/MembershipSection";
 import { useDispatch, useSelector } from "react-redux";

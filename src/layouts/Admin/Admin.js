@@ -18,6 +18,7 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
+import { useState } from "react";
 // import { User } from "backend-sdk/user.sdk";
 
 
@@ -25,6 +26,7 @@ import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 function Admin(props) {
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
+  const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
 
   const [sidebarOpened, setsidebarOpened] = React.useState(
     document.documentElement.className.indexOf("nav-open") !== -1
@@ -129,11 +131,17 @@ function Admin(props) {
                 toggleSidebar={toggleSidebar}
                 sidebarOpened={sidebarOpened}
               />
-
+              {
+                userId?.id?
               <Switch>
                 {getRoutes(routes)}
                 <Redirect from="*" to="/" />
               </Switch>
+              :
+              <Switch>
+                <Redirect from="*" to="/" />
+              </Switch>
+              }
               {
                 // {
                 //   // we don't want the Footer to be rendered on map page

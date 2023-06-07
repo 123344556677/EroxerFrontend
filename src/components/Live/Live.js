@@ -77,12 +77,23 @@ const userData = getUser?.userData;
 const history=useHistory()
 const dispatch=useDispatch()
 const checkBackgroundImage=(e)=>{
-  const check=e?.backgroundImage.includes("video")
+  const check=e?.backgroundImage?.includes("video")
    if(check){
-   return <video controls autoplay muted className=" streams-image-two mt-2" src={e?.backgroundImage} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)} />
+   return <video controls autoplay muted className=" streams-image-two mt-2" src={e?.backgroundImage} style={{ height: "210px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)} />
    }
    else{
-    return <img className=" streams-image-two mt-2" src={e?.backgroundImage?e?.backgroundImage:liveFive} style={{ height: "210px", width: "550px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)}/>
+    return <img className=" streams-image-two mt-2" src={e?.backgroundImage?e?.backgroundImage:liveFive} style={{ height: "210px",cursor:"pointer" }} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)}/>
+   }
+
+
+}
+const checkSliderImage=(e)=>{
+  const check=e?.backgroundImage?.includes("video")
+   if(check){
+   return <video controls autoplay muted className=" " src={e?.backgroundImage} style={{borderRadius: "40px",width: "500px",  height: "300px", cursor:"pointer"}} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)} />
+   }
+   else{
+    return <img className="" style={{borderRadius: "40px",width: "1000px",  height: "300px", cursor:"pointer"}} src={e?.backgroundImage?e?.backgroundImage:liveFive} alt="" onClick={()=>history.push(`/admin/liveStreaming/${e?._id}`)}/>
    }
 
 
@@ -164,17 +175,7 @@ useEffect(()=>{
                 width: "40%",
               }}
             >
-              <img
-                src={data.thumbPic}
-                alt="slide_image"
-                style={{
-                  borderRadius: "40px",
-                  width: "1000px",
-                  height: "300px",
-                  cursor:"pointer"
-                }}
-                onClick={()=>history.push(`/admin/liveStreaming/${data?._id}`)}
-              />
+               {checkSliderImage(data)}
               {
               // <div
               //   style={{

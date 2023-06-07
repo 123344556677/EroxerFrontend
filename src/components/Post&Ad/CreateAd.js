@@ -11,6 +11,8 @@ import { createAd } from 'Api/Api'
 import { getUsersById } from 'Api/Api'
 import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
 import { initializeApp } from 'firebase/app'
+import { getUserById } from 'components/redux/actions/userActions'
+import { useDispatch, useSelector } from 'react-redux'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
@@ -38,23 +40,18 @@ const CreatePost = () => {
    const [country,setCountry]=useState('');
    const [city,setCity]=useState('');
    const [adress,setAdress]=useState('');
-   const [userData, setUserData] = useState()
    const [province, setProvince] = useState('')
    const [age, setAge] = useState()
    const [animationCheck, setAnimationCheck] = useState(false)
+   const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
     const Values={
         userId:userId.id
       }
+      const dispatch=useDispatch()
      useEffect(()=>{
       
-       getUsersById(Values)
-       .then(res => {
-         console.log(res.data);
-          if (res?.data?.message === "User Exist") {
-           setUserData(res?.data?.data)
-          } 
-     
-    });
+        dispatch(getUserById(Values))
      },[])
    const handleAdPic=(e)=>{
         setAdPic(e.selectedFile.base64);
@@ -459,9 +456,11 @@ const CreatePost = () => {
 
    const ad=async(e)=>{
    e.preventDefault();
-     const fileName = Date.now() + '.jpg';
-const fileRef = ref(storage,  fileName);
+     
  if(country!== ''&&gender!== ''&&city!== ''&&time!== ''&&date!== ''&&meetingType !== ''){
+  const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+  console.log("ad making")
 uploadString(fileRef, adPic, 'data_url').then((snapshot) => {
   console.log('Uploaded a blob or file!', snapshot);
 
@@ -479,7 +478,6 @@ uploadString(fileRef, adPic, 'data_url').then((snapshot) => {
       gender:gender,
       meetingType:meetingType,
       description:description,
-      adProfilePic:userData?.profilePic,
       adPic:url,
       userData:userData,
       adress:adress,
@@ -492,6 +490,7 @@ uploadString(fileRef, adPic, 'data_url').then((snapshot) => {
 
 
     }
+    console.log(values,"ad making")
    
     await createAd(values)
     .then((res)=>{

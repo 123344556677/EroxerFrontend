@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux'
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import RecordRTC from 'recordrtc';
+import { getUserById } from 'components/redux/actions/userActions'
 
 
 const firebaseConfig = {
@@ -108,6 +109,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
 })
   
 };
+
   
 //   const uploadVideoToFirebase = (base64Video) => {
 //   const storageRef = storage().ref();
@@ -198,6 +200,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
       userData:userData,
       key:"post"
     }
+    console.log(values,"data========>")
     await createPost(values)
     .then((res)=>{
       if (res.data.message === "post Generated") {

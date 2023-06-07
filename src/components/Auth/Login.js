@@ -78,7 +78,7 @@ function Login(props) {
         }
 
         if (res.data.message === "user not registered") {
-          toast.warning("User not registered", {
+          toast.warning("Email not exists", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 3000,
 
@@ -110,9 +110,16 @@ function Login(props) {
         });
         const id = res.data.data._id;
         localStorage.setItem("keys", JSON.stringify({ id }));
+        if(res?.data?.data?.key==="admin"){
+        setTimeout(() => {
+          history.push("/user/dashboard");
+        }, 2000);
+      }
+      else{
         setTimeout(() => {
           history.push("/admin/home");
         }, 2000);
+      }
       }
       if (res.data.message === "incorrect password") {
         toast.error("Incorrect Password", {

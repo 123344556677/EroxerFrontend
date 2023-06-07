@@ -3,7 +3,7 @@ import { Media } from "reactstrap";
 import "./ChatSection.css";
 import streamOne from "./j20.png";
 import streamThree from "./j21.png";
-import streamFour from "./j23.png";
+import streamFour from "./dummy.jpg";
 import streamFive from "./j24.png";
 import streamSix from "./j25.png";
 import streamSeven from "./j26.png";

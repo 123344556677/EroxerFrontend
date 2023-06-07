@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import profilFive from "./j15.png";
 import profilSix from "./j33.png";
-import profilSeven from "./j27.png";
+import profilSeven from "./dummy.jpg";
 import profileEight from "./j35.png";
 import profileNine from "./j36.png";
 import profileTen from "./j40.jpg";
@@ -446,7 +446,7 @@ const checkPost=(post)=>{
         <Col>
           <Row className="mb-0">
             <h3 className="mt-3 user-name mb-0 ">
-              {userData?.username ? userData?.username : "@ alexrock"}
+              {userData?.username ? userData?.username : userData?.firstName}
             </h3>
 {
               id===':id'&&
@@ -467,6 +467,8 @@ const checkPost=(post)=>{
             </Button>
 </>
 }
+{
+  id!==':id'&&
             <Button
               className={id===':id'?"add-button btn-sm btn-dark mt-4":" add-button btn-sm btn-dark ml-3 mt-3"}
               onClick={makeRequest}
@@ -489,6 +491,7 @@ const checkPost=(post)=>{
               </>
             }
             </Button>
+          }
             {
             //   id===':id'&&
             //   {
@@ -505,8 +508,9 @@ const checkPost=(post)=>{
             //   }
             }
           </Row>
-
-          <p className=" profile-designation mt-0 ">software Engineer</p>
+{
+          // <p className=" profile-designation mt-0 "></p>
+}
           <Row>
             <Button className="btn-sm mt-3 ml-2 profile-button">
               <HiOutlineWifi
@@ -515,12 +519,14 @@ const checkPost=(post)=>{
               />
               subscribe
             </Button>
-            <Button
-              className="add-button btn-sm  mt-3 p-1"
-              style={{ border: "2px solid white" }}
-            >
-              1K
-            </Button>
+            {
+            // <Button
+            //   className="add-button btn-sm  mt-3 p-1"
+            //   style={{ border: "2px solid white" }}
+            // >
+            //   1K
+            // </Button>
+            }
           </Row>
           <Row>
           <Col xl={3}>
@@ -530,7 +536,7 @@ const checkPost=(post)=>{
           <p>
             {userData?.about
               ? userData?.about
-              : "Im A professional engeenier and also a Designer i want to met someone thats why i here"}
+              : "Edit your profile!"}
           </p>
           </Col>
           <Col xl={3}>

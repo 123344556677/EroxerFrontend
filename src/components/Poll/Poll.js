@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Col, Progress, Row } from 'reactstrap';
 import { BsDot } from 'react-icons/bs';
 import './Poll.css';
+import pollOne from './dummy.jpg'
 
 const Poll = (props) => {
   const [options, setOptions] = useState([
@@ -60,7 +61,7 @@ const totalVotes=props?.data?.userPollId?.length
     <div className="mb-5">
     <div class="card second-card-main ml-lg-3" style={{zoom:"0.80"}}>
  
-   <img src={ props.data?.userData?.profilePic?props.data?.userData?.profilePic:"https://picsum.photos/id/1015/1200/800"}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${props?.data?.userId}`)}/>
+   <img src={ props.data?.userData?.profilePic?props.data?.userData?.profilePic:pollOne}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${props?.data?.userId}`)}/>
 
   <div class="card-body poll-card ">
   <h3 className="text-white ml-3 mt-5 mb-0" style={{fontWeight:"700"}}>

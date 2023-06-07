@@ -38,7 +38,7 @@ useEffect(() => {
   return (
    <div className='content'>
             <div>
-                <AiOutlineDollar onClick={toggleModal} className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-110px",marginRight:"85px",background:"#1e1e26",borderRadius:"0 20px 0 0",paddingTop:"10px"}}/>
+                <AiOutlineDollar onClick={toggleModal} className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-110px",marginRight:"150px",cursor:"pointer",background:"#1e1e26",borderRadius:"0 20px 0 0",paddingTop:"10px"}}/>
                 
 
                 <Modal  isOpen={showModal} toggle={toggleModal} className="main-modal" style={{maxWidth:"400px",borderRadius:"10px"}}  >

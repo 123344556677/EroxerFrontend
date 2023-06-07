@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Col, Row,Button, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap'
 import AdDesOne from './j31.png'
-import AdDesTwo from './j27.png'
+import AdDesTwo from './dummy.jpg'
 import { FaSearch, FaUserAlt } from 'react-icons/fa'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import ChatProfile from 'components/ChatProfile/ChatProfile'
@@ -106,9 +106,11 @@ const getAds = useSelector(state => state?.getAds);
       <Row className='profile-user-row' style={{marginTop:"-15px"}}>
       <Col >
       
-      <h4 className='mt-3 user-name mb-0 '>Alex dee <span className='ml-1'><FaUserAlt/></span>
+      <h4 className='mt-3 user-name mb-0 '>{adData?.userData?.profileName?adData?.userData?.profileName:adData?.userData?.firstName} <span className='ml-1'><FaUserAlt/></span>
        <span><AiOutlineUserAdd style={{fontSize:"25px",marginLeft:"80%"}} className='user-name '/></span></h4>  
-      <p style={{color:" #8B8B8B",fontSize:"10px"}} >{adData?.userData?.profileName?adData?.userData?.profileName:adData?.userData?.firstName}</p>
+       {
+      // <p style={{color:" #8B8B8B",fontSize:"10px"}} >{adData?.userData?.profileName?adData?.userData?.profileName:adData?.userData?.firstName}</p>
+       }
       <Row>
       <Col>
      <h5 className='mt-3 user-name mb-0 '>Avaialable</h5>
@@ -188,9 +190,11 @@ const getAds = useSelector(state => state?.getAds);
       <Row className='profile-user-row' style={{marginTop:"-15px"}}>
       <Col >
       
-      <h4 className='mt-3 user-name mb-0 '>Alex dee <span className='ml-1'><FaUserAlt/></span>
+      <h4 className='mt-3 user-name mb-0 '>{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}<span className='ml-1'><FaUserAlt/></span>
        <span><AiOutlineUserAdd style={{fontSize:"25px",marginLeft:"80%"}} className='user-name '/></span></h4>  
-      <p style={{color:" #8B8B8B",fontSize:"10px"}} >{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}</p>
+       {
+      // <p style={{color:" #8B8B8B",fontSize:"10px"}} >{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}</p>
+       }
       <Row>
       <Col>
      <h5 className='mt-3 user-name mb-0 '>Avaialable</h5>
