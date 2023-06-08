@@ -43,6 +43,7 @@ import { BarChartView } from "backedComponents/BarChart/BarChartView";
 import { BarChart } from "backedComponents/BarChart/BarChart";
 import { SimpleTableView } from "backedComponents/SimpleTable/SimpleTableView";
 import { SimpleTable } from "backedComponents/SimpleTable/SimpleTable";
+import { useSelector } from "react-redux";
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -58,6 +59,8 @@ function Dashboard(props) {
   const [chartRef2,setChartRef2] = React.useState(null);
   const [chartRef3,setChartRef3] = React.useState(null);
   const [chartRef4,setChartRef4] = React.useState(null);
+  const getAllUser= useSelector(state => state?.getAllUsers);
+    const AllUser=getAllUser?.allUsers
 
   // function to retrieve data from the database in a format suitable for chart 1
   
@@ -145,87 +148,89 @@ function Dashboard(props) {
       <div className="content">
         <Row>
         <h2 className="ml-lg-3">Dashboard</h2>
-          <Col xs="12">
-            <Card className="card-chart">
-              <CardHeader>
-                <Row>
-                  <Col className="text-left" sm="6">
-                    <h5 className="card-category">All Tasks</h5>
-                    <CardTitle tag="h2">Performance</CardTitle>
-                  </Col>
-                  <Col sm="6">
-                    <ButtonGroup
-                      className="btn-group-toggle float-right"
-                      data-toggle="buttons"
-                    >
-                      <Button
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data1",
-                        })}
-                        color="info"
-                        id="0"
-                        size="sm"
-                        onClick={() => setBgChartData("data1")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Accounts
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-single-02" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="1"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data2",
-                        })}
-                        onClick={() => setBgChartData("data2")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Purchases
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-gift-2" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="2"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data3",
-                        })}
-                        onClick={() => {
-                          setBgChartData("data3");
-                        }}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Sessions
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-tap-02" />
-                        </span>
-                      </Button>
-                    </ButtonGroup>
-                  </Col>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartData1}
-                    options={chartExample1.options}
-                    ref={newRef => setChartRef1(newRef)}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
+        {
+          // <Col xs="12">
+          //   <Card className="card-chart">
+          //     <CardHeader>
+          //       <Row>
+          //         <Col className="text-left" sm="6">
+          //           <h5 className="card-category">All Tasks</h5>
+          //           <CardTitle tag="h2">Performance</CardTitle>
+          //         </Col>
+          //         <Col sm="6">
+          //           <ButtonGroup
+          //             className="btn-group-toggle float-right"
+          //             data-toggle="buttons"
+          //           >
+          //             <Button
+          //               tag="label"
+          //               className={classNames("btn-simple", {
+          //                 active: bigChartData === "data1",
+          //               })}
+          //               color="info"
+          //               id="0"
+          //               size="sm"
+          //               onClick={() => setBgChartData("data1")}
+          //             >
+          //               <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+          //                 Accounts
+          //               </span>
+          //               <span className="d-block d-sm-none">
+          //                 <i className="tim-icons icon-single-02" />
+          //               </span>
+          //             </Button>
+          //             <Button
+          //               color="info"
+          //               id="1"
+          //               size="sm"
+          //               tag="label"
+          //               className={classNames("btn-simple", {
+          //                 active: bigChartData === "data2",
+          //               })}
+          //               onClick={() => setBgChartData("data2")}
+          //             >
+          //               <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+          //                 Purchases
+          //               </span>
+          //               <span className="d-block d-sm-none">
+          //                 <i className="tim-icons icon-gift-2" />
+          //               </span>
+          //             </Button>
+          //             <Button
+          //               color="info"
+          //               id="2"
+          //               size="sm"
+          //               tag="label"
+          //               className={classNames("btn-simple", {
+          //                 active: bigChartData === "data3",
+          //               })}
+          //               onClick={() => {
+          //                 setBgChartData("data3");
+          //               }}
+          //             >
+          //               <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+          //                 Sessions
+          //               </span>
+          //               <span className="d-block d-sm-none">
+          //                 <i className="tim-icons icon-tap-02" />
+          //               </span>
+          //             </Button>
+          //           </ButtonGroup>
+          //         </Col>
+          //       </Row>
+          //     </CardHeader>
+          //     <CardBody>
+          //       <div className="chart-area">
+          //         <Line
+          //           data={chartData1}
+          //           options={chartExample1.options}
+          //           ref={newRef => setChartRef1(newRef)}
+          //         />
+          //       </div>
+          //     </CardBody>
+          //   </Card>
+          // </Col>
+                      }
         </Row>
         <Row>
           <Col lg="4">
@@ -234,7 +239,7 @@ function Dashboard(props) {
               options = {chartExample2.options}
               passedRef = {newRef => setChartRef2(newRef)}
               dataName = {"Total Users"}
-              totalData = {"46,379"}
+              totalData = {AllUser?.length}
             />
           </Col>
           <Col lg="4">

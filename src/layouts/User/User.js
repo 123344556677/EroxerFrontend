@@ -127,11 +127,13 @@ function User(props) {
             />
 
             <div className="main-panel admin-panel" ref={mainPanelRef}>
-              <AdminNavbar
-                brandText={getBrandText(location.pathname)}
-                toggleSidebar={toggleSidebar}
-                sidebarOpened={sidebarOpened}
-              />
+            {
+              // <AdminNavbar
+              //   brandText={getBrandText(location.pathname)}
+              //   toggleSidebar={toggleSidebar}
+              //   sidebarOpened={sidebarOpened}
+              // />
+            }
               {
                 userId?.id?
               <Switch>

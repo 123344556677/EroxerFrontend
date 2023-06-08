@@ -153,7 +153,7 @@ function AdminSidebar(props) {
                     >
                     <i className={prop.icon} style={{marginTop:"6px"}}></i> 
                      
-                      <p className="links-name"onClick={prop.name==="Logout"&&logOut}>{rtlActive ? prop.rtlName : prop.name}
+                      <p className="links-name">{rtlActive ? prop.rtlName : prop.name}
                       </p>
                     
                     
@@ -188,6 +188,19 @@ function AdminSidebar(props) {
                  
                 );
               })}
+              <NavLink
+               to='/'
+                      className="nav-link sidebar-links ml-lg-5"
+                      
+                      onClick={logOut}
+              >
+              <li>
+              <i className="fa fa-sign-out" ></i> 
+                     
+                      <p className="links-name ">Logout
+                      </p>
+                      </li>
+                      </NavLink>
               
               <div style={{marginTop:"100%"}}>
               <p className="mb-2 footer-main ml-4">Download our mobile app</p>

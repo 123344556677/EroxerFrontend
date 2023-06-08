@@ -36,7 +36,7 @@ export const verifyCode= async (values) => {
 }
 export const deleteAccount= async (values) => {
    
-    return await axios.delete(`${url}/deleteAccount`, values);
+    return await axios.post(`${url}/deleteAccount`, values);
 }
 export const changeOnlineStatus= async (values) => {
    
@@ -132,6 +132,9 @@ export const deleteListDataById= async (values) => {
 //creator
 export const applyForCreator= async (values) => {
     return await axios.post(`${url}/applyForCreator`, values);
+}
+export const changeCreatorStatus= async (values) => {
+    return await axios.put(`${url}/updateVideoStatus`, values);
 }
 //poll
 export const createPoll= async (values) => {

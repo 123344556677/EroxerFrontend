@@ -52,13 +52,7 @@ var routes = [
     component:VerifyAccounts,
     layout: "/user",
   },
-  {
-    path: "/",
-    name: "Logout",
-    rtlName: "لوحة القيادة",
-    icon:"fa fa-sign-out",
-    layout: "/user",
-  }
+ 
 
   
   

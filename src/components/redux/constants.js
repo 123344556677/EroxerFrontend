@@ -19,4 +19,7 @@ export const DELETE_LIST_FAIL = 'deleteAllListFail'
 export const Poll_Counter_Increment = 'pollCounterIncrement'
 export const GET_ALL_CALL_SUCCESS = 'getAllCallSuccess'
 export const GET_ALL_CALL_FAIL = 'getAllCalltFail'
+export const GET_ALL_CREATOR_REQUEST_SUCCESS = 'getAllCreatorRequestSuccess'
+export const GET_ALL_CREATOR_REQUEST_FAIL = 'getAllCreatorRequetFail'
+
 
