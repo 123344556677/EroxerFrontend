@@ -26,6 +26,7 @@ import HomeModals from "components/Modals/HomeModals";
 import { Accordion } from "react-bootstrap";
 import { BsDot } from "react-icons/bs";
 import AOS from "aos";
+import Swal from "sweetalert2";
 
 
 
@@ -136,16 +137,45 @@ function Sidebar(props) {
         expireSession();
       }, 30000); // 30 seconds
 
-      const response = window.confirm("Your session is about to expire. Do you want to extend it?");
-      clearTimeout(timeoutPrompt);
-      if (response) {
-        // If the user chooses to extend the session, reset the timeout and continue
-        startSessionTimeout();
-      } else {
-        // If the user chooses not to extend the session, clear the userId from localStorage and refresh the page
-        expireSession();
-      }
-    }, 15000); // 15 seconds
+      // const response = window.confirm("Your session is about to expire. Do you want to extend it?");
+      // clearTimeout(timeoutPrompt);
+      // if (response) {
+      //   // If the user chooses to extend the session, reset the timeout and continue
+      //   startSessionTimeout();
+      // } else {
+      //   // If the user chooses not to extend the session, clear the userId from localStorage and refresh the page
+      //   expireSession();
+      // }
+    clearTimeout(timeoutPrompt);
+   Swal.fire({
+      title: 'Session Alert',
+      text: 'Your session is going to expire in 30 seconds Do you want to extend the session?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      reverseButtons: true,
+      timer: 30000,
+      customClass: {
+        container: 'dark-theme-alert',
+      },
+    }).then((result)=>{
+
+    if (result.isConfirmed) {
+      // User clicked "Yes"
+      startSessionTimeout();
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // User clicked "No" or clicked outside the dialog
+    expireSession();
+    } 
+    else if (result.dismiss === Swal.DismissReason.timer) {
+      // Timer expired
+      expireSession();
+    }
+    
+    })
+  
+    }, 3600000); // 15 seconds
 
     setSessionTimeout(timeout);
   };
@@ -212,9 +242,9 @@ function Sidebar(props) {
                       to={prop.layout + prop.path}
                       className="nav-link sidebar-links ml-lg-5"
                       activeClassName={prop.name==="Settings"||prop.name==="Subscription"?"":"links-active"}
-                      onClick={props.toggleSidebar}
-                      isOpen={props.name==="Settings"?dropdownOpen:""}
-                      toggle={props.name==="Settings"?toggle:""}
+                      onClick={prop.name==="Settings"?toggle:props.toggleSidebar}
+                     
+                      
                       
                        
                     >
@@ -274,7 +304,7 @@ function Sidebar(props) {
                       {
                         prop.name==="Settings"&&
                       <Dropdown isOpen={dropdownOpen} toggle={toggle} className="" style={{position:"absolute"}}>
-        <DropdownToggle onClick={(e)=>e.preventDefault()} className="dropDown-sidebar"><IoMdArrowDropdown className='' style={{fontSize:"30px"}}/></DropdownToggle>
+        <DropdownToggle onClick={(e)=>e.preventDefault()} className="dropDown-sidebar"><IoMdArrowDropdown onClick={toggle} className='' style={{fontSize:"30px"}}/></DropdownToggle>
         <DropdownMenu style={{backgroundColor:"#161616",marginLeft:"400%",marginTop:"-90%",borderRadius:"20px"}}  >
           <DropdownItem className="drop-item" header >
           <span className="mr-2  drop-icons">

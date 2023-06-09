@@ -378,7 +378,7 @@ updateAllCallStatus(callValues)
       </Media>
       <Media body className="ml-3 mt-3">
         <h3 className='text-white mb-0'style={{fontWeight:"600"}}>{userData?.firstName} {userData?.lastName}</h3>
-        <p className="chat-designation">Student</p>
+       <p className="chat-designation">{userData?.onlineStatus?"online":"offline"}</p>
       </Media>
       <Media right onClick={handleNotiValues} style={{cursor:"pointer"}}>
       {

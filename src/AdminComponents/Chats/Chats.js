@@ -7,7 +7,8 @@ import {
   Table,
   Row,
   Col,
-  Input
+  Input,
+  Container
 } from "reactstrap";
 import { AiFillDelete } from 'react-icons/ai';
 import { useEffect } from 'react';
@@ -29,6 +30,7 @@ const Chats = () => {
   const [recieverName,setRecieverName]=useState()
   const [recieverId,setRecieverId]=useState()
   const [chatCheck,setChatCheck]=useState(false)
+   const [filterUser,setFilterUser]=useState([])
   useEffect(() => {
      
       dispatch(getAllUsers())
@@ -92,7 +94,31 @@ const Chats = () => {
  })
  setChatCheck(true)
  }
- function renderImageTag(imageString) {
+ function renderImageTagSecond(imageString) {
+    let blobUrlPattern =/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+
+    const url = blobUrlPattern.test(imageString);
+
+    if (url) {
+      return <img src={imageString} alt="" />;
+    } else {
+      console.log("no url");
+      return (
+        <>
+       
+         
+        <Input
+          defaultValue=""
+          placeholder="Type your message here..."
+          type="text"
+          value={imageString}
+          className="chat-second-inputs mt-3 "
+        />
+        </>
+      );
+    }
+  }
+  function renderImageTag(imageString) {
     let blobUrlPattern =/^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
 
     const url = blobUrlPattern.test(imageString);
@@ -116,14 +142,21 @@ const Chats = () => {
       );
     }
   }
+   useEffect(()=>{
+   setFilterUser(AllUser?.filter(user=>user?.key!=="admin"))
+    },[AllUser])
  console.log(messages,"============>")
   return (
     <>
       <div className="content">
       
       {
+        
+      
         chatCheck===false&&
         friendsCheck?
+
+        
         <>
         <h3 className="ml-lg-3">{senderName+"'s"}  Friends</h3>
         <Row>
@@ -190,7 +223,7 @@ const Chats = () => {
                   </thead>
                   <tbody>
                   {
-                    AllUser?.map((data)=>(
+                    filterUser?.map((data)=>(
 
                     
                     <tr>
@@ -222,7 +255,10 @@ const Chats = () => {
         chatCheck===true&&
         <>
         <h3 className='text-center'>{senderName+"'s"} chat with {recieverName}</h3>
-      <div className="ml-lg-4">
+      <div className="ml-lg-5">
+      <Container>
+      <Row className='ml-lg-5'>
+      <Col className='ml-lg-5'>
             { messages?
               messages?.map((data, index) => (
               <div>
@@ -240,7 +276,7 @@ const Chats = () => {
                   >
                     
                        
-                        {renderImageTag(data?.message)}
+                        {renderImageTagSecond(data?.message)}
                      
                   </Row>
                   </>
@@ -250,10 +286,14 @@ const Chats = () => {
            :
             <div className="loading">Loading chats...</div>
           }
+          </Col>
+          </Row>
+          </Container>
           </div>
           </>
       
       }
+      
      
         <ToastContainer/>
       </div>

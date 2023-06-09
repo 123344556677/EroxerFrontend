@@ -13,6 +13,7 @@ import { getDownloadURL, getStorage, ref, uploadString } from 'firebase/storage'
 import { initializeApp } from 'firebase/app'
 import { getUserById } from 'components/redux/actions/userActions'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
@@ -453,9 +454,10 @@ const CreatePost = () => {
 
 
 ]
-
+const history=useHistory()
    const ad=async(e)=>{
    e.preventDefault();
+     setAnimationCheck(true)
      
  if(country!== ''&&gender!== ''&&city!== ''&&time!== ''&&date!== ''&&meetingType !== ''){
   const fileName = Date.now() + '.jpg';
@@ -502,7 +504,10 @@ uploadString(fileRef, adPic, 'data_url').then((snapshot) => {
       theme: 'dark',
      
     });
-    setAnimationCheck(true)
+     setTimeout(() => {
+          history.push("/admin/home");
+        }, 2000);
+  
   }
   else{
     toast.error('Server Error', {
@@ -512,6 +517,7 @@ uploadString(fileRef, adPic, 'data_url').then((snapshot) => {
       theme: 'dark',
      
     });
+    setAnimationCheck(false)
   }
     })
   
@@ -532,6 +538,7 @@ else{
       theme: 'dark',
      
     });
+    setAnimationCheck(false)
   }
     
 
@@ -800,7 +807,7 @@ For your Meeting</h2>
     <Row className='justify-content-end mt-3'>
     {
       animationCheck?
-      <lottie-player  src="https://assets4.lottiefiles.com/packages/lf20_lp7qD9RDx1.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
       :
     <Button type="submit" className='reset-button mr-2' >Save</Button>
     }

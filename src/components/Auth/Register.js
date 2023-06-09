@@ -39,6 +39,7 @@ function Register(props) {
   const [checkEmail, setCheckEmail] = useState(false);
   const [checkPassword, setCheckPassowrd] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [animationCheck, setAnimationCheck] = useState(false)
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -75,6 +76,7 @@ function Register(props) {
   });
 
   const reg = async (e) => {
+     setAnimationCheck(true)
     e.preventDefault();
     const values = {
       firstName: firstName,
@@ -85,6 +87,7 @@ function Register(props) {
     if(isChecked===true){
     await register(values).then((res) => {
       if (res.data.message === "Email already exist") {
+         setAnimationCheck(false)
         toast.warning("Email already exist", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
@@ -100,6 +103,7 @@ function Register(props) {
           theme: "dark",
           // bodyClassName: 'dark-toast',
         });
+       
         setTimeout(() => {
           history.push("/");
         }, 2000);
@@ -205,6 +209,12 @@ function Register(props) {
             </CardBody>
             <CardFooter>
               <h1 className="text-center mb-1">
+              {
+      animationCheck?
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
                 <Button
                   className="btn-fill register-btn"
                   color="primary"
@@ -213,6 +223,7 @@ function Register(props) {
                   Register
                   {isSubmitting ? "..." : ""}
                 </Button>
+              }
                 <div className="d-flex align-items-center mb-3 mt-3">
                   <div
                     className="col-4 pt-1 mr-0 border-bottom login-barss"

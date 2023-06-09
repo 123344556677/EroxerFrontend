@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 import { useHistory } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import "./Navbar.css";
 import { BsFillBellFill } from "react-icons/bs";
+import navOne from './dummy.jpg'
 
 // reactstrap components
 import {
@@ -24,12 +25,17 @@ import {
   InputGroupAddon,
   InputGroupText,
 } from "reactstrap";
+import { getUserById } from "components/redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function AdminNavbar(props) {
   console.log(props,"brand------->");
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   // const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
+  const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+  const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
   // const history = useHistory();
 
   React.useEffect(() => {
@@ -62,6 +68,15 @@ function AdminNavbar(props) {
   // };
 
   // this function handles the logout button
+  const dispatch=useDispatch()
+  const values={
+    userId:userId.id
+  }
+  useEffect(() => {
+      dispatch(getUserById(values))
+     
+        
+    }, [dispatch])
 
   return (
     <>
@@ -146,84 +161,88 @@ function AdminNavbar(props) {
                             onClick={(e) => e.preventDefault()}
                           >
                             <div className="photo">
-                              <img alt="..." src={require("./j25.png")} />
+                              <img alt="..." src={userData?.profilePic?userData?.profilePic:navOne} />
                             </div>
-                            <span className="text-white navbar-name ml-2">
-                              Alex Rock
+                            <span className="text-white navbar-name ml-2" >
+                             {userData?.firstName} {userData?.lastName}
                             </span>
                             {
                               // <b className="caret d-none d-lg-block d-xl-block" />
                             }
                             <p className="d-lg-none">Log out</p>
                           </DropdownToggle>
-                          <DropdownMenu
-                            className="dropdown-navbar"
-                            right
-                            tag="ul"
-                          >
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                Profile
-                              </DropdownItem>
-                            </NavLink>
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                Settings
-                              </DropdownItem>
-                            </NavLink>
-                            <DropdownItem divider tag="li" />
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                <Button>
-                                  <span className="d-md-block">Logout</span>
-                                </Button>
-                              </DropdownItem>
-                            </NavLink>
-                          </DropdownMenu>
+                          {
+                          // <DropdownMenu
+                          //   className="dropdown-navbar"
+                          //   right
+                          //   tag="ul"
+                          // >
+                          //   <NavLink tag="li">
+                          //     <DropdownItem className="nav-item">
+                          //       Profile
+                          //     </DropdownItem>
+                          //   </NavLink>
+                          //   <NavLink tag="li">
+                          //     <DropdownItem className="nav-item">
+                          //       Settings
+                          //     </DropdownItem>
+                          //   </NavLink>
+                          //   <DropdownItem divider tag="li" />
+                          //   <NavLink tag="li">
+                          //     <DropdownItem className="nav-item">
+                          //       <Button>
+                          //         <span className="d-md-block">Logout</span>
+                          //       </Button>
+                          //     </DropdownItem>
+                          //   </NavLink>
+                          // </DropdownMenu>
+                          }
                         </UncontrolledDropdown>
-                        <UncontrolledDropdown nav>
-                          <DropdownToggle
-                            caret
-                            color="default"
-                            data-toggle="dropdown"
-                            nav
-                          >
-                            <div className="notification d-none d-lg-block d-xl-block" />
-                            <BsFillBellFill style={{ fontSize: "20px" }} />
-                            <p className="d-lg-none">Notifications</p>
-                          </DropdownToggle>
-                          <DropdownMenu
-                            className="dropdown-navbar"
-                            right
-                            tag="ul"
-                          >
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                Mike John responded to your email
-                              </DropdownItem>
-                            </NavLink>
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                You have 5 more tasks
-                              </DropdownItem>
-                            </NavLink>
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                Your friend Michael is in town
-                              </DropdownItem>
-                            </NavLink>
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                Another notification
-                              </DropdownItem>
-                            </NavLink>
-                            <NavLink tag="li">
-                              <DropdownItem className="nav-item">
-                                Another one
-                              </DropdownItem>
-                            </NavLink>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
+                        {
+                        // <UncontrolledDropdown nav>
+                        //   <DropdownToggle
+                        //     caret
+                        //     color="default"
+                        //     data-toggle="dropdown"
+                        //     nav
+                        //   >
+                        //     <div className="notification d-none d-lg-block d-xl-block" />
+                        //     <BsFillBellFill style={{ fontSize: "20px" }} />
+                        //     <p className="d-lg-none">Notifications</p>
+                        //   </DropdownToggle>
+                        //   <DropdownMenu
+                        //     className="dropdown-navbar"
+                        //     right
+                        //     tag="ul"
+                        //   >
+                        //     <NavLink tag="li">
+                        //       <DropdownItem className="nav-item">
+                        //         Mike John responded to your email
+                        //       </DropdownItem>
+                        //     </NavLink>
+                        //     <NavLink tag="li">
+                        //       <DropdownItem className="nav-item">
+                        //         You have 5 more tasks
+                        //       </DropdownItem>
+                        //     </NavLink>
+                        //     <NavLink tag="li">
+                        //       <DropdownItem className="nav-item">
+                        //         Your friend Michael is in town
+                        //       </DropdownItem>
+                        //     </NavLink>
+                        //     <NavLink tag="li">
+                        //       <DropdownItem className="nav-item">
+                        //         Another notification
+                        //       </DropdownItem>
+                        //     </NavLink>
+                        //     <NavLink tag="li">
+                        //       <DropdownItem className="nav-item">
+                        //         Another one
+                        //       </DropdownItem>
+                        //     </NavLink>
+                        //   </DropdownMenu>
+                        // </UncontrolledDropdown>
+                        }
 
                         <li className="separator d-lg-none" />
                       </>

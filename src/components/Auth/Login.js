@@ -43,6 +43,7 @@ function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [animationCheck, setAnimationCheck] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const slideVariants = {
@@ -56,6 +57,7 @@ function Login(props) {
       googleLogin(tokenResponse).then((res) => {
         console.log(res.data);
         if (res.data.message === "Login Successfull") {
+          
           toast.success("Login Successful", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
@@ -92,6 +94,7 @@ function Login(props) {
     },
   });
   const log = async (e) => {
+     setAnimationCheck(true)
     e.preventDefault();
 
     const values = {
@@ -101,7 +104,9 @@ function Login(props) {
 
     await login(values).then((res) => {
       console.log(res.data);
+     
       if (res.data.message === "Login Successfull") {
+
         toast.success("Login Successful", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
@@ -122,6 +127,7 @@ function Login(props) {
       }
       }
       if (res.data.message === "incorrect password") {
+        setAnimationCheck(false)
         toast.error("Incorrect Password", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
@@ -131,6 +137,7 @@ function Login(props) {
       }
 
       if (res.data.message === "user not registered") {
+        setAnimationCheck(false)
         toast.warning("User not registered", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
@@ -236,6 +243,12 @@ function Login(props) {
               </CardBody>
               <CardFooter>
                 <h1 className="text-center mb-1">
+                 {
+      animationCheck?
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
                   <Button
                     className="btn-fill login-btn"
                     color="primary"
@@ -244,6 +257,7 @@ function Login(props) {
                     Login to Your Account
                     {isSubmitting ? "..." : ""}
                   </Button>
+                 }
                 </h1>
                 <p className="text-center login-register-btn mt-4">
                   Not a member yet?{" "}

@@ -76,6 +76,9 @@ const changeVideoStatusTwo=async(e)=>{
   return (
      <>
       <div className="content">
+      {
+        request?.length?
+      <>
        <h2 className="ml-lg-3">Verify Accounts</h2>
         <Row>
         {
@@ -94,6 +97,10 @@ const changeVideoStatusTwo=async(e)=>{
             ))
         }
             </Row>
+            </>
+            :
+            <h2 className="text-center">No Accounts to verify!</h2>
+      }
             <ToastContainer/>
             </div>
             </>

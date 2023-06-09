@@ -10,6 +10,7 @@ import { updateUser } from "Api/Api";
 import MembershipSection from "components/Membership/MembershipSection";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "components/redux/actions/userActions";
+import { useHistory } from "react-router-dom";
 const EditProfile = () => {
   const dispatch = useDispatch();
   const getUser = useSelector((state) => state.getUserById);
@@ -44,8 +45,10 @@ const EditProfile = () => {
 
   // });
   //  },[])
+  const history=useHistory()
 
   const updation = async () => {
+     setAnimationCheck(true)
     const values = {
       userId: userId.id,
       username: username,
@@ -65,6 +68,9 @@ const EditProfile = () => {
 
           theme: "dark",
         });
+        setTimeout(() => {
+          history.push("/admin/profile/:id");
+        }, 2000);
         
       } else {
         toast.error("Server Error", {
@@ -73,9 +79,10 @@ const EditProfile = () => {
 
           theme: "dark",
         });
+         setAnimationCheck(false)
       }
        dispatch(getUserById(Values));
-       setAnimationCheck(true)
+      
     });
   };
  

@@ -396,12 +396,15 @@ const changeRequestStatus=(id)=>{
 const handleImageHover = () => {
     setHoveredImage(true);
   };
+    const handleRightClick = (event) => {
+    event.preventDefault();
+  };
 
   
   return (
 
     
-     <div className="content home-div">
+     <div className="content home-div" onContextMenu={handleRightClick}>
      
       
      

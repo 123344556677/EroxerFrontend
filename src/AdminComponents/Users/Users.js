@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Card,
   CardHeader,
@@ -19,6 +19,7 @@ import {  } from 'react-bootstrap';
 
 const Users = () => {
   const dispatch=useDispatch()
+  const [filterUser,setFilterUser]=useState([])
   useEffect(() => {
      
       dispatch(getAllUsers())
@@ -53,6 +54,9 @@ const Users = () => {
       
 
     }
+    useEffect(()=>{
+   setFilterUser(AllUser?.filter(user=>user?.key!=="admin"))
+    },[AllUser])
   return (
     <>
       <div className="content">
@@ -75,7 +79,7 @@ const Users = () => {
                   </thead>
                   <tbody>
                   {
-                    AllUser?.map((data)=>(
+                    filterUser?.map((data)=>(
 
                     
                     <tr>

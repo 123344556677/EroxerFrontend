@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux'
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { createPoll } from 'Api/Api'
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -35,6 +36,7 @@ const CreatePoll = () => {
 
 //   let options=[]
  let pollId=0
+ const history=useHistory()
 
   
   const dispatch=useDispatch()
@@ -73,6 +75,7 @@ const removeValueFromOptions = () => {
   setOptions(updatedOptions);
 };
 const poll=async(e)=>{
+  setAnimationCheck(true)
     e.preventDefault()
     const values={
         userId:userId.id,
@@ -92,7 +95,10 @@ const poll=async(e)=>{
      
     });
     dispatch(getPosts())
-    setAnimationCheck(true)
+     setTimeout(() => {
+          history.push("/admin/home");
+        }, 2000);
+    
   }
   else{
     toast.error('Server Error', {
@@ -102,6 +108,7 @@ const poll=async(e)=>{
       theme: 'dark',
      
     });
+    setAnimationCheck(false)
   }
   
    
@@ -173,7 +180,7 @@ For your Audience</h2>
     <Row className='justify-content-center mt-3'>
     {
       animationCheck?
-      <lottie-player  src="https://assets4.lottiefiles.com/packages/lf20_lp7qD9RDx1.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
       :
     <Button type='submit' className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Create</Button>
     }

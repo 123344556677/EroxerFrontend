@@ -11,7 +11,7 @@ import {
   Container,
  
 } from "reactstrap";
-import Logo from './logo.png'
+import Logo from './logo5.png'
 
 function AdminNavbar(props) {
   const [collapseOpen, setcollapseOpen] = React.useState(false);
@@ -65,7 +65,7 @@ function AdminNavbar(props) {
           }
           <br/><br/><br/>
             <NavbarBrand className=""  href="#pablo" onClick={(e) => e.preventDefault()}>
-             <img src={Logo} alt="" className="mt-5" style={{width:"70%"}}/>
+             <img src={Logo} alt="" className="mt-5" style={{width:"30%"}}/>
             </NavbarBrand>
           </div>
           {

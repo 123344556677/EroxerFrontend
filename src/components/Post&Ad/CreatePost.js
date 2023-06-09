@@ -15,6 +15,7 @@ import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "fireb
 import { initializeApp } from "firebase/app";
 import RecordRTC from 'recordrtc';
 import { getUserById } from 'components/redux/actions/userActions'
+import { useHistory } from 'react-router-dom'
 
 
 const firebaseConfig = {
@@ -44,7 +45,7 @@ const CreateAd = () => {
    const recorderRef = useRef(null);
   const videoRef = useRef(null);
   
-  
+  const history=useHistory()
   const dispatch=useDispatch()
     const Values={
         userId:userId.id
@@ -187,6 +188,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
     // const decodedPost = Buffer.from(postPic, 'base64').toString();
     // const decodedProfile = Buffer.from(userData?.profilePic, 'base64').toString();
   console.log(postUrl,"data========>")
+   setAnimationCheck(true)
     
 
     // Use the image URL in an <img> tag
@@ -212,7 +214,10 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
      
     });
     dispatch(getPosts())
-    setAnimationCheck(true)
+   setTimeout(() => {
+          history.push("/admin/home");
+        }, 2000);
+   
   }
   else{
     toast.error('Server Error', {
@@ -222,6 +227,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
       theme: 'dark',
      
     });
+     setAnimationCheck(false)
   }
     })
    
@@ -339,7 +345,7 @@ For your Meeting</h2>
     <Row className='justify-content-end mt-3'>
     {
       animationCheck?
-      <lottie-player  src="https://assets4.lottiefiles.com/packages/lf20_lp7qD9RDx1.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
       :
     
     
