@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useLocation, useHistory } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
@@ -38,6 +38,7 @@ function Sidebar(props) {
    const toggle = () => setDropdownOpen((prevState) => !prevState);
   const location = useLocation();
   const sidebarRef = React.useRef(null);
+  const [sessionTimeout, setSessionTimeout] = useState(null);
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
     return location.pathname === routeName ? "active" : "";
@@ -48,6 +49,7 @@ function Sidebar(props) {
     history.push('/')
   }
   AOS.init()
+  
   
   // const toggleAccordion = (id) => {
   //   if (open === id) {
@@ -111,6 +113,50 @@ function Sidebar(props) {
       // );
     }
   }
+   useEffect(() => {
+    // Check if the user has an active session
+    const userId = JSON.parse(localStorage.getItem("keys"));
+    if (userId?.id) {
+      // Start the session timeout
+      startSessionTimeout();
+    }
+  }, []);
+
+  const startSessionTimeout = () => {
+    // Clear the previous timeout if exists
+    if (sessionTimeout) {
+      clearTimeout(sessionTimeout);
+    }
+
+    // Set a new timeout for 15 seconds
+    const timeout = setTimeout(() => {
+      // Display the alert when the session is about to expire
+      const timeoutPrompt = setTimeout(() => {
+        // If the user doesn't click "OK" within 30 seconds, expire the session
+        expireSession();
+      }, 30000); // 30 seconds
+
+      const response = window.confirm("Your session is about to expire. Do you want to extend it?");
+      clearTimeout(timeoutPrompt);
+      if (response) {
+        // If the user chooses to extend the session, reset the timeout and continue
+        startSessionTimeout();
+      } else {
+        // If the user chooses not to extend the session, clear the userId from localStorage and refresh the page
+        expireSession();
+      }
+    }, 15000); // 15 seconds
+
+    setSessionTimeout(timeout);
+  };
+
+  const expireSession = () => {
+    clearTimeout(sessionTimeout);
+    localStorage.clear();
+    history.push("/");
+  };
+
+  
    
   return (
     <BackgroundColorContext.Consumer>
