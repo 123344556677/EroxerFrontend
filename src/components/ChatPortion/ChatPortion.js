@@ -185,8 +185,7 @@ const ChatPortion = () => {
   };
       // const [userData, setUserData] = useState()
       const getUser= useSelector(state => state.getUserById);
-      
-        const userData=getUser?.userData
+      const userData=getUser?.userData
     // const values={
     //     userId:userId.id
       // }

@@ -468,29 +468,30 @@ const checkPost=(post)=>{
 </>
 }
 {
-  id!==':id'&&
-            <Button
-              className={id===':id'?"add-button btn-sm btn-dark mt-4":" add-button btn-sm btn-dark ml-3 mt-3"}
-              onClick={makeRequest}
-            >
-            {
-              requestCheck==="sent"&&
-              <span style={{color:"white"}}>Request sent</span>
+  // id!==':id'&&
 
-            }
-            {
-              requestCheck==="none"&&
-              <i className="fas fa-user" style={{ marginRight: "10px" }} />
+  //           // <Button
+  //           //   className={id===':id'?"add-button btn-sm btn-dark mt-4":" add-button btn-sm btn-dark ml-3 mt-3"}
+  //           //   onClick={makeRequest}
+  //           // >
+  //           // {
+  //           //   requestCheck==="sent"&&
+  //           //   <span style={{color:"white"}}>Request sent</span>
 
-            }
-            {
-              requestCheck==="accept"&&
-              <>
-              <i className="fas fa-user" style={{ marginRight: "10px" }} />
-              <img alt="" src={profilFive} style={{ color: "white" }} />
-              </>
-            }
-            </Button>
+  //           // }
+  //           // {
+  //           //   requestCheck==="none"&&
+  //           //   <i className="fas fa-user" style={{ marginRight: "10px" }} />
+
+  //           // }
+  //           // {
+  //           //   requestCheck==="accept"&&
+  //           //   <>
+  //           //   <i className="fas fa-user" style={{ marginRight: "10px" }} />
+  //           //   <img alt="" src={profilFive} style={{ color: "white" }} />
+  //           //   </>
+  //           // }
+  //           // </Button>
           }
             {
             //   id===':id'&&
@@ -556,7 +557,7 @@ const checkPost=(post)=>{
           <a href="www.erroxr.com/web/alexrock" style={{ color: "blue" }}>
             {userData?.website
               ? userData?.website
-              : "www.erroxr.com/web/alexrock"}
+              : "Ad your web link!"}
           </a>
           <Row>
             <AiFillInstagram

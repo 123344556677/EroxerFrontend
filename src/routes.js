@@ -123,7 +123,7 @@ var routes = [
     path: "/live",
     name: "Live",
     rtlName: "قائمة الجدول",
-    icon: "tim-icons icon-puzzle-10",
+    icon: "fa fa-wifi",
     component: Live,
     layout: "/admin",
   },

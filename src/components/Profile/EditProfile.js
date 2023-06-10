@@ -100,9 +100,10 @@ const EditProfile = () => {
             fontSize: "40px",
             marginTop: "-80px",
             position: "absolute",
+            cursor:"pointer"
           }}
         >
-          <IoMdArrowRoundBack />
+          <IoMdArrowRoundBack/>
         </Link>
       </span>
       <Row className="">
@@ -332,7 +333,7 @@ const EditProfile = () => {
               <h1 className="text-center" style={{ marginLeft: "20%" }}>
                 {
       animationCheck?
-      <lottie-player  src="https://assets4.lottiefiles.com/packages/lf20_lp7qD9RDx1.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
       :
                 <Button className="reset-button" onClick={updation}>
                   Submit

@@ -63,7 +63,7 @@ const Support = () => {
                 Help & Support
               </h3>
               <p className="" style={{ color: "grey", fontSize: "8px" }}>
-                Erroxer is here to help. Discover our office locations and
+                Eroxr is here to help. Discover our office locations and
                 different <br />
                 ways to contact us so that we can provide you with the support
                 you <br /> need.

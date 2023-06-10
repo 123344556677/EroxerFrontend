@@ -23,6 +23,10 @@ import './Memebrship.css'
 import { updateUser } from 'Api/Api'
 import { FaHandPointRight } from 'react-icons/fa'
 import VideoModal from 'components/Modals/VideoModal'
+import { useDispatch, useSelector } from 'react-redux'
+import { getReduxCreatorById } from 'components/redux/actions/creatorActions'
+import { useEffect } from 'react'
+import { getAllCreatorRequest } from 'components/redux/actions/creatorActions'
 const Membership = () => {
   const [step,setStep]=useState(true)
   const [cnicFront,setCnicFront]=useState()
@@ -72,6 +76,12 @@ const Membership = () => {
     
         
     }
+    const dispatch=useDispatch()
+    useEffect(() => {
+      
+      dispatch(getAllCreatorRequest())
+        
+    }, [dispatch])
   // const backFromMember=()=>{
   //  if(step===true){
   //   history.push('/admin/home')
@@ -112,7 +122,7 @@ const Membership = () => {
     })
     }
     else{
-         toast.error('Please verify CNIC', {
+         toast.error('Please record a video first', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
     
@@ -165,6 +175,12 @@ const Membership = () => {
     },
    
   ]
+  const creator = useSelector((state) =>
+    getReduxCreatorById(state?.getAllCreatorRequest, userId?.id)
+  );
+  if(creator?.status==="approved"){
+    setStep(false)
+  }
   return (
     <div className='content '>
      <span className='' style={{color:"white",fontSize:"10px"}}   ><Link to='/admin/home'
@@ -191,7 +207,14 @@ If we notice an attempted login from a device or browser we don't
     {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify Your self</Label>
     </FormGroup>
     <Row className='justify-content-center'>
-    <VideoModal/>
+    {
+      creator?
+      creator?.status==="pending"&&
+      <h3>Your request is pending for approval!</h3>
+      :
+     <VideoModal/>
+    }
+    
 
     {
     // <Col xl={8} sm={8} md={8}>

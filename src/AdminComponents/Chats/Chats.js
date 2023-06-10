@@ -30,7 +30,8 @@ const Chats = () => {
   const [recieverName,setRecieverName]=useState()
   const [recieverId,setRecieverId]=useState()
   const [chatCheck,setChatCheck]=useState(false)
-   const [filterUser,setFilterUser]=useState([])
+  const [filterUser,setFilterUser]=useState([])
+  const [readChats,setReadChats]=useState()
   useEffect(() => {
      
       dispatch(getAllUsers())
@@ -43,7 +44,10 @@ const Chats = () => {
     const getAllAcceptedRequests = useSelector(
     (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
   );
- let readChats =getAllAcceptedRequests;
+  useEffect(()=>{
+ setReadChats(getAllAcceptedRequests)
+  },[getAllAcceptedRequests])
+   
 
     const deleteUser=async(e)=>{
       const values={
@@ -71,6 +75,7 @@ const Chats = () => {
 
     }
     const getFriends=(e,name)=>{
+      setReadChats(null)
       const values={
         userId:e
       }

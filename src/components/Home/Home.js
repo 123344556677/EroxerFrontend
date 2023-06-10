@@ -66,6 +66,8 @@ import { getListById } from 'components/redux/actions/listActions';
 import Poll from 'components/Poll/Poll';
 import { getRequestByRecieverId } from 'Api/Api';
 import { getCallById } from 'components/redux/actions/callActions';
+import { getAllCreatorRequest } from 'components/redux/actions/creatorActions';
+
 
 
 const images = [
@@ -268,6 +270,7 @@ const lottieOptions = {
       dispatch(getAllAcceptedUsers(values))
       dispatch(getListById(values))
       dispatch(getCallById(values))
+      dispatch(getAllCreatorRequest())
         
     }, [dispatch])
     
@@ -383,6 +386,16 @@ const changeRequestStatus=(id)=>{
    .then((data)=>{
      if(data?.data?.message==="user added"){
        toast.success('Added to list', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+
+     }
+     if(data?.data?.message==="user already added"){
+       toast.error('Already Added', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
     

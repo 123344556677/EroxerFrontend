@@ -130,8 +130,9 @@ border-radius: 50%!important;
   cursor: pointer;
 }
 .drop-chat{
-  background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
-  padding: 0rem 0rem!important;
+  background-image: none!important;
+   padding: 0rem 0rem!important;
+  font-size: 0rem!important;
   box-shadow: none!important;
  
    
@@ -140,8 +141,24 @@ border-radius: 50%!important;
 .drop-chat:hover{
   background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
   padding: 0rem 0rem!important;
+  font-size: 0rem!important;
   box-shadow: none!important;
-  color: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+  
+}
+.more-icon:hover{
+background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+   font-size: 20px;
+    margin-top: 20px;
+    margin-left: 30px;
+  
+}
+.more-icon{
+background-image: linear-gradient(to bottom left, #1e1e2e, #1e1e2e, #1e1e2e)!important;
+   font-size: 20px;
+    margin-top: 20px;
+    margin-left: 30px;
+    cursor:pointer
+ 
 }
 
 @keyframes loading {

@@ -208,7 +208,7 @@ function AdminSidebar(props) {
             <img src={apple} className="ml-4"  alt=""/>
             <img src={playstore}  className="ml-2"  alt=""/>
             </Row>
-            <p className="footer-text text-center ">All right reserved. &copy; Erroxer 2022</p>
+            <p className="footer-text text-center ">All right reserved. &copy; Eroxr 2023</p>
             <p className=" footer-textt  text-center ">By visting this page you agreeing to our </p>
             <p className=" footer-policy mb-1 ml-2  mr-1 text-center">Privacy Policy and  Terms and Conditions</p>
             

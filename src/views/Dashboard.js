@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
@@ -43,7 +43,9 @@ import { BarChartView } from "backedComponents/BarChart/BarChartView";
 import { BarChart } from "backedComponents/BarChart/BarChart";
 import { SimpleTableView } from "backedComponents/SimpleTable/SimpleTableView";
 import { SimpleTable } from "backedComponents/SimpleTable/SimpleTable";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCreatorRequest } from "components/redux/actions/creatorActions";
+import { getAllUsers } from "components/redux/actions/userActions";
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -59,6 +61,15 @@ function Dashboard(props) {
   const [chartRef2,setChartRef2] = React.useState(null);
   const [chartRef3,setChartRef3] = React.useState(null);
   const [chartRef4,setChartRef4] = React.useState(null);
+
+ const dispatch=useDispatch()
+ useEffect(() => {
+     
+      dispatch(getAllCreatorRequest())
+      dispatch(getAllUsers())
+    
+        
+    }, [dispatch])
   const getAllUser= useSelector(state => state?.getAllUsers);
     const AllUser=getAllUser?.allUsers
 

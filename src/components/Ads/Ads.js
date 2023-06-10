@@ -684,7 +684,7 @@ console.log(adData)
           
             
             
-          {countries.map(country => (
+          {countries?.map(country => (
                 <DropdownItem key={country.code} onClick={()=>{setCountry(country.name);filteredAds()}}>
                   {country.name}
                 </DropdownItem>
@@ -700,7 +700,7 @@ console.log(adData)
         <DropdownToggle className="dropDown toggle-down">{city?city:"City"}<IoMdArrowDropdown className='mr-1' style={{fontSize:"20px"}}/></DropdownToggle>
         <DropdownMenu className='country-menu'  >
         {
-          cityList.map((data,index)=>(
+          cityList?.map((data,index)=>(
 
           
           <DropdownItem onClick={()=>{setCity(data.name);filteredAds()}} key={index}>{data.name}</DropdownItem>

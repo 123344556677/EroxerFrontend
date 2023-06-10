@@ -67,6 +67,9 @@ const ChatSection = ({ dataValue,msgValue }) => {
 
   // ]
   let arrayforLastMessage=[]
+  useEffect(()=>{
+
+  
     readChats?.map((datass)=>{
     
         arrayforLastMessage.push(
@@ -80,6 +83,7 @@ const ChatSection = ({ dataValue,msgValue }) => {
      
 
   })
+  },[userId?.id])
   
 
   useEffect(()=>{
@@ -92,7 +96,7 @@ const ChatSection = ({ dataValue,msgValue }) => {
       console.log(res,"last message")
     })
     
-  },[userId])
+  },[lastMessages])
 
   //  readChats?.map((data)=>{
   //   data?.map((datas, item) => {
@@ -195,7 +199,7 @@ const ChatSection = ({ dataValue,msgValue }) => {
                         alt=""
                       />
                       {
-                        userData.onlineStatus===true&&
+                        userData?.onlineStatus===true&&
                       <span style={{ position: "absolute" }}>
                         <span
                           style={{

@@ -1,6 +1,7 @@
 import * as actionTypes from '../constants';
 import axios from "axios";
-const url = 'http://localhost:5000';
+// const url = 'http://localhost:5000';
+const url ="https://sore-red-millipede-boot.cyclic.app/"
 
 export const getAllCreatorRequest = () => async (dispatch) => {
     try {
@@ -10,5 +11,13 @@ export const getAllCreatorRequest = () => async (dispatch) => {
 
     } catch (error) {
         dispatch({ type: actionTypes.GET_ALL_CREATOR_REQUEST_FAIL, payload: error.response });
+    }
+};
+export const getReduxCreatorById = (state, userId)  => {
+    try {
+      return state?.creatorRequest?.find(user => user?.userId === userId);
+
+    } catch (error) {
+       
     }
 };

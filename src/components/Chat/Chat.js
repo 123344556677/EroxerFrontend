@@ -543,7 +543,7 @@ setFiltereMessage(false)
 
                 
                  <Dropdown isOpen={dropdownOpen} toggle={toggle} className="dropDown-chat" >
-        <DropdownToggle className="drop-chat t"><IoMdMore className="top-icons " /></DropdownToggle>
+        <IoMdMore className=" more-icon" onClick={toggle} />
         <DropdownMenu style={{backgroundColor:"#161616",position:"absolute",borderRadius:"20px"}}  >
           <DropdownItem className="drop-item" onClick={()=>setMessages([])}>
            <span><AiFillDelete/></span>
@@ -604,7 +604,7 @@ setFiltereMessage(false)
                           src={
                             chatUserData?.profilePic
                               ? chatUserData?.profilePic
-                              : streamFive
+                              : streamFour
                           }
                           style={{ widht: "40px", height: "40px" }}
                           class="rounded-circle "

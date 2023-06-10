@@ -25,7 +25,7 @@ function Footer() {
           </NavItem>
           <NavItem className="footer-items">
             <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">
-               <span className="" style={{color:"#CFCFCF",fontSize:"8px" ,marginBottom:"-60px",fontWeight:"600"}}>All rights reserved.Erroxer 2022.
+               <span className="" style={{color:"#CFCFCF",fontSize:"8px" ,marginBottom:"-60px",fontWeight:"600"}}>All rights reserved.Eroxr 2023.
             By visiting this page you agree to our <span style={{color:"#229ED9"}}>Privacy policy </span> and <span style={{color:"#229ED9"}}> Terms and Conditions</span></span>
             </NavLink>
           </NavItem>

@@ -10,6 +10,9 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { applyForCreator } from 'Api/Api';
 import { toast,ToastContainer } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getUserById } from 'components/redux/actions/userActions';
 
 
 const firebaseConfig = {
@@ -35,6 +38,9 @@ const VideoModal = () => {
   const [recordedVideoURL, setRecordedVideoURL] = useState(null);
 const [blob, setBlob] = useState();
 const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
+  const dispatch=useDispatch()
   
   function toggleModal() {
   setShowModal(!showModal);
@@ -47,7 +53,14 @@ const gotoAd=()=>{
     history.push('/admin/createAd');
     toggleModal();
 }
+const values={
+  userId:userId?.id
+}
 
+useEffect(()=>{
+      
+        dispatch(getUserById(values))
+     },[])
   
 
 
@@ -125,6 +138,7 @@ const gotoAd=()=>{
          const values={
             userId:userId.id,
             videoUrl:url,
+            userData:userData
         }
         applyForCreator(values)
         .then((res)=>{
@@ -136,6 +150,9 @@ const gotoAd=()=>{
       theme: 'dark',
      
     });
+    setTimeout(() => {
+          history.push("/admin/home");
+        }, 2000);
             }
         })
         });
