@@ -13,6 +13,7 @@ const PaswordReset = () => {
   const [confirmPassword,setConfirmPassword]=useState('')
   const [userData, setUserData] = useState()
    const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+   const [animationCheck, setAnimationCheck] = useState(false)
     const Values={
         userId:userId.id
       }
@@ -29,6 +30,7 @@ const PaswordReset = () => {
      },[])
     
   const changePassword=async(e)=>{
+     setAnimationCheck(true)
    e.preventDefault()
    if(password===confirmPassword){
     const values={
@@ -45,6 +47,7 @@ const PaswordReset = () => {
       theme: 'dark',
      
     });
+     setAnimationCheck(false)
       
    }
     })
@@ -57,13 +60,14 @@ const PaswordReset = () => {
       theme: 'dark',
      
     });
+     setAnimationCheck(false)
    }
 
   }
   return (
     <div className='content'>
      <span className='' style={{color:"white",fontSize:"10px",marginLeft:"50px"}} ><Link to="/admin/home"
-     style={{color:"white",fontSize:"40px",marginTop:"-80px",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
+     style={{color:"white",fontSize:"40px",marginTop:"-4%",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
     <Row className='justify-content-center'>
     <Col xl={8}>
     <h1 className='text-center mt-3'>
@@ -140,7 +144,12 @@ const PaswordReset = () => {
      
   </FormGroup>
    <Col className='text-right'>
+   {
+      animationCheck?
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      :
    <Button className="reset-button">Save</Button>
+   }
    </Col>
   </Form>
  

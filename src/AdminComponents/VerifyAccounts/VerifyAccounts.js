@@ -88,7 +88,7 @@ const changeVideoStatusTwo=async(e)=>{
        
           <Col xs="4">
             <Card className="card-chart">
-            <h4 className='ml-lg-3 mt-3'>Abdul Hannan</h4>
+            <h4 className='ml-lg-3 mt-3'>{data?.userData?.firstName} {data?.userData?.lastName}</h4>
             <video controls muted className='ml-lg-2 mr-lg-2 verify-video' src={data?.videoUrl}/>
             <Button className='video-accept-btn ml-lg-3 mr-lg-3 mt-3' onClick={()=>changeVideoStatus(data?._id)}>Accept</Button>
              <Button className='video-reject-btn ml-lg-3 mr-lg-3 mb-4'onClick={()=>changeVideoStatusTwo(data?._id)}>Reject</Button>

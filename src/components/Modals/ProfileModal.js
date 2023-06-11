@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {  Col,  Modal, Row } from 'reactstrap'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import modalOne from './j51.png'
+import modalOne from './dummy.jpg'
 import FileBase64 from "react-file-base64";
 import './Modals.css'
 import { updateUser } from 'Api/Api';

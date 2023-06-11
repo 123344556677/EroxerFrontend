@@ -32,7 +32,7 @@ text:"But I must explain to you how all this mistaken idea of denouncing pleasur
   return (
     <div className='content' >
      <span className='' style={{color:"white",fontSize:"10px",marginLeft:"50px"}} ><Link to="/admin/home"
-     style={{color:"white",fontSize:"40px",marginTop:"-80px",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
+     style={{color:"white",fontSize:"40px",marginTop:"-4%",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
     <Row>
     <Col xl={10} style={{marginLeft:"-50px"}}>
     <Row className='' >

@@ -72,7 +72,7 @@ const permanentlyDelete=()=>{
           style={{
             color: "white",
             fontSize: "40px",
-            marginTop: "-80px",
+            marginTop: "-4%",
             position: "absolute",
           }}
         >

@@ -88,24 +88,21 @@ const EditProfile = () => {
  
 
   return (
-    <div className="content" style={{ zoom: "0.90" }}>
-      <span
-        className=""
-        style={{ color: "white", fontSize: "10px", marginLeft: "50px" }}
-      >
+    <div className="content" style={{ zoom: "0.90",marginTop: "-4%", }}>
+      
         <Link
           to="/admin/profile/:id"
           style={{
             color: "white",
             fontSize: "40px",
-            marginTop: "-80px",
-            position: "absolute",
+            
+            // position: "absolute",
             cursor:"pointer"
           }}
         >
           <IoMdArrowRoundBack/>
         </Link>
-      </span>
+      
       <Row className="">
         <Col xl={8}>
           <Row className="justify-content-center">

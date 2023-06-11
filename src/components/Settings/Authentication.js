@@ -35,7 +35,7 @@ const Authentication= () => {
     <Row>
     <Col xl={8}>
     <span className='' style={{color:"white",fontSize:"10px",marginLeft:"50px"}} ><Link to="/admin/home"
-     style={{color:"white",fontSize:"40px",marginTop:"-80px",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
+     style={{color:"white",fontSize:"40px",marginTop:"-5%",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
     <Row className="justify-content-center">
     <Col className='text-center '>
     <img src={authThree} style={{color:"white"}}/>
@@ -65,11 +65,11 @@ const Authentication= () => {
          for two-factor 
         authentication can't be used to <br/> reset your password when two-factor is on.</p>
         {
-          userData.verifyStatus===false&&
+          userData?.verifyStatus===false&&
        <SmsModal/>
         }
         {
-           userData.verifyStatus===true&&
+           userData?.verifyStatus===true&&
           <Button className="auth-button"style={{fontSize:"12px"}}>Verified!</Button>
         }
       </Media>

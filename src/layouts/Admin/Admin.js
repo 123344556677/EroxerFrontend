@@ -19,6 +19,7 @@ import routes from "routes.js";
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 // import { User } from "backend-sdk/user.sdk";
 
 
@@ -31,6 +32,7 @@ function Admin(props) {
   const [sidebarOpened, setsidebarOpened] = React.useState(
     document.documentElement.className.indexOf("nav-open") !== -1
   );
+  const history=useHistory()
   // React.useEffect(() => {
   //   if (
   //     localStorage.getItem("apiToken") === null ||
@@ -138,9 +140,9 @@ function Admin(props) {
                 <Redirect from="*" to="/" />
               </Switch>
               :
-              <Switch>
-                <Redirect from="*" to="/" />
-              </Switch>
+              
+                history.push('/')
+              
               }
               {
                 // {

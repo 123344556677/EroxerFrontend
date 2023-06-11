@@ -380,12 +380,9 @@ updateAllCallStatus(callValues)
        <p className="chat-designation">{userData?.onlineStatus?"online":"offline"}</p>
       </Media>
       <Media right onClick={handleNotiValues} style={{cursor:"pointer"}}>
-      {
-        // <Dropdown isOpen={dropdownOpen} toggle={toggle} className="">
-        // <DropdownToggle onClick={(e)=>e.preventDefault()} className="home-noti-bell">
-      }
+      
         <div className="" onClick={handleNotiValues}>
-        <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",color:"white",fontSize:"25px"}} />
+        <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",curosr:"pointer",color:"white",fontSize:"25px"}} />
         {
           notiLen&&
       <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen}</Badge>
