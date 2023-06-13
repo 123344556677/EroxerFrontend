@@ -21,7 +21,7 @@ const EditProfile = () => {
 
   const [website, setWebsite] = useState(userData?.website);
   const [phoneNumber, setPhoneNumber] = useState(userData?.phoneNumber);
-  const [Gender, setGender] = useState(userData?.Gender);
+  const [profilePrice, setGender] = useState(userData?.profilePrice);
   const [profileName, setProfileName] = useState(userData?.profileName);
   const [profileWishlist, setProfileWishlist] = useState();
   const [userId, setuserId] = useState(
@@ -56,7 +56,7 @@ const EditProfile = () => {
       profilePic: profilePic,
       website: website,
       phoneNumber: phoneNumber,
-      Gender: Gender,
+      profilePrice: profilePrice,
       profileName: profileName,
       profileWishlist: profileWishlist,
     };
@@ -313,14 +313,14 @@ const EditProfile = () => {
                     fontSize: "15px",
                   }}
                 >
-                  Gender
+                  Price
                 </Label>
                 <Col sm={8} xl={9}>
                   <Input
                     id="exampleEmail"
-                    defaultValue={userData?.Gender}
+                    defaultValue={userData?.profilePrice}
                     placeholder=""
-                    type="text"
+                    type="number"
                     className="reset-input"
                     style={{ marginLeft: "-11%", width: "111%" }}
                     onChange={(e) => setGender(e.target.value)}

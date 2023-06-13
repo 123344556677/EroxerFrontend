@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { BsFillCartFill } from 'react-icons/bs'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link, useHistory } from 'react-router-dom'
-import { Button, Card, CardBody, Col, FormGroup, Input, Label, Row } from 'reactstrap'
+import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import memberOne from './j38.png'
 import memberTwo from './j39.png'
 import memberThree from './j40.png'
@@ -27,14 +27,51 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getReduxCreatorById } from 'components/redux/actions/creatorActions'
 import { useEffect } from 'react'
 import { getAllCreatorRequest } from 'components/redux/actions/creatorActions'
-const Membership = () => {
+import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
+import {loadStripe} from '@stripe/stripe-js';
+import { createPayment } from 'Api/Api'
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
+const CARD_OPTIONS = {
+    iconStyle: "solid",
+    style: {
+        base: {
+            iconColor: "#6A097D",
+            color: "white",
+            fontWeight: 500,
+            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+            fontSize: "16px",
+            fontSmoothing: "antialiased",
+            ":-webkit-autofill": { color: "#fce883" },
+            "::placeholder": { color: "white" }
+        },
+        invalid: {
+            iconColor: "#ffc7ee",
+            color: "#ffc7ee"
+        }
+    }
+}
+function Membership () {
   const [step,setStep]=useState(true)
   const [cnicFront,setCnicFront]=useState()
   const [cnicBack,setCnicBack]=useState()
   const [checkCnic,setCheckCnic]=useState(false)
   const [checkCnicTwo,setCheckCnicTwo]=useState(false)
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+  const [name,setName]=useState()
+  const [email,setEmail]=useState()
+  const [country,setCountry]=useState()
+  const [state,setState]=useState()
+  const [postalCode,setPostalCode]=useState()
+  const [animationCheck, setAnimationCheck] = useState(false)
   const history=useHistory();
+  const stripe = useStripe()
+  const elements = useElements()
+  const creator = useSelector((state) =>
+    getReduxCreatorById(state?.getAllCreatorRequest, userId?.id)
+  );
+  const getUser = useSelector((state) => state.getUserById);
+
+  const userData = getUser?.userData;
   
   const handleCnicFrontPic=(e)=>{
         setCnicFront(e.selectedFile.base64);
@@ -76,6 +113,67 @@ const Membership = () => {
     
         
     }
+    const handlePayment=async(e)=>{
+      e.preventDefault()
+      setAnimationCheck(true)
+      try {
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardElement)
+        })
+        
+
+
+        if (!error) {
+            try {
+                
+          const { id } = paymentMethod
+                const values={
+                  userId:userId.id,
+     name:name,
+     emai:email,
+     postalCode:postalCode,
+     state:state,
+     paymentId:id
+      }
+      createPayment(values)
+      .then((res)=>{
+      if (res.data.message === "payment Successfull") {
+          toast.success('payment Successful', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+
+      }
+      else {
+        setAnimationCheck(false)
+          toast.error('server error', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+
+      }
+      
+            })
+          }
+              catch (error) {
+                console.log("Error", error)
+            }
+            }
+          }
+          catch (ex){
+      console.log(ex)
+    }
+          
+      
+    }
+
     const dispatch=useDispatch()
     useEffect(() => {
       
@@ -91,45 +189,60 @@ const Membership = () => {
   //  }
   // }
     const verifyCnic=async()=>{
-      if(checkCnic&&checkCnicTwo){
-      const values={
-        userId:userId.id,
-        cnicFront:cnicFront,
-        cnicBack:cnicBack,
-        cnicValidation:true
-      }
-      await updateUser(values)
-    .then((res)=>{
-      if (res.data.message === "user updated") {
-        toast.success('CNIC verified', {
+      if(creator?.status==="pending"){
+        toast.warn('Your request is pending', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
     
       theme: 'dark',
      
     });
-    setStep(false)
+        
   }
-  else{
-    toast.error('Server Error', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
-    
-      theme: 'dark',
-     
-    });
+  if(creator?.status==="approved"){
+        setStep(false)
+        
   }
-    })
-    }
-    else{
-         toast.error('Please record a video first', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
+
+  //     if(checkCnic&&checkCnicTwo){
+  //     const values={
+  //       userId:userId.id,
+  //       cnicFront:cnicFront,
+  //       cnicBack:cnicBack,
+  //       cnicValidation:true
+  //     }
+  //     await updateUser(values)
+  //   .then((res)=>{
+  //     if (res.data.message === "user updated") {
+  //       toast.success('CNIC verified', {
+  //     position: toast.POSITION.TOP_CENTER,
+  //     autoClose: 3000,
     
-      theme: 'dark',
+  //     theme: 'dark',
      
-    });
-    }
+  //   });
+  //   setStep(false)
+  // }
+  // else{
+  //   toast.error('Server Error', {
+  //     position: toast.POSITION.TOP_CENTER,
+  //     autoClose: 3000,
+    
+  //     theme: 'dark',
+     
+  //   });
+  // }
+  //   })
+  //   }
+    // else{
+    //      toast.error('Please record a video first', {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 3000,
+    
+    //   theme: 'dark',
+     
+    // });
+    // }
 
     }
 
@@ -175,12 +288,8 @@ const Membership = () => {
     },
    
   ]
-  const creator = useSelector((state) =>
-    getReduxCreatorById(state?.getAllCreatorRequest, userId?.id)
-  );
-  if(creator?.status==="approved"){
-    setStep(false)
-  }
+  
+ 
   return (
     <div className='content '>
      <span className='' style={{color:"white",fontSize:"10px"}}   ><Link to='/admin/home'
@@ -202,17 +311,36 @@ If we notice an attempted login from a device or browser we don't
     
     </Row>
    <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
+   {
+      userData?.creator!==true&&
+      
+      
    <FormGroup check className="mt-4">
     <Input type="radio" className='mt-2'  />
     {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify Your self</Label>
     </FormGroup>
+   }
     <Row className='justify-content-center'>
+  
     {
       creator?
-      creator?.status==="pending"&&
+      <>
+      {
+       creator?.status==="pending"&&
       <h3>Your request is pending for approval!</h3>
+      }
+      {
+      creator?.status==="approved"&&
+      <h3>Your request has been approved. Please proceede next!</h3>
+      }
+      {
+      userData?.creator===true&&
+      <h3>Your are now a member of eroxer!</h3>
+      }
+      </>
       :
      <VideoModal/>
+     
     }
     
 
@@ -257,6 +385,9 @@ If we notice an attempted login from a device or browser we don't
     }
     
     </Row>
+    {
+      userData?.creator===false&&
+      <>
     <FormGroup check className="" >
     <Input type="radio" className=''  />
     {' '} <Label style={{color:"#BFB8B8",fontWeight:"600",fontSize:"8px"}}>
@@ -273,6 +404,8 @@ If we notice an attempted login from a device or browser we don't
     </Button >
     </Col>
     </Row>
+    </>
+    }
     </Col>
     }
     {
@@ -289,20 +422,23 @@ If we notice an attempted login from a device or browser we don't
     
     </Row>
    <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-5"/>
+   <Form onSubmit={handlePayment}>
     <FormGroup check className="mt-4" >
     <Input type="radio" className='mt-2'  />
-    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"18px"}}>Verify CNIC</Label>
+    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"18px"}} className='mt-1'>Information</Label>
     </FormGroup>
    <Row>
+   
    <Col xl={5}>
     <FormGroup className='mt-3'>
     <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
       First and last name
     </Label>
     <Input
-      
+      required
       placeholder='Name...'
       className='post-input'
+      onChange={(e)=>setName(e.target.value)}
     />
   </FormGroup>
    <FormGroup>
@@ -310,49 +446,55 @@ If we notice an attempted login from a device or browser we don't
       Email adress
     </Label>
     <Input
+     required
       type="email"
       placeholder='Email adress'
       className='post-input'
+      onChange={(e)=>setEmail(e.target.value)}
     />
   </FormGroup>
-   <FormGroup>
-    <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-      Country
-    </Label>
-   <Input
-      id="exampleSelect"
-      name="select"
-      type="select"
-      className='post-input'
-      placeholder='United States of America'
-    >
-      <option>
-       United States of America
-      </option>
-      <option>
-        2
-      </option>
-      <option>
-        3
-      </option>
-      <option>
-        4
-      </option>
-      <option>
-        5
-      </option>
-    </Input>
-  </FormGroup>
+  {
+  //  <FormGroup>
+  //   <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
+  //     Country
+  //   </Label>
+  //  <Input
+  //     id="exampleSelect"
+  //     name="select"
+  //     type="select"
+  //     className='post-input'
+  //     placeholder='United States of America'
+  //   >
+  //     <option>
+  //      United States of America
+  //     </option>
+  //     <option>
+  //       2
+  //     </option>
+  //     <option>
+  //       3
+  //     </option>
+  //     <option>
+  //       4
+  //     </option>
+  //     <option>
+  //       5
+  //     </option>
+  //   </Input>
+  // </FormGroup>
+  }
   <Row>
   <Col>
    <FormGroup>
     <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-      State/Country
+      State
     </Label>
     <Input
-      type="number"
-      placeholder='state/country'
+      required
+      type="text"
+      placeholder='state'
       className='post-input'
+      onChange={(e)=>setState(e.target.value)}
     />
   </FormGroup>
   </Col>
@@ -362,13 +504,16 @@ If we notice an attempted login from a device or browser we don't
       Zip/Postal Code
     </Label>
     <Input
+      required
       type="number"
       placeholder='zip/postal code'
       className='post-input'
+      onChange={(e)=>setPostalCode(e.target.value)}
     />
   </FormGroup>
   </Col>
   </Row>
+  
    <FormGroup check className="mt-4" >
     <Input type="radio" className='mt-1'  />
     {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}>Payment method</Label>
@@ -379,7 +524,7 @@ If we notice an attempted login from a device or browser we don't
       <input type="radio" name="radio-group" className='radio-input' aria-label="Radio button"/>
    
  
-  <input type="text" class="form-control pay-input" placeholder="Credit card..."/>
+  <input type="text" class="form-control pay-input" disabled placeholder="Credit card..."/>
   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
     <span class="pay-inner" id="input-group-addon">
       <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
@@ -391,112 +536,125 @@ If we notice an attempted login from a device or browser we don't
     </span>
   </div>
 </div>
-  <div class="input-group mt-4">
+
+<CardElement options={CARD_OPTIONS} className='mt-4' />
+
+{
+//   <div class="input-group mt-4">
     
     
    
  
-  <input type="text" class="form-control pay-input" placeholder="Card number..."/>
-  <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
-    <span class="pay-inner" id="input-group-addon">
-      <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
+//   <input type="text" class="form-control pay-input" placeholder="Card number..."/>
+//   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
+//     <span class="pay-inner" id="input-group-addon">
+//       <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
      
       
-    </span>
-  </div>
-</div>
-<div className='mt-3' style={{display:"flex"}}>
-<FormGroup className='mr-3'>
-    <Label for="exampleEmail" style={{color:"white",fontWeight:"",fontSize:"11px"}}>
-      Expectation Date
-    </Label>
-   <Input
-      id="exampleSelect"
-      name="select"
-      type="select"
-      className='post-input'
-      placeholder='United States of America'
-    >
-      <option>
-       Month
-      </option>
-      <option>
-        2
-      </option>
-      <option>
-        3
-      </option>
-      <option>
-        4
-      </option>
-      <option>
-        5
-      </option>
-    </Input>
-  </FormGroup>
+//     </span>
+//   </div>
+// </div>
+// <div className='mt-3' style={{display:"flex"}}>
+// <FormGroup className='mr-3'>
+//     <Label for="exampleEmail" style={{color:"white",fontWeight:"",fontSize:"11px"}}>
+//       Expectation Date
+//     </Label>
+//    <Input
+//       id="exampleSelect"
+//       name="select"
+//       type="select"
+//       className='post-input'
+//       placeholder='United States of America'
+//     >
+//       <option>
+//        Month
+//       </option>
+//       <option>
+//         2
+//       </option>
+//       <option>
+//         3
+//       </option>
+//       <option>
+//         4
+//       </option>
+//       <option>
+//         5
+//       </option>
+//     </Input>
+//   </FormGroup>
 
-  <FormGroup className='mr-3 '>
+//   <FormGroup className='mr-3 '>
     
-   <Input
-      id="exampleSelect"
-      name="select"
-      type="select"
-      className='post-input'
-      placeholder='United States of America'
-      style={{marginTop:"34%"}}
-    >
-      <option>
-       Year
-      </option>
-      <option>
-        2
-      </option>
-      <option>
-        3
-      </option>
-      <option>
-        4
-      </option>
-      <option>
-        5
-      </option>
-    </Input>
-  </FormGroup>
-  <FormGroup className=''>
-    <Label for="exampleEmail" style={{color:"white",fontSize:"11px"}}>
-      Security code
-    </Label>
-   <Input
-      id="exampleSelect"
-      name=""
-      type="number"
-      className='post-input'
-      placeholder='code..'
-      style={{width:"100px"}}
-    />
+//    <Input
+//       id="exampleSelect"
+//       name="select"
+//       type="select"
+//       className='post-input'
+//       placeholder='United States of America'
+//       style={{marginTop:"34%"}}
+//     >
+//       <option>
+//        Year
+//       </option>
+//       <option>
+//         2
+//       </option>
+//       <option>
+//         3
+//       </option>
+//       <option>
+//         4
+//       </option>
+//       <option>
+//         5
+//       </option>
+//     </Input>
+//   </FormGroup>
+//   <FormGroup className=''>
+//     <Label for="exampleEmail" style={{color:"white",fontSize:"11px"}}>
+//       Security code
+//     </Label>
+//    <Input
+//       id="exampleSelect"
+//       name=""
+//       type="number"
+//       className='post-input'
+//       placeholder='code..'
+//       style={{width:"100px"}}
+//     />
       
-  </FormGroup>
+//   </FormGroup>
 
-</div>
-<div class="input-group mt-3">
+// </div>
+// <div class="input-group mt-3">
     
-      <input type="radio" name="radio-group" className='radio-input' aria-label="Radio button"/>
+//       <input type="radio" name="radio-group" className='radio-input' aria-label="Radio button"/>
    
  
-  <input type="text" class="form-control pay-pal-input" placeholder="payPal"/>
-  <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
-    <span class="pay-pal-inner" id="input-group-addon">
-      <img src={memberNine} class="img-fluid mr-2" alt="Image 1"/>
+//   <input type="text" class="form-control pay-pal-input" placeholder="payPal"/>
+//   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
+//     <span class="pay-pal-inner" id="input-group-addon">
+//       <img src={memberNine} class="img-fluid mr-2" alt="Image 1"/>
       
       
-    </span>
-  </div>
-</div>
+//     </span>
+//   </div>
+// </div>
+}
+{
+      animationCheck?
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
 
-
-<h1 className='text-center'>
-<Button className='pay-btn reset-button'>Sumbit</Button></h1>
+<h1 className='text-center mt-3'>
+<Button className='pay-btn reset-button mt-2' type="submit">Sumbit</Button></h1>
+}
   </Col>
+ 
+   
   {
 //     <Row>
     
@@ -508,26 +666,29 @@ If we notice an attempted login from a device or browser we don't
 //     </Col>
 //     </Row>
   }
-  <Col xl={5} className="ml-lg-5">
-  <Card style={{backgroundColor:"#161616", borderRadius:"10px"}}>
-  <h4 className='text-white ml-4 mt-3'><span className='mr-1'  style={{fontSize:"30px"}}><BsFillCartFill/></span> 
-  Cart Summary <span className='ml-2' style={{fontSize:"10px"}}>($48.2)</span></h4>
-  <ul>
-  
   {
-    cartItems.map((data)=>(
-<li>
-<h4 className='mb-0 mt-3' style={{fontSize:"12px"}}>{data.title}<span className='' style={{marginLeft:"50%"}}>{data.price}</span></h4>
-<p className='chat-designation mt-1 mb-0' style={{fontSize:"7px"}}>{data.textOne}</p>
-<p className='chat-designation ' style={{fontSize:"7px"}}>{data.textTwo}</p>
-</li>
-))
-  }
-  </ul>
-  <h5 className='text-right mr-4'>Sub Total $48.2</h5>
-  </Card>
-  </Col>
+//   <Col xl={5} className="ml-lg-5">
+//   <Card style={{backgroundColor:"#161616", borderRadius:"10px"}}>
+//   <h4 className='text-white ml-4 mt-3'><span className='mr-1'  style={{fontSize:"30px"}}><BsFillCartFill/></span> 
+//   Cart Summary <span className='ml-2' style={{fontSize:"10px"}}>($48.2)</span></h4>
+//   <ul>
+  
+//   {
+//     cartItems.map((data)=>(
+// <li>
+// <h4 className='mb-0 mt-3' style={{fontSize:"12px"}}>{data.title}<span className='' style={{marginLeft:"50%"}}>{data.price}</span></h4>
+// <p className='chat-designation mt-1 mb-0' style={{fontSize:"7px"}}>{data.textOne}</p>
+// <p className='chat-designation ' style={{fontSize:"7px"}}>{data.textTwo}</p>
+// </li>
+// ))
+//   }
+//   </ul>
+//   <h5 className='text-right mr-4'>Sub Total $48.2</h5>
+//   </Card>
+//   </Col>
+}
     </Row>
+     </Form>
     </Col>
    
     }
@@ -540,4 +701,11 @@ If we notice an attempted login from a device or browser we don't
   )
 }
 
-export default Membership
+export default function WrappedMemberShip() {
+  return (
+    <Elements stripe={stripePromise} className="" >
+      <Membership />
+    </Elements>
+   
+  );
+}

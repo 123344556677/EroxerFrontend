@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUsersById } from 'Api/Api'
 import { getPosts } from 'components/redux/actions/postActions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import RecordRTC from 'recordrtc';
@@ -39,28 +39,34 @@ const CreateAd = () => {
   const [commentsCheck, setCommentsCheck] = useState(false);
   const [price, setPrice] = useState(0);
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
-  const [userData, setUserData] = useState()
+  // const [userData, setUserData] = useState()
   const [postUrl, setPostUrl] = useState()
   const [animationCheck, setAnimationCheck] = useState(false)
    const recorderRef = useRef(null);
   const videoRef = useRef(null);
+   const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
   
   const history=useHistory()
   const dispatch=useDispatch()
     const Values={
         userId:userId.id
       }
-     useEffect(()=>{
+      useEffect(()=>{
       
-       getUsersById(Values)
-       .then(res => {
-         console.log(res.data);
-          if (res?.data?.message === "User Exist") {
-           setUserData(res?.data?.data)
-          } 
-     
-    });
+        dispatch(getUserById(Values))
      },[])
+    //  useEffect(()=>{
+      
+    //    getUsersById(Values)
+    //    .then(res => {
+    //      console.log(res.data);
+    //       if (res?.data?.message === "User Exist") {
+    //        setUserData(res?.data?.data)
+    //       } 
+     
+    // });
+    //  },[])
      let Url=''
    const handlePostPic=(e)=>{
         setPostPic(e.selectedFile.base64);
@@ -203,6 +209,8 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
       key:"post"
     }
     console.log(values,"data========>")
+    if(postCheck===true){
+    if(userData?.profilePrice){
     await createPost(values)
     .then((res)=>{
       if (res.data.message === "post Generated") {
@@ -230,6 +238,49 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
      setAnimationCheck(false)
   }
     })
+  }
+  else{
+    setAnimationCheck(false)
+    toast.warn('Please updated your price in profile section', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 4000,
+    
+      theme: 'dark',
+     
+    });
+
+  }
+}
+else{
+    await createPost(values)
+    .then((res)=>{
+      if (res.data.message === "post Generated") {
+             toast.success('Post Created', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+    dispatch(getPosts())
+   setTimeout(() => {
+          history.push("/admin/home");
+        }, 2000);
+   
+  }
+  else{
+    toast.error('Server Error', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+     setAnimationCheck(false)
+  }
+    })
+
+  }
    
  
 
@@ -247,6 +298,8 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
   return (
     <div className='content'>
     <Row>
+    {
+      userData?.creator===true&&
     <Col xl={10}>
     {
     // <Row>
@@ -326,16 +379,18 @@ For your Meeting</h2>
 //   </div>
 // </div>
 }
-<div class="input-group mt-3">
-  <input type="text" class="form-control ad-input" placeholder="Price"/>
-  <div class="input-group-append switch-input" className='switch-input'  >
-    <span class="input-group-text counter-input"  id="counter">
-      <button class="btn btn-sm  mr-1" type="button" id="btn-minus" onClick={()=>setPrice(price-1)}>-</button>
-      ${price}
-      <button class="btn btn-sm  ml-1" type="button" id="btn-plus"onClick={()=>setPrice(price+1)}>+</button>
-    </span>
-  </div>
-</div>
+{
+// <div class="input-group mt-3">
+//   <input type="text" class="form-control ad-input" placeholder="Price"/>
+//   <div class="input-group-append switch-input" className='switch-input'  >
+//     <span class="input-group-text counter-input"  id="counter">
+//       <button class="btn btn-sm  mr-1" type="button" id="btn-minus" onClick={()=>setPrice(price-1)}>-</button>
+//       ${price}
+//       <button class="btn btn-sm  ml-1" type="button" id="btn-plus"onClick={()=>setPrice(price+1)}>+</button>
+//     </span>
+//   </div>
+// </div>
+}
     
 
     
@@ -361,6 +416,13 @@ For your Meeting</h2>
     </Row>
     
     </Col>
+  }
+  {
+      userData?.creator===false&&
+       
+      <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+     
+      }
     
     
     <Col xl={1}>

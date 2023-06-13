@@ -143,7 +143,7 @@ useEffect(()=>{
         applyForCreator(values)
         .then((res)=>{
             if(res.data.message==="applied"){
-                 toast.success('you application is on pending, we will let you know once it is approved', {
+                 toast.success('you application is pending, it will be approved in 1-3 business days', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: false,
     

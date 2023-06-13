@@ -67,6 +67,9 @@ import Poll from 'components/Poll/Poll';
 import { getRequestByRecieverId } from 'Api/Api';
 import { getCallById } from 'components/redux/actions/callActions';
 import { getAllCreatorRequest } from 'components/redux/actions/creatorActions';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 
 
@@ -123,7 +126,7 @@ const Home = () => {
       const dispatch=useDispatch()
       const getPost = useSelector(state => state?.getPosts);
     
-      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
+      const getSubscribedUser = useSelector(state => state?.getAllAcceptedRequestReducer?.accpetedRequests);
       const [hoveredImage, setHoveredImage] = useState(false);
         const getUser= useSelector(state => state?.getUserById);
         const userData=getUser?.userData
@@ -352,7 +355,17 @@ const lottieOptions = {
     return <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
    }
    else{
+     getSubscribedUser?.map((datas)=>{
+      if(data?.userId===datas?._id){
+        return  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+      }
+      else{
+      
+      
+      
       return  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+      }
+      })
    }
   
 
@@ -531,7 +544,9 @@ streamPics?.map((data,index)=>(
    }
    
    {data?.postCheck===true&&
-      <LockModal open={lockModal}/>
+    <Elements stripe={stripePromise} >
+      <LockModal open={lockModal} value={data}/>
+      </Elements>
     
     }
   </div>

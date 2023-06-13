@@ -9,6 +9,8 @@
     "@lottiefiles/lottie-player": "^1.7.1",
     "@react-oauth/google": "^0.10.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.54.0",
     "@zegocloud/zego-uikit-prebuilt": "^1.8.2",
     "agora-rtc-sdk": "^3.6.11",
     "agora-rtc-sdk-ng": "^4.17.2",

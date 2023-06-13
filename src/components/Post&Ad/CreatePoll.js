@@ -10,11 +10,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUsersById } from 'Api/Api'
 import { getPosts } from 'components/redux/actions/postActions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { createPoll } from 'Api/Api'
 import { useHistory } from 'react-router-dom'
+import { getUserById } from 'components/redux/actions/userActions'
 
 
 
@@ -29,10 +30,12 @@ const CreatePoll = () => {
   const [commentsCheck, setCommentsCheck] = useState(false);
   const [price, setPrice] = useState(0);
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
-  const [userData, setUserData] = useState()
+  // const [userData, setUserData] = useState()
   const [options, setOptions] = useState([{ option:'',counter:0 }])
   const [question, setQuestion] = useState()
    const [animationCheck, setAnimationCheck] = useState(false)
+   const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
 
 //   let options=[]
  let pollId=0
@@ -43,16 +46,20 @@ const CreatePoll = () => {
     const Values={
         userId:userId.id
       }
-     useEffect(()=>{
+    //  useEffect(()=>{
       
-       getUsersById(Values)
-       .then(res => {
-         console.log(res.data);
-          if (res?.data?.message === "User Exist") {
-           setUserData(res?.data?.data)
-          } 
+    //    getUsersById(Values)
+    //    .then(res => {
+    //      console.log(res.data);
+    //       if (res?.data?.message === "User Exist") {
+    //        setUserData(res?.data?.data)
+    //       } 
      
-    });
+    // });
+    //  },[])
+    useEffect(()=>{
+      
+        dispatch(getUserById(Values))
      },[])
 
     const handleInputChange=(index, event)=>{
@@ -127,6 +134,8 @@ const poll=async(e)=>{
   return (
     <div className='content'>
     <Row>
+    {
+      userData?.creator===true&&
     <Col xl={10}>
     
     <Row className='justify-content-center mr-lg-5'>
@@ -194,6 +203,13 @@ For your Audience</h2>
     </Row>
     
     </Col>
+  }
+  {
+      userData?.creator===false&&
+     
+      <h3 className='ml-lg-5' >Please become eroxr member by buying our member ship!</h3>
+      
+          }
     
     
     <Col xl={1}>

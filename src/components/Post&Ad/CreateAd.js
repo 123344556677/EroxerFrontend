@@ -549,6 +549,8 @@ else{
     <div className='content'>
     
     <Row>
+    {
+      userData?.creator===true&&
     <Col xl={8} className="text-center">
     {
     
@@ -814,12 +816,21 @@ For your Meeting</h2>
     </Row>
     </Form>
     </Col>
+  }
+    {
+      userData?.creator===false&&
+      
+      <h3 className='text-center ml-lg-5' >Please become eroxr member by buying our member ship!</h3>
+          }
+    
     <Col xl={4}>
     <ChatPortion/>
     
     </Col>
     
     </Row>
+  
+  
     
     <ToastContainer />
     </div>

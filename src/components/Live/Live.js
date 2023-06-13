@@ -128,6 +128,9 @@ useEffect(()=>{
     <div className="content" style={{ zoom: "0.90" }}>
       <LiveSection />
       <div className="main-live">
+      {
+      userData?.creator===true&&
+      <>
       <Row>
       <Col>
         <h1
@@ -234,7 +237,18 @@ useEffect(()=>{
             <h3 className="text-center ml-lg-3 mt-5">No one streaming!</h3>
             }
         </Row>
+        </>
+          }
+          {
+      userData?.creator===false&&
+       <Row className='justify-content-center'>
+      <h3 >Please become eroxr member by buying our member ship!</h3>
+      </Row>
+          }
+
       </div>
+
+      
     </div>
   );
 };

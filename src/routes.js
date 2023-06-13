@@ -22,6 +22,7 @@ import ChatCall from "components/ChatCall/ChatCall";
 import ChatVideoCall from "components/ChatCall/ChatVideCall";
 import CreatePoll from "components/Post&Ad/CreatePoll";
 import LiveStream from "components/ChatCall/LiveStream";
+import WrappedMemberShip from "components/Membership/Membership";
 
 
 
@@ -203,7 +204,7 @@ var routes = [
     path: "/membership",
     name: "Membership",
     rtlName: "ار تي ال",
-     component: Membership,
+     component: WrappedMemberShip,
     icon: "fa fa-address-book",
      layout: "/admin",
   },

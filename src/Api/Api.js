@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-// const url = 'http://localhost:5000';
+const url = 'http://localhost:5000';
 // export const socketUrl = 'ws://localhost:6000';
-const url ="https://sore-red-millipede-boot.cyclic.app/"
+// const url ="https://sore-red-millipede-boot.cyclic.app/"
 
 
 //auth
@@ -139,6 +139,10 @@ export const changeCreatorStatus= async (values) => {
 //poll
 export const createPoll= async (values) => {
     return await axios.post(`${url}/createPoll`, values);
+}
+//payment
+export const createPayment= async (values) => {
+    return await axios.post(`${url}/createPayment`, values);
 }
 
 
