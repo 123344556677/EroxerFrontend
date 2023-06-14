@@ -15,6 +15,7 @@ import memberTen from './j52.png'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { sendRequest } from 'Api/Api';
 import { toast,ToastContainer } from 'react-toastify';
+import { HiOutlineWifi } from 'react-icons/hi';
 
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -36,7 +37,7 @@ const CARD_OPTIONS = {
     }
 }
 
-const LockModal = (props,val) => {
+const SubscriptionModal = (props) => {
   console.log(props,"in lock modal")
     const history=useHistory()
     const [showModal, setShowModal] = useState(false);
@@ -78,8 +79,8 @@ const handlePayment=async()=>{
           const { id } = paymentMethod
                 const values={
                 senderId:userId.id,
-                recieverId:props?.value?.userData?._id,
-                payment:props?.value?.userData?.profilePrice,
+                recieverId:props?.value?._id,
+                payment:props?.value?.profilePrice,
                 paymentId:id
      
       }
@@ -126,9 +127,13 @@ const handlePayment=async()=>{
   return (
    <div className='content'>
             <div>
-                <h1 className='text-center mr-lg-5'>
-     <img src={modalTwo} onClick={toggleModal} className="lock-img" alt="" />
-     </h1>
+        <Button className="btn-sm mt-3 ml-2 profile-button" onClick={toggleModal}>
+              <HiOutlineWifi
+                className="mr-2 "
+                style={{ fontSize: "20px", color: "white" }}
+              />
+              subscribe
+            </Button>
                 
 
                 <Modal  isOpen={showModal} toggle={toggleModal} className="main-modal" style={{maxWidth:"400px",borderRadius:"10px"}}  >
@@ -292,5 +297,4 @@ const handlePayment=async()=>{
         </div>
   )
 }
-
-export default LockModal
+export default SubscriptionModal

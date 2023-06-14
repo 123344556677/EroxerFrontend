@@ -12,6 +12,7 @@ import { getAllAcceptedRequestReducer, getAllRequestReducer, getAllSenderRequest
 import { getListByIdReducer } from './reducers/listReducer';
 import { getAllCallReducer } from './reducers/callReducer';
 import { getAllCreatorRequest } from './reducers/creatorReducer';
+import { getPaymentReducer } from './reducers/paymentReducer';
 
 const reducer = combineReducers({
     getUserById:getUserByIdReducer,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
     getAllSenderRequestReducer: getAllSenderRequestReducer,
     getListByIdReducer: getListByIdReducer,
     getAllCallReducer:getAllCallReducer,
-    getAllCreatorRequest:getAllCreatorRequest
+    getAllCreatorRequest:getAllCreatorRequest,
+    getPaymentReducer:getPaymentReducer
 
 
     

@@ -146,6 +146,9 @@ function Membership () {
       theme: 'dark',
      
     });
+    setTimeout(() => {
+          history.push("/admin/home");
+        }, 2000);
 
       }
       else {
@@ -335,7 +338,7 @@ If we notice an attempted login from a device or browser we don't
       }
       {
       userData?.creator===true&&
-      <h3>Your are now a member of eroxer!</h3>
+      <h3>Your are now a member of eroxr!</h3>
       }
       </>
       :

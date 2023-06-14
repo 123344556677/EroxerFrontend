@@ -46,6 +46,7 @@ import { SimpleTable } from "backedComponents/SimpleTable/SimpleTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCreatorRequest } from "components/redux/actions/creatorActions";
 import { getAllUsers } from "components/redux/actions/userActions";
+import { getPayments } from "components/redux/actions/paymentAction";
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -67,6 +68,7 @@ function Dashboard(props) {
      
       dispatch(getAllCreatorRequest())
       dispatch(getAllUsers())
+      dispatch(getPayments())
     
         
     }, [dispatch])

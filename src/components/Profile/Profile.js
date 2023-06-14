@@ -35,6 +35,10 @@ import { getAllUsers } from "components/redux/actions/userActions";
 import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { updateUserCover } from "Api/Api";
+import SubscriptionModal from "components/Modals/SubscriptionModal";
+import { Elements } from "@stripe/react-stripe-js";
+import {loadStripe} from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 
 const firebaseConfig = {
@@ -63,7 +67,7 @@ const Profile = () => {
   const [isHovered, setIsHovered] = useState(false);
  
   const [privateCheck, setPrivateCheck] = useState("posts");
-  const [requestCheck, setRequestCheck] = useState("none");
+  const [requestCheck, setRequestCheck] = useState(false);
   const [backgroundVideoCheck, setBackgroundVideoCheck] = useState(false);
    const [backgroundImage, setBackgroundImage] = useState();
    const getUser= useSelector(state => state.getUserById);
@@ -94,7 +98,7 @@ const Profile = () => {
   },[userData])
  
   console.log(userData, "==========>userData");
- const getRecieverId = useSelector(state => state?.getAllSenderRequestReducer);
+ const getSubscribedUser = useSelector(state => state?.getAllAcceptedRequestReducer?.accpetedRequests);
  const requestUser=getUser?.userData
  const dispatch=useDispatch();
   const values={
@@ -120,17 +124,15 @@ AllUserPosts?.map((data)=>{
     }
      
    })
-   console.log(getRecieverId,"reciever Id")
+  //  console.log(getRecieverId,"reciever Id")
 useEffect(()=>{
- getRecieverId?.senderAllRequests?.map((data)=>{
+ getSubscribedUser?.map((data)=>{
    
-    if(data?.recieverId===id&&data?.status==="pending"){
+    if(data?._id===sendingId){
       console.log("coming in it------->")
-      setRequestCheck("sent")
+      setRequestCheck(true)
     }
-     if(data?.recieverId===id&&data?.status==="accepted"){
-      setRequestCheck("accept")
-    }
+    
    
    })
 },[requestCheck])
@@ -510,15 +512,16 @@ const checkPost=(post)=>{
             }
           </Row>
 {
-          // <p className=" profile-designation mt-0 "></p>
+  userData?.creator&&
+          <p className=" profile-designation mt-0 ">G.O.A.T Creator</p>
 }
-          <Row>
+{
+  sendingId!==userId?.id&&
+  requestCheck?
+  <Row>
             <Button className="btn-sm mt-3 ml-2 profile-button">
-              <HiOutlineWifi
-                className="mr-2 "
-                style={{ fontSize: "20px", color: "white" }}
-              />
-              subscribe
+              <img alt="" className="mr-2" src={profilFive} style={{ color: "white" }}/>
+              subscribed
             </Button>
             {
             // <Button
@@ -529,6 +532,22 @@ const checkPost=(post)=>{
             // </Button>
             }
           </Row>
+          :
+    sendingId!==userId?.id&&
+          <Row>
+          <Elements stripe={stripePromise} >
+            <SubscriptionModal value={userData}/>
+            </Elements>
+            {
+            // <Button
+            //   className="add-button btn-sm  mt-3 p-1"
+            //   style={{ border: "2px solid white" }}
+            // >
+            //   1K
+            // </Button>
+            }
+          </Row>
+}
           <Row>
           <Col xl={3}>
           <h4 className="text-white mt-1 mb-0" style={{ fontWeight: "600" }}>

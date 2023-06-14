@@ -127,6 +127,7 @@ const Home = () => {
       const getPost = useSelector(state => state?.getPosts);
     
       const getSubscribedUser = useSelector(state => state?.getAllAcceptedRequestReducer?.accpetedRequests);
+      console.log(getSubscribedUser,"sunscribed")
       const [hoveredImage, setHoveredImage] = useState(false);
         const getUser= useSelector(state => state?.getUserById);
         const userData=getUser?.userData
@@ -350,22 +351,55 @@ const lottieOptions = {
         
     // }, [dispatch])
  const checkPost=(data)=>{
+  let matchingImg = null;
   const check=data?.postPic?.includes("video")
    if(check){
-    return <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
-   }
-   else{
-     getSubscribedUser?.map((datas)=>{
-      if(data?.userId===datas?._id){
-        return  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+     if( getSubscribedUser?.length){
+    getSubscribedUser?.map((datas)=>{
+      if(data?.userId===datas?._id||userId?.id===data?.userId){
+    matchingImg=( <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
+    )
       }
       else{
-      
-      
-      
-      return  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+       matchingImg=(
+        <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px",filter: data?.postCheck===true?"blur(20px)":""}}  />
+      )
       }
-      })
+    })
+  }
+  else{
+    matchingImg=(
+      <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px",filter: data?.postCheck===true?"blur(20px)":""}}/>
+      )
+    }
+   }
+   else{
+    if( getSubscribedUser?.length){
+     getSubscribedUser?.map((datas)=>{
+      if(data?.userId===datas?._id||userId?.id===data?.userId){
+        console.log("coming in it-------->")
+         matchingImg=(
+          <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+          )
+      }
+      else{
+       matchingImg=(
+        <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+      )
+      }
+    })
+  }
+  else{
+    matchingImg=(
+        <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+      )
+  }
+      
+      
+      
+      return matchingImg
+      
+     
    }
   
 
@@ -543,12 +577,29 @@ streamPics?.map((data,index)=>(
   //  <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
    }
    
-   {data?.postCheck===true&&
+   { 
+     userId?.id!==data?.userId&&
+      getSubscribedUser?.length?
+    getSubscribedUser?.map((datas)=>(
+    data?.postCheck===true&&
+    datas?._id!==data?.userId&&
     <Elements stripe={stripePromise} >
       <LockModal open={lockModal} value={data}/>
       </Elements>
+      ))
+      :
+      userId?.id!==data?.userId&&
+      data?.postCheck===true&&
+
+      <Elements stripe={stripePromise} >
+      <LockModal open={lockModal} value={data}/>
+      </Elements>
+      
+      
+
     
     }
+    
   </div>
     
   <div class="card-footer bg-transparent d-flex justify-content-end mb-1" >

@@ -32,6 +32,7 @@ const storage = getStorage(app);
 const VideoModal = () => {
     const history=useHistory()
     const [showModal, setShowModal] = useState(false);
+    const [animationCheck, setAnimationCheck] = useState(false)
  const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [timer, setTimer] = useState(15);
@@ -125,6 +126,7 @@ useEffect(()=>{
     }
   };
   const uploadVideo = () => {
+    setAnimationCheck(true)
 
     const videoRef = 'recorded-videos/' + Date.now();
     const storageRef = ref(storage, videoRef);
@@ -152,12 +154,13 @@ useEffect(()=>{
     });
     setTimeout(() => {
           history.push("/admin/home");
-        }, 2000);
+        }, 3000);
             }
         })
         });
       })
       .catch((error) => {
+        setAnimationCheck(false)
         console.error('Error uploading video:', error);
       });
       setBlob(null)
@@ -220,10 +223,18 @@ useEffect(()=>{
 
         <>
         <video controls src={recordedVideoURL} style={{ width: '100%', height: 'auto' }} />
+        {
+      animationCheck?
+      
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
        <h1 className='text-center'>
         <Button onClick={uploadVideo} disabled={timer !== 15} className=" mt-2 modal-recording-button">
             Become a creator
           </Button></h1>
+        }
         </>
       )}
     
