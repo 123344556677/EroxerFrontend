@@ -14,3 +14,21 @@ export const getPayments = () => async (dispatch) => {
         dispatch({ type: actionTypes.GET_PAYMENT_FAIL, payload: error.response });
     }
 };
+export const getAllTip = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get(`${url}/getAllTip`);
+        dispatch({ type: actionTypes.GET_TIP_SUCCESS, payload: data });
+        console.log(data,"=========>data-redux")
+
+    } catch (error) {
+        dispatch({ type: actionTypes.GET_TIP_FAIL, payload: error.response });
+    }
+};
+export const getReduxSubscribedUser = (state, userId)  => {
+    try {
+      return state?.recieverTip?.filter(user => user?.recieverId === userId);
+
+    } catch (error) {
+       
+    }
+};

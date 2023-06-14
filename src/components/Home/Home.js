@@ -69,6 +69,7 @@ import { getCallById } from 'components/redux/actions/callActions';
 import { getAllCreatorRequest } from 'components/redux/actions/creatorActions';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
+import { getAllTip } from 'components/redux/actions/paymentAction';
 const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 
@@ -275,6 +276,7 @@ const lottieOptions = {
       dispatch(getListById(values))
       dispatch(getCallById(values))
       dispatch(getAllCreatorRequest())
+      dispatch(getAllTip())
         
     }, [dispatch])
     
@@ -376,7 +378,7 @@ const lottieOptions = {
    else{
     if( getSubscribedUser?.length){
      getSubscribedUser?.map((datas)=>{
-      if(data?.userId===datas?._id||userId?.id===data?.userId){
+      if(userId?.id===data?.userId){
         console.log("coming in it-------->")
          matchingImg=(
           <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
@@ -608,7 +610,9 @@ streamPics?.map((data,index)=>(
     //  <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
  }
     <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-61px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"11px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
-   <PaymentModal  />
+    <Elements stripe={stripePromise} >
+   <PaymentModal value={data}  />
+   </Elements>
   </div>
 </div>
     }

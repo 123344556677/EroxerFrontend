@@ -47,14 +47,7 @@ const LockModal = (props,val) => {
   function toggleModal() {
   setShowModal(!showModal);
 }
-const gotoPost=()=>{
-    history.push('/admin/createPost');
-    toggleModal();
-}
-const gotoAd=()=>{
-    history.push('/admin/createAd');
-    toggleModal();
-}
+
 
 useEffect(() => {
  if(props?.open===true){

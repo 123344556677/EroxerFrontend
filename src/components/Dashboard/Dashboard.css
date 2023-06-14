@@ -163,3 +163,16 @@ width: 100pxpx !important;
 .dashboard-slider{
   width:20%!important
 }
+.tip-card{
+  background-color:#161616!important;
+  border-radius:20px!important;
+  width:80%!important;
+  height:200px!important;
+  overflow:auto!important
+}
+.tip-card::-webkit-scrollbar {
+ 
+  display: none!important;
+  
+}
+

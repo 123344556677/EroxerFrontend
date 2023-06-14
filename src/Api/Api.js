@@ -144,6 +144,9 @@ export const createPoll= async (values) => {
 export const createPayment= async (values) => {
     return await axios.post(`${url}/createPayment`, values);
 }
+export const sendTip= async (values) => {
+    return await axios.post(`${url}/sendTip`, values);
+}
 
 
 

@@ -2,10 +2,9 @@ import React from 'react'
 import { Button, ButtonGroup, Card, CardBody, CardImg, CardImgOverlay, CardSubtitle, CardText, CardTitle, Col, Media, Progress, Row } from 'reactstrap'
 import DashboardSection from './DashboardSection/DashboardSection'
 import './Dashboard.css'
-import Tips from './j27.png'
-import TipsOne from './j28.png'
-import TipsTwo from './j29.png'
-import TipsThree from './j30.png'
+
+import TipsOne from './dummy.jpg'
+
 import { Circle } from 'rc-progress'
 import { AiOutlineDollar } from 'react-icons/ai'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -14,10 +13,22 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper';
+import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import { getReduxSubscribedUser } from 'components/redux/actions/paymentAction'
 
 
 
 const Dashboard = () => {
+  const [userId, setuserId] = useState(
+    JSON.parse(localStorage.getItem("keys"))
+  );
+  const tipUsers = useSelector((state) =>
+    getReduxSubscribedUser(state?.getAllTip, userId?.id)
+  );
+  const subscribedUsers= useSelector(state => state?.getAllSenderRequestReducer);
+  const subscribedData=subscribedUsers?.senderAllRequests
+  console.log(subscribedUsers,"users subscribed======>")
  
   return (
     <div className='content' style={{zoom:"0.75"}}>
@@ -45,54 +56,73 @@ const Dashboard = () => {
 </CardBody>
   
 </Card>
- <Card className='mt-4' style={{backgroundColor:"#161616",borderRadius:"20px",width:"80%"}}>
-    <div style={{display:"flex"}}>
+ <Card className='mt-4 tip-card' >
+    <Row>
+    <Col>
  <h3 className='text-white ml-3 mt-3 mb-0' style={{fontWeight:"600"}}>Recent Tips</h3> 
- <AiOutlineDollar className=' mt-4' style={{color:"white",fontSize:"30px",marginLeft:"39%"}}/>
- </div> 
+ </Col>
+ <Col className='text-right mr-lg-5'>
+ <AiOutlineDollar className=' mt-4' style={{color:"white",fontSize:"30px"}}/>
+</Col>
+ </Row> 
 
  
   
-
+{
+  tipUsers?.map((data)=>(
+    <Row>
+    <Col>
     <Media className=' mt-3 ml-2 mb-2 chat-media'>
       <Media left>
-        <img object style={{width:"40px",height:"40px"}} src={TipsOne} alt="jannan" className="rounded-circle" />
+        <img object style={{width:"40px",height:"40px"}} src={data?.senderData?.profilePic?data?.senderData?.profilePic:TipsOne} alt="jannan" className="rounded-circle" />
       </Media>
       <Media body className="ml-2 mt-2 ">
-    <div style={{display:"flex"}}>
-        <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>Lorem ispum</p>
-         <p className='text-white 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$5</p>
-        </div>
-       
-      </Media>
+   
+        <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>{data?.senderData?.username?data?.senderData?.username:data?.senderData?.firstName}</p>
+        </Media>
       
     </Media>
-    <Media className=' mt-2 ml-1 chat-media'>
-      <Media left>
-        <img object style={{width:"40px",height:"40px"}} src={TipsTwo} alt="jannan" className="rounded-circle" />
-      </Media>
-      <Media body className="ml-2 mt-2">
-       <div style={{display:"flex"}}>
-        <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>Lorem ispum</p>
-         <p className='text-white 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$5</p>
-        </div>
+    </Col>
+    <Col className='text-right'>
+    
+         <p className='text-white mt-3 mr-lg-5 'style={{color:"white",fontSize:"15px"}}>$ {data?.tip}</p>
+         </Col>
+         
+         </Row>
+        
        
-      </Media>
       
-    </Media>
-    <Media className=' mt-2 ml-1 chat-media'>
-      <Media left>
-        <img object style={{width:"40px",height:"40px"}} src={TipsThree} alt="jannan" className="rounded-circle" />
-      </Media>
-      <Media body className="ml-2 mt-2">
-        <div style={{display:"flex"}}>
-        <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>Lorem ispum</p>
-         <p className='text-white mb-4 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$5</p>
-        </div>
+    ))
+}
+
+    {
+    // <Media className=' mt-2 ml-1 chat-media'>
+    //   <Media left>
+    //     <img object style={{width:"40px",height:"40px"}} src={TipsTwo} alt="jannan" className="rounded-circle" />
+    //   </Media>
+    //   <Media body className="ml-2 mt-2">
+    //    <div style={{display:"flex"}}>
+    //     <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>Lorem ispum</p>
+    //      <p className='text-white 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$5</p>
+    //     </div>
        
-      </Media>
+    //   </Media>
       
-    </Media>
+    // </Media>
+    // <Media className=' mt-2 ml-1 chat-media'>
+    //   <Media left>
+    //     <img object style={{width:"40px",height:"40px"}} src={TipsThree} alt="jannan" className="rounded-circle" />
+    //   </Media>
+    //   <Media body className="ml-2 mt-2">
+    //     <div style={{display:"flex"}}>
+    //     <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>Lorem ispum</p>
+    //      <p className='text-white mb-4 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$5</p>
+    //     </div>
+       
+    //   </Media>
+      
+    // </Media>
+    }
     
     
     
@@ -187,7 +217,7 @@ const Dashboard = () => {
            
         >
     {
-        [1,2,3,4,5,6].map((data)=>(
+        subscribedData?.map((data)=>(
             <SwiperSlide style={{
                 
             
@@ -200,17 +230,16 @@ const Dashboard = () => {
         className="dashboard-slider"
         >
         <Card className='mt-5 ' style={{backgroundColor:"#161616",borderRadius:"20px"}}>
-      <h4 className='text-white ml-3 mt-4 mb-0' style={{fontWeight:"600"}}>Lorem ispum</h4> 
+      <h4 className='text-white ml-3 mt-4 mb-0' style={{fontWeight:"600"}}>{data?.userData?.username?data?.userData?.username:data?.userData?.firstName}</h4> 
       <CardBody className='mt-5'>
      
      <div style={{display:"flex"}}>
-        <p className=' mb-0'style={{color:"grey",fontSize:"10px"}}>Lorem ipsum is dummy <br/>
-text no more</p>
-         <p className='text-white 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$5</p>
+        <p className=' mb-0'style={{color:"grey",fontSize:"10px",fontWeight:"700"}}>{data?.userData?.email?data?.userData?.email:"dummyMail@gmail.com"}</p>
+         <p className='text-white 'style={{color:"white",fontSize:"15px",marginLeft:"50%"}}>$ {data?.paymentData?.payment}</p>
         </div>
   
   
-  <img src="https://picsum.photos/100/100" alt="" className='dash-profile'/>
+  <img src={data?.userData?.profilePic?data?.userData?.profilePic:TipsOne} alt="" className='dash-profile'/>
   
  
   
