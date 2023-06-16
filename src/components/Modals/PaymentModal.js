@@ -136,12 +136,14 @@ const handlePayment=async()=>{
   <div className="modal-body home-modal">
    <Row className='' style={{marginTop:"-20px"}}>
     <Col className=''>
-    <h4 className='text-white' style={{fontWeight:"600"}}>Pay for profile</h4>
+    <h4 className='text-white' style={{fontWeight:"600"}}>Send Some dollars</h4>
     </Col>
-    <Col className='text-right' >
-     <h4 className='text-white' style={{fontWeight:"600"}}>$ {props?.value?.userData?.profilePrice}</h4>
+    {
+    // <Col className='text-right' >
+    //  <h4 className='text-white' style={{fontWeight:"600"}}>$ {props?.value?.userData?.profilePrice}</h4>
     
-    </Col>
+    // </Col>
+    }
     </Row>
     <Row>
     

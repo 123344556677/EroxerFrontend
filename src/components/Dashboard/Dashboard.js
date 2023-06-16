@@ -28,7 +28,22 @@ const Dashboard = () => {
   );
   const subscribedUsers= useSelector(state => state?.getAllSenderRequestReducer);
   const subscribedData=subscribedUsers?.senderAllRequests
+  const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
   console.log(subscribedUsers,"users subscribed======>")
+  let total = 0;
+  let tips = 0;
+  let subscriptions = 0;
+
+subscribedData?.map((data) => {
+  total += data?.paymentData?.payment || 0;
+  subscriptions += data?.paymentData?.payment || 0;
+});
+
+tipUsers?.map((data) => {
+  total += data?.tip || 0;
+  tips += data?.tip || 0;
+});
  
   return (
     <div className='content' style={{zoom:"0.75"}}>
@@ -38,22 +53,23 @@ const Dashboard = () => {
     <Row className='ml-lg-4'>
     
     <Col xl={4} xs={9} md={4} className="ml-lg-5" >
-    <h1 className='text-white ml-lg-2' style={{fontStyle:"Roboto",fontWeight:"600"}}>Welcome back Alex</h1>
+    <h2 className='text-white ml-lg-2' style={{fontStyle:"Roboto",fontWeight:"600"}}>Welcome back {userData?.username?userData?.username:userData?.firstName}!</h2>
   <Card className='mt-4' style={{backgroundColor:"#161616",borderRadius:"20px",width:"80%"}}>
      
  <h3 className='text-white ml-3 mt-3' style={{fontWeight:"600"}}>Your account</h3> 
- <h4 className='text-white text-center mt-3' style={{fontWeight:"600"}}>$27552</h4> 
+ <h3 className='text-white text-center mt-3 mb-5' style={{fontWeight:"600"}}>$ {total}</h3> 
  
-  
-  <CardBody>
+  {
+//   <CardBody>
     
-    <ButtonGroup className="d-flex justify-content-between align-items-end">
-      <Button className="dash-send-button">Send</Button>
-      <Button className="dash-add-button ml-1">Add</Button>
-    </ButtonGroup>
+//     <ButtonGroup className="d-flex justify-content-between align-items-end">
+//       <Button className="dash-send-button">Send</Button>
+//       <Button className="dash-add-button ml-1">Add</Button>
+//     </ButtonGroup>
     
     
-</CardBody>
+// </CardBody>
+  }
   
 </Card>
  <Card className='mt-4 tip-card' >
@@ -150,8 +166,8 @@ const Dashboard = () => {
 
 <Circle style={{marginTop:"14%",marginRight:"10%",marginLeft:"-12%"}} percent={80} strokeWidth={4} strokeColor="white" trailColor="black" /> 
 <div style={{marginTop:"-60%",marginLeft:"25%"}}>
-<h3 className='text-white mb-0'>5000$</h3>
-<h4 className='ml-2' style={{color:"grey"}}>2000$</h4>
+<h3 className='text-white mb-0'>${subscriptions}</h3>
+<h4 className='ml-2' style={{color:"grey"}}>${tips}</h4>
 </div>
 </div>
 </Row>
@@ -165,11 +181,12 @@ const Dashboard = () => {
 
 {
     
-["5$","10$","100$","500$","100$"].map((data)=>(
+tipUsers?.map((data,index)=>(
+ index<6&&
   <> 
-  <Col>
+  <Col xl={2}>
 <Progress className="vertical-progress-bar" now={10} />
-<p className='' style={{marginLeft:"-10%"}} >{data}</p>
+<p className='' style={{}} >$ {data?.tip}</p>
 </Col>
 </> 
 ))

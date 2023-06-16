@@ -210,7 +210,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
     }
     console.log(values,"data========>")
     if(postCheck===true){
-    if(userData?.profilePrice){
+    if(price){
     await createPost(values)
     .then((res)=>{
       if (res.data.message === "post Generated") {
@@ -241,7 +241,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
   }
   else{
     setAnimationCheck(false)
-    toast.warn('Please updated your price in profile section', {
+    toast.warn('Please add some price', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 4000,
     
@@ -379,18 +379,21 @@ For your Meeting</h2>
 //   </div>
 // </div>
 }
+
 {
-// <div class="input-group mt-3">
-//   <input type="text" class="form-control ad-input" placeholder="Price"/>
-//   <div class="input-group-append switch-input" className='switch-input'  >
-//     <span class="input-group-text counter-input"  id="counter">
-//       <button class="btn btn-sm  mr-1" type="button" id="btn-minus" onClick={()=>setPrice(price-1)}>-</button>
-//       ${price}
-//       <button class="btn btn-sm  ml-1" type="button" id="btn-plus"onClick={()=>setPrice(price+1)}>+</button>
-//     </span>
-//   </div>
-// </div>
+  postCheck===true&&
+<div class="input-group mt-3">
+  <input type="text" class="form-control ad-input" placeholder="Price"/>
+  <div class="input-group-append switch-input" className='switch-input'  >
+    <span class="input-group-text counter-input"  id="counter">
+      <button class="btn btn-sm  mr-1" type="button" id="btn-minus" onClick={()=>setPrice(price-1)}>-</button>
+      ${price}
+      <button class="btn btn-sm  ml-1" type="button" id="btn-plus"onClick={()=>setPrice(price+1)}>+</button>
+    </span>
+  </div>
+</div>
 }
+
     
 
     

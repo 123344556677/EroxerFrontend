@@ -358,7 +358,7 @@ const lottieOptions = {
    if(check){
      if( getSubscribedUser?.length){
     getSubscribedUser?.map((datas)=>{
-      if(data?.userId===datas?._id||userId?.id===data?.userId){
+      if(data?.userId===datas?._id){
     matchingImg=( <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />
     )
       }
@@ -370,21 +370,49 @@ const lottieOptions = {
     })
   }
   else{
+    if(data?.payerId?.length){
+    data?.payerId?.map((datass,index)=>{
+      if(datass===userId?.id){
+    matchingImg=(
+      <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+      )
+    }
+    else{
+      if(data?.userId===userId?.id){
+        matchingImg=(
+        <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+      )}
+      else{
     matchingImg=(
       <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px",filter: data?.postCheck===true?"blur(20px)":""}}/>
       )
+    }
+    }
+  })
+}
+else{
+    if(data?.userId===userId?.id){
+     matchingImg=( <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px"}}  />)
+    }
+    else{
+    matchingImg=(
+        <video loop muted controls autoPlay src={data?.postPic} style={{width:"850px",height:"450px",borderRadius:"40px",filter: data?.postCheck===true?"blur(20px)":""}}  />
+      )
+    }
+  }
     }
    }
    else{
     if( getSubscribedUser?.length){
      getSubscribedUser?.map((datas)=>{
-      if(userId?.id===data?.userId){
-        console.log("coming in it-------->")
+      if(data?.userId === datas?._id){
+        console.log("coming in it of ONE-------->")
          matchingImg=(
           <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
           )
       }
       else{
+        console.log("coming in it of TWO-------->")
        matchingImg=(
         <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
       )
@@ -392,9 +420,45 @@ const lottieOptions = {
     })
   }
   else{
+    if(data?.payerId?.length){
+    data?.payerId?.map((datass,index)=>{
+      if(datass===userId?.id){
+        console.log("coming in it THREE-------->")
+         matchingImg=(
+       <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+    )
+      }
+      else{
+        console.log("coming in it FOUR-------->")
+        
+    if(data?.userId===userId?.id){
     matchingImg=(
-        <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+      <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+        
       )
+    }
+    else{
+      matchingImg=(
+         <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+    )
+      }
+        
+    }
+    })
+  }
+  else{
+    if(data?.userId===userId?.id){
+    matchingImg=(
+      <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px"}}/>
+        
+      )
+    }
+    else{
+      matchingImg=(
+         <img alt="" src={data?.postPic?data?.postPic:"https://picsum.photos/id/1015/1200/800"} style={{width:"850px",height:"450px",borderRadius:"40px", filter: data?.postCheck===true?"blur(20px)":""}}/>
+    )
+    }
+  }
   }
       
       
@@ -591,11 +655,23 @@ streamPics?.map((data,index)=>(
       ))
       :
       userId?.id!==data?.userId&&
+      data?.payerId.length?
       data?.postCheck===true&&
-
+      data?.payerId.map((datass)=>(
+        datass!==userId?.id&&
       <Elements stripe={stripePromise} >
       <LockModal open={lockModal} value={data}/>
       </Elements>
+      ))
+      :
+      userId?.id!==data?.userId&&
+      data?.postCheck===true&&
+      <Elements stripe={stripePromise} >
+      <LockModal open={lockModal} value={data}/>
+      </Elements>
+
+
+      
       
       
 
@@ -609,10 +685,15 @@ streamPics?.map((data,index)=>(
  {
     //  <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
  }
+ {
+  userId?.id!==data?.userId&&
+  <>
     <AiOutlineUserAdd className='ml-2' style={{color:"white",fontSize:"35px",marginTop:"-61px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"11px",marginRight:"-8px",cursor:"pointer"}} onClick={()=>addToList(data?.userId)}/>
     <Elements stripe={stripePromise} >
    <PaymentModal value={data}  />
    </Elements>
+   </>
+ }
   </div>
 </div>
     }

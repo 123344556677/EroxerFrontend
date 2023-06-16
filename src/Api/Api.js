@@ -70,6 +70,9 @@ export const getAllPosts= async () => {
 export const pollcounterIncrement= async (values) => {
     return await axios.post(`${url}/pollCounterIncrement`,values);
 }
+export const updatePost= async (values) => {
+    return await axios.put(`${url}/updatePost`,values);
+}
 //ad
 export const createAd = async (values) => {
     return await axios.post(`${url}/createAd`, values);

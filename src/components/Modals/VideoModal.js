@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
 
-const VideoModal = () => {
+const VideoModal = ({dataVideoValue}) => {
     const history=useHistory()
     const [showModal, setShowModal] = useState(false);
     const [animationCheck, setAnimationCheck] = useState(false)
@@ -137,26 +137,38 @@ useEffect(()=>{
         getDownloadURL(snapshot.ref).then((url)=> {
           setRecordedVideoURL(url); // Set the download URL of the uploaded video
           console.log(url,"video url")
-         const values={
-            userId:userId.id,
-            videoUrl:url,
-            userData:userData
-        }
-        applyForCreator(values)
-        .then((res)=>{
-            if(res.data.message==="applied"){
-                 toast.success('you application is pending, it will be approved in 1-3 business days', {
+          dataVideoValue(url)
+          toast.success('video uploaded', {
       position: toast.POSITION.TOP_CENTER,
-      autoClose: false,
+      autoClose: 2000,
     
       theme: 'dark',
      
     });
     setTimeout(() => {
-          history.push("/admin/home");
-        }, 3000);
-            }
-        })
+          toggleModal();
+      }, 2000);
+
+        //  const values={
+        //     userId:userId.id,
+        //     videoUrl:url,
+        //     userData:userData
+        // }
+    //     applyForCreator(values)
+    //     .then((res)=>{
+    //         if(res.data.message==="applied"){
+    //              toast.success('you application is pending, it will be approved in 1-3 business days', {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: false,
+    
+    //   theme: 'dark',
+     
+    // });
+    // setTimeout(() => {
+    //       history.push("/admin/home");
+    //     }, 3000);
+    //         }
+    //     })
         });
       })
       .catch((error) => {

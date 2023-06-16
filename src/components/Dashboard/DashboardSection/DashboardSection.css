@@ -32,7 +32,7 @@
 .dashboard{
     background-color: #161616;
     
-    border-radius: 188px 0  0 10px;
+    border-radius: 80px 0  0 10px;
     position: fixed;
     z-index: 1093;
     zoom: 0.90;
@@ -98,4 +98,11 @@
 
 .dashboard-cards:hover::-webkit-scrollbar-thumb {
   background-color: #555;
+}
+.dash-cards{
+  background-color: #1c1a1a!important;
+}
+.dash-icons{
+  font-size: 60px!important;
+  color:#F5F5F5
 }

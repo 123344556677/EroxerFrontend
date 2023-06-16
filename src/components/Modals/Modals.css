@@ -38,12 +38,33 @@
  padding-right: 180px!important;
  border: 1px solid white!important;
 }
+.modal-post-pay-button{
+ background-image: linear-gradient(to bottom left, #1e1e1e, #1e1e1e, #1e1e1e)!important;
+ border-radius: 5px!important;
+ padding-left:220px!important;
+ padding-right: 220px!important;
+ border: 1px solid white!important;
+}
 .pay-cancel-btn{
  background-image: linear-gradient(to bottom left, #1e1e1e, #1e1e1e, #1e1e1e)!important;
  border-radius: 5px!important;
  padding-left:130px!important;
  padding-right: 130px!important;
  border: 1px solid white!important;
+}
+.post-cancel-btn{
+ background-image: linear-gradient(to bottom left, #1e1e1e, #1e1e1e, #1e1e1e)!important;
+ border-radius: 5px!important;
+ padding-left:180px!important;
+ padding-right: 180px!important;
+ border: 1px solid white!important;
+}
+.pay-submit-btn{
+ background-image: linear-gradient(to bottom left, #6A097D, #6A097D, #6A097D)!important;
+ border-radius: 5px!important;
+ padding-left:180px!important;
+ padding-right: 180px!important;
+
 }
 .picture-btn{
     z-index:1500!important

@@ -25,7 +25,10 @@ import {
 } from "reactstrap";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import { googleReg } from "Api/Api";
-
+import EroxrFeeModal from "components/Modals/EroxrFeeModal";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 function Register(props) {
   const history = useHistory();
@@ -40,6 +43,8 @@ function Register(props) {
   const [checkPassword, setCheckPassowrd] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [animationCheck, setAnimationCheck] = useState(false)
+  const [modalCheck, setModalCheck] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -67,6 +72,7 @@ function Register(props) {
           setTimeout(() => {
             history.push("/");
           }, 2000);
+         
         }
       });
     },
@@ -104,9 +110,12 @@ function Register(props) {
           // bodyClassName: 'dark-toast',
         });
        
-        setTimeout(() => {
-          history.push("/");
-        }, 2000);
+        // setTimeout(() => {
+        //   history.push("/");
+        // }, 2000);
+         setShowModal(true);
+          setAnimationCheck(false)
+       
       }
     });
   }
@@ -120,9 +129,15 @@ function Register(props) {
         });
   }
   };
-
+const closeModal = () => {
+    setShowModal(false);
+  };
   return (
     <div>
+    <Elements stripe={stripePromise} className="" >
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    </Elements>
+    
       <Col className="ml-auto mr-auto col-md-6 col-lg-4">
         <Card className="reg-card">
           <Form onSubmit={reg}>

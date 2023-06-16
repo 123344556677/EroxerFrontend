@@ -30,6 +30,7 @@ import { getAllCreatorRequest } from 'components/redux/actions/creatorActions'
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js';
 import { createPayment } from 'Api/Api'
+import { applyForCreator } from 'Api/Api'
 const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -62,6 +63,7 @@ function Membership () {
   const [country,setCountry]=useState()
   const [state,setState]=useState()
   const [postalCode,setPostalCode]=useState()
+  const [videoUrl,setVideoUrl]=useState(null)
   const [animationCheck, setAnimationCheck] = useState(false)
   const history=useHistory();
   const stripe = useStripe()
@@ -176,6 +178,9 @@ function Membership () {
           
       
     }
+    const handleVideoValue=(data)=>{
+      setVideoUrl(data)
+    }
 
     const dispatch=useDispatch()
     useEffect(() => {
@@ -192,60 +197,54 @@ function Membership () {
   //  }
   // }
     const verifyCnic=async()=>{
-      if(creator?.status==="pending"){
-        toast.warn('Your request is pending', {
+      setAnimationCheck(true)
+  //     if(creator?.status==="pending"){
+  //       toast.warn('Your request is pending', {
+  //     position: toast.POSITION.TOP_CENTER,
+  //     autoClose: 3000,
+    
+  //     theme: 'dark',
+     
+  //   });
+        
+  // }
+  // if(creator?.status==="approved"){
+  //       setStep(false)
+        
+  // }
+
+      if(checkCnic&&checkCnicTwo){
+      const values={
+        userId:userId.id,
+        videoUrl:videoUrl,
+        userData:userData
+      }
+          applyForCreator(values)
+        .then((res)=>{
+            if(res.data.message==="applied"){
+                 toast.success('you application is pending, it will be approved in 1-3 business days', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: false,
+    
+      theme: 'dark',
+     
+    });
+    setTimeout(() => {
+          history.push("/admin/home");
+        }, 3000);
+            }
+        })
+    
+    }
+    else{
+         toast.error('Please verify Cnic', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
     
       theme: 'dark',
      
     });
-        
-  }
-  if(creator?.status==="approved"){
-        setStep(false)
-        
-  }
-
-  //     if(checkCnic&&checkCnicTwo){
-  //     const values={
-  //       userId:userId.id,
-  //       cnicFront:cnicFront,
-  //       cnicBack:cnicBack,
-  //       cnicValidation:true
-  //     }
-  //     await updateUser(values)
-  //   .then((res)=>{
-  //     if (res.data.message === "user updated") {
-  //       toast.success('CNIC verified', {
-  //     position: toast.POSITION.TOP_CENTER,
-  //     autoClose: 3000,
-    
-  //     theme: 'dark',
-     
-  //   });
-  //   setStep(false)
-  // }
-  // else{
-  //   toast.error('Server Error', {
-  //     position: toast.POSITION.TOP_CENTER,
-  //     autoClose: 3000,
-    
-  //     theme: 'dark',
-     
-  //   });
-  // }
-  //   })
-  //   }
-    // else{
-    //      toast.error('Please record a video first', {
-    //   position: toast.POSITION.TOP_CENTER,
-    //   autoClose: 3000,
-    
-    //   theme: 'dark',
-     
-    // });
-    // }
+    }
 
     }
 
@@ -316,6 +315,8 @@ If we notice an attempted login from a device or browser we don't
    <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-3"/>
    {
       userData?.creator!==true&&
+      creator?.status!=="pending"&&
+      creator?.status!=="approved"&&
       
       
    <FormGroup check className="mt-4">
@@ -342,54 +343,76 @@ If we notice an attempted login from a device or browser we don't
       }
       </>
       :
-     <VideoModal/>
+      
+        videoUrl?
+         <h3>Video uploaded!</h3>
+    
+     :
+      <VideoModal dataVideoValue={handleVideoValue}/>
+    
+
+      
      
     }
     
-
-    {
-    // <Col xl={8} sm={8} md={8}>
-    // <Card className="member-card  mt-2" >
-    // <h4 className='text-center mb-0'>
-    // <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
-    // <FileBase64
-    //     type="file"
-    //     className="text-center"
-    //     onDone={(base64) => handleCnicFrontPic({ selectedFile: base64 })}
-    //    style={{cursor:"pointer"}}
-
-
-    // />
-    // </div>
-    // <img src={cnicFront?cnicFront:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
-    // <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Front Copy</p>
-
-    // </Card>
-    // </Col>
+ </Row>
+ {
+       creator?.status!=="pending"&&
+       creator?.status!=="approved"&&
+       <>
+  <FormGroup check className="mt-4">
+    <Input type="radio" className='mt-2'  />
+    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify CNIC</Label>
+    </FormGroup>
     
-    // <Col xl={5} sm={5} md={6}>
-    // <Card className="member-card mt-2 ml-md-5 mb-0" >
-    // <h4 className='text-center mb-0'>
-    // <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
-    // <FileBase64
-    //     type="file"
-    //     className="text-center"
-    //     onDone={(base64) => handleCnicBackPic({ selectedFile: base64 })}
-    //    style={{cursor:"pointer"}}
+    <Row>
+    
+    <Col xl={5} sm={8} md={8}>
+    <Card className="member-card  mt-2" >
+    <h4 className='text-center mb-0'>
+    <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
+    <FileBase64
+        type="file"
+        className="text-center"
+        onDone={(base64) => handleCnicFrontPic({ selectedFile: base64 })}
+       style={{cursor:"pointer"}}
 
 
-    // />
-    // </div>
-    // <img src={cnicBack?cnicBack:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
-    // <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Back Copy</p>
+    />
+    </div>
+    <img src={cnicFront?cnicFront:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
+    <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Front Copy</p>
 
-    // </Card>
-    // </Col>
+    </Card>
+    </Col>
+    
+    <Col xl={5} sm={5} md={6}>
+    <Card className="member-card mt-2 ml-md-5 mb-0" >
+    <h4 className='text-center mb-0'>
+    <div  style={{opacity:"0",position:"absolute",zIndex:"10",marginTop:"15%"}}>
+    <FileBase64
+        type="file"
+        className="text-center"
+        onDone={(base64) => handleCnicBackPic({ selectedFile: base64 })}
+       style={{cursor:"pointer"}}
+
+
+    />
+    </div>
+    <img src={cnicBack?cnicBack:memberTwo} style={{width:"50%",height:"80%"}}className="ml-2 mr-2 mt-4 mb-2"/></h4>
+    <p className='text-center mt-2 mb-1' style={{color:" #BFB8B8"}}>Back Copy</p>
+
+    </Card>
+    </Col>
+    </Row>
+    </>
     }
     
-    </Row>
+   
     {
       userData?.creator===false&&
+      creator?.status!=="pending"&&
+      creator?.status!=="approved"&&
       <>
     <FormGroup check className="" >
     <Input type="radio" className=''  />
@@ -401,10 +424,18 @@ If we notice an attempted login from a device or browser we don't
     <Row>
     
 <Col className="text-right">
+{
+      animationCheck?
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
     <Button className="reset-button " onClick={verifyCnic} >
     
-    Next
+    
+  submit
     </Button >
+}
     </Col>
     </Row>
     </>
