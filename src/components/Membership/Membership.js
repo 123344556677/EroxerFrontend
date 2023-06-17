@@ -27,7 +27,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getReduxCreatorById } from 'components/redux/actions/creatorActions'
 import { useEffect } from 'react'
 import { getAllCreatorRequest } from 'components/redux/actions/creatorActions'
-import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
+import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js';
+import { getStorage, ref, uploadBytes,uploadString, getDownloadURL } from "firebase/storage";
+import { initializeApp } from "firebase/app";
 import {loadStripe} from '@stripe/stripe-js';
 import { createPayment } from 'Api/Api'
 import { applyForCreator } from 'Api/Api'
@@ -51,6 +53,19 @@ const CARD_OPTIONS = {
         }
     }
 }
+const firebaseConfig = {
+  apiKey: "AIzaSyCnY9bzvS6ZiF0wn1_kDGp_ljWGo3sZSxA",
+  authDomain: "images-7611f.firebaseapp.com",
+  projectId: "images-7611f",
+  storageBucket: "images-7611f.appspot.com",
+  messagingSenderId: "410713197024",
+  appId: "1:410713197024:web:f4cb6a922d309976c38385",
+  measurementId: "G-ENS46GYQRS",
+};
+
+const app = initializeApp(firebaseConfig);
+
+const storage = getStorage(app);
 function Membership () {
   const [step,setStep]=useState(true)
   const [cnicFront,setCnicFront]=useState()
@@ -65,6 +80,8 @@ function Membership () {
   const [postalCode,setPostalCode]=useState()
   const [videoUrl,setVideoUrl]=useState(null)
   const [animationCheck, setAnimationCheck] = useState(false)
+  const [frontUrl, setFrontUrl] = useState()
+   const [backUrl, setBackUrl] = useState()
   const history=useHistory();
   const stripe = useStripe()
   const elements = useElements()
@@ -77,44 +94,75 @@ function Membership () {
   
   const handleCnicFrontPic=(e)=>{
         setCnicFront(e.selectedFile.base64);
+        setCheckCnic(true)
+        uploadImageToFirebaseOne(e.selectedFile.base64)
          
-      Tesseract.recognize(e.selectedFile.base64,'eng')
-      .then((result) => {
+    //   Tesseract.recognize(e.selectedFile.base64,'eng')
+    //   .then((result) => {
       
-        const text = result.data.text;
-         console.log("coming",text)
+    //     const text = result.data.text;
+    //      console.log("coming",text)
          
-        const cnicRegex = /\d{5}-\d{7}-\d/g; // CNIC number regex
-        const cnic = text.match(cnicRegex);
+    //     const cnicRegex = /\d{5}-\d{7}-\d/g; // CNIC number regex
+    //     const cnic = text.match(cnicRegex);
 
-        if (cnic && cnic.length > 0) {
-          setCheckCnic(true);
+    //     if (cnic && cnic.length > 0) {
+    //       setCheckCnic(true);
          
           
           
-        } else {
-        setCheckCnic(false);
-         toast.error('Please upload correct picture', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
+    //     } else {
+    //     setCheckCnic(false);
+    //      toast.error('Please upload correct picture', {
+    //   position: toast.POSITION.TOP_CENTER,
+    //   autoClose: 3000,
     
-      theme: 'dark',
+    //   theme: 'dark',
      
-    });
+    // });
          
-        }
-      })
+    //     }
+    //   })
         
     
         
     }
+    const uploadImageToFirebaseOne = (base64Video) => {
+  const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+    setFrontUrl(url)
+  })
+})
+  
+};
     const handleCnicBackPic=(e)=>{
         setCnicBack(e.selectedFile.base64);
       setCheckCnicTwo(true)
+      uploadImageToFirebaseTwo(e.selectedFile.base64)
         
     
         
     }
+        const uploadImageToFirebaseTwo = (base64Video) => {
+  const fileName = Date.now() + '.jpg';
+const fileRef = ref(storage,  fileName);
+uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
+  console.log('Uploaded a blob or file!', snapshot);
+
+  // Get the URL of the uploaded image location
+  getDownloadURL(fileRef).then(async(url) => {
+    console.log('Image URL:', url);
+   setBackUrl(url)
+  })
+})
+  
+};
     const handlePayment=async(e)=>{
       e.preventDefault()
       setAnimationCheck(true)
@@ -217,7 +265,11 @@ function Membership () {
       const values={
         userId:userId.id,
         videoUrl:videoUrl,
-        userData:userData
+        userData:userData,
+        cnicFront:frontUrl,
+        cnicBack:backUrl,
+
+
       }
           applyForCreator(values)
         .then((res)=>{

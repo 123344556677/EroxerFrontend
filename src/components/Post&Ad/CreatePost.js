@@ -1,7 +1,7 @@
 import ChatPortion from 'components/ChatPortion/ChatPortion'
 import React, { useEffect, useRef, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import { Button, Card, Col, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
+import { Button, Card, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
 import postOne from './j46.png'
 import FileBase64 from "react-file-base64";
 import './post.css'
@@ -16,6 +16,11 @@ import { initializeApp } from "firebase/app";
 import RecordRTC from 'recordrtc';
 import { getUserById } from 'components/redux/actions/userActions'
 import { useHistory } from 'react-router-dom'
+import EroxrFeeModal from 'components/Modals/EroxrFeeModal'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
+
 
 
 const firebaseConfig = {
@@ -39,6 +44,8 @@ const CreateAd = () => {
   const [commentsCheck, setCommentsCheck] = useState(false);
   const [price, setPrice] = useState(0);
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+  const [showModal, setShowModal] = useState(false);
+
   // const [userData, setUserData] = useState()
   const [postUrl, setPostUrl] = useState()
   const [animationCheck, setAnimationCheck] = useState(false)
@@ -293,13 +300,19 @@ else{
  
 
 
-
+const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <div className='content'>
+    <Elements stripe={stripePromise} className="" >
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    </Elements>
     <Row>
     {
       userData?.creator===true&&
+      userData?.eroxrFee===true&&
     <Col xl={10}>
     {
     // <Row>
@@ -421,9 +434,35 @@ For your Meeting</h2>
     </Col>
   }
   {
+      userData?.eroxrFee===false&&
       userData?.creator===false&&
-       
-      <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets5.lottiefiles.com/packages/lf20_bogmlqx0.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>setShowModal(true)} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Buy our MemberShip!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
+      {
+      userData?.eroxrFee===true&&
+      userData?.creator===false&&
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets7.lottiefiles.com/private_files/lf30_pljwgbzs.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>history.push('/admin/memeberShip')} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Become a creator!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
      
       }
     

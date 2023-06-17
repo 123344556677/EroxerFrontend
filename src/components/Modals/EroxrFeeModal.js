@@ -57,6 +57,7 @@ const EroxrFeeModal = ({ isOpen, toggle }) => {
 
 
         if (!error) {
+          console.log("coming here")
             try {
                 
           const { id } = paymentMethod
@@ -68,6 +69,7 @@ const EroxrFeeModal = ({ isOpen, toggle }) => {
      state:state,
      paymentId:id
       }
+      console.log(values)
       createPayment(values)
       .then((res)=>{
       if (res.data.message === "payment Successfull") {
@@ -103,7 +105,7 @@ const EroxrFeeModal = ({ isOpen, toggle }) => {
             }
           }
           catch (ex){
-      console.log(ex)
+      console.log(ex,"=========>error")
     }
           
       

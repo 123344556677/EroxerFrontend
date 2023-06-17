@@ -45,6 +45,10 @@ import { getAds as ads } from 'components/redux/actions/adsActions';
 import { FaSearch } from 'react-icons/fa'
 import { AdCounterIncrement } from 'Api/Api'
 import { toast,ToastContainer } from 'react-toastify'
+import EroxrFeeModal from 'components/Modals/EroxrFeeModal'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 const Ads = () => {
   const history=useHistory()
@@ -63,6 +67,7 @@ const Ads = () => {
      const [city, setCity] = useState('');
      const [gender, setGender] = useState('');
      const [initialized, setInitialized] = useState(false);
+     const [showModal, setShowModal] = useState(false);
      console.log(country,"============>country")
       
       const Viewtoggle = () => setViewDropdownOpen(!ViewdropdownOpen);
@@ -72,8 +77,11 @@ const Ads = () => {
       const Citytoggle = () => setCityDropdownOpen(!CitydropdownOpen);
       const Gendertoggle = () => setGenderDropdownOpen(!GenderdropdownOpen);
       const Agetoggle = () => setAgeDropdownOpen(!AgedropdownOpen);
+
       const dispatch=useDispatch()
         const getAds = useSelector(state => state?.getAds);
+        const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
         
      useEffect(()=>{
     dispatch(ads())
@@ -618,9 +626,19 @@ const handleAlert=()=>{
     });
 
 }
+const closeModal = () => {
+    setShowModal(false);
+  };
 console.log(adData)
   return (
     <div className='content' style={{zoom:"0.90"}}>
+    <Elements stripe={stripePromise} className="" >
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    </Elements>
+    {
+      userData?.creator===true&&
+      userData?.eroxrFee===true&&
+      <>
     <Row>
     <Col xl={5} md={5} sm={5} className="">
     
@@ -796,6 +814,24 @@ console.log(adData)
        
       }
 </Row>
+</>
+    }
+    {
+      userData?.eroxrFee===false&&
+    
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets5.lottiefiles.com/packages/lf20_bogmlqx0.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>setShowModal(true)} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Buy our MemberShip!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
 <ToastContainer/>
     </div>
   )

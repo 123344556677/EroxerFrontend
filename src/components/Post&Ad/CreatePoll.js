@@ -16,6 +16,10 @@ import { initializeApp } from "firebase/app";
 import { createPoll } from 'Api/Api'
 import { useHistory } from 'react-router-dom'
 import { getUserById } from 'components/redux/actions/userActions'
+import EroxrFeeModal from 'components/Modals/EroxrFeeModal'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 
 
@@ -34,6 +38,7 @@ const CreatePoll = () => {
   const [options, setOptions] = useState([{ option:'',counter:0 }])
   const [question, setQuestion] = useState()
    const [animationCheck, setAnimationCheck] = useState(false)
+   const [showModal, setShowModal] = useState(false);
    const getUser= useSelector(state => state?.getUserById);
   const userData=getUser?.userData
 
@@ -127,15 +132,21 @@ const poll=async(e)=>{
   
 
   
-
+const closeModal = () => {
+    setShowModal(false);
+  };
   
   
   
   return (
     <div className='content'>
+     <Elements stripe={stripePromise} className="" >
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    </Elements>
     <Row>
     {
       userData?.creator===true&&
+      userData?.eroxrFee===true&&
     <Col xl={10}>
     
     <Row className='justify-content-center mr-lg-5'>
@@ -205,11 +216,37 @@ For your Audience</h2>
     </Col>
   }
   {
+      userData?.eroxrFee===false&&
       userData?.creator===false&&
-     
-      <h3 className='ml-lg-5' >Please become eroxr member by buying our member ship!</h3>
       
-          }
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets5.lottiefiles.com/packages/lf20_bogmlqx0.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>setShowModal(true)} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Buy our MemberShip!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
+      {
+      userData?.eroxrFee===true&&
+      userData?.creator===false&&
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets7.lottiefiles.com/private_files/lf30_pljwgbzs.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>history.push('/admin/home')} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Become a creator!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
     
     
     <Col xl={1}>
