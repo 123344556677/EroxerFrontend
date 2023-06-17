@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillDollarCircle, AiFillInstagram, AiOutlineWechat } from 'react-icons/ai'
 import './DashboardSection.css'
 import dashboardProfile  from'../dummy.jpg'
@@ -32,8 +32,12 @@ import {
 import { IoIosMoon } from 'react-icons/io';
 import { BsFillBellFill } from 'react-icons/bs';
 import { FaMoneyBillWaveAlt, FaUserShield } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getReduxSubscribedUser } from 'components/redux/actions/paymentAction'
+import { getUserById } from 'components/redux/actions/userActions'
+
+import { getAllTip } from 'components/redux/actions/paymentAction'
+import { getAllCreatorRequest } from 'components/redux/actions/creatorActions'
 
 
 const DashboardSection = () => {
@@ -60,6 +64,17 @@ const DashboardSection = () => {
      const [userId, setuserId] = useState(
     JSON.parse(localStorage.getItem("keys"))
   );
+  const Values={
+    userId:userId.id
+  }
+  const dispatch=useDispatch()
+  useEffect(() => {
+      dispatch(getUserById(Values))
+     
+      dispatch(getAllCreatorRequest())
+      dispatch(getAllTip())
+        
+    }, [dispatch])
   const tipUsers = useSelector((state) =>
     getReduxSubscribedUser(state?.getAllTip, userId?.id)
   );
@@ -74,7 +89,7 @@ subscribedData?.map((data) => {
 });
 
 tipUsers?.map((data) => {
-  total += data?.tip || 0;
+  total += data?.paymentData?.tip || 0;
 });
   return (
     <div className='dashboard' >

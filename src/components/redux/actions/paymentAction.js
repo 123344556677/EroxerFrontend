@@ -26,9 +26,19 @@ export const getAllTip = () => async (dispatch) => {
 };
 export const getReduxSubscribedUser = (state, userId)  => {
     try {
-      return state?.recieverTip?.filter(user => user?.recieverId === userId);
+      return state?.recieverTip?.filter(user => user?.paymentData?.recieverId === userId);
 
     } catch (error) {
        
+    }
+};
+export const getPaymentsRequest = () => async (dispatch) => {
+    try {
+        const { data } = await axios.get(`${url}/getAllPaymentRequest`);
+        dispatch({ type: actionTypes.GET_PAYMENT_REQUEST_SUCCESS, payload: data });
+        console.log(data,"=========>data-redux")
+
+    } catch (error) {
+        dispatch({ type: actionTypes.GET_PAYMENT_REQUEST_FAIL, payload: error.response });
     }
 };

@@ -10,13 +10,19 @@ import { getAdsById } from 'Api/Api'
 import Moment from 'react-moment';
 import { useSelector } from 'react-redux'
 import { toast,ToastContainer } from 'react-toastify'
+import { createContact } from 'Api/Api'
+import ChatPortion from 'components/ChatPortion/ChatPortion'
 
 const AdDescription = () => {
 const [adData,setAdData]=useState()
+const [animationCheck, setAnimationCheck] = useState(false)
+const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
 const { id } = useParams();
 const getUser= useSelector(state => state.getUserById);
 const getAds = useSelector(state => state?.getAds);
-        const userData=getUser?.userData
+  const userData=getUser?.userData
+
+  const history=useHistory()
     useEffect(()=>{
       
      getAdsById(id)
@@ -30,14 +36,23 @@ const getAds = useSelector(state => state?.getAds);
     },[])
     console.log(adData,)
      const filteredAds=getAds?.ads?.filter((data)=>data?._id!==adData?._id)
-     const showAlert=()=>{
-      toast.error('you are not subscribed to this user', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 3000,
-    
-      theme: 'dark',
-     
-    });
+     const contact=(e)=>{
+      console.log(e,"ad id------->")
+      setAnimationCheck(true)
+      const values={
+        contactorId:userId?.id,
+        recieverId:e
+
+      }
+      createContact(values)
+      .then((res)=>{
+        if(res.data.message==="contact Generated"){
+          setTimeout(() => {
+          history.push('/admin/chat')
+          },2000)
+
+        }
+      })
      }
 
   return (
@@ -145,10 +160,10 @@ const getAds = useSelector(state => state?.getAds);
 
     </Row>
     <h1 className='text-center mt-3'>
-<Button className='reset-button ml-lg-3 reset-button' onClick={showAlert}>Contact</Button></h1>
+<Button className='reset-button ml-lg-3 reset-button' onClick={contact}>Contact</Button></h1>
     </Card>
 {
-  filteredAds.map((data)=>(
+  filteredAds?.map((data)=>(
     <Card className='ml-lg-5' style={{backgroundColor:"#1E1E1E",borderRadius: "18px",zoom:"0.85",boxShadow:" 0px 0px 16px 3px rgba(0, 0, 0, 0.25)"}}>
    <div
         style={{
@@ -190,8 +205,10 @@ const getAds = useSelector(state => state?.getAds);
       <Row className='profile-user-row' style={{marginTop:"-15px"}}>
       <Col >
       
-      <h4 className='mt-3 user-name mb-0 '>{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}<span className='ml-1'><FaUserAlt/></span>
-       <span><AiOutlineUserAdd style={{fontSize:"25px",marginLeft:"80%"}} className='user-name '/></span></h4>  
+      <h4 className='mt-3 user-name mb-0 '>{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}<span className='ml-1'><FaUserAlt/></span></h4>
+      {
+      //  <span><AiOutlineUserAdd style={{fontSize:"25px",marginLeft:"80%",marginTop:"-50px"}} className='user-name '/></span>
+      } 
        {
       // <p style={{color:" #8B8B8B",fontSize:"10px"}} >{data?.userData?.profileName?data?.userData?.profileName:data?.userData?.firstName}</p>
        }
@@ -228,14 +245,26 @@ const getAds = useSelector(state => state?.getAds);
 }
 
     </Row>
+    {
+      data?.userId!==userId?.id&&
     <h1 className='text-center mt-3'>
-<Button className='reset-button ml-lg-3 reset-button' onClick={showAlert}>Contact</Button></h1>
+    {
+    animationCheck?
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
+<Button className='reset-button ml-lg-3 reset-button' onClick={()=>contact(data?.userId)}>Contact</Button>
+    }
+</h1>
+  }
+    
     </Card>
     ))
 }
     </Col>
     <Col>
-    <ChatProfile/>
+    <ChatPortion/>
     </Col>
 
     </Row>

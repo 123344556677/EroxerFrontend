@@ -16,6 +16,7 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { sendRequest } from 'Api/Api';
 import { toast,ToastContainer } from 'react-toastify';
 import { updatePost } from 'Api/Api';
+import { useSelector } from 'react-redux';
 
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -46,6 +47,8 @@ const LockModal = (props,val) => {
     const elements = useElements()
     const [animationCheck, setAnimationCheck] = useState(false)
     const [paymentCheck, setPaymentCheck] = useState("pending")
+    const getUser= useSelector(state => state?.getUserById);
+  const userData=getUser?.userData
   function toggleModal() {
   setShowModal(!showModal);
 }
@@ -72,7 +75,8 @@ const handlePayment=async()=>{
                 
           const { id } = paymentMethod
                 const values={
-                senderId:userId.id,
+                  senderId:userId?.id,
+                userData:userData,
                 recieverId:props?.value?.userData?._id,
                 payment:props?.value?.userData?.profilePrice,
                 paymentId:id

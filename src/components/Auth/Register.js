@@ -45,6 +45,7 @@ function Register(props) {
   const [animationCheck, setAnimationCheck] = useState(false)
   const [modalCheck, setModalCheck] = useState(false)
   const [showModal, setShowModal] = useState(false);
+  const [modalUser, setModalUser] = useState();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -92,6 +93,7 @@ function Register(props) {
     };
     if(isChecked===true){
     await register(values).then((res) => {
+      console.log(res)
       if (res.data.message === "Email already exist") {
          setAnimationCheck(false)
         toast.warning("Email already exist", {
@@ -113,8 +115,11 @@ function Register(props) {
         // setTimeout(() => {
         //   history.push("/");
         // }, 2000);
+        setModalUser(res?.data?.data)
+        
          setShowModal(true);
           setAnimationCheck(false)
+        
        
       }
     });
@@ -135,7 +140,7 @@ const closeModal = () => {
   return (
     <div>
     <Elements stripe={stripePromise} className="" >
-    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal} userData={modalUser}/>
     </Elements>
     
       <Col className="ml-auto mr-auto col-md-6 col-lg-4">

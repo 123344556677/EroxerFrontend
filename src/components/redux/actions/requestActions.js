@@ -34,3 +34,13 @@ export const getAllAcceptedUsers = (values) => async (dispatch) => {
         dispatch({ type: actionTypes.GET_ALL_ACCEPTED_REQUEST_FAIL, payload: error.response });
     }
 };
+export const getAllSubscriptions = () => async (dispatch) => {
+    try {
+        const { data } = await axios.post(`${url}/getAllSubscriptions`);
+        dispatch({ type: actionTypes.GET_ALL_SUBSCRIPTIONS_SUCCESS, payload: data });
+        console.log(data,"=========>requestData")
+
+    } catch (error) {
+        dispatch({ type: actionTypes.GET_ALL_SUBSCRIPTIONS_FAIL, payload: error.response });
+    }
+};

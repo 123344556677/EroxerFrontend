@@ -21,3 +21,13 @@ export const getAllTip= (state = {recieverTip: []}, action) => {
             return state
     }
 };
+export const getPaymentRequestReducer = (state = {paymentRequest: []}, action) => {
+    switch(action.type) {
+        case actionTypes.GET_PAYMENT_REQUEST_SUCCESS:
+            return { paymentRequest: action.payload }
+        case actionTypes.GET_PAYMENT_REQUEST_FAIL:
+            return { error: action.payload }
+        default:
+            return state
+    }
+};

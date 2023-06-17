@@ -47,6 +47,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCreatorRequest } from "components/redux/actions/creatorActions";
 import { getAllUsers } from "components/redux/actions/userActions";
 import { getPayments } from "components/redux/actions/paymentAction";
+import { getAllSubscriptions } from "components/redux/actions/requestActions";
+import { getAllTip } from "components/redux/actions/paymentAction";
+import { getPaymentsRequest } from "components/redux/actions/paymentAction";
+
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -69,6 +73,9 @@ function Dashboard(props) {
       dispatch(getAllCreatorRequest())
       dispatch(getAllUsers())
       dispatch(getPayments())
+      dispatch(getAllSubscriptions())
+      dispatch(getAllTip())
+      dispatch(getPaymentsRequest())
     
         
     }, [dispatch])

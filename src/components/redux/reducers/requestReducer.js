@@ -31,3 +31,13 @@ export const getAllAcceptedRequestReducer = (state = {accpetedRequests: []}, act
             return state
     }
 };
+export const getAllSubscriptionsReducer = (state = {allSubscriptions: []}, action) => {
+    switch(action.type) {
+        case actionTypes.GET_ALL_SUBSCRIPTIONS_SUCCESS:
+            return { allSubscriptions: action.payload }
+        case actionTypes.GET_ALL_SUBSCRIPTIONS_FAIL:
+            return { error: action.payload }
+        default:
+            return state
+    }
+};

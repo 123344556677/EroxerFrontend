@@ -59,6 +59,7 @@ const Ads = () => {
      const [CitydropdownOpen, setCityDropdownOpen] = useState(false);
      const [GenderdropdownOpen, setGenderDropdownOpen] = useState(false);
      const [AgedropdownOpen, setAgeDropdownOpen] = useState(false);
+     const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
      const [filtereCheck, setFiltereCheck] = useState(false);
      const [filter, setFilter] = useState("");
      const [adData, setAdData] = useState([]);
@@ -636,7 +637,7 @@ console.log(adData)
     <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
     </Elements>
     {
-      userData?.creator===true&&
+     
       userData?.eroxrFee===true&&
       <>
     <Row>

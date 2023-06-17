@@ -16,12 +16,13 @@ import { getLastMessage } from "Api/Api";
 import { AiFillCiCircle } from "react-icons/ai";
 import { BsDot } from "react-icons/bs";
 import { updateReadStatus } from "Api/Api";
+import { getContactById } from "components/redux/actions/contactActions";
 
 const ChatSection = ({ dataValue,msgValue }) => {
   const dispatch=useDispatch()
   const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
   const getAllAcceptedRequests = useSelector(
-    (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
+    (state) => state?.getContactById?.contactById
   );
   const [chatData, setChatData] = useState();
   const [readCheck, setReadCheck] = useState(false);
@@ -151,7 +152,7 @@ const ChatSection = ({ dataValue,msgValue }) => {
     userId:userId.id
   }
    useEffect(() => {
-    dispatch(getAllAcceptedUsers(values))
+    dispatch(getContactById(values))
     
    }, [])
    

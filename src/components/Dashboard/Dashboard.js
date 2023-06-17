@@ -13,9 +13,20 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { EffectCoverflow, Pagination, Navigation } from 'swiper';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { getReduxSubscribedUser } from 'components/redux/actions/paymentAction'
+import { createPaymentRequest } from 'Api/Api'
+import { toast,ToastContainer } from 'react-toastify'
+import { useEffect } from 'react'
+import { getUserById } from 'components/redux/actions/userActions'
+import { getAllCreatorRequest } from 'components/redux/actions/creatorActions'
+import { getAllTip } from 'components/redux/actions/paymentAction'
+import EroxrFeeModal from 'components/Modals/EroxrFeeModal'
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { useHistory } from 'react-router-dom'
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 
 
@@ -30,7 +41,13 @@ const Dashboard = () => {
   const subscribedData=subscribedUsers?.senderAllRequests
   const getUser= useSelector(state => state?.getUserById);
   const userData=getUser?.userData
-  console.log(subscribedUsers,"users subscribed======>")
+  console.log(tipUsers,"users subscribed======>")
+  const Values={
+    userId:userId.id
+  }
+  const history=useHistory()
+  const [showModal, setShowModal] = useState(false);
+  const dispatch=useDispatch()
   let total = 0;
   let tips = 0;
   let subscriptions = 0;
@@ -41,13 +58,110 @@ subscribedData?.map((data) => {
 });
 
 tipUsers?.map((data) => {
-  total += data?.tip || 0;
-  tips += data?.tip || 0;
+  total += data?.paymentData?.tip || 0;
+  tips += data?.paymentData?.tip || 0;
 });
+const withdraw=()=>{
+  const values={
+    userId:userId?.id,
+    userData:userData,
+    payment:total,
+
+  }
+  createPaymentRequest(values)
+  .then((res)=>{
+    if(res?.data?.message==="request Generated"){
+      toast.success('you will get your payment,once our team verify your request!', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+
+    }
+    else{
+       toast.error('Server error', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+
+    }
+  })
+}
+ useEffect(() => {
+      dispatch(getUserById(Values))
+     
+      dispatch(getAllCreatorRequest())
+      dispatch(getAllTip())
+        
+    }, [dispatch])
+    const closeModal = () => {
+    setShowModal(false);
+  };
  
   return (
     <div className='content' style={{zoom:"0.75"}}>
+     <Elements stripe={stripePromise} className="" >
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    </Elements>
+    {
+      userData?.eroxrFee===false&&
+      userData?.creator===false&&
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets5.lottiefiles.com/packages/lf20_bogmlqx0.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>setShowModal(true)} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Buy our MemberShip!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
+      {
+      userData?.eroxrFee===false&&
+      userData?.creator===true&&
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets5.lottiefiles.com/packages/lf20_bogmlqx0.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>setShowModal(true)} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Buy our MemberShip!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
+      {
+      userData?.eroxrFee===true&&
+      userData?.creator===false&&
+      
+   <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets7.lottiefiles.com/private_files/lf30_pljwgbzs.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
+    
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>history.push('/admin/memberShip')} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Become a creator!</Button>
+   </h1>
+   </Col>    // <h3  className='ml-lg-5'>Please become eroxr member by buying our member ship!</h3>
+    
+     
+      }
+       {
+      userData?.creator===true&&
+      userData?.eroxrFee===true&&
+      <>
     <DashboardSection/>
+    
      
 
     <Row className='ml-lg-4'>
@@ -71,6 +185,17 @@ tipUsers?.map((data) => {
 // </CardBody>
   }
   
+  <CardBody>
+    
+    <ButtonGroup className="d-flex justify-content-between align-items-end">
+      <Button className="dash-send-button" onClick={withdraw}>Request Withdrawal</Button>
+     
+    </ButtonGroup>
+    
+    
+</CardBody>
+  
+  
 </Card>
  <Card className='mt-4 tip-card' >
     <Row>
@@ -90,18 +215,18 @@ tipUsers?.map((data) => {
     <Col>
     <Media className=' mt-3 ml-2 mb-2 chat-media'>
       <Media left>
-        <img object style={{width:"40px",height:"40px"}} src={data?.senderData?.profilePic?data?.senderData?.profilePic:TipsOne} alt="jannan" className="rounded-circle" />
+        <img object style={{width:"40px",height:"40px"}} src={data?.paymentData?.senderData?.profilePic?data?.paymentData?.senderData?.profilePic:TipsOne} alt="jannan" className="rounded-circle" />
       </Media>
       <Media body className="ml-2 mt-2 ">
    
-        <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>{data?.senderData?.username?data?.senderData?.username:data?.senderData?.firstName}</p>
+        <p className='text-white 'style={{fontWeight:"600",fontSize:"12px"}}>{data?.paymentData?.senderData?.username?data?.paymentData?.senderData?.username:data?.paymentData?.senderData?.firstName}</p>
         </Media>
       
     </Media>
     </Col>
     <Col className='text-right'>
     
-         <p className='text-white mt-3 mr-lg-5 'style={{color:"white",fontSize:"15px"}}>$ {data?.tip}</p>
+         <p className='text-white mt-3 mr-lg-5 'style={{color:"white",fontSize:"15px"}}>$ {data?.paymentData?.tip}</p>
          </Col>
          
          </Row>
@@ -186,7 +311,7 @@ tipUsers?.map((data,index)=>(
   <> 
   <Col xl={2}>
 <Progress className="vertical-progress-bar" now={10} />
-<p className='' style={{}} >$ {data?.tip}</p>
+<p className='' style={{}} >$ {data?.paymentData?.tip}</p>
 </Col>
 </> 
 ))
@@ -274,7 +399,9 @@ tipUsers?.map((data,index)=>(
 
         
       </Swiper>
-    
+      </>
+  }
+    <ToastContainer/>
     </div>
   )
 }

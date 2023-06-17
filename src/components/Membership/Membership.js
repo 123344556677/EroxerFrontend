@@ -385,10 +385,7 @@ If we notice an attempted login from a device or browser we don't
        creator?.status==="pending"&&
       <h3>Your request is pending for approval!</h3>
       }
-      {
-      creator?.status==="approved"&&
-      <h3>Your request has been approved. Please proceede next!</h3>
-      }
+      
       {
       userData?.creator===true&&
       <h3>Your are now a member of eroxr!</h3>

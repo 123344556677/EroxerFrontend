@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { createPayment } from 'Api/Api';
+
 import React from 'react'
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +12,7 @@ import memberSix from './j43.png'
 import memberSeven from './j44.png'
 import memberEight from './j45.png'
 import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
+import { createPayment } from 'Api/Api';
 const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -33,7 +34,7 @@ const CARD_OPTIONS = {
     }
 }
 
-const EroxrFeeModal = ({ isOpen, toggle }) => {
+const EroxrFeeModal = ({ isOpen, toggle,userData }) => {
     const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
     const [animationCheck, setAnimationCheck] = useState(false)
   const [name,setName]=useState()
@@ -62,18 +63,19 @@ const EroxrFeeModal = ({ isOpen, toggle }) => {
                 
           const { id } = paymentMethod
                 const values={
-                  userId:userId.id,
+                  userId:userId.id?userId.id:userData?._id,
      name:name,
      email:email,
      postalCode:postalCode,
      state:state,
      paymentId:id
       }
-      console.log(values)
+      
       createPayment(values)
       .then((res)=>{
+        console.log(values)
       if (res.data.message === "payment Successfull") {
-          toast.success('payment Successful', {
+          toast.success('Payment successful', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
     
@@ -81,7 +83,7 @@ const EroxrFeeModal = ({ isOpen, toggle }) => {
      
     });
     setTimeout(() => {
-          history.push("/");
+          history.push("/admin/home");
         }, 2000);
 
       }
@@ -110,7 +112,7 @@ const EroxrFeeModal = ({ isOpen, toggle }) => {
           
       
     }
-    
+    console.log(userData,"------------>props")
   return (
     <Modal isOpen={isOpen} toggle={toggle} style={{marginTop:"-60px"}}>
       

@@ -70,6 +70,7 @@ import { getAllCreatorRequest } from 'components/redux/actions/creatorActions';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import { getAllTip } from 'components/redux/actions/paymentAction';
+import { getContactById } from 'components/redux/actions/contactActions';
 const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 
@@ -275,6 +276,7 @@ const lottieOptions = {
       dispatch(getAllAcceptedUsers(values))
       dispatch(getListById(values))
       dispatch(getCallById(values))
+      dispatch(getContactById(values))
       dispatch(getAllCreatorRequest())
       dispatch(getAllTip())
         

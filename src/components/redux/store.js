@@ -8,11 +8,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { getPostsReducer } from './reducers/postReducer';
 import { getAdsReducer } from './reducers/adsReducer';
 import { getAllUsers, getUserByIdReducer } from './reducers/userReducer';
-import { getAllAcceptedRequestReducer, getAllRequestReducer, getAllSenderRequestReducer } from './reducers/requestReducer';
+import { getAllAcceptedRequestReducer, getAllRequestReducer, getAllSenderRequestReducer, getAllSubscriptionsReducer } from './reducers/requestReducer';
 import { getListByIdReducer } from './reducers/listReducer';
 import { getAllCallReducer } from './reducers/callReducer';
 import { getAllCreatorRequest } from './reducers/creatorReducer';
-import { getPaymentReducer,getAllTip } from './reducers/paymentReducer';
+import { getPaymentReducer,getAllTip, getPaymentRequestReducer } from './reducers/paymentReducer';
+import { getContactByIdReducer } from './reducers/contactReducer';
 
 const reducer = combineReducers({
     getUserById:getUserByIdReducer,
@@ -26,7 +27,10 @@ const reducer = combineReducers({
     getAllCallReducer:getAllCallReducer,
     getAllCreatorRequest:getAllCreatorRequest,
     getPaymentReducer:getPaymentReducer,
-    getAllTip:getAllTip
+    getAllTip:getAllTip,
+    getAllSubscriptionsReducer:getAllSubscriptionsReducer,
+    getPaymentRequestReducer:getPaymentRequestReducer,
+    getContactById:getContactByIdReducer
 
 
     

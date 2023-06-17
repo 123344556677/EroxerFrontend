@@ -146,9 +146,22 @@ export const createPoll= async (values) => {
 //payment
 export const createPayment= async (values) => {
     return await axios.post(`${url}/createPayment`, values);
+    
+}
+export const createPaymentRequest= async (values) => {
+    return await axios.post(`${url}/createPaymentRequest`, values);
+    
 }
 export const sendTip= async (values) => {
     return await axios.post(`${url}/sendTip`, values);
+}
+export const updatePaymentRequest= async (values) => {
+    return await axios.put(`${url}/changePaymentRequestStatus`, values);
+}
+
+//contact
+export const createContact= async (values) => {
+    return await axios.post(`${url}/createContact`, values);
 }
 
 

@@ -64,7 +64,7 @@ function Login(props) {
 
             theme: "dark",
           });
-          const id = res.data.data._id;
+          const id = res?.data?.data?._id;
           localStorage.setItem("keys", JSON.stringify({ id }));
           setTimeout(() => {
             history.push("/admin/home");
@@ -113,7 +113,7 @@ function Login(props) {
 
           theme: "dark",
         });
-        const id = res.data.data._id;
+        const id = res?.data?.data?._id;
         localStorage.setItem("keys", JSON.stringify({ id }));
         if(res?.data?.data?.key==="admin"){
         setTimeout(() => {
