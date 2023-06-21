@@ -81,6 +81,8 @@ function Dashboard(props) {
     }, [dispatch])
   const getAllUser= useSelector(state => state?.getAllUsers);
     const AllUser=getAllUser?.allUsers
+    const getAllPayment= useSelector(state => state?.getPaymentReducer);
+    const payment=getAllPayment?.payment
 
   // function to retrieve data from the database in a format suitable for chart 1
   
@@ -268,7 +270,7 @@ function Dashboard(props) {
               options = {chartExample2.options}
               passedRef = {newRef => setChartRef2(newRef)}
               dataName = {"Total Payments"}
-              totalData = {"46,379"}
+              totalData = {payment.length}
             />
             
           </Col>
@@ -278,7 +280,7 @@ function Dashboard(props) {
               options = {chartExample3.options}
               passedRef = {newRef => setChartRef3(newRef)}
               dataName = {"Eroxer Revenue"}
-              totalData = {"267"}
+              totalData = {"0"}
             />
           </Col>
           {

@@ -78,6 +78,7 @@ const getUser = useSelector((state) => state?.getUserById);
 const userData = getUser?.userData;
  const getAllUser= useSelector(state => state?.getAllUsers);
   const AllUser=getAllUser?.allUsers
+  const getSubscribedUser = useSelector(state => state?.getAllAcceptedRequestReducer?.accpetedRequests);
 
 const history=useHistory()
 const dispatch=useDispatch()
@@ -184,6 +185,9 @@ const closeModal = () => {
         >
           {streamThumb?
             streamThumb?.map((data) => (
+             getSubscribedUser?.map((datas)=>(
+              data?._id===datas?._id&&
+
             <SwiperSlide
               style={{
                 width: "40%",
@@ -205,6 +209,7 @@ const closeModal = () => {
               // </div>
               }
             </SwiperSlide>
+            ))
           ))
         :
         <h3 className="text-center ml-lg-3 mt-5">No one streaming!</h3>
@@ -234,6 +239,8 @@ const closeModal = () => {
           {
             streamThumb?
             streamThumb?.map((data) => (
+              getSubscribedUser?.map((datas)=>(
+              data?._id===datas?._id&&
             <Col xl={4}>
             {checkBackgroundImage(data)}
               
@@ -242,6 +249,7 @@ const closeModal = () => {
                 Live
               </p>
             </Col>
+            ))
            
           ))
            :

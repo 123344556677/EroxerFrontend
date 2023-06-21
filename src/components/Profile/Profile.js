@@ -187,7 +187,7 @@ dispatch(getUserById(values))
     changeOnlineStatus(values)
     .then((res)=>{
       if(res.data.message==="updated"){
-        toast.success(`Online status turned ${isChecked}`, {
+        toast.success(`Online status turned ${isChecked?"on":"off"}`, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
 
@@ -613,9 +613,11 @@ const checkPost=(post)=>{
           style={{ color: "white", width: "18px", height: "18px",cursor:"pointer" }}
           className="ml-lg-5"
         />
-        <span className="ml-2" style={{ fontWeight: "600",cursor:"pointer" }}>
-          Tagged
-        </span>
+        {
+        // <span className="ml-2" style={{ fontWeight: "600",cursor:"pointer" }}>
+        //   Tagged
+        // </span>
+        }
          {
               id===':id'&&
          <>

@@ -269,18 +269,18 @@ const lottieOptions = {
      useEffect(() => {
       dispatch(getUserById(values))
       dispatch(posts())
-      dispatch(ads())
+      // dispatch(ads())
       dispatch(getAllUsers())
-      dispatch(getRequestById(values))
-      dispatch(getRequestBySenderId(values))
-      dispatch(getAllAcceptedUsers(values))
-      dispatch(getListById(values))
-      dispatch(getCallById(values))
-      dispatch(getContactById(values))
-      dispatch(getAllCreatorRequest())
-      dispatch(getAllTip())
+      // dispatch(getRequestById(values))
+      // dispatch(getRequestBySenderId(values))
+      // dispatch(getAllAcceptedUsers(values))
+      // dispatch(getListById(values))
+      // dispatch(getCallById(values))
+      // dispatch(getContactById(values))
+      // dispatch(getAllCreatorRequest())
+      // dispatch(getAllTip())
         
-    }, [dispatch])
+    }, [])
     
       console.log(streamPics,"All user---->")
 
@@ -575,8 +575,9 @@ const handleImageHover = () => {
       {
         streamPics?
 streamPics?.map((data,index)=>(
-
-
+  getSubscribedUser?.map((datas)=>(
+        
+   datas?._id===data?._id&&
         <li>
         {
           hoveredImage===false&&
@@ -604,6 +605,7 @@ streamPics?.map((data,index)=>(
         }
         
         </li>
+      ))
         
         
         ))
@@ -654,7 +656,7 @@ streamPics?.map((data,index)=>(
     <Elements stripe={stripePromise} >
       <LockModal open={lockModal} value={data}/>
       </Elements>
-      ))
+    ))
       :
       userId?.id!==data?.userId&&
       data?.payerId.length?

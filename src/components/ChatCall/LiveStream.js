@@ -8,6 +8,12 @@ import { getAllUsers } from 'components/redux/actions/userActions';
 import { Button } from 'reactstrap';
 import TipModal from 'components/Modals/TipModal';
 import { useState } from 'react';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Pusher from 'pusher-js';
+const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 
 function randomID(len) {
   let result = '';
@@ -80,8 +86,8 @@ const {id}=useParams()
 
   }
     const liveStreaming=(element)=>{
-  const appID =1853841837 ;
-      const serverSecret = "04509cb03d706e9bbd4b7058d955943f";
+      const appID =1361106244 ;
+      const serverSecret = "ec77d76d2136c0e705f7fa692b31433f";
       const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret,id, Date.now().toString(),userData?.firstName);
       const zp = ZegoUIKitPrebuilt.create(kitToken);
       zp.joinRoom({
@@ -106,6 +112,17 @@ const {id}=useParams()
      
 
 }
+const channel = Pusher.subscribe(`tip${userId?.id}`);
+    channel.bind('live-tip', (data) => {
+       toast.success(`${data?.senderData?.firstName} sent you ${data?.tip}`, {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+      
+    })
   return (
     <div className='content'>
     
@@ -121,11 +138,14 @@ const {id}=useParams()
     </div>
     { 
       id!==userId.id&&
-    <TipModal/>
+      <Elements stripe={stripePromise} className="" >
+    <TipModal recieverId={id}/>
+    </Elements>
     }
     {
     // <Button className='reset-button'>Tip</Button>
     }
+    <ToastContainer/>
 
 
     

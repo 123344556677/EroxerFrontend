@@ -151,8 +151,8 @@ const closeModal = () => {
     
     <Row className='justify-content-center mr-lg-5'>
     <Col xl={6} className="">
-    <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create poll <br/>
-For your Audience</h2>
+    <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create Poll <br/>
+For Your Audience</h2>
 <Form onSubmit={poll}>
 
 <Input

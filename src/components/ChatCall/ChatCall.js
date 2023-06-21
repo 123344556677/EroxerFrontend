@@ -18,8 +18,8 @@ const getUser = useSelector((state) => state?.getUserById);
     avatar:userData?.profilePic// Replace with your own image URL
   };
      const AudioCall=(element)=>{
-    const appID =1853841837 ;
-      const serverSecret = "04509cb03d706e9bbd4b7058d955943f";
+      const appID =1361106244 ;
+      const serverSecret = "ec77d76d2136c0e705f7fa692b31433f";
       const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret,id, Date.now().toString(),userData?.firstName);
       const zp = ZegoUIKitPrebuilt.create(kitToken);
       zp.joinRoom({

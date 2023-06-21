@@ -157,7 +157,7 @@ function Login(props) {
               <CardHeader>
                 <CardTitle>
                   <h2 className=" text-white mb-2 text-center login-logo">
-                    Login to Your Account
+                    Login To Your Account
                   </h2>
                   <p className="login-text text-center ">
                     Your Own Digital Compaign

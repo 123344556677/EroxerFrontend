@@ -121,6 +121,7 @@ const handlePayment=async()=>{
 
 }
 const handlePaymentTwo=async()=>{
+  
   setAnimationCheck(true)
   try {
         const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -142,8 +143,10 @@ const handlePaymentTwo=async()=>{
                 paymentId:id
      
       }
-      updatePost(values)
+      console.log(values)
+      await updatePost(values)
       .then((res)=>{
+        console.log(res,"-------------->")
       if (res.data.message === "post updated") {
           toast.success('payment Successful', {
       position: toast.POSITION.TOP_CENTER,
@@ -329,7 +332,7 @@ const handlePaymentTwo=async()=>{
 <h1 className='text-center mt-4 mb-0'>
 <Button className=' pay-submit-btn' onClick={handlePayment}>Submit</Button></h1>
 <h1 className='text-center mb-0'>
- <Button type="button" className="pay-cancel-btn" onClick={toggleModal}>
+ <Button type="button" className="post-cancel-btn" onClick={toggleModal}>
       Cancel
     </Button>
     </h1>
@@ -458,7 +461,7 @@ const handlePaymentTwo=async()=>{
 <h1 className='text-center mt-4 mb-0'>
 <Button className=' pay-submit-btn' onClick={handlePaymentTwo}>Submit</Button></h1>
 <h1 className='text-center mb-0'>
- <Button type="button" className="pay-cancel-btn" onClick={toggleModal}>
+ <Button type="button" className="post-cancel-btn" onClick={toggleModal}>
       Cancel
     </Button>
     </h1>

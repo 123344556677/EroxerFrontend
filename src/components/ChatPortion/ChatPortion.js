@@ -12,7 +12,7 @@ import streamFour from './dummy.jpg'
 import streamFive from './dummy.jpg'
 import streamSix from './j25.png'
 import streamSeven from './j26.png'
-import streamEight from './j27.png'
+import streamEight from './dummy.jpg'
 import streamNine from './j28.png'
 
 import {
@@ -47,6 +47,9 @@ import { updateAllCallStatus } from 'Api/Api';
 import { getCallById } from 'components/redux/actions/callActions';
 import { changeStatus } from 'Api/Api';
 import { toast,ToastContainer } from 'react-toastify';
+import { updateNotiStatus } from 'Api/Api';
+import { getContactById } from 'components/redux/actions/contactActions';
+import { getRequestBySenderId } from 'components/redux/actions/requestActions';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -54,17 +57,34 @@ const ChatPortion = () => {
      const [notiOpen, setNotiOpen] = useState(false);
      const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
      const [isOpen, setIsOpen] = useState(false);
+     const [ subscribedByReciever,  setSubscribedByReciever] = useState([]);
      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
      const getCalls = useSelector(state => state?.getAllCallReducer?.call);
      
      const getAllAcceptedRequests = useSelector(
     (state) => state?.getContactById?.contactById
   );
+   const subscribedUsers= useSelector(state => state?.getAllSenderRequestReducer);
+  const subscribedData=subscribedUsers?.senderAllRequests
+ 
+  
+    
+    
+  
  let readChats =getAllAcceptedRequests;
  const [lastMessages, setLastMessages] = useState();
  console.log(getRequests,"recievr requests")
  useEffect(()=>{
- setNotiLen((getRequests?.length || 0) + (getCalls?.length || 0))
+ setNotiLen((subscribedByReciever?.length || 0) + (getCalls?.length || 0))
+ },[subscribedByReciever,getCalls])
+  useEffect(()=>{
+ setSubscribedByReciever(subscribedData?.filter(data=>data?.paymentData?.notiStatus===true))
+ },[subscribedData])
+
+ useEffect(()=>{
+dispatch(getContactById(values))
+dispatch(getRequestBySenderId(values))
+dispatch(getCallById(values))
  },[])
 
 
@@ -260,9 +280,8 @@ const handleNotiValues=()=>{
     userId:userId.id
   }
 updateAllCallStatus(callValues)
-.then((res)=>{
- dispatch(getCallById(values))
-})
+updateNotiStatus(callValues)
+
  
 }
   return (
@@ -292,27 +311,30 @@ updateAllCallStatus(callValues)
     
      <div className='home-main-noti-div'>
      {
-       getRequests?.map((data)=>(
+       subscribedByReciever?.map((data)=>(
+        
       <>
      <Media left>
-        <img object  src={data?.profilePic?data?.profilePic:streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
+        <img object  src={data?.userData?.profilePic?data?.userData?.profilePic:streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
       </Media>
       <Media body className="ml-3 mt-2 mb-5" data-aos="fade-right">
-        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>{data?.username?data?.username:data?.firstName}</h4>
+        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>{data?.userData?.username?data?.userData?.username:data?.userData?.firstName}</h4>
       <Card className='chat-noti-card mr-2 '>
      <div style={{display:"flex"}}>
      
      <div>
-     <p className='chat-noti-text'>{data?.username?data?.username:data?.firstName} sent you friend Request</p>
-     <Row>
-     <Col xl={6}>
-     <Button className='reset-button' onClick={()=>changeRequestStatus(data?._id,"accepted")}>Accept</Button>
-     </Col>
-      <Col xl={6}>
-     <Button className='cancel-button'onClick={()=>changeRequestStatus(data?._id,"rejected")}>Reject</Button>
-     </Col>
+     <p className='chat-noti-text'>{data?.userData?.username?data?.userData?.username:data?.userData?.firstName} Bought your subscription</p>
+     {
+    //  <Row>
+    //  <Col xl={6}>
+    //  <Button className='reset-button' onClick={()=>changeRequestStatus(data?._id,"accepted")}>Accept</Button>
+    //  </Col>
+    //   <Col xl={6}>
+    //  <Button className='cancel-button'onClick={()=>changeRequestStatus(data?._id,"rejected")}>Reject</Button>
+    //  </Col>
 
-     </Row>
+    //  </Row>
+     }
      
      </div>
      </div>
@@ -320,7 +342,7 @@ updateAllCallStatus(callValues)
      </Card>
         
       </Media>
-    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363",marginTop:"30%"}}/>
+    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363"}}/>
     </>
     ))
     
@@ -383,10 +405,9 @@ updateAllCallStatus(callValues)
       
         <div className="" onClick={handleNotiValues}>
         <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",curosr:"pointer",color:"white",fontSize:"25px"}} />
-        {
-          notiLen&&
+        
       <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen}</Badge>
-        }
+        
     
     </div>
     

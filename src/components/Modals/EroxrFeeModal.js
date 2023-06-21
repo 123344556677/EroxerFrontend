@@ -46,6 +46,7 @@ const EroxrFeeModal = ({ isOpen, toggle,userData }) => {
   const history=useHistory();
   const stripe = useStripe()
   const elements = useElements()
+  let values={}
   const handlePayment=async(e)=>{
       e.preventDefault()
       setAnimationCheck(true)
@@ -62,14 +63,26 @@ const EroxrFeeModal = ({ isOpen, toggle,userData }) => {
             try {
                 
           const { id } = paymentMethod
-                const values={
-                  userId:userId.id?userId.id:userData?._id,
+          if(userData){
+                 values={
+                  userId:userData?._id,
      name:name,
      email:email,
      postalCode:postalCode,
      state:state,
      paymentId:id
       }
+    }
+    else{
+     values={
+                  userId:userId.id,
+     name:name,
+     email:email,
+     postalCode:postalCode,
+     state:state,
+     paymentId:id
+      } 
+    }
       
       createPayment(values)
       .then((res)=>{
@@ -82,9 +95,16 @@ const EroxrFeeModal = ({ isOpen, toggle,userData }) => {
       theme: 'dark',
      
     });
+    if(userData){
+    setTimeout(() => {
+          history.push("/");
+        }, 2000);
+      }
+      else{
     setTimeout(() => {
           history.push("/admin/home");
         }, 2000);
+      }
 
       }
       else {

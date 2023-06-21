@@ -125,6 +125,7 @@ function Register(props) {
     });
   }
   else{
+    setAnimationCheck(false)
     toast.warning("Please agree to terms and policy", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 3000,
@@ -132,6 +133,7 @@ function Register(props) {
           theme: "dark",
           // bodyClassName: 'dark-toast',
         });
+        
   }
   };
 const closeModal = () => {
@@ -149,7 +151,7 @@ const closeModal = () => {
             <CardHeader>
               <CardTitle>
                 <h2 className=" text-white mb-2 text-center login-logo">
-                  Register to Your Account
+                  Register To Your Account
                 </h2>
                 <p className="login-text text-center ">
                   Your Own Digital Compaign

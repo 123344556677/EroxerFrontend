@@ -15,6 +15,7 @@ const ForgetModal = () => {
     const [passwordOne, setPasswordOne]=useState(true);
     const [passwordTwo, setPasswordTwo]=useState(false);
     const [passwordThree, setPasswordThree]=useState(false);
+    const [animationCheck, setAnimationCheck] = useState(false)
     const [email, setEmail]=useState();
     const [code, setCode]=useState();
     const [password, setPassword]=useState();
@@ -61,6 +62,7 @@ const setThiredPassword=()=>{
 // }
 
 const sendingEmail=()=>{
+  setAnimationCheck(true)
    const values={
         email:email
     }
@@ -76,11 +78,13 @@ const sendingEmail=()=>{
     });
     setPasswordOne(false);
     setPasswordTwo(true);
+    setAnimationCheck(false)
    
         }
     })
 }
 const verifyingCode=()=>{
+  setAnimationCheck(true)
     const values={
         code:code
     }
@@ -96,6 +100,7 @@ const verifyingCode=()=>{
     });
    setPasswordTwo(false);
     setPasswordThree(true);
+    setAnimationCheck(false)
 }
      if(res.data.message==="Verification invalid"){
     toast.success('Verification code is invalid or has expired', {
@@ -105,6 +110,7 @@ const verifyingCode=()=>{
       theme: 'dark',
      
     });
+    setAnimationCheck(false)
      
         }
     })
@@ -113,6 +119,7 @@ const verifyingCode=()=>{
 
 }
 const changePassword=async()=>{
+  setAnimationCheck(true)
   const values={
       password:password,
       email:email
@@ -130,7 +137,7 @@ const changePassword=async()=>{
     toggleModal()
       
    }
-   if (res.data.message === "user does not exist") {
+   if (res.data.message === "email does not exist") {
              toast.error('user not exist', {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 3000,
@@ -138,6 +145,7 @@ const changePassword=async()=>{
       theme: 'dark',
      
     });
+    setAnimationCheck(false)
      toggleModal()
       
    }
@@ -254,9 +262,17 @@ const changePassword=async()=>{
   
     
     <Col xl={12} className="text-right">
+    {
+      animationCheck?
+      
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
      <Button type="button" className="  reset-button mr-2 mb-2" onClick={sendingEmail}>
      Continue
     </Button> 
+    }
     
     
     </Col>
@@ -315,9 +331,17 @@ const changePassword=async()=>{
   </Col>
     
     <Col xl={6} className="text-right">
+    {
+      animationCheck?
+      
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
      <Button type="button" className="  reset-button mr-2 mb-2" onClick={verifyingCode}>
      Continue
     </Button> 
+    }
     
     
     </Col>
@@ -419,9 +443,18 @@ const changePassword=async()=>{
   
     
     <Col xl={12} className="text-right">
+    {
+      animationCheck?
+      
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
      <Button type="button" className="  reset-button mr-2 mb-2" onClick={changePassword}>
      Continue
-    </Button> 
+    </Button>
+    } 
+
     
     
     </Col>

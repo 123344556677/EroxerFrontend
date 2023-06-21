@@ -19,6 +19,7 @@ import { toast,ToastContainer } from 'react-toastify';
 import { getCallById } from 'components/redux/actions/callActions';
 import { getAllAcceptedUsers } from 'components/redux/actions/requestActions';
 import { getAllChatsById } from 'Api/Api';
+import { getContactById } from 'components/redux/actions/contactActions';
 
 
 const Chats = () => {
@@ -42,7 +43,7 @@ const Chats = () => {
     const AllUser=getAllUser?.allUsers
 
     const getAllAcceptedRequests = useSelector(
-    (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
+   (state) => state?.getContactById?.contactById
   );
   useEffect(()=>{
  setReadChats(getAllAcceptedRequests)
@@ -79,7 +80,7 @@ const Chats = () => {
       const values={
         userId:e
       }
-       dispatch(getAllAcceptedUsers(values))
+       dispatch(getContactById(values))
        setSenderName(name)
        setFriendsCheck(true)
        setSenderId(e)
@@ -264,6 +265,7 @@ const Chats = () => {
       <Container>
       <Row className='ml-lg-5'>
       <Col className='ml-lg-5'>
+      <div className='msg-div-two'>
             { messages?
               messages?.map((data, index) => (
               <div>
@@ -291,6 +293,7 @@ const Chats = () => {
            :
             <div className="loading">Loading chats...</div>
           }
+          </div>
           </Col>
           </Row>
           </Container>

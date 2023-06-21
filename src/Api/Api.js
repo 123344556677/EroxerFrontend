@@ -124,6 +124,9 @@ export const changeStatus= async (values) => {
 export const getRequestByRecieverId= async (values) => {
     return await axios.post(`${url}/getRequestById`, values);
 }
+export const updateNotiStatus= async (values) => {
+    return await axios.put(`${url}/updateNotiStatus`, values);
+}
 
 //list
 export const addList= async (values) => {
@@ -154,6 +157,9 @@ export const createPaymentRequest= async (values) => {
 }
 export const sendTip= async (values) => {
     return await axios.post(`${url}/sendTip`, values);
+}
+export const sendLiveTip= async (values) => {
+    return await axios.post(`${url}/liveTip`, values);
 }
 export const updatePaymentRequest= async (values) => {
     return await axios.put(`${url}/changePaymentRequestStatus`, values);

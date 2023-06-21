@@ -34,6 +34,7 @@ const Dashboard = () => {
   const [userId, setuserId] = useState(
     JSON.parse(localStorage.getItem("keys"))
   );
+  const [theme, setTheme] = useState(false);
   const tipUsers = useSelector((state) =>
     getReduxSubscribedUser(state?.getAllTip, userId?.id)
   );
@@ -68,6 +69,7 @@ const withdraw=()=>{
     payment:total,
 
   }
+  if(total>0){
   createPaymentRequest(values)
   .then((res)=>{
     if(res?.data?.message==="request Generated"){
@@ -91,6 +93,16 @@ const withdraw=()=>{
 
     }
   })
+}
+else{
+  toast.warn('Your balance is $0', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+}
 }
  useEffect(() => {
       dispatch(getUserById(Values))
@@ -210,6 +222,7 @@ const withdraw=()=>{
  
   
 {
+  tipUsers?.length?
   tipUsers?.map((data)=>(
     <Row>
     <Col>
@@ -234,6 +247,8 @@ const withdraw=()=>{
        
       
     ))
+    :
+    <h2 className='text-center text-white mt-2'>No tips!</h2>
 }
 
     {
@@ -305,7 +320,7 @@ const withdraw=()=>{
 <Row>
 
 {
-    
+tipUsers?.length?  
 tipUsers?.map((data,index)=>(
  index<6&&
   <> 
@@ -315,6 +330,11 @@ tipUsers?.map((data,index)=>(
 </Col>
 </> 
 ))
+:
+<Row className='justify-content-center'>
+<h2 className='text-center text-white  ml-lg-5'>No tips!</h2>
+</Row>
+
 }
 </Row>
     
@@ -359,6 +379,7 @@ tipUsers?.map((data,index)=>(
            
         >
     {
+       subscribedData?.length?
         subscribedData?.map((data)=>(
             <SwiperSlide style={{
                 
@@ -393,6 +414,8 @@ tipUsers?.map((data,index)=>(
         </SwiperSlide>
 
         ))
+        :
+        <h2 className='text-center text-white '>No subscriptions!</h2>
     }
         
      

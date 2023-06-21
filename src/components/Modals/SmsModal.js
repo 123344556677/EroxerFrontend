@@ -114,6 +114,7 @@ setTimeout(() => {
 
       />
       <h1 className='text-center'>
+      
       <Button className='reset-button mt-3' onClick={sendingCode}>Send Code</Button></h1>
       </>
                 }

@@ -33,6 +33,8 @@ import { initializeApp } from "firebase/app";
 import {loadStripe} from '@stripe/stripe-js';
 import { createPayment } from 'Api/Api'
 import { applyForCreator } from 'Api/Api'
+import { getUserById } from 'components/redux/actions/userActions'
+import EroxrFeeModal from 'components/Modals/EroxrFeeModal'
 const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -80,6 +82,7 @@ function Membership () {
   const [postalCode,setPostalCode]=useState()
   const [videoUrl,setVideoUrl]=useState(null)
   const [animationCheck, setAnimationCheck] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   const [frontUrl, setFrontUrl] = useState()
    const [backUrl, setBackUrl] = useState()
   const history=useHistory();
@@ -127,6 +130,9 @@ function Membership () {
     
         
     }
+    const values={
+        userId:userId.id
+      }
     const uploadImageToFirebaseOne = (base64Video) => {
   const fileName = Date.now() + '.jpg';
 const fileRef = ref(storage,  fileName);
@@ -232,7 +238,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
 
     const dispatch=useDispatch()
     useEffect(() => {
-      
+      dispatch(getUserById(values))
       dispatch(getAllCreatorRequest())
         
     }, [dispatch])
@@ -342,14 +348,21 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
     },
    
   ]
+  const closeModal = () => {
+    setShowModal(false);
+  };
   
  
   return (
     <div className='content '>
+     <Elements stripe={stripePromise} className="" >
+    <EroxrFeeModal isOpen={showModal} toggle={closeModal}/>
+    </Elements>
      <span className='' style={{color:"white",fontSize:"10px"}}   ><Link to='/admin/home'
      style={{color:"white",fontSize:"40px",marginTop:"-4%",position:"absolute"}}><IoMdArrowRoundBack/></Link></span>
     <Row className='' >
     {
+      userData?.eroxrFee===true&&
       step===true&&
      
     <Col xl={8} className="ml-lg-5">
@@ -357,7 +370,7 @@ uploadString(fileRef, base64Video, 'data_url').then((snapshot) => {
     <Col className='text-center'>
     
     <img src={memberOne} style={{color:"white",width:"60px",marginTop:"-20px"}}/>
-    <h3 className='text-white mb-0 mt-3' style={{fontWeight:"600"}}>Become A content Creator</h3>
+    <h3 className='text-white mb-0 mt-3' style={{fontWeight:"600"}}>Become A Content Creator</h3>
     <p className="" style={{color:"grey",fontSize:"10px"}}>
 If we notice an attempted login from a device or browser we don't
  <br/> recognize, we'll ask for your password and a verification code.</p>
@@ -373,7 +386,7 @@ If we notice an attempted login from a device or browser we don't
       
    <FormGroup check className="mt-4">
     <Input type="radio" className='mt-2'  />
-    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify Your self</Label>
+    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}><span ><FaHandPointRight style={{fontSize:"20px"}} className='mr-4'/></span>Verify Your Self</Label>
     </FormGroup>
    }
     <Row className='justify-content-center'>
@@ -492,287 +505,303 @@ If we notice an attempted login from a device or browser we don't
     </Col>
     }
     {
-    step===false&&
-    <Col xl={10} style={{zoom:"0.85"}}>
-    <Row className='justify-conten-center'>
-    <Col className='text-center'>
-    <img src={memberOne} style={{color:"white"}}/>
-    <h2 className='text-white mb-0 mt-4' style={{fontWeight:"600"}}>Become A content Creator</h2>
-    <p className="" style={{color:"grey",fontSize:"13px"}}>
-If we notice an attempted login from a device or browser we don't
- <br/> recognize, we'll ask for your password and a verification code.</p>
-    </Col>
-    
-    </Row>
-   <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-5"/>
-   <Form onSubmit={handlePayment}>
-    <FormGroup check className="mt-4" >
-    <Input type="radio" className='mt-2'  />
-    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"18px"}} className='mt-1'>Information</Label>
-    </FormGroup>
-   <Row>
-   
-   <Col xl={5}>
-    <FormGroup className='mt-3'>
-    <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-      First and last name
-    </Label>
-    <Input
-      required
-      placeholder='Name...'
-      className='post-input'
-      onChange={(e)=>setName(e.target.value)}
-    />
-  </FormGroup>
-   <FormGroup>
-    <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-      Email adress
-    </Label>
-    <Input
-     required
-      type="email"
-      placeholder='Email adress'
-      className='post-input'
-      onChange={(e)=>setEmail(e.target.value)}
-    />
-  </FormGroup>
-  {
-  //  <FormGroup>
-  //   <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-  //     Country
-  //   </Label>
-  //  <Input
-  //     id="exampleSelect"
-  //     name="select"
-  //     type="select"
-  //     className='post-input'
-  //     placeholder='United States of America'
-  //   >
-  //     <option>
-  //      United States of America
-  //     </option>
-  //     <option>
-  //       2
-  //     </option>
-  //     <option>
-  //       3
-  //     </option>
-  //     <option>
-  //       4
-  //     </option>
-  //     <option>
-  //       5
-  //     </option>
-  //   </Input>
-  // </FormGroup>
-  }
-  <Row>
-  <Col>
-   <FormGroup>
-    <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-      State
-    </Label>
-    <Input
-      required
-      type="text"
-      placeholder='state'
-      className='post-input'
-      onChange={(e)=>setState(e.target.value)}
-    />
-  </FormGroup>
-  </Col>
-  <Col>
-  <FormGroup>
-    <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
-      Zip/Postal Code
-    </Label>
-    <Input
-      required
-      type="number"
-      placeholder='zip/postal code'
-      className='post-input'
-      onChange={(e)=>setPostalCode(e.target.value)}
-    />
-  </FormGroup>
-  </Col>
-  </Row>
-  
-   <FormGroup check className="mt-4" >
-    <Input type="radio" className='mt-1'  />
-    {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}>Payment method</Label>
-    </FormGroup>
-
-    <div class="input-group mt-2">
-    
-      <input type="radio" name="radio-group" className='radio-input' aria-label="Radio button"/>
-   
- 
-  <input type="text" class="form-control pay-input" disabled placeholder="Credit card..."/>
-  <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
-    <span class="pay-inner" id="input-group-addon">
-      <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
-      <img src={memberFive}  class="img-fluid mr-2" alt="Image 2"/>
-      <img src={memberSix}  class="img-fluid mr-2" alt="Image 3"/>
-      <img src={memberSeven} class="img-fluid mr-2" alt="Image 1"/>
-      <img src={memberEight}  class="img-fluid mr-2" alt="Image 2"/>
       
-    </span>
-  </div>
-</div>
-
-<CardElement options={CARD_OPTIONS} className='mt-4' />
-
-{
-//   <div class="input-group mt-4">
+      userData?.eroxrFee===false&&
+      step===true&&
+       <Col xl={10} className=''>  
+   <Row className='justify-content-center mt-5'>
+    <lottie-player className="mr-lg-5"  src="https://assets5.lottiefiles.com/packages/lf20_bogmlqx0.json"  background="transparent"  speed="1"  style={{width: "150px", height: "150px"}}  loop  autoplay></lottie-player>
     
+   </Row>
+   <h1 className='text-center'>
+   <Button type='submit'onClick={()=>setShowModal(true)} className='reset-button mr-2' style={{paddingLeft:"200px",paddingRight:"210px"}} >Buy our MemberShip!</Button>
+   </h1>
+   </Col> 
+
+    }
+    {
+
+//     step===false&&
+//     <Col xl={10} style={{zoom:"0.85"}}>
+//     <Row className='justify-conten-center'>
+//     <Col className='text-center'>
+//     <img src={memberOne} style={{color:"white"}}/>
+//     <h2 className='text-white mb-0 mt-4' style={{fontWeight:"600"}}>Become A content Creator</h2>
+//     <p className="" style={{color:"grey",fontSize:"13px"}}>
+// If we notice an attempted login from a device or browser we don't
+//  <br/> recognize, we'll ask for your password and a verification code.</p>
+//     </Col>
     
+//     </Row>
+//    <hr style={{backgroundColor:"#555555"}} className="mr-3 ml-5"/>
+//    <Form onSubmit={handlePayment}>
+//     <FormGroup check className="mt-4" >
+//     <Input type="radio" className='mt-2'  />
+//     {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"18px"}} className='mt-1'>Information</Label>
+//     </FormGroup>
+//    <Row>
    
- 
-//   <input type="text" class="form-control pay-input" placeholder="Card number..."/>
-//   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
-//     <span class="pay-inner" id="input-group-addon">
-//       <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
-     
-      
-//     </span>
-//   </div>
-// </div>
-// <div className='mt-3' style={{display:"flex"}}>
-// <FormGroup className='mr-3'>
-//     <Label for="exampleEmail" style={{color:"white",fontWeight:"",fontSize:"11px"}}>
-//       Expectation Date
+//    <Col xl={5}>
+//     <FormGroup className='mt-3'>
+//     <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
+//       First and last name
 //     </Label>
-//    <Input
-//       id="exampleSelect"
-//       name="select"
-//       type="select"
+//     <Input
+//       required
+//       placeholder='Name...'
 //       className='post-input'
-//       placeholder='United States of America'
-//     >
-//       <option>
-//        Month
-//       </option>
-//       <option>
-//         2
-//       </option>
-//       <option>
-//         3
-//       </option>
-//       <option>
-//         4
-//       </option>
-//       <option>
-//         5
-//       </option>
-//     </Input>
-//   </FormGroup>
-
-//   <FormGroup className='mr-3 '>
-    
-//    <Input
-//       id="exampleSelect"
-//       name="select"
-//       type="select"
-//       className='post-input'
-//       placeholder='United States of America'
-//       style={{marginTop:"34%"}}
-//     >
-//       <option>
-//        Year
-//       </option>
-//       <option>
-//         2
-//       </option>
-//       <option>
-//         3
-//       </option>
-//       <option>
-//         4
-//       </option>
-//       <option>
-//         5
-//       </option>
-//     </Input>
-//   </FormGroup>
-//   <FormGroup className=''>
-//     <Label for="exampleEmail" style={{color:"white",fontSize:"11px"}}>
-//       Security code
-//     </Label>
-//    <Input
-//       id="exampleSelect"
-//       name=""
-//       type="number"
-//       className='post-input'
-//       placeholder='code..'
-//       style={{width:"100px"}}
+//       onChange={(e)=>setName(e.target.value)}
 //     />
-      
 //   </FormGroup>
+//    <FormGroup>
+//     <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
+//       Email adress
+//     </Label>
+//     <Input
+//      required
+//       type="email"
+//       placeholder='Email adress'
+//       className='post-input'
+//       onChange={(e)=>setEmail(e.target.value)}
+//     />
+//   </FormGroup>
+//   {
+//   //  <FormGroup>
+//   //   <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
+//   //     Country
+//   //   </Label>
+//   //  <Input
+//   //     id="exampleSelect"
+//   //     name="select"
+//   //     type="select"
+//   //     className='post-input'
+//   //     placeholder='United States of America'
+//   //   >
+//   //     <option>
+//   //      United States of America
+//   //     </option>
+//   //     <option>
+//   //       2
+//   //     </option>
+//   //     <option>
+//   //       3
+//   //     </option>
+//   //     <option>
+//   //       4
+//   //     </option>
+//   //     <option>
+//   //       5
+//   //     </option>
+//   //   </Input>
+//   // </FormGroup>
+//   }
+//   <Row>
+//   <Col>
+//    <FormGroup>
+//     <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
+//       State
+//     </Label>
+//     <Input
+//       required
+//       type="text"
+//       placeholder='state'
+//       className='post-input'
+//       onChange={(e)=>setState(e.target.value)}
+//     />
+//   </FormGroup>
+//   </Col>
+//   <Col>
+//   <FormGroup>
+//     <Label for="exampleEmail" style={{color:"white",fontWeight:"600"}}>
+//       Zip/Postal Code
+//     </Label>
+//     <Input
+//       required
+//       type="number"
+//       placeholder='zip/postal code'
+//       className='post-input'
+//       onChange={(e)=>setPostalCode(e.target.value)}
+//     />
+//   </FormGroup>
+//   </Col>
+//   </Row>
+  
+//    <FormGroup check className="mt-4" >
+//     <Input type="radio" className='mt-1'  />
+//     {' '} <Label style={{color:"white",fontWeight:"600",fontSize:"15px"}}>Payment method</Label>
+//     </FormGroup>
 
-// </div>
-// <div class="input-group mt-3">
+//     <div class="input-group mt-2">
     
 //       <input type="radio" name="radio-group" className='radio-input' aria-label="Radio button"/>
    
  
-//   <input type="text" class="form-control pay-pal-input" placeholder="payPal"/>
+//   <input type="text" class="form-control pay-input" disabled placeholder="Credit card..."/>
 //   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
-//     <span class="pay-pal-inner" id="input-group-addon">
-//       <img src={memberNine} class="img-fluid mr-2" alt="Image 1"/>
-      
+//     <span class="pay-inner" id="input-group-addon">
+//       <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
+//       <img src={memberFive}  class="img-fluid mr-2" alt="Image 2"/>
+//       <img src={memberSix}  class="img-fluid mr-2" alt="Image 3"/>
+//       <img src={memberSeven} class="img-fluid mr-2" alt="Image 1"/>
+//       <img src={memberEight}  class="img-fluid mr-2" alt="Image 2"/>
       
 //     </span>
 //   </div>
 // </div>
-}
-{
-      animationCheck?
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
-      </div>
-      :
 
-<h1 className='text-center mt-3'>
-<Button className='pay-btn reset-button mt-2' type="submit">Sumbit</Button></h1>
-}
-  </Col>
+// <CardElement options={CARD_OPTIONS} className='mt-4' />
+
+// {
+// //   <div class="input-group mt-4">
+    
+    
+   
+ 
+// //   <input type="text" class="form-control pay-input" placeholder="Card number..."/>
+// //   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
+// //     <span class="pay-inner" id="input-group-addon">
+// //       <img src={memberFour} class="img-fluid mr-2" alt="Image 1"/>
+     
+      
+// //     </span>
+// //   </div>
+// // </div>
+// // <div className='mt-3' style={{display:"flex"}}>
+// // <FormGroup className='mr-3'>
+// //     <Label for="exampleEmail" style={{color:"white",fontWeight:"",fontSize:"11px"}}>
+// //       Expectation Date
+// //     </Label>
+// //    <Input
+// //       id="exampleSelect"
+// //       name="select"
+// //       type="select"
+// //       className='post-input'
+// //       placeholder='United States of America'
+// //     >
+// //       <option>
+// //        Month
+// //       </option>
+// //       <option>
+// //         2
+// //       </option>
+// //       <option>
+// //         3
+// //       </option>
+// //       <option>
+// //         4
+// //       </option>
+// //       <option>
+// //         5
+// //       </option>
+// //     </Input>
+// //   </FormGroup>
+
+// //   <FormGroup className='mr-3 '>
+    
+// //    <Input
+// //       id="exampleSelect"
+// //       name="select"
+// //       type="select"
+// //       className='post-input'
+// //       placeholder='United States of America'
+// //       style={{marginTop:"34%"}}
+// //     >
+// //       <option>
+// //        Year
+// //       </option>
+// //       <option>
+// //         2
+// //       </option>
+// //       <option>
+// //         3
+// //       </option>
+// //       <option>
+// //         4
+// //       </option>
+// //       <option>
+// //         5
+// //       </option>
+// //     </Input>
+// //   </FormGroup>
+// //   <FormGroup className=''>
+// //     <Label for="exampleEmail" style={{color:"white",fontSize:"11px"}}>
+// //       Security code
+// //     </Label>
+// //    <Input
+// //       id="exampleSelect"
+// //       name=""
+// //       type="number"
+// //       className='post-input'
+// //       placeholder='code..'
+// //       style={{width:"100px"}}
+// //     />
+      
+// //   </FormGroup>
+
+// // </div>
+// // <div class="input-group mt-3">
+    
+// //       <input type="radio" name="radio-group" className='radio-input' aria-label="Radio button"/>
+   
+ 
+// //   <input type="text" class="form-control pay-pal-input" placeholder="payPal"/>
+// //   <div class="input-group-append pay-inner-two-input" className='pay-inner-two-input'>
+// //     <span class="pay-pal-inner" id="input-group-addon">
+// //       <img src={memberNine} class="img-fluid mr-2" alt="Image 1"/>
+      
+      
+// //     </span>
+// //   </div>
+// // </div>
+// }
+// {
+//       animationCheck?
+//       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+//       <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+//       </div>
+//       :
+
+// <h1 className='text-center mt-3'>
+// <Button className='pay-btn reset-button mt-2' type="submit">Sumbit</Button></h1>
+// }
+//   </Col>
  
    
-  {
-//     <Row>
-    
-// <Col className="text-right">
-//     <Button className="reset-button " >
-    
-//     Save
-//     </Button >
-//     </Col>
-//     </Row>
-  }
-  {
-//   <Col xl={5} className="ml-lg-5">
-//   <Card style={{backgroundColor:"#161616", borderRadius:"10px"}}>
-//   <h4 className='text-white ml-4 mt-3'><span className='mr-1'  style={{fontSize:"30px"}}><BsFillCartFill/></span> 
-//   Cart Summary <span className='ml-2' style={{fontSize:"10px"}}>($48.2)</span></h4>
-//   <ul>
-  
 //   {
-//     cartItems.map((data)=>(
-// <li>
-// <h4 className='mb-0 mt-3' style={{fontSize:"12px"}}>{data.title}<span className='' style={{marginLeft:"50%"}}>{data.price}</span></h4>
-// <p className='chat-designation mt-1 mb-0' style={{fontSize:"7px"}}>{data.textOne}</p>
-// <p className='chat-designation ' style={{fontSize:"7px"}}>{data.textTwo}</p>
-// </li>
-// ))
+// //     <Row>
+    
+// // <Col className="text-right">
+// //     <Button className="reset-button " >
+    
+// //     Save
+// //     </Button >
+// //     </Col>
+// //     </Row>
 //   }
-//   </ul>
-//   <h5 className='text-right mr-4'>Sub Total $48.2</h5>
-//   </Card>
-//   </Col>
-}
-    </Row>
-     </Form>
-    </Col>
+//   {
+// //   <Col xl={5} className="ml-lg-5">
+// //   <Card style={{backgroundColor:"#161616", borderRadius:"10px"}}>
+// //   <h4 className='text-white ml-4 mt-3'><span className='mr-1'  style={{fontSize:"30px"}}><BsFillCartFill/></span> 
+// //   Cart Summary <span className='ml-2' style={{fontSize:"10px"}}>($48.2)</span></h4>
+// //   <ul>
+  
+// //   {
+// //     cartItems.map((data)=>(
+// // <li>
+// // <h4 className='mb-0 mt-3' style={{fontSize:"12px"}}>{data.title}<span className='' style={{marginLeft:"50%"}}>{data.price}</span></h4>
+// // <p className='chat-designation mt-1 mb-0' style={{fontSize:"7px"}}>{data.textOne}</p>
+// // <p className='chat-designation ' style={{fontSize:"7px"}}>{data.textTwo}</p>
+// // </li>
+// // ))
+// //   }
+// //   </ul>
+// //   <h5 className='text-right mr-4'>Sub Total $48.2</h5>
+// //   </Card>
+// //   </Col>
+// }
+//     </Row>
+//      </Form>
+//     </Col>
    
     }
     <Col xl={2}>

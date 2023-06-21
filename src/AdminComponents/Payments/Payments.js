@@ -29,6 +29,7 @@ const Payments = () => {
   const [color,setColor]=useState("payments")
   const [pendingPayment,setPendingPayment]=useState([])
   const [approvedPayment,setApprovedPayment]=useState([])
+  const [declinePayment,setDeclinePayment]=useState([])
   useEffect(() => {
      
       
@@ -50,8 +51,9 @@ const Payments = () => {
 
     console.log(request,"---------->request")
    useEffect(()=>{
-    setPendingPayment(request.filter(data=>data.status===false))
-    setApprovedPayment(request.filter(data=>data.status===true))
+    setPendingPayment(request.filter(data=>data.status==="pending"))
+    setApprovedPayment(request.filter(data=>data.status==="approved"))
+    setDeclinePayment(request.filter(data=>data.status==="decline"))
    },[request,color])
     
 
@@ -63,7 +65,7 @@ const Payments = () => {
     const approveRequest=(e)=>{
       const values={
         id:e,
-        status:true
+        status:"approved"
       }
       updatePaymentRequest(values)
       .then((res)=>{
@@ -79,6 +81,31 @@ const Payments = () => {
           setPendingPayment(pendingPayment?.filter(data=>data._id!==e))
           
         }, 2000);
+        window.location.reload(false)
+
+     }
+      })
+    }
+    const declineRequest=(e)=>{
+      const values={
+        id:e,
+        status:"decline"
+      }
+      updatePaymentRequest(values)
+      .then((res)=>{
+        if(res?.data?.message==="updated"){
+       toast.success('Status updated', {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 3000,
+    
+      theme: 'dark',
+     
+    });
+     setTimeout(() => {
+          setPendingPayment(pendingPayment?.filter(data=>data._id!==e))
+          
+        }, 2000);
+         window.location.reload(false)
 
      }
       })
@@ -96,9 +123,10 @@ const Payments = () => {
       <Row className='mt-1 '>
       <h5 onClick={()=>handleColor("payments")} style={{color: color==="payments"&&"white",cursor:"pointer"}}>Payments</h5>
       <h5 onClick={()=>handleColor("subscriptions")} className='ml-lg-4' style={{color:color==="subscriptions"&&"white",cursor:"pointer"}}>Subscriptions</h5>
-      <h5 onClick={()=>handleColor("Tip")} className='ml-lg-4' style={{color:color==="Tip"&&"white",cursor:"pointer"}}>Tips</h5>
-      <h5 onClick={()=>handleColor("request")} className='ml-lg-4' style={{color:color==="request"&&"white",cursor:"pointer"}}>Requested ({pendingPayment?.length}) </h5>
-      <h5 onClick={()=>handleColor("approved")} className='ml-lg-3' style={{color:color==="approved"&&"white",cursor:"pointer"}}>Approved ({approvedPayment?.length}) </h5>
+      <h5 onClick={()=>handleColor("Tip")} className='ml-lg-3' style={{color:color==="Tip"&&"white",cursor:"pointer"}}>Tips</h5>
+      <h5 onClick={()=>handleColor("request")} className='ml-lg-3' style={{color:color==="request"&&"white",cursor:"pointer"}}>Requested ({pendingPayment?.length}) </h5>
+      <h5 onClick={()=>handleColor("approved")} className='ml-lg-2' style={{color:color==="approved"&&"white",cursor:"pointer"}}>Approved ({approvedPayment?.length}) </h5>
+      <h5 onClick={()=>handleColor("decline")} className='ml-lg-2' style={{color:color==="decline"&&"white",cursor:"pointer"}}>Rejected ({declinePayment?.length}) </h5>
 
       </Row>
       
@@ -236,7 +264,10 @@ const Payments = () => {
                       <td className='text-center'>{data?.userData?.phoneNumber?data?.userData?.phoneNumber:"-"}</td>
                       <td className='text-center'>SEK {data?.payment}</td>
                       <td className='text-center'><Moment format="MM/DD/YYYY">{data?.timestamp}</Moment></td>
-                      <td className='text-center'><Button className="reset-button" onClick={()=>approveRequest(data?._id)}>Approve</Button></td>
+                      <td className='text-center '>
+                      <Button className="reset-button " onClick={()=>approveRequest(data?._id)}>Approve</Button>
+                      <Button className="cancel-button ml-3" onClick={()=>declineRequest(data?._id)}>Decline</Button>
+                      </td>
                       
                     </tr>
                     ))
@@ -263,6 +294,40 @@ const Payments = () => {
                   <tbody>
                   {
                     approvedPayment?.map((data)=>(
+
+                    
+                    <tr>
+                      <td className='text-center'>{data?.userData?.username?data?.userData?.username:data?.userData?.firstName}</td>
+                      <td className='text-center'>{data?.userData?.email?data?.userData?.email:"-"}</td>
+                      <td className='text-center'>{data?.userData?.phoneNumber?data?.userData?.phoneNumber:"-"}</td>
+                      <td className='text-center'>SEK {data?.payment}</td>
+                      <td className='text-center'><Moment format="MM/DD/YYYY">{data?.timestamp}</Moment></td>
+                      
+                    </tr>
+                    ))
+                  }
+                   
+                    
+                  </tbody>
+                </Table>
+              }
+              {
+                color==="decline"&&
+                <Table className="tablesorter user-table" >
+                  <thead className="text-primary">
+                    <tr>
+                      <th className='text-center'>Name</th>
+                      <th className='text-center'>Email</th>
+                      <th className='text-center'>Phone number</th>
+                      <th className='text-center'>Payment</th>
+                      <th className='text-center'>Date</th>
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    declinePayment?.map((data)=>(
 
                     
                     <tr>

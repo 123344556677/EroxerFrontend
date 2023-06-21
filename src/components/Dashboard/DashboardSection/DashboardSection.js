@@ -94,18 +94,22 @@ tipUsers?.map((data) => {
   return (
     <div className='dashboard' >
   <div style={{display:"flex",marginTop:"20%",marginLeft:"10%"}}>
-  
-<div className='dash-top-icons' style={{marginLeft:"10%"}}>
-    <IoIosMoon className='mt-2 ml-2' style={{color:"white",fontSize:"30px"}}/>
-</div>
+  {
+// <div className='dash-top-icons' style={{marginLeft:"10%"}}>
+//     <IoIosMoon className='mt-2 ml-2' style={{color:"white",fontSize:"30px"}}/>
+// </div>
+  }
 <div className='dash-top-icons' style={{marginLeft:"10%"}}>
     <div>
-        <BsFillBellFill className='mt-2 ml-2' style={{color:"white",fontSize:"30px"}}/>
-      <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px",marginBottom:"10px"}} pill className="position-absolute mt-3 top-0 end-0">1</Badge>
-      
+    <img style={{marginLeft:"10%",marginTop:"-2%",width:"70px",height:"50px",borderRadius:"60px 60px 60px 60px"}} src={userData?.profilePic?userData?.profilePic:dashboardProfile}/>
+    {
+      //   <BsFillBellFill className='mt-2 ml-2' style={{color:"white",fontSize:"30px"}}/>
+      // <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px",marginBottom:"10px"}} pill className="position-absolute mt-3 top-0 end-0">1</Badge>
+    }
     </div>
     </div>
-    <img style={{marginLeft:"10%",marginTop:"-2%",width:"60px",height:"60px",borderRadius:"60px 60px 60px 60px"}} src={userData?.profilePic?userData?.profilePic:dashboardProfile}/>
+    <h2 className='ml-lg-3 mt-2'>{userData?.username?userData?.username:userData?.firstName} {userData?.username?userData?.username:userData?.lastName}</h2>
+    
 </div>
   
    

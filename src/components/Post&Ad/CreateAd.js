@@ -587,7 +587,7 @@ else{
     //  </Row>
     }
       <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create Ad <br/>
-For your Meeting</h2>
+For Your Meeting</h2>
      <Card className=" " style={{backgroundColor:"#1e1e2b",borderRadius:"4px",border:"1px solid white"}} >
     <h1 className='mt-5 mb-5'>
     <div  style={{opacity:"0",position:"absolute",zIndex:"10"}}>

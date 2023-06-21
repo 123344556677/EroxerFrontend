@@ -341,8 +341,8 @@ const closeModal = () => {
     }
     <Row className='justify-content-center mr-lg-5'>
     <Col xl={6} className="">
-    <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create post <br/>
-For your Meeting</h2>
+    <h2 className='text-center text-white' style={{fontWeight:"600"}}>Create Post <br/>
+For Your Meeting</h2>
     
      <Card className=" " style={{backgroundColor:"#1e1e2b",borderRadius:"4px",border:"1px solid white"}} >
     <h1 className='mt-5 mb-5 text-center'>

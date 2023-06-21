@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 const LiveSection = () => {
     const [lives, setLives]=useState([])
     const [userId, setuserId] = useState(JSON.parse(localStorage.getItem('keys')))
+    const getSubscribedUser = useSelector(state => state?.getAllAcceptedRequestReducer?.accpetedRequests);
     // const lives=[
     //     {
     //         pic:streamOne
@@ -62,10 +63,13 @@ console.log(lives,"-----------live section")
 {
     lives?
     lives?.map((data)=>(
+        getSubscribedUser?.map((datas)=>(
+              data?._id===datas?._id&&
 <>
     <img src={data?.profilePic?data?.profilePic:streamSix} style={{width:"100px",height:"100px"}} className="mt-5 stream-pics"/> <br/>
     </>
 
+    ))
     ))
     :
     <h3 className='mt-5 text-center'>No one streaming!</h3>

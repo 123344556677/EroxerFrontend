@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.dfcd5949.css",
-    "main.js": "/static/js/main.c0a3d82f.js",
+    "main.css": "/static/css/main.73eba79d.css",
+    "main.js": "/static/js/main.6fd2d051.js",
     "static/media/background.png": "/static/media/background.32e301c1e78f26b6fd03.png",
     "static/media/j33.png": "/static/media/j33.d480e6f03d1d507f6c25.png",
     "static/media/j31.png": "/static/media/j31.e206ed179c6cc53409dd.png",
@@ -17,7 +17,7 @@
     "static/media/fa-regular-400.ttf": "/static/media/fa-regular-400.0d03b1bbd1d62c1e1284.ttf",
     "static/media/react-logo.png": "/static/media/react-logo.561f1671ed326d663356.png",
     "static/media/j42.jpg": "/static/media/j42.a34e9c040ac523656f33.jpg",
-    "static/media/j27.png": "/static/media/j27.99f5cd15deca2cf33ce4.png",
+    "static/media/j27.png": "/static/media/j27.7ccde8485cd1dcab1595.png",
     "static/media/j39.jpg": "/static/media/j39.db96318c2572fd0dd554.jpg",
     "static/media/anime3.png": "/static/media/anime3.4438e5067f2029f9e058.png",
     "static/media/j28.png": "/static/media/j28.41d9172d3f9de02d83ab.png",
@@ -41,11 +41,11 @@
     "static/media/fa-v4compatibility.ttf": "/static/media/fa-v4compatibility.4baccb548138840fa33a.ttf",
     "static/media/fa-v4compatibility.woff2": "/static/media/fa-v4compatibility.afac89562a5301459069.woff2",
     "index.html": "/index.html",
-    "main.dfcd5949.css.map": "/static/css/main.dfcd5949.css.map",
-    "main.c0a3d82f.js.map": "/static/js/main.c0a3d82f.js.map"
+    "main.73eba79d.css.map": "/static/css/main.73eba79d.css.map",
+    "main.6fd2d051.js.map": "/static/js/main.6fd2d051.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfcd5949.css",
-    "static/js/main.c0a3d82f.js"
+    "static/css/main.73eba79d.css",
+    "static/js/main.6fd2d051.js"
   ]
 }

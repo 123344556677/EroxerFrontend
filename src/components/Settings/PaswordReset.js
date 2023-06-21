@@ -137,12 +137,14 @@ const PaswordReset = () => {
     </Col>
     </FormGroup>
               </FormGroup>
-              <FormGroup check className="mt-4" >
-    <Input type="radio" className='mt-1 ml-1'  />
-    {' '} <Label style={{color:"white",fontSize:"10px"}} className="ml-4">forgotten your password? Confirm or 
-    add an email address or phone number first.</Label>
+              {
+  //             <FormGroup check className="mt-4" >
+  //   <Input type="radio" className='mt-1 ml-1'  />
+  //   {' '} <Label style={{color:"white",fontSize:"10px"}} className="ml-4">forgotten your password? Confirm or 
+  //   add an email address or phone number first.</Label>
      
-  </FormGroup>
+  // </FormGroup>
+              }
    <Col className='text-right'>
    {
       animationCheck?
