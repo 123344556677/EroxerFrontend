@@ -154,7 +154,7 @@ const ChatSection = ({ dataValue,msgValue }) => {
    useEffect(() => {
     dispatch(getContactById(values))
     
-   }, [])
+   }, [dispatch])
    
      
 

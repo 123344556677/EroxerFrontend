@@ -159,8 +159,19 @@ const getAds = useSelector(state => state?.getAds);
 }
 
     </Row>
+    {
+      id!==userId?.id&&
     <h1 className='text-center mt-3'>
-<Button className='reset-button ml-lg-3 reset-button' onClick={contact}>Contact</Button></h1>
+    {
+    animationCheck?
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
+      </div>
+      :
+<Button className='reset-button ml-lg-3 reset-button' onClick={()=>contact(id)}>Contact</Button>
+    }
+</h1>
+  }
     </Card>
 {
   filteredAds?.map((data)=>(

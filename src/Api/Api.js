@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const url = 'http://localhost:5000';
+// const url = 'http://localhost:5000';
 // export const socketUrl = 'ws://localhost:6000';
-// const url ="https://sore-red-millipede-boot.cyclic.app/"
+const url ="https://sore-red-millipede-boot.cyclic.app/"
 
 
 //auth

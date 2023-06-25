@@ -123,6 +123,7 @@ const Home = () => {
       const [postData, setPostData] = useState()
       const [lockModal,setLockModal]=useState(false)
       const [search,setSearch]=useState(false)
+      const [lock,setLock]=useState(true)
       const [filterePosts,setFilterePosts]=useState()
       const [streamPics,setStreamPics]=useState([])
       const dispatch=useDispatch()
@@ -271,6 +272,7 @@ const lottieOptions = {
       dispatch(posts())
       // dispatch(ads())
       dispatch(getAllUsers())
+      
       // dispatch(getRequestById(values))
       // dispatch(getRequestBySenderId(values))
       // dispatch(getAllAcceptedUsers(values))
@@ -527,7 +529,9 @@ const handleImageHover = () => {
     const handleRightClick = (event) => {
     event.preventDefault();
   };
-
+const handleLockChange=()=>{
+  setLock(false)
+}
   
   return (
 
@@ -661,18 +665,29 @@ streamPics?.map((data,index)=>(
       userId?.id!==data?.userId&&
       data?.payerId.length?
       data?.postCheck===true&&
-      data?.payerId.map((datass)=>(
-        datass!==userId?.id&&
-      <Elements stripe={stripePromise} >
-      <LockModal open={lockModal} value={data}/>
-      </Elements>
-      ))
+      data?.payerId.includes(userId?.id)?
+      
+        <></>
+      
+        :
+        <>
+         <Elements stripe={stripePromise} >
+        <LockModal open={lockModal} value={data}/>
+        </Elements>
+        </>
+        
+        
+      
+        
+      
       :
       userId?.id!==data?.userId&&
       data?.postCheck===true&&
+     
       <Elements stripe={stripePromise} >
       <LockModal open={lockModal} value={data}/>
       </Elements>
+      
 
 
       

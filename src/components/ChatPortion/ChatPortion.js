@@ -166,10 +166,10 @@ dispatch(getCallById(values))
   }, []);
   const handleMessage=(msg)=>{
    
-    const words = msg.trim().split(/\s+/);
+    const words = msg?.trim().split(/\s+/);
      console.log(words,"last message concardination in if")
 
-  if (words.length > 2) {
+  if (words?.length > 2) {
      console.log(msg,"last message concardination in if")
     const shortenedText = words.slice(0, 1).join(' ');
     return (
@@ -450,7 +450,7 @@ updateNotiStatus(callValues)
                           <>
                        {
                        msg?.senderId===datass?._id&&
-                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{handleMessage(msg.message)}
+                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{handleMessage(msg?.message)}
                          {
                          msg?.recieverId===userId?.id&&
                          msg?.readStatus===false&&
@@ -462,7 +462,7 @@ updateNotiStatus(callValues)
                          
                          {
                          msg?.recieverId===datass?._id&&
-                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{handleMessage(msg.message)}
+                         <p className="chat-designation"  style={{fontSize:"16px",fontWeight: msg?.readStatus===false?"700":""}}>{handleMessage(msg?.message)}
                          {
                          msg?.recieverId===userId?.id&&
                          msg?.readStatus===false&&

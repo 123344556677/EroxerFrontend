@@ -77,7 +77,7 @@ function Auth(props) {
               <AuthNavbar brandText={getBrandText(location.pathname)} />
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/login" />
+                <Redirect from="*" to="/" />
               </Switch>
               </div>
              
