@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import './ChatPortion.css'
 import { Carousel, CarouselItem, Dropdown, Media, Progress } from 'reactstrap';
+import {CiMenuFries} from 'react-icons/ci'
 import streamOne from './j20.png'
 import streamThree from './j21.png'
 import streamFour from './dummy.jpg'
@@ -60,6 +61,8 @@ const ChatPortion = () => {
      const [ subscribedByReciever,  setSubscribedByReciever] = useState([]);
      const getRequests = useSelector(state => state?.getAllRequestReducer?.userRequests);
      const getCalls = useSelector(state => state?.getAllCallReducer?.call);
+     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
      
      const getAllAcceptedRequests = useSelector(
     (state) => state?.getContactById?.contactById
@@ -86,7 +89,19 @@ dispatch(getContactById(values))
 dispatch(getRequestBySenderId(values))
 dispatch(getCallById(values))
  },[])
+useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+      setScreenHeight(window.innerHeight);
+    };
 
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
  
 
@@ -284,6 +299,7 @@ updateNotiStatus(callValues)
 
  
 }
+console.log(screenWidth,"width=========>")
   return (
     <>
     {
@@ -295,6 +311,7 @@ updateNotiStatus(callValues)
 
       // <div className={`contents ${isOpen && "open"}`}>
     }
+    
        
     {
       notiOpen&&
@@ -390,6 +407,8 @@ updateNotiStatus(callValues)
       </div>
      </div>
        }
+       
+       
    <div className='home-chats '>
   
   

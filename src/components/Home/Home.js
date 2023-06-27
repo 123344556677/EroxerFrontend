@@ -4,6 +4,7 @@ import { AiOutlineDollar,AiOutlineUserAdd,  AiOutlineHeart } from 'react-icons/a
 import { useSelector, useDispatch } from 'react-redux';
 import { getPosts as posts } from 'components/redux/actions/postActions';
 import { getAds as ads } from 'components/redux/actions/adsActions';
+import {CiMenuFries} from 'react-icons/ci'
 import './Home.css'
 import { Carousel, CarouselItem } from 'reactstrap';
 import Pusher from "pusher-js";
@@ -126,6 +127,8 @@ const Home = () => {
       const [lock,setLock]=useState(true)
       const [filterePosts,setFilterePosts]=useState()
       const [streamPics,setStreamPics]=useState([])
+      const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+     const [screenHeight, setScreenHeight] = useState(window.innerHeight);
       const dispatch=useDispatch()
       const getPost = useSelector(state => state?.getPosts);
     
@@ -733,10 +736,15 @@ streamPics?.map((data,index)=>(
 
 
      </Col>
+     {
+        screenWidth<900&&
+        <CiMenuFries style={{color:"white",fontSize:"100px"}}/>
+    }
      
     
 {
     <ChatPortion/>
+    
 //    <div className='home-chats '>
 //    <Row>
 //    <Col className='text-center '>

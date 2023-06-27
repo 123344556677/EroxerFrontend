@@ -8,3 +8,9 @@
     font-weight: 600;
 
 }
+.auth-anim-btn{
+    background-image:linear-gradient(to bottom left, #4c0741, #430b58, #250625)!important ;
+    font-size: 12px!important;
+    border-radius: 10px!important;
+    background-color:#4c0741!important ;
+}

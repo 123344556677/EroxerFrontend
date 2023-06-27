@@ -71,7 +71,7 @@ function Register(props) {
             // bodyClassName: 'dark-toast',
           });
           setTimeout(() => {
-            history.push("/");
+            history.push("/login");
           }, 2000);
          
         }
@@ -285,7 +285,7 @@ const closeModal = () => {
               </h1>
               <p className="text-center login-register-btn mt-4">
                 Already have account?{" "}
-                <Link to="/" style={{ color: "white", fontWeight: "600" }}>
+                <Link to="/login" style={{ color: "white", fontWeight: "600" }}>
                   {" "}
                   Login
                 </Link>

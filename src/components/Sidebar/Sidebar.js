@@ -47,7 +47,7 @@ function Sidebar(props) {
   const history=useHistory();
   const logOut=()=>{
     localStorage.clear();
-    history.push('/')
+    history.push('/login')
   }
   AOS.init()
   
@@ -183,7 +183,7 @@ function Sidebar(props) {
   const expireSession = () => {
     clearTimeout(sessionTimeout);
     localStorage.clear();
-    history.push("/");
+    history.push("/login");
   };
 
   

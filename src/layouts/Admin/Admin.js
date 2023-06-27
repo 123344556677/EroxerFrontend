@@ -137,11 +137,11 @@ function Admin(props) {
                 userId?.id?
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/" />
+                <Redirect from="*" to="/login" />
               </Switch>
               :
               
-                history.push('/')
+                history.push('/login')
               
               }
               {

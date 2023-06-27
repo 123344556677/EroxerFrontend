@@ -7,6 +7,7 @@ import {
   useHistory
 } from "react-router-dom";
 import './Auth.css'
+import FluidSimulation from '../../components/Animation/FluidSimulation'
 
 
 // core components
@@ -67,17 +68,18 @@ function Auth(props) {
       {({ color, changeColor }) =>
       
         <React.Fragment>
+       
          
         
           
             <div className="main-panel" ref={mainPanelRef} className="mt-0">
-            
+          
            
             <div className="backgroundImage" style={divStyle}>
               <AuthNavbar brandText={getBrandText(location.pathname)} />
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/" />
+                <Redirect from="*" to="/login" />
               </Switch>
               </div>
              

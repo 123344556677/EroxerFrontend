@@ -45,7 +45,7 @@ function AdminSidebar(props) {
   const history=useHistory();
   const logOut=()=>{
     localStorage.clear();
-    history.push('/')
+    history.push('/login')
   }
   AOS.init()
   

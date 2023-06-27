@@ -23,6 +23,7 @@ import ChatVideoCall from "components/ChatCall/ChatVideCall";
 import CreatePoll from "components/Post&Ad/CreatePoll";
 import LiveStream from "components/ChatCall/LiveStream";
 import WrappedMemberShip from "components/Membership/Membership";
+import FluidSimulation from "components/Animation/FluidSimulation";
 
 
 
@@ -217,7 +218,7 @@ var routes = [
      layout: "/admin",
   },
   {
-    path: "/",
+    path: "login",
     name: "Login",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
@@ -230,6 +231,14 @@ var routes = [
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component:WrappedRegister,
+    layout: "/",
+  },
+  {
+    path: "/",
+    name: "Simulation",
+    rtlName: "لوحة القيادة",
+    icon: "tim-icons icon-chart-pie-36",
+    component:FluidSimulation,
     layout: "/",
   },
   

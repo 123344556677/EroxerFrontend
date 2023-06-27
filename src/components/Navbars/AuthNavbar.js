@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 
@@ -9,12 +9,19 @@ import {
   NavbarBrand,
   Navbar,
   Container,
+  Row,
+  Col,
+  Button,
  
 } from "reactstrap";
 import Logo from './logo5.png'
+import { useHistory } from "react-router-dom";
+import './Navbar.css'
 
 function AdminNavbar(props) {
   const [collapseOpen, setcollapseOpen] = React.useState(false);
+  const [animationCheck, setAnimationCheck] = useState(false);
+  const history=useHistory()
   // const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
   React.useEffect(() => {
@@ -32,6 +39,7 @@ function AdminNavbar(props) {
       setcolor("navbar-transparent");
     }
   };
+  console.log(props?.brandText,"brand ------=>")
   // this function opens and closes the collapse on small devices
   // const toggleCollapse = () => {
   //   if (collapseOpen) {
@@ -45,6 +53,12 @@ function AdminNavbar(props) {
   // const toggleModalSearch = () => {
   //   setmodalSearch(!modalSearch);
   // };
+     useEffect(() => {
+    setTimeout(() => {
+      setAnimationCheck(true)
+    },15000);
+},[])
+
   return (
     <>
       <Navbar className={classNames("", color)} expand="lg">
@@ -64,10 +78,34 @@ function AdminNavbar(props) {
             // </div>
           }
           <br/><br/><br/>
+           { props.brandText === "Brand" ?
+           <NavbarBrand className="" style={{marginTop:"40%",width:"85%"}}  href="#pablo" onClick={(e) => e.preventDefault()}>
+           <Row className="justify-content-center">
+           <Col xl={6} className="text-right">
+           
+            
+             <img src={Logo} alt="" className="mt-3 mr-lg-5" style={{width:"60%"}}/>
+           </Col>
+            </Row>
+             </NavbarBrand>
+            :
+
+            
             <NavbarBrand className=""  href="#pablo" onClick={(e) => e.preventDefault()}>
              <img src={Logo} alt="" className="mt-5" style={{width:"30%"}}/>
             </NavbarBrand>
+        }
           </div>
+          <br/>
+          {
+            animationCheck&&
+            props.brandText === "Brand" &&
+            <>
+            <h1 className="text-right ">
+          <Button className="auth-anim-btn" onClick={()=>history.push('/login')} >Login To Continue..</Button><br/>
+           </h1>
+          </>
+          }
           {
           // <NavbarToggler onClick={toggleCollapse}>
           //   <span className="navbar-toggler-bar navbar-kebab" />

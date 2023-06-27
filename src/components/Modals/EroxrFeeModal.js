@@ -97,7 +97,7 @@ const EroxrFeeModal = ({ isOpen, toggle,userData }) => {
     });
     if(userData){
     setTimeout(() => {
-          history.push("/");
+          history.push("/login");
         }, 2000);
       }
       else{
