@@ -385,6 +385,7 @@ const Home = () => {
                 muted
                 controls
                 autoPlay
+                src={data?.postPic}
                 style={{
                   width: "850px",
                   height: "450px",
@@ -421,6 +422,7 @@ const Home = () => {
                     muted
                     controls
                     autoPlay
+                    
                     src={data?.postPic}
                     style={{
                       width: "850px",
@@ -436,6 +438,7 @@ const Home = () => {
                     muted
                     controls
                     autoPlay
+                    src={data?.postPic}
                     style={{
                       width: "850px",
                       height: "450px",
@@ -470,6 +473,7 @@ const Home = () => {
                 muted
                 controls
                 autoPlay
+                src={data?.postPic}
                 style={{
                   width: "850px",
                   height: "450px",
@@ -506,11 +510,16 @@ const Home = () => {
             matchingImg = (
               <img
                 alt=""
+                src={
+                  data?.postPic
+                    ? data?.postPic
+                    : "https://picsum.photos/id/1015/1200/800"
+                }
                 style={{
                   width: "850px",
                   height: "450px",
                   borderRadius: "40px",
-                  filter: data?.postCheck === true ? "blur(20px)" : "",
+                  filter: data?.postCheck === true ? "blur(10px)" : "",
                 }}
               />
             );
@@ -559,11 +568,16 @@ const Home = () => {
                 matchingImg = (
                   <img
                     alt=""
+                    src={
+                  data?.postPic
+                    ? data?.postPic
+                    : "https://picsum.photos/id/1015/1200/800"
+                }
                     style={{
                       width: "850px",
                       height: "450px",
                       borderRadius: "40px",
-                      filter: data?.postCheck === true ? "blur(20px)" : "",
+                      filter: data?.postCheck === true ? "blur(10px)" : "",
                     }}
                   />
                 );
@@ -575,6 +589,11 @@ const Home = () => {
             matchingImg = (
               <img
                 alt=""
+                src={
+                  data?.postPic
+                    ? data?.postPic
+                    : "https://picsum.photos/id/1015/1200/800"
+                }
                 style={{
                   width: "850px",
                   height: "450px",
@@ -586,11 +605,16 @@ const Home = () => {
             matchingImg = (
               <img
                 alt=""
+                src={
+                  data?.postPic
+                    ? data?.postPic
+                    : "https://picsum.photos/id/1015/1200/800"
+                }
                 style={{
                   width: "850px",
                   height: "450px",
                   borderRadius: "40px",
-                  filter: data?.postCheck === true ? "blur(20px)" : "",
+                  filter: data?.postCheck === true ? "blur(10px)" : "",
                 }}
               />
             );
@@ -860,14 +884,9 @@ const Home = () => {
                         {
                           //  <AiOutlineHeart className='' style={{color:"white",fontSize:"35px",marginTop:"-60px",background:"#1e1e26",borderRadius:"20px 0 0 0",paddingTop:"10px",marginRight:"-8px",cursor:"pointer"}} />
                         }
-                        {userId?.id !== data?.userId &&
-                        getSubscribedUser?.length ? (
-                          getSubscribedUser?.map((datas) =>
-                            data?.postCheck === true &&
-                            datas?._id !== data?.userId ? (
-                              <></>
-                            ) : (
-                              <>
+                        
+                      
+                             
                                 <AiOutlineUserAdd
                                   className="ml-2 add-icon"
                                   onClick={() => addToList(data?.userId)}
@@ -875,28 +894,8 @@ const Home = () => {
                                 <Elements stripe={stripePromise}>
                                   <PaymentModal value={data} />
                                 </Elements>
-                              </>
-                            )
-                          )
-                        ) : userId?.id !== data?.userId &&
-                          data?.payerId.length ? (
-                          data?.postCheck === true &&
-                          data?.payerId.includes(userId?.id) ? (
-                            <>
-                              <AiOutlineUserAdd
-                                className="ml-2 add-icon"
-                                onClick={() => addToList(data?.userId)}
-                              />
-                              <Elements stripe={stripePromise}>
-                                <PaymentModal value={data} />
-                              </Elements>
-                            </>
-                          ) : (
-                            <> </>
-                          )
-                        ) : (
-                          userId?.id === data?.userId && <></>
-                        )}
+                              
+                           
                       </div>
                     </Row>
                   </div>
@@ -924,9 +923,7 @@ const Home = () => {
             </div>
           )}
         </Col>
-        {screenWidth < 900 && (
-          <CiMenuFries style={{ color: "white", fontSize: "100px" }} />
-        )}
+        
 
         {
           <ChatPortion />

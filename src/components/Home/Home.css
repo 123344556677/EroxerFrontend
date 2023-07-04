@@ -44,6 +44,7 @@
 .card-main {
 
   border-radius: 20px !important;
+  
 
  
 
@@ -89,6 +90,7 @@
   padding: 3px;
   border: none !important;
   cursor: pointer !important;
+  z-index: 100;
 
 
 
@@ -101,6 +103,7 @@
 .card-footer {
   border-top: none !important;
   margin-right: 3% !important;
+  
   
 }
 
