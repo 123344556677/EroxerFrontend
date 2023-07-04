@@ -168,7 +168,7 @@ const getAds = useSelector(state => state?.getAds);
       <lottie-player  src="https://assets6.lottiefiles.com/packages/lf20_vpxae5vy.json"  background="transparent"  speed="1"  style={{width: "100px", height: "100px"}}  loop  autoplay></lottie-player>
       </div>
       :
-<Button className='reset-button ml-lg-3 reset-button' onClick={()=>contact(id)}>Contact</Button>
+<Button className='reset-button ml-lg-3 reset-button' onClick={()=>contact(adData?.userId)}>Contact</Button>
     }
 </h1>
   }

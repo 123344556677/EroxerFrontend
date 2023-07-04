@@ -4,10 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { Button, Card, Col, Modal, Row } from 'reactstrap'
 import modalOne from './j45.png'
 import './Modals.css'
+import { FaPoll } from 'react-icons/fa';
+import { BsFillImageFill } from 'react-icons/bs';
+import { IoMdContact, IoMdContacts } from 'react-icons/io';
 
-const HomeModals = () => {
+const HomeModals = ({ isOpen, toggle }) => {
     const history=useHistory()
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(isOpen);
   function toggleModal() {
   setShowModal(!showModal);
 }
@@ -26,9 +29,11 @@ const gotoPoll=()=>{
   return (
    <div className='content'>
             <div>
-                <span className="" onClick={toggleModal} style={{fontSize:"40px",marginLeft:"160px",position:"absolute",marginTop:"-38px"}}><AiOutlinePlusCircle/></span>
+            {
+                // <span className="" onClick={toggleModal} style={{fontSize:"40px",marginLeft:"160px",position:"absolute",marginTop:"-38px"}}><AiOutlinePlusCircle/></span>
+            }
 
-                <Modal  isOpen={showModal} toggle={toggleModal} className="main-modal" >
+                <Modal  isOpen={isOpen} toggle={toggle} className="main-modal" >
                     
                      <div className="modal-header" >
                      
@@ -49,7 +54,9 @@ const gotoPoll=()=>{
     <Row className="justify-content-center">
     <Col xl={6}>
      <Card className="modal-card mt-2"  >
-    <p className='text-center text-white ml-2 mr-2 mt-4 mb-4' style={{cursor:"pointer"}} onClick={gotoPost}>
+     <h1 className='text-center text-white mb-0 mt-3' onClick={gotoPost}><BsFillImageFill/></h1>
+     
+    <p className='text-center text-white ml-2 mr-2 mt-1 mb-4' style={{cursor:"pointer"}} onClick={gotoPost}>
 Create New Post
     </p>
    
@@ -58,7 +65,8 @@ Create New Post
     </Col>
      <Col xl={6}>
      <Card className="modal-card mt-2" >
-    <p className='text-center text-white ml-2 mr-2 mt-4 mb-4' style={{cursor:"pointer"}}  onClick={gotoAd}>
+     <h1 className='text-center text-white mb-0 mt-3' onClick={gotoAd}><IoMdContacts/></h1>
+    <p className='text-center text-white ml-2 mr-2 mt-1 mb-4' style={{cursor:"pointer"}}  onClick={gotoAd}>
 Create New Ad
     </p>
    
@@ -74,7 +82,8 @@ Create New Ad
      <Row>
    <Col xl={6}>
      <Card className="modal-card mt-2" >
-    <p className='text-center text-white ml-2 mr-2 mt-4 mb-4' style={{cursor:"pointer"}}  onClick={gotoPoll}>
+     <h1 className='text-center text-white mb-0 mt-3' onClick={gotoPoll}><FaPoll/></h1>
+    <p className='text-center text-white ml-2 mr-2 mt-1 mb-4' style={{cursor:"pointer"}}  onClick={gotoPoll}>
 Create New Poll
     </p>
    
@@ -85,13 +94,18 @@ Create New Poll
   
     </Col> 
     <Col xl={12} className="text-center">
-     <Button type="button" className="  modal-ok-button" onClick={toggleModal}>
-     Ok
-    </Button> 
+    {
+    //  <Button type="button" className="  modal-ok-button" onClick={toggleModal}>
+    //  Cancel
+    // </Button> 
+    }
+    
     <br/>
-    <Button type="button" className=" modal-cancel-button" onClick={toggleModal}>
-      Cancel
-    </Button>
+    {
+    // <Button type="button" className=" modal-cancel-button" onClick={toggleModal}>
+    //   Cancel
+    // </Button>
+    }
     </Col>
     </Row>
    

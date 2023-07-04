@@ -203,7 +203,7 @@ var routes = [
   },
    {
     path: "/membership",
-    name: "Membership",
+    name: "Be a G.O.A.T Member",
     rtlName: "ار تي ال",
      component: WrappedMemberShip,
     icon: "fa fa-address-book",

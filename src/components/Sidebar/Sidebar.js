@@ -236,6 +236,7 @@ function Sidebar(props) {
                   prop.name!=="ChatCall"&&
                   prop.name!=="ChatVideoCall"&&
                   prop.name!=="Live Streaming"&&
+                  prop.name!=="Simulation"&&
                   
                      
                     <NavLink
@@ -254,8 +255,10 @@ function Sidebar(props) {
                      
                       <p onClick={prop.name==="Subscription"?()=>setOpenList(!openList):()=>setOpenList(false)} className={prop.name==="Home"?"links-name links-home-name":"links-name"}>{rtlActive ? prop.rtlName : prop.name}
                       {
-                        prop.name==="Home"&&
-                        <HomeModals/>
+                        // prop.name==="Home"&&
+                        // {
+                        // // <HomeModals/>
+                        // }
                         
                         
                       }

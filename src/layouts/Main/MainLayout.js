@@ -19,7 +19,7 @@ import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 import background from './background.png'
 import Footer from "components/Footer/Footer";
 
-function Auth(props) {
+function MainLayout(props) {
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
   const history = useHistory();
@@ -62,7 +62,6 @@ function Auth(props) {
     }
     return "Brand";
   };
-  console.log(props,"props=============>")
   return (
     
     <BackgroundColorContext.Consumer>
@@ -72,9 +71,7 @@ function Auth(props) {
        
          
         
-          {
-            props?.location?.pathname!=="/"&&
-            <>
+          
             <div className="main-panel" ref={mainPanelRef} className="mt-0">
           
            
@@ -87,38 +84,7 @@ function Auth(props) {
               </div>
              
               </div>
-              
-                
-
-              
                <Footer/>
-               </>
-          }
-          {
-            props?.location?.pathname==="/"&&
-            <>
-            <div className="main-panel" ref={mainPanelRef} className="mt-0">
-         
-           
-            <div className="" >
-             <AuthNavbar brandText={getBrandText(location.pathname)} />
-            
-              
-              <Switch>
-                {getRoutes(routes)}
-                <Redirect from="*" to="/login" />
-              </Switch>
-              </div>
-             
-              </div>
-              
-                
-
-              
-               
-               </>
-          }
-              
             
           
           
@@ -130,4 +96,4 @@ function Auth(props) {
   );
 }
 
-export default Auth;
+export default MainLayout;

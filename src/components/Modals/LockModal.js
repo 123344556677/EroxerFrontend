@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Card, Col, FormGroup, Input, Label, Modal, Row } from 'reactstrap'
 import modalOne from './j45.png'
 import modalTwo from './j38.png'
+import modalThree from './dummy.jpg'
 import './Modals.css'
 import memberFour from './j41.png'
 import memberFive from './j42.png'
@@ -204,16 +205,58 @@ const handlePaymentTwo=async()=>{
   {
      paymentCheck==="pending"&&
     <>
+     <h1 className="text-center mb-0">
+                  <img
+                    src={props?.value?.userData?.profilePic?props?.value?.userData?.profilePic:modalThree}
+                    style={{
+                      width: "10%",
+                      height: "10%",
+                      borderRadius: "200px",
+                    }}
+                    alt=""
+                  />
+                </h1>
+                <h4 className='text-center mt-1 mb-0'>{props?.value?.userData?.firstName} {props?.value?.userData?.lastName}</h4>
+                <h6 className='text-center'>Creator</h6>
+   {
+    <Row className='mt-5'> 
    
-  <h1 className='text-center'>
-  <Button  className=" mt-2  modal-cancel-button" onClick={()=>setPaymentCheck("subscription")}>
-            Pay for  creator Subsciption  $ {props?.value?.userData?.profilePrice}
+    <Col>
+     <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>Full access to user account</h5>
+     <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>Direct chat with user</h5>
+     <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>Cancel subscription at any time</h5>
+      <h1 className='text-center'>
+  <Button  className=" mt-2  modal-post-pay-button" onClick={()=>setPaymentCheck("subscription")}>
+            Pay for   Subsciption  $ {props?.value?.userData?.profilePrice}
     </Button></h1>
-    <h2 className='text-center'>OR</h2>
-    <h1 className='text-center'>
+     
+
+    
+    </Col>
+    <Col className=''>
+     <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>View this user post</h5>
+     <h5><span><i class="fa fa-times mr-lg-2" style={{color:"red"}} aria-hidden="true"></i></span> No Direct chat with user</h5>
+     <h5><span><i class="fa fa-times mr-lg-2" style={{color:"red"}} aria-hidden="true"></i></span>No access to user account</h5>
+     <h1 className='text-center'>
   <Button  className=" mt-2  modal-post-pay-button" onClick={()=>setPaymentCheck("post")} >
             Pay for this Post   $ {props?.value?.price}
     </Button></h1>
+
+     
+    
+    </Col>
+    
+    </Row>
+  // <h1 className='text-center'>
+  // <Button  className=" mt-2  modal-cancel-button" onClick={()=>setPaymentCheck("subscription")}>
+  //           Pay for  creator Subsciption  $ {props?.value?.userData?.profilePrice}
+  //   </Button></h1>
+  //   <h2 className='text-center'>OR</h2>
+  //   <h1 className='text-center'>
+  // <Button  className=" mt-2  modal-post-pay-button" onClick={()=>setPaymentCheck("post")} >
+  //           Pay for this Post   $ {props?.value?.price}
+  //   </Button></h1>
+   }
     </>
   }
     {
@@ -242,7 +285,7 @@ const handlePaymentTwo=async()=>{
     <img src={memberTen} class="img-fluid ml-3" alt="Image 1"/>
     <span className='mt-2 ml-2' style={{color:"#8B8B8B"}}>Card</span>
     </Col>
-    <Col>
+    <Col className='text-right'>
      <img src={memberFour} class="img-fluid ml-3 mt-1 " alt="Image 1"/>
        <img src={memberFive}  class="img-fluid ml-3 mt-1 " alt="Image 2"/>
        <img src={memberSix}  class="img-fluid ml-3 mt-1" alt="Image 3"/>

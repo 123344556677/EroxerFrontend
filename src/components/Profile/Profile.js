@@ -447,7 +447,7 @@ const checkPost=(post)=>{
       <Row className="profile-user-row">
         <Col>
           <Row className="mb-0">
-            <h3 className="mt-3 user-name mb-0 ">
+            <h3 className="mt-3 user-name mb-0 ml-lg-3 ">
               {userData?.username ? userData?.username : userData?.firstName}
             </h3>
 {
