@@ -1,17 +1,12 @@
-.profileBackground{
-    margin: 0!important;
-    margin-top: -78px!important;
-    margin-left: -12px!important;
-    object-fit: cover!important;
-   
-    width:640px !important;
-    
-   
-    
 
-}
 .reset-button{
      background-color:#4c0741!important ;
+}
+.profileBackground{
+    margin-top: -80px!important;
+    margin-left: -3%;
+    width: 110% !important;
+
 }
 
 .profile-img{
@@ -26,22 +21,21 @@
   border: 3px solid white;
 
 }
-@media screen and (min-width: 900px) {
+/* @media screen and (min-width: 900px) {
     .profileBackground{
-     margin-left:17px!important;
-      width:1620px !important;
-     
+     width: auto;
+     margin-top: -17px;
     
    
     
 
-}
+} */
     
     
   
-}
+/* } */
 .profile-user-row{
-    margin-left: 200px!important;
+    margin-left: 150px!important;
 }
 .user-name{
     color: white;

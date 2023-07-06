@@ -14,6 +14,10 @@ import { toast,ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Pusher from 'pusher-js';
 const stripePromise = loadStripe('pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l');
+const pusher = new Pusher("78bfd9bc497cd883c526", {
+      cluster: "ap1",
+      useTLS: true,
+    });
 
 function randomID(len) {
   let result = '';
@@ -66,7 +70,7 @@ const {id}=useParams()
 //   }
   sharedLinks.push({
     name: 'Join as audience',
-    url:`https://hybsoltech.com/admin/liveStreaming/${id}`
+    url:`https://eroxr.hybsoltech.com/admin/liveStreaming/${id}`
     //  window.location.protocol + '//' + 
     //  window.location.host + window.location.pathname +
     //   '?roomID=' +
@@ -112,7 +116,7 @@ const {id}=useParams()
      
 
 }
-const channel = Pusher.subscribe(`tip${userId?.id}`);
+const channel = pusher.subscribe(`tip${userId?.id}`);
     channel.bind('live-tip', (data) => {
        toast.success(`${data?.senderData?.firstName} sent you ${data?.tip}`, {
       position: toast.POSITION.TOP_CENTER,

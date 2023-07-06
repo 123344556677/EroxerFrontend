@@ -301,19 +301,19 @@ const checkPost=(post)=>{
 
  }
   return (
-    <div className="content profile-div " style={{ zoom: "0.80" }}>
+    <div className="content profile-div " >
     {
       backgroundVideoCheck===false&&
+      <Row  className="mr-0">
+      <Col xl={12} className="mr-0">
       <div
         style={{
           backgroundImage: `url(${
             backgroundImage ? backgroundImage : profilSix
           })`,
-          backgroundPosition: "center",
+        
           backgroundSize: "cover",
           height: "350px",
-          width: "1060px",
-          //  maxWidth:"104%",
           position: "relative",
         }}
         className="profileBackground"
@@ -367,6 +367,8 @@ const checkPost=(post)=>{
           />
         </div>
       </div>
+      </Col>
+      </Row>
     }
     {
       backgroundVideoCheck===true&&
@@ -453,16 +455,23 @@ const checkPost=(post)=>{
 {
               id===':id'&&
               <>
-            <CustomInput
-              type="switch"
-              id="exampleCustomSwitch"
-              name="customSwitch"
-              checked={isChecked}
-              onClick={toggleSwitch}
-              className="mt-4 ml-2"
-            />
+              {
+            // <CustomInput
+            //   type="switch"
+            //   id="exampleCustomSwitch"
+            //   name="customSwitch"
+            //   checked={isChecked}
+            //   onClick={toggleSwitch}
+            //   className="mt-4 ml-2"
+            // />
+              }
+             <label class="switch mt-3 ml-2">
+      <input type="checkbox" checked={isChecked}
+              onClick={toggleSwitch}   />
+      <span class="slider round"></span>
+    </label>
             <Button
-              className="btn-sm mt-4 mr-2 profile-button"
+              className="btn-sm mt-3 ml-lg-3  profile-button"
               onClick={() => history.push("/admin/editProfile")}
             >
               Edit Profile
@@ -607,13 +616,13 @@ const checkPost=(post)=>{
         <span className="ml-2" onClick={()=>setPrivateCheck("posts")} style={{ color:privateCheck==="posts"&&"white", fontWeight: "600",cursor:"pointer" }}>
           Posts
         </span>
-
-        <img
-          src={profileNine} alt=""
-          style={{ color: "white", width: "18px", height: "18px",cursor:"pointer" }}
-          className="ml-lg-5"
-        />
-        {
+{
+        // <img
+        //   src={profileNine} alt=""
+        //   style={{ color: "white", width: "18px", height: "18px",cursor:"pointer" }}
+        //   className="ml-lg-5"
+        // />
+        
         // <span className="ml-2" style={{ fontWeight: "600",cursor:"pointer" }}>
         //   Tagged
         // </span>

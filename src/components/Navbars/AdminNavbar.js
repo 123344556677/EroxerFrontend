@@ -111,7 +111,7 @@ function AdminNavbar(props) {
                 props.brandText !== "Authentication" &&
                 props.brandText !== "PasswordReset" &&
                 props.brandText !== "AccountManagement" &&
-                props.brandText !== "Membership" &&
+                props.brandText !== "Be a G.O.A.T Member" &&
                 props.brandText !== "createPost" &&
                 props.brandText !== "createAd" &&
                 props.brandText !== "AdDescription" &&
@@ -141,7 +141,7 @@ function AdminNavbar(props) {
                     props.brandText !== "Authentication" &&
                     props.brandText !== "PasswordReset" &&
                     props.brandText !== "AccountManagement" &&
-                    props.brandText !== "Membership" &&
+                    props.brandText !== "Be a G.O.A.T Member" &&
                     props.brandText !== "Help & Support" &&
                     props.brandText !== "Live" &&
                     props.brandText !== "createPost" &&

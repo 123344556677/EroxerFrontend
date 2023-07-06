@@ -104,7 +104,7 @@ const permanentlyDelete=()=>{
             </Col>
           </Row>
           <FormGroup check className="mt-4">
-            <Input type="radio" className="mt-2" />{" "}
+            <Input type="radio" className="mt-1" />{" "}
             <Label
               style={{ color: "white", fontWeight: "600", fontSize: "17px" }}
             >
@@ -170,15 +170,15 @@ const permanentlyDelete=()=>{
             </Col>
           </Row>
           <FormGroup check className="mt-4">
-            <Input type="radio" className="mt-2" />{" "}
+            <Input type="radio" className="mt-1" />{" "}
             <Label
               style={{ color: "white", fontWeight: "600", fontSize: "17px" }}
             >
-               Deleting Your Accont
+               Deleting Your Account
             </Label>
             <p className="" style={{ color: "grey", fontSize: "13px" }}>
-              If you want to permanently delete  your Erroxer
-              acconut .let us know
+              If you want to permanently delete  your Eroxr
+              acconut.let us know
             </p>
           </FormGroup>
           <Row>
@@ -226,7 +226,7 @@ const permanentlyDelete=()=>{
               <Card className="manage-card mt-3">
                 <CardHeader>
                   <FormGroup check className="">
-                    <Input type="radio" checked={checked} className="mt-2 ml-2 mb-0" onChange={()=>setChecked(true)} />{" "}
+                    <Input type="radio" checked={checked} className="mt-1 ml-2 mb-0" onChange={()=>setChecked(true)} />{" "}
                     <Label
                       className="ml-4"
                       style={{
@@ -235,7 +235,7 @@ const permanentlyDelete=()=>{
                         fontSize: "17px",
                       }}
                     >
-                      Permanently Delete account
+                      Permanently Delete Account
                     </Label>
                     <p
                       className="ml-4"
@@ -256,7 +256,7 @@ const permanentlyDelete=()=>{
                       fontSize: "12px",
                     }}
                   >
-                    When you delete your Erroxer account, you want not be able
+                    When you delete your Eroxr account, you want not be able
                     to <br />
                     retrive the content or information you have shared on
                     Erroxer.{" "}

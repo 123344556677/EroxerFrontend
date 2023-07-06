@@ -27,7 +27,7 @@ const getUser = useSelector((state) => state?.getUserById);
        sharedLinks: [
           {
             name: 'Copy Link link',
-            url:`https://hybsoltech.com/admin/chatCall/${id}`
+            url:`https://eroxr.hybsoltech.com/admin/chatCall/${id}`
              
           },
         ],

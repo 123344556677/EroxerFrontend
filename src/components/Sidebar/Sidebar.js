@@ -196,7 +196,7 @@ function Sidebar(props) {
          
               <div className="sidebar-logo mt-2 ">
              
-                <img src={Logo} alt="" className=""/>
+                <img src={Logo} alt="" className="" style={{cursor:"pointer"}} onClick={()=>history.push('/admin/home')}/>
              
               </div>
             
@@ -348,7 +348,7 @@ function Sidebar(props) {
                  
                 );
               })}
-              <div style={{marginTop:"10px"}}>
+              <div style={{marginTop:"30px"}} className="mb-5">
               <p className="mb-2 footer-main ml-4">Download our mobile app</p>
             <Row className="mb-3 ml-3">
             <img src={apple} className="ml-4"  alt=""/>
@@ -358,7 +358,7 @@ function Sidebar(props) {
             <p className=" footer-textt  text-center ">By visting this page you agreeing to our </p>
             <p className=" footer-policy mb-1 ml-2  mr-1 text-center">Privacy Policy and  Terms and Conditions</p>
             
-            <Row className="justify-content-center">
+            <Row className="justify-content-center ">
             <AiFillInstagram className="footer-icons ml-1"/>
             <AiFillLinkedin className="footer-icons ml-1"/>
             <AiOutlineTwitter className="footer-icons ml-1"/>

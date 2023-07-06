@@ -145,7 +145,7 @@ const closeModal = () => {
     <EroxrFeeModal isOpen={showModal} toggle={closeModal} userData={modalUser}/>
     </Elements>
     
-      <Col className="ml-auto mr-auto col-md-6 col-lg-4">
+      <Col className="ml-auto mr-auto col-md-6 col-lg-5">
         <Card className="reg-card">
           <Form onSubmit={reg}>
             <CardHeader>
@@ -271,7 +271,7 @@ const closeModal = () => {
                       className="google-btn pt-3 pb-3"
                       onClick={Greg}
                     >
-                      <FaGoogle size={20} className="mr-2" />
+                      <FaGoogle size={18} className="mr-2" />
                       <small className="">Login with Google</small>
                     </Button>
                   </Col>

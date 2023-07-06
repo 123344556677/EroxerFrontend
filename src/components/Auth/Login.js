@@ -164,13 +164,13 @@ function Login(props) {
                   </p>
                 </CardTitle>
                 <Row className="mt-2 mb-2">
-                  <Col className="ml-5">
+                  <Col className="">
                     <Button
                       color="dark"
                       className="google-btn pt-3 pb-3 "
                       onClick={Glogin}
                     >
-                      <FaGoogle size={20} className="mr-2" />
+                      <FaGoogle size={18} className="mr-2" />
                       <small>Login with Google</small>
                     </Button>
                   </Col>

@@ -121,7 +121,7 @@ const Explore = () => {
      
                         </Col>
                         </Row>
-    <div style={{zoom:"0.70"}} className="mr-lg-4">
+    <div  className="mr-lg-4">
     <Row className='mt-3 justify-content-center'>
 
     <Col xl={8}>
@@ -132,19 +132,22 @@ const Explore = () => {
        
      <Card style={{backgroundColor:"#161616",borderRadius:"10px"}}>
      <Row>
+     
   
   <img
     alt="Card cap"
     src={data?.backgroundPic?data?.backgroundPic:"https://picsum.photos/318/180"}
     width="20%"
+    
     className='ml-4 mt-3 mb-3'
     style={{borderRadius:"20px"}}
   />
   <CardBody>
+  
     <CardText className='ml-1' style={{fontSize:"15px",fontWeight:"600",color:"white"}}>
      {data?.otherData?.about?data?.otherData?.about:"Hello how are i am a photograher and also doing some yoga"}
      <span>
-    <AiFillEye className=''  style={{color:"white",fontSize:"30px",marginLeft:"40%",cursor:"pointer"}}  onClick={()=>history.push(`/admin/profile/${data?.otherData?._id}`)}/><AiFillDelete className='ml-2' onClick={()=>deleteProfile(data?._id)}  style={{color:"white",fontSize:"25px",cursor:"pointer"}}/>
+    <AiFillEye className='ml-lg-5 ml-md-5'  style={{color:"white",fontSize:"30px",cursor:"pointer"}}  onClick={()=>history.push(`/admin/profile/${data?.otherData?._id}`)}/><AiFillDelete className='ml-2' onClick={()=>deleteProfile(data?._id)}  style={{color:"white",fontSize:"25px",cursor:"pointer"}}/>
      </span>
     </CardText>
     <CardText  className='ml-1' href="#" style={{color:"white",fontWeight:"500"}}>
@@ -154,7 +157,7 @@ const Explore = () => {
     <Col>
       <Media className='mt-4 ml-3 mb-4'>
       <Media left>
-        <img object  src={data?.otherData?.profilePic?data?.otherData?.profilePic:cardOne} alt="jannan" className="upper-profile rounded-circle" />
+        <img object  src={data?.otherData?.profilePic?data?.otherData?.profilePic:cardOne} style={{height:"50px",width:"50px"}}alt="jannan" className="rounded-circle" />
       </Media>
       <Media body className="ml-2 mt-1">
         <h4 className='text-white mb-0'style={{fontWeight:"600"}}>{data?.otherData?.firstName}</h4>
@@ -168,7 +171,7 @@ const Explore = () => {
     </Col>
     {
   //   <Col className='mt-5'>
-  //   <div style={{textAlign:"end",marginRight:"40px",marginTop:"30px"}}>
+  //   <div style={{textAlign:"end",marginRight:"30px",marginTop:"30px"}}>
   //  <AiFillEye className='' style={{color:"white",fontSize:"20px"}}/>
   //  <p className=''  style={{color:"white",fontSize:"10px"}}>10k</p>
 

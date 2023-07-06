@@ -31,7 +31,7 @@ function Footer() {
           </NavItem>
           <NavItem className="footer-items">
             <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">
-              <span className="ml-1" style={{fontSize:"18px"}}><AiFillFacebook/></span>
+              <span className="ml-1"><AiFillFacebook  style={{fontSize:"18px"}}/></span>
             <span className="ml-1"><AiFillInstagram style={{fontSize:"18px"}}/></span>
             <span className="ml-1"><AiFillLinkedin style={{fontSize:"18px"}}/></span>
              <span className="ml-1"><AiOutlineTwitter style={{fontSize:"18px"}}/></span>

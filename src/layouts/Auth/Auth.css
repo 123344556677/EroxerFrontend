@@ -1,6 +1,6 @@
 .backgroundImage{
     height: 113.5vh !important;
-    zoom:0.81!important;
+    /* zoom:0.90!important; */
     background-repeat: no-repeat!important;
     background:cover!important;
     background-size: cover!important;
@@ -10,4 +10,7 @@
   .backgroundImage {
      height: 150vh !important;
   }
+}
+.body{
+  /* zoom:0.90!important; */
 }

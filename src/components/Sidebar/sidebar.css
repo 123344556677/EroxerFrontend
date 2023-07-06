@@ -2,7 +2,7 @@
  background-image: linear-gradient(to bottom left, #161616, #161616)!important;
  border-radius: 0 50px  0 10px!important;
    
-    height:140vh!important;
+    height:200vh!important;
     box-shadow:none!important;
      zoom: 0.80!important;
     
@@ -13,6 +13,7 @@
 }
 .sidebar{
 width:300px!important;
+/* overflow-y: auto; */
 
 }
 .dropDown-sidebar:hover{
@@ -110,19 +111,19 @@ margin-top: 6px!important;
     font-weight: 600;
 }
 .footer-text{
-    font-size: 11px;
+    font-size: 15px;
     color:#CFCFCF !important;
     font-weight: 600;
     margin-top: -12px!important;
 }
 .footer-textt{
-    font-size: 11px;
+    font-size: 13px;
     color:#CFCFCF !important;
     font-weight: 600;
     margin-top: -10px!important;
 }
 .footer-policy{
-    font-size: 10px;
+    font-size: 13px;
     color:#229ED9 !important;
     font-weight: 600;
      margin-top: -10px!important;
@@ -131,7 +132,7 @@ margin-top: 6px!important;
 .footer-icons{
     
     color:white!important;
-    font-size:20px!important
+    font-size:30px!important
 }
 
 
@@ -159,5 +160,8 @@ margin-top: 6px!important;
 .accordian-icon{
     font-size: 40px!important;
 }
+
+
+
 
 

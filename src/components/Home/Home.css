@@ -79,11 +79,11 @@
 }
 
 .card-img-top {
-  width: 70px !important;
-  height: 70px !important;
+  width: 50px !important;
+  height: 50px !important;
   object-fit: cover !important;
   position: absolute !important;
-  top: -30px !important;
+  top: -20px !important;
   left: 30px !important;
   overflow: hidden !important;
   background-color: #1e1e26;
@@ -174,7 +174,7 @@ p {
 }
 .lock-img{
   position: absolute!important;
-  margin-top: -40%!important;
+  margin-top: -45%!important;
   width: 200px !important;
   height: 200px !important;
   margin-left: -10%!important;

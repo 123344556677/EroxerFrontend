@@ -421,14 +421,16 @@ console.log(screenWidth,"width=========>")
        <p className="chat-designation">{userData?.onlineStatus?"online":"offline"}</p>
       </Media>
       <Media right onClick={handleNotiValues} style={{cursor:"pointer"}}>
+      <Media body className="ml-3 mt-3">
+        <BsFillBellFill className='mt-3 ' style={{marginLeft:"-100%",color:"white",fontSize:"25px"}} />
+        <Badge onClick={handleNotiValues}  style={{color:"white",backgroundColor:"red",marginLeft:"-10px",cursor:"pointer"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen>0}</Badge>
+      </Media>
       
-        <div className="" onClick={handleNotiValues}>
-        <BsFillBellFill className='mt-3 ' style={{marginLeft:"-50px",curosr:"pointer",color:"white",fontSize:"25px"}} />
         
-      <Badge  style={{color:"white",backgroundColor:"red",marginLeft:"-10px"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen}</Badge>
+        
         
     
-    </div>
+  
     
     {
         // </DropdownToggle>

@@ -93,7 +93,7 @@ const Chat = () => {
   const [intervalActive, setIntervalActive] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [filtereMessage, setFiltereMessage] = useState(false);
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
+  const toggle = () => setDropdownOpen(!dropdownOpen);
 
   const [chatPic, setChatPic] = useState(false);
 
@@ -437,6 +437,18 @@ setFiltereMessage(false)
     } else {
       console.log("no url");
       return (
+        <>
+        {
+          filtereMessage&&
+         <Input
+           type="checkbox"
+           style={{width:"13px",height:"13px"}}
+           className="mt-4"
+           onChange={()=>handleFiltere(imageString)}
+           />
+        }
+        
+        
         <Input
           defaultValue=""
           placeholder="Type your message here..."
@@ -444,6 +456,7 @@ setFiltereMessage(false)
           value={imageString}
           className="chat-second-inputs mt-3 "
         />
+        </>
       );
     }
   }
@@ -541,9 +554,9 @@ setFiltereMessage(false)
                   style={{ cursor: "pointer" }}
                 />
 
-                
+                 <IoMdMore className=" more-icon" onClick={()=>console.log("hannan")} />
                  <Dropdown isOpen={dropdownOpen} toggle={toggle} className="dropDown-chat" >
-        <IoMdMore className=" more-icon" onClick={toggle} />
+      
         <DropdownMenu style={{backgroundColor:"#161616",position:"absolute",borderRadius:"20px"}}  >
           <DropdownItem className="drop-item" onClick={()=>setMessages([])}>
            <span><AiFillDelete/></span>
@@ -590,12 +603,12 @@ setFiltereMessage(false)
                   </Media>
                 ) : (
                   <Row
-                    className=""
-                    style={{ marginLeft: "380px" }}
+                    className="justify-content-end"
+                    
                     data-aos="fade-up"
                   >
-                    <Media className="">
-                      <Media body className="ml-2 message-media mt-1">
+                    <Media className="mr-4">
+                      <Media body className="message-media mt-1">
                        
                         {renderImageSecondTag(data?.message)}
                       </Media>

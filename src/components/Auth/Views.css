@@ -11,6 +11,7 @@
 }
 .login-btn{
     background-image: linear-gradient(to bottom left, #4c0741, #430b58, #250625)!important;
+    background-color:#4c0741!important ;
     padding-left: 130px!important;
     padding-right: 130px!important;
     padding-top: 20px!important;

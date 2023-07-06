@@ -685,13 +685,13 @@ const Home = () => {
     <div className="content home-div" onContextMenu={handleRightClick}>
       <HomeModals isOpen={showModal} toggle={closeModal} />
 
-      <Row className="justify-conten-center ml-lg-4">
+      <Row className="justify-conten-center ">
         <Col xl={8} className="ml-lg-5">
           <Row>
             <Col>
               <h2 className="home-title">
                 {userData?.firstName} {userData?.lastName}{" "}
-                <span style={{ fontSize: "40px", cursor: "pointer" }}>
+                <span style={{ fontSize: "33px", cursor: "pointer" }}>
                   <AiOutlinePlusCircle onClick={() => setShowModal(true)} />
                 </span>
               </h2>
@@ -756,7 +756,7 @@ const Home = () => {
             </span>
           </div>
 
-          <div class="container mt-2 mb-3" style={{ zoom: "0.80" }}>
+          <div class="container mt-2 mb-3" >
             <div class="row">
               <div class="col">
                 <ul className={hoveredImage ? "live-img " : "image-list"}>
@@ -827,7 +827,7 @@ const Home = () => {
                     class={
                       index > 0 ? "card second-card-main" : "card card-main"
                     }
-                    style={{ zoom: "0.80" }}
+                    
                   >
                     <img
                       src={

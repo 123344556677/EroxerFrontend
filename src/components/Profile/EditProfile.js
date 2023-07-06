@@ -88,7 +88,7 @@ const EditProfile = () => {
  
 
   return (
-    <div className="content" style={{ zoom: "0.90",marginTop: "-4%", }}>
+    <div className="content" style={{ zoom: "0.95",marginTop: "-4%", }}>
       
         <Link
           to="/admin/profile/:id"
@@ -210,7 +210,7 @@ const EditProfile = () => {
                     }}
                   >
                     Editing your links is only available onmobile. Visit the
-                    Erroxer app and edit your profile to change the websites in
+                    Eroxr app and edit your profile to change the websites in
                     your bio.
                   </p>
                 </Col>

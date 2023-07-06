@@ -62,7 +62,7 @@ const Support = () => {
               >
                 Help & Support
               </h3>
-              <p className="" style={{ color: "grey", fontSize: "8px" }}>
+              <p className="" style={{ color: "grey", fontSize: "12px" }}>
                 Eroxr is here to help. Discover our office locations and
                 different <br />
                 ways to contact us so that we can provide you with the support
@@ -79,14 +79,14 @@ const Support = () => {
             className=""
           />
           <Row className="justify-content-center">
-            <Col xl={8} style={{ zoom: "0.78" }}>
+            <Col xl={8} >
               <div>
                 {SupportList.map((data) => (
                   <>
                     <p
                       className="mt-3"
                       style={{
-                        fontSize: "10px",
+                        fontSize: "12px",
                         color: "#AFAEA2",
                         fontWeight: "600",
                       }}
