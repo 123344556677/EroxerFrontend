@@ -151,7 +151,7 @@ function Login(props) {
   return (
     <motion.div initial="hidden" animate="visible" variants={slideVariants}>
       <div>
-        <Col className="ml-auto mr-auto  col-lg-4  ">
+        <Col className="ml-auto mr-auto  col-lg-5  ">
           <Card className="login-card mb-5">
             <Form onSubmit={log}>
               <CardHeader>
@@ -164,7 +164,7 @@ function Login(props) {
                   </p>
                 </CardTitle>
                 <Row className="mt-2 mb-2">
-                  <Col className="">
+                  <Col className="ml-5">
                     <Button
                       color="dark"
                       className="google-btn pt-3 pb-3 "

@@ -848,16 +848,16 @@ const Ads = () => {
               // </Dropdown>
             }
           </Row>
-          <Row className="no-gutters">
+          <Row className="">
             {getAds ? (
               filtereAds?.map((data) => (
                 <Col xl={4}>
                   <Card
-                    className="mt-2 ml-lg-4"
+                    className="mt-2 "
                     style={{
                       backgroundColor: "#161616",
                       borderRadius: "20px",
-                      width: "380px",
+                      
                       cursor: "pointer",
                     }}
                     onClick={() => {
