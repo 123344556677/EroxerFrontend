@@ -126,7 +126,9 @@ const Explore = () => {
 
     <Col xl={8}>
     <h1 className='text-white' style={{fontStyle:"Roboto",fontSize:"50px"}}>Custom List</h1>
+   
     {
+        filtereList?.length?
         filtereList?.map((data)=>(
 
        
@@ -145,13 +147,13 @@ const Explore = () => {
   <CardBody>
   
     <CardText className='ml-1' style={{fontSize:"15px",fontWeight:"600",color:"white"}}>
-     {data?.otherData?.about?data?.otherData?.about:"Hello how are i am a photograher and also doing some yoga"}
+     {data?.otherData?.about?data?.otherData?.about:"Eroxr Content Creator"}
      <span>
     <AiFillEye className='ml-lg-5 ml-md-5'  style={{color:"white",fontSize:"30px",cursor:"pointer"}}  onClick={()=>history.push(`/admin/profile/${data?.otherData?._id}`)}/><AiFillDelete className='ml-2' onClick={()=>deleteProfile(data?._id)}  style={{color:"white",fontSize:"25px",cursor:"pointer"}}/>
      </span>
     </CardText>
     <CardText  className='ml-1' href="#" style={{color:"white",fontWeight:"500"}}>
-      classes for make body more attractive.
+      You added this user to your list!
     </CardText>
     <Row>
     <Col>
@@ -184,6 +186,8 @@ const Explore = () => {
   </Row>
 </Card>
         ))
+        :
+        <h2 className="text-center">No One Added!</h2>
     }
     </Col>
     </Row>

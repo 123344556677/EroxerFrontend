@@ -453,6 +453,32 @@ const checkPost=(post)=>{
               {userData?.username ? userData?.username : userData?.firstName}
             </h3>
 {
+              id===userId?.id&&
+              <>
+              {
+            // <CustomInput
+            //   type="switch"
+            //   id="exampleCustomSwitch"
+            //   name="customSwitch"
+            //   checked={isChecked}
+            //   onClick={toggleSwitch}
+            //   className="mt-4 ml-2"
+            // />
+              }
+             <label class="switch mt-3 ml-2">
+      <input type="checkbox" checked={isChecked}
+              onClick={toggleSwitch}   />
+      <span class="slider round"></span>
+    </label>
+            <Button
+              className="btn-sm mt-3 ml-lg-3  profile-button"
+              onClick={() => history.push("/admin/editProfile")}
+            >
+              Edit Profile
+            </Button>
+</>
+}
+{
               id===':id'&&
               <>
               {

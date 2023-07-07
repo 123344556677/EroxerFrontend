@@ -77,6 +77,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { getAllTip } from "components/redux/actions/paymentAction";
 import { getContactById } from "components/redux/actions/contactActions";
 import HomeModals from "components/Modals/HomeModals";
+import { updateCallStatus } from "Api/Api";
 const stripePromise = loadStripe(
   "pk_test_51MaOSqE6HtvcwmMAdMy883aTXdyWTHnC8vQEIODCdn8OSGY8ePIRmlyGibnWuS9WYw1vqLYLRns32dQHzlmDVFr200yWroca7l"
 );
@@ -130,6 +131,7 @@ const Home = () => {
   const [postData, setPostData] = useState();
   const [lockModal, setLockModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [postBlurCheck, setPostBlurCheck] = useState(false);
   const [search, setSearch] = useState(false);
   const [lock, setLock] = useState(true);
   const [filterePosts, setFilterePosts] = useState();
@@ -138,7 +140,7 @@ const Home = () => {
   const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const dispatch = useDispatch();
   const getPost = useSelector((state) => state?.getPosts);
-
+  const userIdforPusher=userId?.id
   const getSubscribedUser = useSelector(
     (state) => state?.getAllAcceptedRequestReducer?.accpetedRequests
   );
@@ -148,6 +150,7 @@ const Home = () => {
   const userData = getUser?.userData;
   const getAllUser = useSelector((state) => state?.getAllUsers);
   const AllUser = getAllUser?.allUsers;
+  
 
   // let streamPics=[
   //   {
@@ -281,7 +284,7 @@ const Home = () => {
     dispatch(getAllUsers());
 
     // dispatch(getRequestById(values))
-    // dispatch(getRequestBySenderId(values))
+    dispatch(getRequestBySenderId(values))
     dispatch(getAllAcceptedUsers(values));
     // dispatch(getListById(values))
     // dispatch(getCallById(values))
@@ -303,39 +306,121 @@ const Home = () => {
       )
     );
   };
+  const changeCallStatus=(status,senderId)=>{
+  const callValues={
+  recieverId:userId.id,
+  senderId:senderId,
+  status:status
+  }
+  updateCallStatus(callValues)
+}
 
-  useEffect(() => {
-    const pusher = new Pusher("78bfd9bc497cd883c526", {
-      cluster: "ap1",
-      useTLS: true,
-    });
+    // useEffect(() => {
+    // const pusher = new Pusher("78bfd9bc497cd883c526", {
+    //   cluster: "ap1",
+    //   useTLS: true,
+    // });
 
-    const channel = pusher.subscribe(`request${userId?.id}`);
-    channel.bind("request", (data) => {
-      Swal.fire({
-        title: `<p style="color:white;" font-size:15px">${data?.name} has sent you a request<p/>`,
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Accept",
-        cancelButtonText: "Reject",
-        reverseButtons: true,
-        timer: 10000,
-        customClass: {
-          confirmButton: "btn ml-2 btn-primary",
-          cancelButton: "btn btn-danger",
-        },
-        background: "#000000",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // User clicked the confirm button
-          changeRequestStatus(data?.userId);
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          // User clicked the cancel button
-        }
-      });
-    });
-  }, []);
+
+  //   const channel = pusher.subscribe(userIdforPusher);
+  //   channel.bind("client-alert", (data) => {
+  //     if (data.message === "audio alert is coming") {
+  //       Swal.fire({
+  //         title: `<p style="color:white;" font-size:15px">${data?.name} is calling for audio call<p/>`,
+  //         html: `<P style="color:white; font-size:10px">End-to-end encrypted Call</P>`,
+  //         showCancelButton: true,
+  //         confirmButtonColor: "#3085d6",
+  //         cancelButtonColor: "#d33",
+  //         confirmButtonText: "Answer",
+  //         cancelButtonText: "Reject",
+  //         reverseButtons: true,
+  //         customClass: {
+  //           confirmButton: "btn ml-2 btn-primary",
+  //           cancelButton: "btn btn-danger",
+  //         },
+  //         timer: 10000,
+  //         background: "#000000",
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           // User clicked the confirm button
+  //           changeCallStatus("answered",data?.senderId)
+  //           history.push(`/admin/chatCall/${data?.senderId}`);
+  //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //           // User clicked the cancel button
+  //           changeCallStatus("rejected",data?.senderId)
+  //           Swal.fire("Cancelled", "Your action was cancelled :)", "error");
+  //         }
+  //       });
+  //     }
+  //     if (data.message === "video alert is coming") {
+  //       Swal.fire({
+  //         title: `<p style="color:white;" font-size:15px">${data?.name} is calling for video call<p/>`,
+  //         html: `<P style="color:white; font-size:10px">End-to-end encrypted Call</P>`,
+  //         showCancelButton: true,
+  //         confirmButtonColor: "#3085d6",
+  //         cancelButtonColor: "#d33",
+  //         confirmButtonText: "Answer",
+  //         cancelButtonText: "Reject",
+  //         reverseButtons: true,
+  //         timer: 10000,
+  //         customClass: {
+  //           confirmButton: "btn ml-2 btn-primary",
+  //           cancelButton: "btn btn-danger",
+  //         },
+  //         background: "#000000",
+  //       }).then((result) => {
+  //         if (result.isConfirmed) {
+  //           // User clicked the confirm button
+  //           changeCallStatus("answered",data?.senderId)
+  //           history.push(`/admin/chatVideoCall/${data?.senderId}`);
+  //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //           // User clicked the cancel button
+  //           changeCallStatus("rejected",data?.senderId)
+  //           Swal.fire("Cancelled", "Your action was cancelled :)", "error");
+  //         }
+  //       });
+  //     }
+  //   });
+
+  //   return () => {
+  //     channel.unbind("client-alert");
+  //     pusher.unsubscribe(userIdforPusher);
+  //     pusher.disconnect();
+  //   };
+  // }, [userIdforPusher]);
+
+  // useEffect(() => {
+  //   const pusher = new Pusher("78bfd9bc497cd883c526", {
+  //     cluster: "ap1",
+  //     useTLS: true,
+  //   });
+
+  //   const channel = pusher.subscribe(`request${userId?.id}`);
+  //   channel.bind("request", (data) => {
+  //     Swal.fire({
+  //       title: `<p style="color:white;" font-size:15px">${data?.name} has sent you a request<p/>`,
+  //       showCancelButton: true,
+  //       confirmButtonColor: "#3085d6",
+  //       cancelButtonColor: "#d33",
+  //       confirmButtonText: "Accept",
+  //       cancelButtonText: "Reject",
+  //       reverseButtons: true,
+  //       timer: 10000,
+  //       customClass: {
+  //         confirmButton: "btn ml-2 btn-primary",
+  //         cancelButton: "btn btn-danger",
+  //       },
+  //       background: "#000000",
+  //     }).then((result) => {
+  //       if (result.isConfirmed) {
+  //         // User clicked the confirm button
+  //         changeRequestStatus(data?.userId);
+  //       } else if (result.dismiss === Swal.DismissReason.cancel) {
+  //         // User clicked the cancel button
+  //       }
+  //     });
+  //   });
+  // }, []);
   // if(getRequests?.length>=0){
   //  toast.warn(
   //   <div>
@@ -357,274 +442,265 @@ const Home = () => {
   //
 
   // }, [dispatch])
+  // const checkPost = (data) => {
+  //   setPostBlurCheck(false)
+  //   let matchingImg = null;
+  //   const check = data?.postPic?.includes("video");
+    
+  //   if (check) {
+  //     getSubscribedUser?.map((datas) => {
+  //         if (data?.userId === datas?._id) {
+  //           setPostBlurCheck(true)
+  //           console.log("coming in it of ONE-------->");
+  //           matchingImg = (
+  //             <video
+  //               loop
+  //               muted
+  //               controls
+  //               autoPlay
+  //               src={data?.postPic}
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //               }}
+  //             />
+  //           );
+  //         }
+  //       });
+       
+       
+        
+  //           if (data?.payerId.includes(userId?.id)) {
+  //             setPostBlurCheck(true)
+  //             console.log("coming in it THREE-------->");
+  //             matchingImg = (
+  //               <video
+  //               loop
+  //               muted
+  //               controls
+  //               autoPlay
+  //               src={data?.postPic}
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //               }}
+  //             />
+  //             );
+  //           } 
+        
+        
+
+  //         if (data?.userId === userId?.id) {
+  //           setPostBlurCheck(true)
+  //           matchingImg = (
+  //             <video
+  //               loop
+  //               muted
+  //               controls
+  //               autoPlay
+  //               src={data?.postPic}
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //               }}
+  //             />
+  //           );
+  //         } 
+  //         if(postBlurCheck===false){
+  //           matchingImg = (
+  //             <video
+  //               loop
+  //               muted
+  //               controls
+  //               autoPlay
+  //               src={data?.postPic}
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //                 filter: data?.postCheck === true ? "blur(8px)" : "",
+  //               }}
+  //             />
+  //           );
+  //         }
+      
+  //   } else {
+      
+  //       getSubscribedUser?.map((datas) => {
+  //         if (data?.userId === datas?._id) {
+  //           setPostBlurCheck(true)
+  //           console.log("coming in it of ONE-------->");
+  //           matchingImg = (
+  //             <img
+  //               alt=""
+  //               src={
+  //                 data?.postPic
+  //                   ? data?.postPic
+  //                   : "https://picsum.photos/id/1015/1200/800"
+  //               }
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //               }}
+  //             />
+  //           );
+  //         }
+  //       });
+       
+       
+        
+  //           if (data?.payerId.includes(userId?.id)) {
+  //             setPostBlurCheck(true)
+  //             console.log("coming in it THREE-------->");
+  //             matchingImg = (
+  //               <img
+  //                 alt=""
+  //                 src={
+  //                   data?.postPic
+  //                     ? data?.postPic
+  //                     : "https://picsum.photos/id/1015/1200/800"
+  //                 }
+  //                 style={{
+  //                   width: "850px",
+  //                   height: "450px",
+  //                   borderRadius: "40px",
+  //                 }}
+  //               />
+  //             );
+  //           } 
+        
+        
+
+  //         if (data?.userId === userId?.id) {
+  //           setPostBlurCheck(true)
+  //           matchingImg = (
+  //             <img
+  //               alt=""
+  //               src={
+  //                 data?.postPic
+  //                   ? data?.postPic
+  //                   : "https://picsum.photos/id/1015/1200/800"
+  //               }
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //               }}
+  //             />
+  //           );
+  //         } 
+  //         if(postBlurCheck===false){
+  //           matchingImg = (
+  //             <img
+  //               alt=""
+  //               src={
+  //                 data?.postPic
+  //                   ? data?.postPic
+  //                   : "https://picsum.photos/id/1015/1200/800"
+  //               }
+  //               style={{
+  //                 width: "850px",
+  //                 height: "450px",
+  //                 borderRadius: "40px",
+  //                 filter: data?.postCheck === true ? "blur(8px)" : "",
+  //               }}
+  //             />
+  //           );
+  //         }
+        
+      
+
+  //     return matchingImg;
+  //   }
+  // };
   const checkPost = (data) => {
-    let matchingImg = null;
-    const check = data?.postPic?.includes("video");
-    if (check) {
-      if (getSubscribedUser?.length) {
-        getSubscribedUser?.map((datas) => {
-          if (data?.userId === datas?._id) {
-            matchingImg = (
-              <video
-                loop
-                muted
-                controls
-                autoPlay
-                src={data?.postPic}
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                }}
-              />
-            );
-          } else {
-            matchingImg = (
-              <video
-                loop
-                muted
-                controls
-                autoPlay
-                src={data?.postPic}
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                  filter: data?.postCheck === true ? "blur(20px)" : "",
-                }}
-              />
-            );
-          }
-        });
-      } else {
-        if (data?.payerId?.length) {
-          data?.payerId?.map((datass, index) => {
-            if (datass === userId?.id) {
-              matchingImg = (
-                <video
-                  loop
-                  muted
-                  controls
-                  autoPlay
-                  src={data?.postPic}
-                  style={{
-                    width: "850px",
-                    height: "450px",
-                    borderRadius: "40px",
-                  }}
-                />
-              );
-            } else {
-              if (data?.userId === userId?.id) {
-                matchingImg = (
-                  <video
-                    loop
-                    muted
-                    controls
-                    autoPlay
-                    
-                    src={data?.postPic}
-                    style={{
-                      width: "850px",
-                      height: "450px",
-                      borderRadius: "40px",
-                    }}
-                  />
-                );
-              } else {
-                matchingImg = (
-                  <video
-                    loop
-                    muted
-                    controls
-                    autoPlay
-                    src={data?.postPic}
-                    style={{
-                      width: "850px",
-                      height: "450px",
-                      borderRadius: "40px",
-                      filter: data?.postCheck === true ? "blur(20px)" : "",
-                    }}
-                  />
-                );
-              }
-            }
-          });
-        } else {
-          if (data?.userId === userId?.id) {
-            matchingImg = (
-              <video
-                loop
-                muted
-                controls
-                autoPlay
-                src={data?.postPic}
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                }}
-              />
-            );
-          } else {
-            matchingImg = (
-              <video
-                loop
-                muted
-                controls
-                autoPlay
-                src={data?.postPic}
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                  filter: data?.postCheck === true ? "blur(20px)" : "",
-                }}
-              />
-            );
-          }
-        }
-      }
+  let matchingImg = null;
+  const check = data?.postPic?.includes("video");
+
+  if (check) {
+    if (
+      getSubscribedUser.some((datas) => data?.userId === datas?._id) ||
+      data?.payerId.includes(userId?.id) ||
+      data?.userId === userId?.id
+    ) {
+      matchingImg = (
+        <video
+          loop
+          muted
+          controls
+          autoPlay
+          src={data?.postPic}
+          style={{
+            width: "850px",
+            height: "450px",
+            borderRadius: "40px",
+          }}
+        />
+      );
     } else {
-      if (getSubscribedUser?.length) {
-        getSubscribedUser?.map((datas) => {
-          if (data?.userId === datas?._id) {
-            console.log("coming in it of ONE-------->");
-            matchingImg = (
-              <img
-                alt=""
-                src={
-                  data?.postPic
-                    ? data?.postPic
-                    : "https://picsum.photos/id/1015/1200/800"
-                }
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                }}
-              />
-            );
-          } else {
-            console.log("coming in it of TWO-------->");
-            matchingImg = (
-              <img
-                alt=""
-                src={
-                  data?.postPic
-                    ? data?.postPic
-                    : "https://picsum.photos/id/1015/1200/800"
-                }
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                  filter: data?.postCheck === true ? "blur(10px)" : "",
-                }}
-              />
-            );
-          }
-        });
-      } else {
-        if (data?.payerId?.length) {
-          data?.payerId?.map((datass, index) => {
-            if (datass === userId?.id) {
-              console.log("coming in it THREE-------->");
-              matchingImg = (
-                <img
-                  alt=""
-                  src={
-                    data?.postPic
-                      ? data?.postPic
-                      : "https://picsum.photos/id/1015/1200/800"
-                  }
-                  style={{
-                    width: "850px",
-                    height: "450px",
-                    borderRadius: "40px",
-                  }}
-                />
-              );
-            } else {
-              console.log("coming in it FOUR-------->");
-
-              if (data?.userId === userId?.id) {
-                matchingImg = (
-                  <img
-                    alt=""
-                    src={
-                      data?.postPic
-                        ? data?.postPic
-                        : "https://picsum.photos/id/1015/1200/800"
-                    }
-                    style={{
-                      width: "850px",
-                      height: "450px",
-                      borderRadius: "40px",
-                    }}
-                  />
-                );
-              } else {
-                matchingImg = (
-                  <img
-                    alt=""
-                    src={
-                  data?.postPic
-                    ? data?.postPic
-                    : "https://picsum.photos/id/1015/1200/800"
-                }
-                    style={{
-                      width: "850px",
-                      height: "450px",
-                      borderRadius: "40px",
-                      filter: data?.postCheck === true ? "blur(10px)" : "",
-                    }}
-                  />
-                );
-              }
-            }
-          });
-        } else {
-          if (data?.userId === userId?.id) {
-            matchingImg = (
-              <img
-                alt=""
-                src={
-                  data?.postPic
-                    ? data?.postPic
-                    : "https://picsum.photos/id/1015/1200/800"
-                }
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                }}
-              />
-            );
-          } else {
-            matchingImg = (
-              <img
-                alt=""
-                src={
-                  data?.postPic
-                    ? data?.postPic
-                    : "https://picsum.photos/id/1015/1200/800"
-                }
-                style={{
-                  width: "850px",
-                  height: "450px",
-                  borderRadius: "40px",
-                  filter: data?.postCheck === true ? "blur(10px)" : "",
-                }}
-              />
-            );
-          }
-        }
-      }
-
-      return matchingImg;
+      matchingImg = (
+        <video
+          loop
+          muted
+          controls
+          autoPlay
+          src={data?.postPic}
+          style={{
+            width: "850px",
+            height: "450px",
+            borderRadius: "40px",
+            filter: data?.postCheck === true ? "blur(8px)" : "",
+          }}
+        />
+      );
     }
-  };
+  } else {
+    if (
+      getSubscribedUser.some((datas) => data?.userId === datas?._id) ||
+      data?.payerId.includes(userId?.id) ||
+      data?.userId === userId?.id
+    ) {
+      matchingImg = (
+        <img
+          alt=""
+          src={
+            data?.postPic
+              ? data?.postPic
+              : "https://picsum.photos/id/1015/1200/800"
+          }
+          style={{
+            width: "850px",
+            height: "450px",
+            borderRadius: "40px",
+          }}
+        />
+      );
+    } else {
+      matchingImg = (
+        <img
+          alt=""
+          src={
+            data?.postPic
+              ? data?.postPic
+              : "https://picsum.photos/id/1015/1200/800"
+          }
+          style={{
+            width: "850px",
+            height: "450px",
+            borderRadius: "40px",
+            filter: data?.postCheck === true ? "blur(8px)" : "",
+          }}
+        />
+      );
+    }
+  }
+
+  return matchingImg;
+};
 
   const changeRequestStatus = (id) => {
     const values = {
@@ -879,6 +955,8 @@ const Home = () => {
                         )
                       )}
                     </div>
+                    {
+                      userId?.id !== data?.userId &&
                     <Row className="justify-content-end">
                       <div class="card-footer bg-transparent d-flex  mb-1">
                         {
@@ -898,6 +976,7 @@ const Home = () => {
                            
                       </div>
                     </Row>
+                    }
                   </div>
                 )}
                 {data.key === "poll" && <Poll data={data} />}

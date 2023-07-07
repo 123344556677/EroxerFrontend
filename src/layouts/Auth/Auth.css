@@ -1,6 +1,6 @@
 .backgroundImage{
     height: 113.5vh !important;
-    /* zoom:0.90!important; */
+    zoom:0.90!important;
     background-repeat: no-repeat!important;
     background:cover!important;
     background-size: cover!important;

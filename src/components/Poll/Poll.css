@@ -49,8 +49,9 @@
 .poll-card{
   background-color: black!important;
   border-radius: 40px!important;
-  width: 850px!important;
-  animation:1s linear red!important
+  width: 750px!important;
+  animation:1s linear red!important;
+  
   
 }
 .poll-option{

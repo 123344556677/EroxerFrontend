@@ -93,6 +93,7 @@ const handlePayment=async()=>{
       theme: 'dark',
      
     });
+    setAnimationCheck(false)
     toggleModal()
  
 

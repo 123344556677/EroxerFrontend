@@ -218,10 +218,13 @@ const handlePaymentTwo=async()=>{
                 </h1>
                 <h4 className='text-center mt-1 mb-0'>{props?.value?.userData?.firstName} {props?.value?.userData?.lastName}</h4>
                 <h6 className='text-center'>Creator</h6>
-   {
+   
     <Row className='mt-5'> 
    
     <Col>
+    {
+      props?.value?.profilePrice?
+      <>
      <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>Full access to user account</h5>
      <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>Direct chat with user</h5>
      <h5><span><i class="fa fa-check mr-lg-2" style={{color:"green"}} aria-hidden="true"></i></span>Cancel subscription at any time</h5>
@@ -229,6 +232,11 @@ const handlePaymentTwo=async()=>{
   <Button  className=" mt-2  modal-post-pay-button" onClick={()=>setPaymentCheck("subscription")}>
             Pay for   Subsciption  $ {props?.value?.userData?.profilePrice}
     </Button></h1>
+    </>
+    :
+    <h2 className='text-white text-center'>Sorry! No Profile Price.</h2>
+
+    }
      
 
     
@@ -247,6 +255,7 @@ const handlePaymentTwo=async()=>{
     </Col>
     
     </Row>
+    {
   // <h1 className='text-center'>
   // <Button  className=" mt-2  modal-cancel-button" onClick={()=>setPaymentCheck("subscription")}>
   //           Pay for  creator Subsciption  $ {props?.value?.userData?.profilePrice}

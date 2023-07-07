@@ -59,7 +59,7 @@ const totalVotes=props?.data?.userPollId?.length
 
   return (
     <div className="mb-5">
-    <div class="card second-card-main ml-lg-3" style={{zoom:"0.80"}}>
+    <div class="card second-card-main ml-lg-3 mt-5" >
  
    <img src={ props.data?.userData?.profilePic?props.data?.userData?.profilePic:pollOne}  class="card-img-top rounded-circle" alt="..." onClick={()=>history.push(`/admin/profile/${props?.data?.userId}`)}/>
 

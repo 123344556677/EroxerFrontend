@@ -164,6 +164,9 @@ export const sendLiveTip= async (values) => {
 export const updatePaymentRequest= async (values) => {
     return await axios.put(`${url}/changePaymentRequestStatus`, values);
 }
+export const updateTipNotiStatus= async (values) => {
+    return await axios.put(`${url}/updateTipNotiStatus`, values);
+}
 
 //contact
 export const createContact= async (values) => {

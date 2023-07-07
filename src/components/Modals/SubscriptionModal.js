@@ -148,7 +148,7 @@ const handlePayment=async()=>{
     <h4 className='text-white' style={{fontWeight:"600"}}>Pay for profile</h4>
     </Col>
     <Col className='text-right' >
-     <h4 className='text-white' style={{fontWeight:"600"}}>$ {props?.value?.userData?.profilePrice}</h4>
+     <h4 className='text-white' style={{fontWeight:"600"}}>$ {props?.value?.profilePrice}</h4>
     
     </Col>
     </Row>

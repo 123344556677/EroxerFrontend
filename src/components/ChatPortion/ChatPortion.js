@@ -51,6 +51,9 @@ import { toast,ToastContainer } from 'react-toastify';
 import { updateNotiStatus } from 'Api/Api';
 import { getContactById } from 'components/redux/actions/contactActions';
 import { getRequestBySenderId } from 'components/redux/actions/requestActions';
+import { initializeUseSelector } from 'react-redux/es/hooks/useSelector';
+import { getReduxSubscribedUser } from 'components/redux/actions/paymentAction';
+import { updateTipNotiStatus } from 'Api/Api';
 
 const ChatPortion = () => {
      const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -63,12 +66,16 @@ const ChatPortion = () => {
      const getCalls = useSelector(state => state?.getAllCallReducer?.call);
      const [screenWidth, setScreenWidth] = useState(window.innerWidth);
      const [screenHeight, setScreenHeight] = useState(window.innerHeight);
-     
+     const [ tipUsers,  setTipUsers] = useState([]);
      const getAllAcceptedRequests = useSelector(
     (state) => state?.getContactById?.contactById
   );
    const subscribedUsers= useSelector(state => state?.getAllSenderRequestReducer);
   const subscribedData=subscribedUsers?.senderAllRequests
+
+  const AllTipUsers = useSelector((state) =>
+    getReduxSubscribedUser(state?.getAllTip, userId?.id)
+  );
  
   
     
@@ -78,11 +85,17 @@ const ChatPortion = () => {
  const [lastMessages, setLastMessages] = useState();
  console.log(getRequests,"recievr requests")
  useEffect(()=>{
- setNotiLen((subscribedByReciever?.length || 0) + (getCalls?.length || 0))
- },[subscribedByReciever,getCalls])
+ setNotiLen((subscribedByReciever?.length || 0) + (getCalls?.length || 0) + (tipUsers?.length || 0))
+ },[subscribedByReciever,getCalls,tipUsers])
   useEffect(()=>{
  setSubscribedByReciever(subscribedData?.filter(data=>data?.paymentData?.notiStatus===true))
  },[subscribedData])
+ useEffect(()=>{
+ setTipUsers(AllTipUsers?.filter(data=>data?.paymentData?.notiStatus===true))
+ },[AllTipUsers])
+//   useEffect(()=>{
+
+//  },[])
 
  useEffect(()=>{
 dispatch(getContactById(values))
@@ -296,6 +309,7 @@ const handleNotiValues=()=>{
   }
 updateAllCallStatus(callValues)
 updateNotiStatus(callValues)
+updateTipNotiStatus(callValues)
 
  
 }
@@ -341,6 +355,43 @@ console.log(screenWidth,"width=========>")
      
      <div>
      <p className='chat-noti-text'>{data?.userData?.username?data?.userData?.username:data?.userData?.firstName} Bought your subscription</p>
+     {
+    //  <Row>
+    //  <Col xl={6}>
+    //  <Button className='reset-button' onClick={()=>changeRequestStatus(data?._id,"accepted")}>Accept</Button>
+    //  </Col>
+    //   <Col xl={6}>
+    //  <Button className='cancel-button'onClick={()=>changeRequestStatus(data?._id,"rejected")}>Reject</Button>
+    //  </Col>
+
+    //  </Row>
+     }
+     
+     </div>
+     </div>
+     
+     </Card>
+        
+      </Media>
+    <hr className="ml-5 mr-3" style={{backgroundColor:"#666363"}}/>
+    </>
+    ))
+    
+     }
+     {
+       tipUsers?.map((data)=>(
+        
+      <>
+     <Media left>
+        <img object  src={data?.paymentData?.senderData?.profilePic?data?.paymentData?.senderData?.profilePic:streamEight} alt="jannan" className=" chat-noti-profile rounded-circle" />
+      </Media>
+      <Media body className="ml-3 mt-2 mb-5" data-aos="fade-right">
+        <h4 className='text-white chat-noti-profile-name  mb-0'style={{fontWeight:"600"}}>{data?.paymentData?.senderData?.username?data?.paymentData?.senderData?.username:data?.paymentData?.senderData?.firstName}</h4>
+      <Card className='chat-noti-card mr-2 '>
+     <div style={{display:"flex"}}>
+     
+     <div>
+     <p className='chat-noti-text'>{data?.paymentData?.tip}</p>
      {
     //  <Row>
     //  <Col xl={6}>
@@ -423,7 +474,7 @@ console.log(screenWidth,"width=========>")
       <Media right onClick={handleNotiValues} style={{cursor:"pointer"}}>
       <Media body className="ml-3 mt-3">
         <BsFillBellFill className='mt-3 ' style={{marginLeft:"-100%",color:"white",fontSize:"25px"}} />
-        <Badge onClick={handleNotiValues}  style={{color:"white",backgroundColor:"red",marginLeft:"-10px",cursor:"pointer"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen>0}</Badge>
+        <Badge onClick={handleNotiValues}  style={{color:"white",backgroundColor:"red",marginLeft:"-10px",cursor:"pointer"}} pill className="position-absolute mt-3 top-0 end-0">{notiLen}</Badge>
       </Media>
       
         
