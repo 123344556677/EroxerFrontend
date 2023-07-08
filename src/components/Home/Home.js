@@ -315,79 +315,79 @@ const Home = () => {
   updateCallStatus(callValues)
 }
 
-    // useEffect(() => {
-    // const pusher = new Pusher("78bfd9bc497cd883c526", {
-    //   cluster: "ap1",
-    //   useTLS: true,
-    // });
+    useEffect(() => {
+    const pusher = new Pusher("78bfd9bc497cd883c526", {
+      cluster: "ap1",
+      useTLS: true,
+    });
 
 
-  //   const channel = pusher.subscribe(userIdforPusher);
-  //   channel.bind("client-alert", (data) => {
-  //     if (data.message === "audio alert is coming") {
-  //       Swal.fire({
-  //         title: `<p style="color:white;" font-size:15px">${data?.name} is calling for audio call<p/>`,
-  //         html: `<P style="color:white; font-size:10px">End-to-end encrypted Call</P>`,
-  //         showCancelButton: true,
-  //         confirmButtonColor: "#3085d6",
-  //         cancelButtonColor: "#d33",
-  //         confirmButtonText: "Answer",
-  //         cancelButtonText: "Reject",
-  //         reverseButtons: true,
-  //         customClass: {
-  //           confirmButton: "btn ml-2 btn-primary",
-  //           cancelButton: "btn btn-danger",
-  //         },
-  //         timer: 10000,
-  //         background: "#000000",
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           // User clicked the confirm button
-  //           changeCallStatus("answered",data?.senderId)
-  //           history.push(`/admin/chatCall/${data?.senderId}`);
-  //         } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //           // User clicked the cancel button
-  //           changeCallStatus("rejected",data?.senderId)
-  //           Swal.fire("Cancelled", "Your action was cancelled :)", "error");
-  //         }
-  //       });
-  //     }
-  //     if (data.message === "video alert is coming") {
-  //       Swal.fire({
-  //         title: `<p style="color:white;" font-size:15px">${data?.name} is calling for video call<p/>`,
-  //         html: `<P style="color:white; font-size:10px">End-to-end encrypted Call</P>`,
-  //         showCancelButton: true,
-  //         confirmButtonColor: "#3085d6",
-  //         cancelButtonColor: "#d33",
-  //         confirmButtonText: "Answer",
-  //         cancelButtonText: "Reject",
-  //         reverseButtons: true,
-  //         timer: 10000,
-  //         customClass: {
-  //           confirmButton: "btn ml-2 btn-primary",
-  //           cancelButton: "btn btn-danger",
-  //         },
-  //         background: "#000000",
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           // User clicked the confirm button
-  //           changeCallStatus("answered",data?.senderId)
-  //           history.push(`/admin/chatVideoCall/${data?.senderId}`);
-  //         } else if (result.dismiss === Swal.DismissReason.cancel) {
-  //           // User clicked the cancel button
-  //           changeCallStatus("rejected",data?.senderId)
-  //           Swal.fire("Cancelled", "Your action was cancelled :)", "error");
-  //         }
-  //       });
-  //     }
-  //   });
+    const channel = pusher.subscribe(userIdforPusher);
+    channel.bind("client-alert", (data) => {
+      if (data.message === "audio alert is coming") {
+        Swal.fire({
+          title: `<p style="color:white;" font-size:15px">${data?.name} is calling for audio call<p/>`,
+          html: `<P style="color:white; font-size:10px">End-to-end encrypted Call</P>`,
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Answer",
+          cancelButtonText: "Reject",
+          reverseButtons: true,
+          customClass: {
+            confirmButton: "btn ml-2 btn-primary",
+            cancelButton: "btn btn-danger",
+          },
+          timer: 10000,
+          background: "#000000",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // User clicked the confirm button
+            changeCallStatus("answered",data?.senderId)
+            history.push(`/admin/chatCall/${data?.senderId}`);
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // User clicked the cancel button
+            changeCallStatus("rejected",data?.senderId)
+            Swal.fire("Cancelled", "Your action was cancelled :)", "error");
+          }
+        });
+      }
+      if (data.message === "video alert is coming") {
+        Swal.fire({
+          title: `<p style="color:white;" font-size:15px">${data?.name} is calling for video call<p/>`,
+          html: `<P style="color:white; font-size:10px">End-to-end encrypted Call</P>`,
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Answer",
+          cancelButtonText: "Reject",
+          reverseButtons: true,
+          timer: 10000,
+          customClass: {
+            confirmButton: "btn ml-2 btn-primary",
+            cancelButton: "btn btn-danger",
+          },
+          background: "#000000",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // User clicked the confirm button
+            changeCallStatus("answered",data?.senderId)
+            history.push(`/admin/chatVideoCall/${data?.senderId}`);
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // User clicked the cancel button
+            changeCallStatus("rejected",data?.senderId)
+            Swal.fire("Cancelled", "Your action was cancelled :)", "error");
+          }
+        });
+      }
+    });
 
-  //   return () => {
-  //     channel.unbind("client-alert");
-  //     pusher.unsubscribe(userIdforPusher);
-  //     pusher.disconnect();
-  //   };
-  // }, [userIdforPusher]);
+    return () => {
+      channel.unbind("client-alert");
+      pusher.unsubscribe(userIdforPusher);
+      pusher.disconnect();
+    };
+  }, [userIdforPusher]);
 
   // useEffect(() => {
   //   const pusher = new Pusher("78bfd9bc497cd883c526", {

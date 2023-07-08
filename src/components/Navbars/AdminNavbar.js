@@ -114,9 +114,11 @@ function AdminNavbar(props) {
                 props.brandText !== "Be a G.O.A.T Member" &&
                 props.brandText !== "createPost" &&
                 props.brandText !== "createAd" &&
+                props.brandText !== "Ads" &&
                 props.brandText !== "AdDescription" &&
                 props.brandText !== "Live" &&
                 props.brandText !== "editProfile" &&
+                props.brandText !== "Custom List" &&
                 props.brandText !== "Brand" && (
                   <NavbarToggler onClick={toggleCollapse}>
                     <span className="navbar-toggler-bar navbar-kebab" />

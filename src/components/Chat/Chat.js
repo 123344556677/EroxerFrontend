@@ -90,6 +90,7 @@ const Chat = () => {
 
   const [chatUserData, setChatUserData] = useState();
   const [attachmentCheck, setAttachmentCheck] = useState(false);
+  const [more, setMore] = useState(false);
   const [intervalActive, setIntervalActive] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [filtereMessage, setFiltereMessage] = useState(false);
@@ -501,7 +502,7 @@ setFiltereMessage(false)
                     alt=""
                   />
                   {
-                        userData.onlineStatus===true&&
+                        userData?.onlineStatus===true&&
                   <span style={{ position: "absolute" }}>
                     <span
                       style={{
@@ -554,20 +555,42 @@ setFiltereMessage(false)
                   style={{ cursor: "pointer" }}
                 />
 
-                 <IoMdMore className=" more-icon" onClick={()=>console.log("hannan")} />
-                 <Dropdown isOpen={dropdownOpen} toggle={toggle} className="dropDown-chat" >
+                {
+        //          <Dropdown isOpen={dropdownOpen} toggle={toggle} className="dropDown-chat" >
+        //           <IoMdMore className=" more-icon" onClick={toggle} />
       
-        <DropdownMenu style={{backgroundColor:"#161616",position:"absolute",borderRadius:"20px"}}  >
-          <DropdownItem className="drop-item" onClick={()=>setMessages([])}>
-           <span><AiFillDelete/></span>
+        // <DropdownMenu style={{backgroundColor:"#161616",position:"absolute",borderRadius:"20px"}}  >
+        //   <DropdownItem className="drop-item" onClick={()=>setMessages([])}>
+        //    <span><AiFillDelete/></span>
+        //    <span className="ml-2">Clear chat</span>
+        //   </DropdownItem>
+        //   <DropdownItem className="drop-item" onClick={()=>setFiltereMessage(true)}>
+        //    <span><TiTick/></span>
+        //    <span className="ml-2">Mark chat</span>
+        //   </DropdownItem>
+        //   </DropdownMenu>
+        //   </Dropdown>
+                }
+                 <IoMdMore className=" more-icon" onClick={()=>setMore(!more)} />
+
+                {
+                  more&&
+                  <div className="ml-5" style={{backgroundColor:"#161616",position:"absolute",borderRadius:"20px",marginTop:"50px",zIndex:"1000"}}>
+                  <>
+                 <h4 onClick={()=>setMessages([])} className="ml-3 mr-3 mb-4 mt-3" style={{cursor:"pointer"}}>
+          <AiFillDelete />
            <span className="ml-2">Clear chat</span>
-          </DropdownItem>
-          <DropdownItem className="drop-item" onClick={()=>setFiltereMessage(true)}>
-           <span><TiTick/></span>
+           </h4> 
+         
+           <h4 onClick={()=>setFiltereMessage(!filtereMessage)}  className="ml-3 mr-3 mb-3" style={{cursor:"pointer"}}>
+           <TiTick  />
            <span className="ml-2">Mark chat</span>
-          </DropdownItem>
-          </DropdownMenu>
-          </Dropdown>
+           </h4>
+           </>
+        
+                  
+                  </div>
+                }
               </div>
             </Col>
           </Row>

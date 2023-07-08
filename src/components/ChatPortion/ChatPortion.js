@@ -92,7 +92,7 @@ const ChatPortion = () => {
  },[subscribedData])
  useEffect(()=>{
  setTipUsers(AllTipUsers?.filter(data=>data?.paymentData?.notiStatus===true))
- },[AllTipUsers])
+ },[])
 //   useEffect(()=>{
 
 //  },[])
